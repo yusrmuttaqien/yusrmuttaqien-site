@@ -12,12 +12,11 @@ export default defineNuxtConfig({
     },
   },
   unfonts: {
-    fontsource: {
+    google: {
       families: [
-        'Plus Jakarta Sans',
         {
           name: 'Plus Jakarta Sans',
-          weights: [600, 700, 800],
+          styles: 'wght@600;700;800',
         },
       ],
     },

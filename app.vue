@@ -1,4 +1,6 @@
 <script setup>
+import 'unfonts.css'
+
 useHead({
     title: 'Yusril Muttaqien',
     meta: [
