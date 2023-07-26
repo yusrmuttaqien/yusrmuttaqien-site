@@ -1,4 +1,5 @@
 <script setup>
+import Lenis from '@studio-freight/lenis'
 import 'unfonts.css'
 
 useHead({
@@ -11,6 +12,17 @@ useHead({
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon-dark.svg', media: '(prefers-color-scheme: light)' },
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon-light.svg', media: '(prefers-color-scheme: dark)' }
     ]
+})
+
+onMounted(() => {
+    const lenisInstance = new Lenis()
+
+    function raf(time) {
+        lenisInstance.raf(time)
+        requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
 })
 </script>
 
