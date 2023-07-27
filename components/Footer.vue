@@ -1,5 +1,3 @@
-
-
 <template>
     <footer>
         <img alt="yusrmuttaqien-logo-full" draggable="false" src="/svgs/yusr-full.svg" />

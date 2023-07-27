@@ -1,6 +1,30 @@
-<script setup>
+<script setup lang="ts">
 import Lenis from '@studio-freight/lenis'
+import { SplashEmitLenis, SplashStatus } from '@/types/Splash';
 import 'unfonts.css'
+
+const lenisInstance = ref<InstanceType<typeof Lenis> | null>(null);
+
+function _initLenis() {
+    lenisInstance.value = new Lenis()
+    lenisInstance.value.stop()
+
+    function raf(time: number) {
+        lenisInstance.value?.raf(time)
+        requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
+}
+function _handleLenis(e: SplashEmitLenis) {
+    if (e === SplashEmitLenis.start) {
+        lenisInstance.value?.start()
+    } else if (e === SplashEmitLenis.stop) {
+        lenisInstance.value?.stop()
+    }
+}
+function _splashStatus(e: SplashStatus) {
+}
 
 useHead({
     title: 'Yusril Muttaqien',
@@ -13,16 +37,8 @@ useHead({
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon-light.svg', media: '(prefers-color-scheme: dark)' }
     ]
 })
-
 onMounted(() => {
-    const lenisInstance = new Lenis()
-
-    function raf(time) {
-        lenisInstance.raf(time)
-        requestAnimationFrame(raf)
-    }
-
-    requestAnimationFrame(raf)
+    _initLenis()
 })
 </script>
 
@@ -34,6 +50,7 @@ onMounted(() => {
         </NuxtLayout>
     </main>
     <Footer />
+    <Splash @setLenis="_handleLenis" @setStatus="_splashStatus" />
 </template>
 
 <style lang="scss">
