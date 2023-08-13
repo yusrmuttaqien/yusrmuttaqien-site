@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Lenis from '@studio-freight/lenis'
-import { SplashEmitLenis, SplashStatus } from '@/types/Splash';
+import { AppEmitLenis } from '@/types';
 import 'unfonts.css'
 
 const lenisInstance = ref<InstanceType<typeof Lenis> | null>(null);
@@ -16,25 +16,22 @@ function _initLenis() {
 
     requestAnimationFrame(raf)
 }
-function _handleLenis(e: SplashEmitLenis) {
-    if (e === SplashEmitLenis.start) {
+function _handleLenis(e: AppEmitLenis) {
+    if (e === AppEmitLenis.start) {
         lenisInstance.value?.start()
-    } else if (e === SplashEmitLenis.stop) {
+    } else if (e === AppEmitLenis.stop) {
         lenisInstance.value?.stop()
     }
 }
-function _splashStatus(e: SplashStatus) {
-}
 
 useHead({
-    title: 'Yusril Muttaqien',
+    title: 'YUSRIL MUTTAQIEN',
     meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     ],
     link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon-dark.svg', media: '(prefers-color-scheme: light)' },
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon-light.svg', media: '(prefers-color-scheme: dark)' }
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
     ]
 })
 onMounted(() => {
@@ -43,14 +40,12 @@ onMounted(() => {
 </script>
 
 <template>
-    <Navbar />
     <main>
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>
     </main>
-    <Footer />
-    <Splash @setLenis="_handleLenis" @setStatus="_splashStatus" />
+    <Splash @setLenis="_handleLenis" />
 </template>
 
 <style lang="scss">
@@ -58,8 +53,8 @@ onMounted(() => {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: var.$white;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var.$blue-text;
+    font-family: 'Nohemi', sans-serif;
 
     &::-webkit-scrollbar {
         display: none;
@@ -67,7 +62,7 @@ onMounted(() => {
 }
 
 html {
-    background-color: var.$black;
+    background-color: var.$blue-base;
     font-size: calc(100vw * 16 / var.$screen-min-mobile);
 
     @media screen and (min-width: var.withPx(var.$screen-min-tablet)) {
@@ -80,21 +75,10 @@ html {
 }
 
 body {
-    --paddingY: 1.875rem;
-    padding: var(--paddingY) 0;
-
     #__nuxt {
         display: flex;
         flex-direction: column;
-        min-height: calc(100svh - var(--paddingY) * 2);
-
-        main {
-            flex: 1;
-        }
-    }
-
-    @media screen and (min-width: var.withPx(var.$screen-min-tablet)) {
-        --paddingY: 2.0625rem;
+        min-height: 100svh;
     }
 
     @include var.typography();

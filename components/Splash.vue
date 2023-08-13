@@ -1,96 +1,66 @@
 <script setup lang="ts">
-import { SplashEmitLenis, SPLASH_DELAY, SplashStatus } from '@/types/Splash';
-
-const splashEl = ref<HTMLDivElement | null>(null)
-const timeout01 = ref<ReturnType<typeof setTimeout> | null>(null)
-const emit = defineEmits<{
-    setLenis: [state: SplashEmitLenis]
-    setStatus: [state: SplashStatus]
-}>()
-
-function _splashOut() {
-    emit('setStatus', SplashStatus.animateOut)
-    return () => splashEl.value?.classList.replace('splash-in', 'splash-out')
-}
-
-onMounted(() => {
-    emit('setStatus', SplashStatus.animateIn)
-    splashEl.value?.addEventListener('animationend', (e) => {
-        if (e.animationName.includes('intro')) {
-            emit('setStatus', SplashStatus.delay)
-            timeout01.value = setTimeout(_splashOut(), SPLASH_DELAY)
-        } else if (e.animationName.includes('outro')) {
-            emit('setStatus', SplashStatus.standby)
-            splashEl.value?.classList.replace('splash-out', 'splash-standby')
-            emit('setLenis', SplashEmitLenis.start)
-        }
-    })
-})
-onUnmounted(() => {
-    emit('setStatus', SplashStatus.canceled)
-    clearTimeout(timeout01.value || 0)
-})
+import ICYusrilMuttaqien from '@/components/icons/ICYusrilMuttaqien.vue'
+import cssVar from '@/styles/_export.module.scss';
 </script>
 
 <template>
-    <div class="splash splash-in" ref="splashEl">
-        <img src="/svgs/yusr.svg" alt="yusrmuttaqien-logo">
+    <div class="splash splash-loading">
+        <span>
+            <ICYusrilMuttaqien class="icon" :color-base="cssVar.blueBase" :color-accent="cssVar.blueLight" />
+        </span>
     </div>
 </template>
 
 <style scoped lang="scss">
 .splash {
-    display: grid;
-    place-items: center;
+    background-color: var.$blue-base;
+    height: 100svh;
     position: fixed;
     inset: 0;
-    background-color: var.$black;
-    perspective: 200px;
+    display: grid;
+    place-items: center;
+    min-height: max-content;
+    overflow: auto;
 
-    img {
-        height: 3.75rem;
-        transition: transform .3s ease-in-out;
+    &-loading {
+        animation: flash 5s ease-in-out forwards infinite alternate;
+    }
 
-        @media screen and (min-width: var.withPx(var.$screen-min-tablet)) {
-            height: 5.375rem;
+    span {
+        perspective: 1000px;
+        overflow-y: visible;
+        overflow-x: hidden;
+
+        .icon {
+            font-size: 7.1875rem;
+            transform-origin: bottom left;
+            animation: reveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            transition: opacity 0.3s ease-in-out;
+
+            @keyframes reveal {
+                0% {
+                    opacity: 0;
+                    transform: rotateX(56deg) rotateY(24deg) rotateZ(10deg) translateY(7rem);
+                }
+
+                80% {
+                    opacity: 1;
+                }
+
+                100% {
+                    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate3d(0px, 0rem, 0px);
+                }
+            }
         }
     }
 
-    &-in img {
-        animation: forwards intro 1.5s ease-in-out;
-    }
-
-    &-out img {
-        animation: forwards outro .5s ease-in-out;
-    }
-
-    &-standby {
-        display: none;
-    }
-
-    @keyframes intro {
+    @keyframes flash {
         0% {
-            transform: translateZ(calc(500px + 20rem));
+            background-color: var.$blue-base;
         }
 
         100% {
-            transform: translateZ(0);
-        }
-    }
-
-    @keyframes outro {
-        0% {
-            transform: translateZ(0);
-        }
-
-        80% {
-
-            opacity: 0;
-        }
-
-        100% {
-            transform: rotateX(25deg) translateZ(-1.5rem);
-            opacity: 0;
+            background-color: var.$blue-light;
         }
     }
 }

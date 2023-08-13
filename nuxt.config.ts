@@ -12,35 +12,31 @@ export default defineNuxtConfig({
     },
   },
   unfonts: {
-    google: {
-      families: [
-        {
-          name: 'Plus Jakarta Sans',
-          styles: 'wght@600;700;800',
-        },
-      ],
-    },
     custom: {
       families: [
         {
-          name: 'Mango Grotesque',
-          local: 'Mango Grotesque',
-          src: './public/fonts/MangoGrotesque-Black.woff2',
+          name: 'Nohemi',
+          local: 'Nohemi',
+          src: './assets/fonts/Nohemi/*.woff2',
           transform(font) {
-            if (font.basename === 'MangoGrotesque-Black') {
+            if (font.basename === 'Nohemi-Black') {
               font.weight = 900;
-            }
-
-            return font;
-          },
-        },
-        {
-          name: 'Taruno Wide',
-          local: 'Taruno Wide',
-          src: './public/fonts/TarunoWide-Medium.woff2',
-          transform(font) {
-            if (font.basename === 'TarunoWide-Medium') {
+            } else if (font.basename === 'Nohemi-ExtraBold') {
+              font.weight = 800;
+            } else if (font.basename === 'Nohemi-Bold') {
+              font.weight = 700;
+            } else if (font.basename === 'Nohemi-SemiBold') {
+              font.weight = 600;
+            } else if (font.basename === 'Nohemi-Medium') {
               font.weight = 500;
+            } else if (font.basename === 'Nohemi-Regular') {
+              font.weight = 400;
+            } else if (font.basename === 'Nohemi-Light') {
+              font.weight = 300;
+            } else if (font.basename === 'Nohemi-ExtraLight') {
+              font.weight = 200;
+            } else if (font.basename === 'Nohemi-Thin') {
+              font.weight = 100;
             }
 
             return font;

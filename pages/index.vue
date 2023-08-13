@@ -1,9 +1,9 @@
 <script setup lang="ts">
 useHead({
-    title: 'INTRODUCTION | Yusril Muttaqien',
+    title: 'YUSRIL MUTTAQIEN',
 })
 </script>
 
 <template>
-    <div>helo</div>
+    Sorry, web is currently WIP
 </template>
