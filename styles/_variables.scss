@@ -1,0 +1,17 @@
+$blue-base: #001c30;
+$blue-light: #dafffb;
+$blue-text: #64ccc5;
+
+$screen-min-mobile: 320;
+$screen-min-tablet: 744;
+$screen-min-desktop: 1280;
+
+@function withPx($number) {
+  @return $number * 1px;
+}
+
+@mixin typography() {
+}
+
+@mixin utils() {
+}
