@@ -11,7 +11,7 @@
 section {
   padding: 1.4375rem;
   height: max-content;
-  min-height: 100svh;
+  min-height: calc(100svh - 10svh);
   display: flex;
   flex-direction: column;
   justify-content: center;
