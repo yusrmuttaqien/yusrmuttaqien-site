@@ -1,6 +1,6 @@
 <br/>
 <div align="center">
-  <img src="public/favicon.svg" alt="Logo" width="100" height="100">
+  <img src="assets/svgs/logo.svg" alt="Logo" width="100" height="100">
 
   <h3 align="center">Yusril Muttaqien</h3>
 
