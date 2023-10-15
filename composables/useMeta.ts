@@ -11,7 +11,7 @@ export function useMeta(metas?: MaybeComputedRef<MetaObject>) {
     link: [
       { rel: 'icon', type: 'image/png', href: '/favicon.png' },
       // @ts-ignore
-      { rel: 'apple-touch-icon', sizes = '152x152', href: '/favicon.png' },
+      { rel: 'apple-touch-icon', sizes: '152x152', href: '/favicon.png' },
     ],
     ...metas,
   });
