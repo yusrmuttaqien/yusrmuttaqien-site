@@ -47,18 +47,12 @@ onMounted(() => {
 
 html {
   background-color: var.$blue-base;
-  font-size: calc(100vw * 16 / var.$screen-min-mobile);
-
-  @media screen and (min-width: var.withPx(var.$screen-min-tablet)) {
-    font-size: calc(100vw * 16 / var.$screen-min-tablet);
-  }
-
-  @media screen and (min-width: var.withPx(var.$screen-min-desktop)) {
-    font-size: calc(100vw * 16 / var.$screen-min-desktop);
-  }
 }
 
 body {
+  width: 320px;
+  min-width: 100vw;
+
   @include var.typography();
   @include var.utils();
 }

@@ -11,6 +11,34 @@ $screen-min-desktop: 1280;
 }
 
 @mixin typography() {
+  h1 {
+    color: $blue-light;
+    text-transform: uppercase;
+
+    &.-hero {
+      font-weight: 900;
+      font-size: 2.9375rem;
+      font-size: clamp(2.9375rem, 6vw + 1.6875rem, 4.625rem);
+
+      @media screen and (min-width: withPx($screen-min-tablet)) {
+        font-size: 4.625rem;
+        font-size: clamp(4.625rem, 5vw + 2.375rem, 6.25rem);
+      }
+
+      @media screen and (min-width: withPx($screen-min-desktop)) {
+        font-size: 6.25rem;
+      }
+    }
+  }
+
+  p {
+    font-size: 1rem;
+    font-size: clamp(1rem, 0vw + 0.906rem, 1.125rem);
+
+    @media screen and (min-width: withPx($screen-min-tablet)) {
+      font-size: 1.125rem;
+    }
+  }
 }
 
 @mixin utils() {
