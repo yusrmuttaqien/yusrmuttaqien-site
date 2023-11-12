@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import Lenis from '@studio-freight/lenis';
+import { useWindowSize, watchDebounced } from '@vueuse/core';
+import { initLenis } from '~/utils';
+import { LenisInstance } from '~/types/lenis';
 import 'unfonts.css';
 
-function _initLenis() {
-  const lenisInstance = new Lenis();
-
-  function raf(time: number) {
-    lenisInstance.raf(time);
-    requestAnimationFrame(raf);
-  }
-
-  requestAnimationFrame(raf);
-}
+let lenisInstance: LenisInstance;
+const resizeEvent = useWindowSize();
 
 useMeta();
 onMounted(() => {
-  _initLenis();
+  lenisInstance = initLenis();
 });
+watchDebounced(
+  () => resizeEvent,
+  () => {
+    lenisInstance.resize();
+  },
+  { deep: true, debounce: 100 }
+);
 </script>
 
 <template>
