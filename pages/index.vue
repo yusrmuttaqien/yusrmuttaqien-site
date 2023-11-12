@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import Projects from '~/fragments/Home/Projects.vue';
+import Project from '~/fragments/Home/Project.vue';
 </script>
 
 <template>
@@ -16,7 +16,7 @@
         <p class="description">
           <span>A <span>software engineer</span>, mainly dealing with Frontend in web.</span>
         </p>
-        <!-- <Projects /> -->
+        <Project />
       </div>
     </div>
     <h1 class="-hero">Yusril Muttaqien</h1>
@@ -31,7 +31,6 @@ section {
   height: max-content;
   min-height: 100svh;
   padding: 1rem;
-  padding: clamp(1rem, 2vw + 0.625rem, 1.5rem);
   overflow: hidden;
 
   .backdrop {
@@ -54,19 +53,21 @@ section {
     .content {
       --_gap: 1.5rem;
 
+      flex: 1;
       display: inherit;
       flex-direction: column;
-      width: 11.125rem;
-      width: clamp(11.125rem, 18vw + 7.493rem, 15.938rem);
       margin: 1.5rem 0;
       margin: clamp(1.5rem, 2vw + 1.123rem, 2rem) 0;
       margin-left: 0;
       margin-left: clamp(0rem, 8vw + -1.509rem, 2rem);
+      margin-right: 1.5rem;
 
       .description {
         display: inherit;
         flex-direction: column;
         margin-bottom: var(--_gap);
+        width: 11.125rem;
+        width: clamp(11.125rem, 18vw + 7.493rem, 15.938rem);
 
         > span {
           color: rgba(var.$blue-text, 0.5);
@@ -89,7 +90,6 @@ section {
 
   @media screen and (min-width: var.withPx(var.$screen-min-tablet)) {
     padding: 1.5rem;
-    padding: clamp(1.5rem, 1vw + 0.8125rem, 2rem);
 
     .backdrop {
       width: 62.25rem;
@@ -99,15 +99,13 @@ section {
     .contents .content {
       --_gap: 1.5rem;
 
-      width: 15.938rem;
-      margin: 2rem 0;
-      margin: clamp(2rem, 3vw + 0.699rem, 2.938rem) 0;
-      margin-left: 2rem;
-      margin-left: clamp(2rem, 18vw + -6.328rem, 8rem);
+      margin: 2rem;
+      margin: clamp(2rem, 3vw + 0.699rem, 2.938rem) clamp(2rem, 18vw + -6.328rem, 8rem);
 
       .description {
         margin-bottom: var(--_gap);
         margin-bottom: clamp(1.5rem, 1vw + 0.806rem, 2rem);
+        width: 15.938rem;
 
         &::after {
           margin-top: var(--_gap);
@@ -122,8 +120,6 @@ section {
       --_gap: 2rem;
 
       flex-direction: row;
-      width: 30.1875rem;
-      height: 7.4375rem;
 
       .description {
         flex-direction: row;
@@ -153,8 +149,7 @@ section {
     }
 
     .contents .content {
-      margin: 2.938rem 0;
-      margin-left: 8rem;
+      margin: 2.938rem 8rem;
     }
   }
 }
