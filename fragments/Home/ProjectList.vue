@@ -172,6 +172,11 @@ watch(
         text-overflow: ellipsis;
       }
 
+      &.year {
+        user-select: none;
+        cursor: default;
+      }
+
       &.number,
       &.year {
         padding: calc(var(--_row-gap) / 2) 0;
