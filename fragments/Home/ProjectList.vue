@@ -80,25 +80,10 @@ watch(
 
 <template>
   <div :class="projectListClassBindings" data-lenis-prevent>
-    <div class="list" ref="listEl">
-      <template v-for="(project, idx) in PROJECTS">
-        <p
-          class="number"
-          :data-id="idx"
-          v-if="idx === 0"
-          v-element-size="getListDimension"
-          @click="previewProject(project.id)"
-          @mouseover="focusList(idx, false, project.id)"
-          @mouseleave="focusList(idx, true, project.id)"
-        />
-        <p
-          class="number"
-          :data-id="idx"
-          v-else
-          @click="previewProject(project.id)"
-          @mouseover="focusList(idx, false, project.id)"
-          @mouseleave="focusList(idx, true, project.id)"
-        />
+    <nav class="list" ref="listEl">
+      <template :key="`projectlist-${project.title}`" v-for="(project, idx) in PROJECTS">
+        <p class="number" :data-id="idx" v-if="idx === 0" v-element-size="getListDimension" />
+        <p class="number" :data-id="idx" v-else />
         <p
           class="title"
           :data-id="idx"
@@ -108,16 +93,11 @@ watch(
         >
           {{ project.title }}
         </p>
-        <p
-          :data-id="idx"
-          @click="previewProject(project.id)"
-          @mouseover="focusList(idx, false, project.id)"
-          @mouseleave="focusList(idx, true, project.id)"
-        >
+        <p class="year" :data-id="idx">
           {{ project.year }}
         </p>
       </template>
-    </div>
+    </nav>
   </div>
 </template>
 
@@ -159,9 +139,8 @@ watch(
     --_row-gap: 0.5rem;
 
     display: grid;
-    row-gap: var(--_row-gap);
     height: max-content;
-    max-height: calc((v-bind('cssBindings.listHeight') * 5) + (var(--_row-gap) * 4));
+    max-height: calc((v-bind('cssBindings.listHeight') * 5) + (var(--_row-gap) * 5));
     grid-template-columns: max-content minmax(0, 1fr) max-content;
     height: 100%;
     overflow: auto;
@@ -170,13 +149,13 @@ watch(
 
     p {
       color: rgba(var.$blue-text, 0.5);
-      cursor: pointer;
       height: max-content;
       opacity: 1;
       transition: opacity 0.2s ease-in-out;
 
       &.number {
         counter-increment: number;
+        text-align: right;
 
         &::before {
           content: counter(number);
@@ -184,12 +163,18 @@ watch(
       }
 
       &.title {
+        cursor: pointer;
         color: rgba(var.$blue-text, 0.7);
         text-transform: uppercase;
-        padding: 0 1rem;
+        padding: calc(var(--_row-gap) / 2) 1rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+
+      &.number,
+      &.year {
+        padding: calc(var(--_row-gap) / 2) 0;
       }
     }
   }

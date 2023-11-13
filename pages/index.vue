@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Project from '~/fragments/Home/Project.vue';
+// import ContentList from '~/fragments/Home/ContentList.vue';
 </script>
 
 <template>
@@ -18,6 +19,7 @@ import Project from '~/fragments/Home/Project.vue';
         </p>
         <Project />
       </div>
+      <!-- <ContentList /> -->
     </div>
     <h1 class="-hero">Yusril Muttaqien</h1>
   </section>
