@@ -16,7 +16,7 @@ defineExpose<ExposeNavigationContainer>({ ref: nav });
 
 <template>
   <nav :class="{ [props.class]: !!props.class, 'navigation-container': true }" ref="nav">
-    <!-- <slot /> -->
+    <slot />
     <div class="info">
       <p class="identifier trim-libre-barcode-128">@Mazing_123</p>
       <p class="credit">
@@ -32,12 +32,19 @@ defineExpose<ExposeNavigationContainer>({ ref: nav });
   background-color: rgba(var.$color-white, 0.01);
   border-top: 2px solid rgba(var.$color-white, 0.8);
   backdrop-filter: blur(10px);
+  display: grid;
+  grid-auto-flow: column;
 
-  .info {
+  .info,
+  .navigation-item {
+    padding: 16px 0;
     display: flex;
     align-items: center;
-    padding: 16px 0;
     justify-content: center;
+  }
+
+  .info {
+    grid-area: if;
 
     .identifier {
       font-family: 'Libre Barcode 128';
@@ -66,8 +73,14 @@ defineExpose<ExposeNavigationContainer>({ ref: nav });
   }
 
   @media screen and (min-width: var.withPx(var.$screen-min-tablet)) {
-    .info {
+    .info,
+    .navigation-item {
       padding: 26px 0;
+    }
+
+    .info {
+      padding-left: 32px;
+      padding-right: 32px;
 
       .identifier {
         font-size: 42px;
