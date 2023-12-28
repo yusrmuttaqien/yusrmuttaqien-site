@@ -14,6 +14,10 @@ const marginTop = computed(() => {
   return `${height}px`;
 });
 
+function _goToProjects() {
+  console.log('redirect to projects page');
+}
+
 onUnmounted(() => {
   sequence.cleanupSequence();
 });
@@ -27,7 +31,27 @@ onUnmounted(() => {
       anything about technology
     </p>
   </div>
-  <NavigationContainer class="custom-navigation-container-" ref="nav" />
+  <NavigationContainer class="custom-navigation-container-" ref="nav">
+    <NavigationItem class="item" id="pj" @click="_goToProjects" target="_blank"
+      >Projects</NavigationItem
+    >
+    <NavigationItem
+      as="a"
+      class="item item-ln"
+      id="ln"
+      href="https://www.linkedin.com/in/ydhm/"
+      target="_blank"
+      >LinkedIn</NavigationItem
+    >
+    <NavigationItem
+      as="a"
+      class="item item-gh"
+      id="gh"
+      href="https://github.com/yusrmuttaqien"
+      target="_blank"
+      >Github</NavigationItem
+    >
+  </NavigationContainer>
 </template>
 
 <style lang="scss">
@@ -56,6 +80,56 @@ onUnmounted(() => {
   right: 0;
   bottom: 0;
   margin-top: 32px;
+  grid-template-areas:
+    'pj pj'
+    'ln gh'
+    'if if';
+  grid-template-columns: repeat(2, 1fr);
+
+  .item {
+    cursor: pointer;
+    user-select: none;
+    transition-property: color, background-color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+
+    &-ln,
+    &-gh {
+      border-top: 1px solid var.$color-white;
+      border-bottom: 1px solid var.$color-white;
+    }
+
+    &-gh {
+      border-left: 1px solid var.$color-white;
+    }
+
+    &:hover {
+      background-color: var.$color-white;
+      color: black;
+    }
+
+    &:active {
+      background-color: rgba(var.$color-white, 0.8);
+    }
+  }
+
+  @media screen and (min-width: var.withPx(var.$screen-min-desktop)) {
+    grid-template-areas: 'pj ln gh if';
+    grid-template-columns: repeat(3, 1fr);
+
+    .item {
+      &-ln {
+        border: none;
+        border-left: 1px solid var.$color-white;
+        border-right: 1px solid var.$color-white;
+      }
+
+      &-gh {
+        border: none;
+        border-right: 1px solid var.$color-white;
+      }
+    }
+  }
 }
 
 @media screen and (min-width: var.withPx(var.$screen-min-mobile-1)) {
