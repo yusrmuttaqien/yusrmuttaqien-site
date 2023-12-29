@@ -1,9 +1,8 @@
 <script setup lang="ts">
 const sequence = useWaitSequence();
-const route = useRoute();
+const customClass = useDynamicCustomClass('custom-layout');
+const customMainClass = useDynamicCustomClass('custom-layout-main');
 const opacity = computed(() => (sequence.isSequenceComplete.value ? 1 : 0));
-const customClass = computed(() => `custom-layout${route.fullPath.replace('/', '-')}`);
-const customMainClass = computed(() => `custom-layout-main${route.fullPath.replace('/', '-')}`);
 </script>
 
 <template>
@@ -22,15 +21,17 @@ const customMainClass = computed(() => `custom-layout-main${route.fullPath.repla
 </template>
 
 <style lang="scss">
-.layout-default {
-  position: relative;
-  opacity: v-bind(opacity);
-  transition: opacity 0.2s ease-in-out;
-
-  > main {
+@layer base {
+  .layout-default {
     position: relative;
-    z-index: 2;
-    height: inherit;
+    opacity: v-bind(opacity);
+    transition: opacity 0.2s ease-in-out;
+
+    > main {
+      position: relative;
+      z-index: 2;
+      height: inherit;
+    }
   }
 }
 </style>
