@@ -72,6 +72,12 @@ defineExpose<ExposeNavigationContainer>({ ref: nav });
     }
   }
 
+  .navigation-item {
+    font-weight: 200;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+
   @media screen and (min-width: var.withPx(var.$screen-min-tablet)) {
     .info,
     .navigation-item {
@@ -89,6 +95,10 @@ defineExpose<ExposeNavigationContainer>({ ref: nav });
       .credit span {
         font-size: 16px;
       }
+    }
+
+    .navigation-item {
+      font-size: 20px;
     }
   }
 }

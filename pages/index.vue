@@ -32,25 +32,21 @@ onUnmounted(() => {
     </p>
   </div>
   <NavigationContainer class="custom-navigation-container-" ref="nav">
-    <NavigationItem class="item" id="pj" @click="_goToProjects" target="_blank"
-      >Projects</NavigationItem
-    >
-    <NavigationItem
-      as="a"
-      class="item item-ln"
-      id="ln"
+    <NuxtLink class="navigation-item item item-pj" href="/projects">Projects</NuxtLink>
+    <NuxtLink
+      class="navigation-item item item-ln external"
       href="https://www.linkedin.com/in/ydhm/"
       target="_blank"
-      >LinkedIn</NavigationItem
     >
-    <NavigationItem
-      as="a"
-      class="item item-gh"
-      id="gh"
+      LinkedIn
+    </NuxtLink>
+    <NuxtLink
+      class="navigation-item item item-gh external"
       href="https://github.com/yusrmuttaqien"
       target="_blank"
-      >Github</NavigationItem
     >
+      Github
+    </NuxtLink>
   </NavigationContainer>
 </template>
 
@@ -99,8 +95,17 @@ onUnmounted(() => {
       border-bottom: 1px solid var.$color-white;
     }
 
+    &-pj {
+      grid-area: pj;
+    }
+
+    &-ln {
+      grid-area: ln;
+    }
+
     &-gh {
       border-left: 1px solid var.$color-white;
+      grid-area: gh;
     }
 
     &:hover {

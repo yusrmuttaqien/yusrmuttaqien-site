@@ -14,6 +14,14 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
+
+  a {
+    color: var.$color-white;
+
+    &:not(.external) {
+      text-decoration: none;
+    }
+  }
 }
 
 html {
