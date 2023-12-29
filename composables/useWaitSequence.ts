@@ -1,9 +1,11 @@
 export const useWaitSequence = (id?: string) => {
   const currentID = ref<string | null>(null);
   const states = useWaitList();
+  const config = useSequenceConfig();
   const isSequenceComplete = computed(() => {
-    const sequencesStatus = Object.values(states.value);
+    if (!config.value.isEnabled) return true;
 
+    const sequencesStatus = Object.values(states.value);
     if (sequencesStatus.length === 0) return false;
 
     return sequencesStatus.every((state) => state);
@@ -18,8 +20,14 @@ export const useWaitSequence = (id?: string) => {
     _updateSequence(id, false);
   }
 
-  function _cleanupSequence() {
+  function _setEnableSequence(value: boolean) {
+    config.value.isEnabled = value;
+  }
+
+  function _cleanupSequence(withDisable?: boolean) {
     states.value = {};
+
+    withDisable && _setEnableSequence(false);
   }
 
   watchEffect(() => {
@@ -43,7 +51,8 @@ export const useWaitSequence = (id?: string) => {
   return {
     updateSequence: _updateSequence,
     cleanupSequence: _cleanupSequence,
-    isSequenceComplete: isSequenceComplete,
-    currentID: currentID,
+    setEnableSequence: _setEnableSequence,
+    isSequenceComplete,
+    currentID,
   };
 };
