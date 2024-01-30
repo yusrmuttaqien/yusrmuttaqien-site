@@ -1,163 +1,76 @@
 <script setup lang="ts">
-import type { ExposeNavigationContainer } from '~/types/components-navigation-container';
+import css from '~/styles/_export.module.scss';
 
-const ID_INDEX_PAGE = 'index-page';
-const sequence = useWaitSequence(ID_INDEX_PAGE);
-const nav = ref<ExposeNavigationContainer | null>(null);
-const marginTop = computed(() => {
-  let height = nav.value?.ref?.offsetHeight || null;
-
-  if (!height || !sequence.currentID.value) return '0px';
-  const style = window.getComputedStyle(nav.value?.ref as HTMLElement);
-  height += parseInt(style.marginTop);
-  sequence.updateSequence(sequence.currentID.value, true);
-  return `${height}px`;
-});
-
-onUnmounted(() => {
-  sequence.cleanupSequence();
-});
+const isTablet = useMediaQuery(`(min-width: ${css.screenMinTablet}px)`);
+const isDesktop = useMediaQuery(`(min-width: ${css.screenMinDesktop}px)`);
+const YMHeight = computed(() => (isTablet() ? '413.99' : isDesktop() ? '458.5' : '148.72'));
 </script>
 
 <template>
-  <div class="index-container">
-    <MainTitle />
-    <p class="description">
-      dealing with frontend in the web. attracted to brutalist design. would love to share and chat
-      anything about technology
-    </p>
+  <div class="under-construction-container">
+    <div class="info">
+      <h1>Sorry!</h1>
+      <p>The site is under<br />construction.</p>
+    </div>
+    <SVGYM class="custom-svg-ym" />
   </div>
-  <NavigationContainer class="custom-navigation-container-" ref="nav">
-    <NuxtLink class="navigation-item item item-pj" href="/projects">Projects</NuxtLink>
-    <NuxtLink
-      class="navigation-item item item-ln external"
-      href="https://www.linkedin.com/in/ydhm/"
-      target="_blank"
-    >
-      LinkedIn
-    </NuxtLink>
-    <NuxtLink
-      class="navigation-item item item-gh external"
-      href="https://github.com/yusrmuttaqien"
-      target="_blank"
-    >
-      Github
-    </NuxtLink>
-  </NavigationContainer>
 </template>
 
 <style lang="scss">
-@layer base {
-  .index-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-    margin-top: v-bind(marginTop);
-
-    .description {
-      text-transform: uppercase;
-      text-align: justify;
-      margin: 44px 28px 0;
-    }
-  }
-}
-
 @layer custom {
-  .custom-layout-main- {
-    display: flex;
-    flex-direction: column;
-  }
+  .custom-layout-default-main- {
+    padding: var(--space-x) var(--space-y);
+    transition-property: padding;
+    display: grid;
+    place-content: center;
+    overflow: auto;
 
-  .custom-navigation-container- {
-    position: sticky;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin-top: 32px;
-    grid-template-areas:
-      'pj pj'
-      'ln gh'
-      'if if';
-    grid-template-columns: repeat(2, 1fr);
+    .under-construction-container {
+      position: relative;
+      display: flex;
+      align-items: center;
 
-    .item {
-      &-ln,
-      &-gh {
-        border-top: 1px solid var.$color-white;
-        border-bottom: 1px solid var.$color-white;
+      .info {
+        font-size: clamp(1rem, 0.2453rem + 3.7736vw, 2rem);
+        text-transform: uppercase;
+        margin-right: calc(clamp(5.9375rem, -1.0908rem + 35.1415vw, 15.25rem) * -1);
+        z-index: 1;
+
+        h1 {
+          font-weight: 900;
+          font-style: italic;
+        }
       }
 
-      &-pj {
-        grid-area: pj;
-      }
-
-      &-ln {
-        grid-area: ln;
-      }
-
-      &-gh {
-        border-left: 1px solid var.$color-white;
-        grid-area: gh;
+      .custom-svg-ym {
+        height: clamp(9.295rem, -3.2178rem + 62.5638vw, 25.8744rem);
       }
     }
-  }
-}
 
-@media screen and (min-width: var.withPx(var.$screen-min-mobile-1)) {
-  @layer base {
-    .index-container {
-      padding: 0 28px;
-
-      .description {
-        margin: 44px auto 0;
-        width: 358px;
-      }
-    }
-  }
-}
-
-@media screen and (min-width: var.withPx(var.$screen-min-tablet)) {
-  @layer base {
-    .index-container {
-      padding: 0 51px;
-
-      .description {
-        margin: 60px auto 0;
-        width: 601px;
-        font-size: 18px;
-      }
-    }
-  }
-}
-
-@media screen and (min-width: var.withPx(var.$screen-min-desktop)) {
-  @layer base {
-    .index-container {
-      padding: 0 73px;
-
-      .description {
-        margin: 71px auto 0;
-        width: 635px;
-      }
-    }
-  }
-
-  @layer custom {
-    .custom-navigation-container- {
-      grid-template-areas: 'pj ln gh if';
-      grid-template-columns: repeat(3, 1fr);
-
-      .item {
-        &-ln {
-          border: none;
-          border-left: 1px solid var.$color-white;
-          border-right: 1px solid var.$color-white;
+    @media screen and (min-width: var.withPx(var.$screen-min-tablet)) {
+      .under-construction-container {
+        .info {
+          font-size: 2rem;
+          margin-right: -15.25rem;
+          transition-property: font-size, margin-right;
         }
 
-        &-gh {
-          border: none;
-          border-right: 1px solid var.$color-white;
+        .custom-svg-ym {
+          transition-property: height;
+          height: 25.8744rem;
+        }
+      }
+    }
+
+    @media screen and (min-width: var.withPx(var.$screen-min-desktop)) {
+      .under-construction-container {
+        .info {
+          margin-right: -10rem;
+          font-size: 3.375rem;
+        }
+
+        .custom-svg-ym {
+          height: 28.6563rem;
         }
       }
     }

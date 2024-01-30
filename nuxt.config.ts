@@ -3,7 +3,7 @@ import { BASE_URL, DEFAULT_DESCRIPTION, DEFAULT_TITLE } from './constants/meta';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  modules: ['@nuxtjs/fontaine', '@nuxtjs/google-fonts'],
+  modules: ['@nuxtjs/fontaine', '@nuxtjs/google-fonts', '@nuxt/image', '@hypernym/nuxt-gsap'],
   app: {
     head: {
       htmlAttrs: {
@@ -32,15 +32,17 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     families: {
-      Notable: true,
-      'Plus Jakarta Sans': {
-        wght: [500, 700, 400, 200],
+      'Alumni Sans': {
+        wght: [900],
       },
-      'Libre Barcode 128': true,
+      Urbanist: {
+        wght: [900, 600, 400, 300],
+        ital: [900],
+      },
     },
   },
   fontMetrics: {
-    fonts: ['Plus Jakarta Sans', 'Notable', 'Libre Barcode 128'],
+    fonts: ['Alumni Sans', 'Urbanist'],
   },
   vite: {
     server: {
@@ -55,5 +57,8 @@ export default defineNuxtConfig({
         },
       },
     },
+  },
+  gsap: {
+    composables: true,
   },
 });

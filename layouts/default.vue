@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const sequence = useWaitSequence();
-const customClass = useDynamicCustomClass('custom-layout');
-const customMainClass = useDynamicCustomClass('custom-layout-main');
+const customClass = useDynamicCustomClass('custom-layout-default');
+const customMainClass = useDynamicCustomClass('custom-layout-default-main');
 const opacity = computed(() => (sequence.isSequenceComplete.value ? 1 : 0));
 </script>
 

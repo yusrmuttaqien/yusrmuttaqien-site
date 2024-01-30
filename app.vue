@@ -11,7 +11,7 @@
 
 @layer base {
   * {
-    font-family: Plus Jakarta Sans;
+    font-family: Urbanist;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -25,10 +25,26 @@
         text-decoration: none;
       }
     }
+
+    &.lenis-smooth {
+      scroll-behavior: auto;
+    }
+
+    &.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+
+    &.lenis-stopped {
+      overflow: hidden;
+    }
+
+    &.lenis-scrolling iframe {
+      pointer-events: none;
+    }
   }
 
   html {
-    background-color: black;
+    background-color: var.$color-black;
     color: var.$color-white;
     min-height: 320px;
     height: 100svh;
@@ -42,9 +58,11 @@
       #__nuxt .layout {
         height: inherit;
       }
-
-      @include var.typography();
     }
   }
+
+  @include var.defaultValue();
+  @include var.typography();
+  @include var.dimension();
 }
 </style>
