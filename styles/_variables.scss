@@ -3,7 +3,11 @@ $screen-min-mobile-1: 414;
 $screen-min-tablet: 744;
 $screen-min-desktop: 1280;
 
-$color-white: #f7f3eb;
+$color-white: #ffffff;
+$color-black: #000000;
+
+$space-x: 1.8125rem;
+$space-y: 1.8125rem;
 
 @function withPx($number) {
   @return $number * 1px;
@@ -11,170 +15,137 @@ $color-white: #f7f3eb;
 
 @mixin typography() {
   @layer base {
-    .trim-notable {
-      line-height: 1.06em;
-
-      &::before {
-        content: '';
-        margin-bottom: -0.318em;
-        display: table;
+    * {
+      a {
+        color: $color-white;
       }
 
-      &::after {
-        content: '';
-        margin-top: -0.032em;
-        display: table;
+      .truncate {
+        // display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        min-width: 0;
+      }
+
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
       }
     }
+  }
+}
 
-    .trim-nogap-notable {
-      line-height: 0.72em;
+@mixin dimension() {
+  @layer base {
+    :root {
+      --space-x: #{$space-x};
+      --space-y: #{$space-y};
 
-      &::before {
-        content: '';
-        margin-bottom: -0.143em;
-        display: table;
+      @media screen and (min-width: withPx($screen-min-tablet)) {
+        --space-x: 2.75rem;
+        --space-y: 3.25rem;
       }
 
-      &::after {
-        content: '';
-        margin-top: 0.143em;
-        display: table;
-      }
-    }
-
-    .trim-plus-jakarta-sans {
-      line-height: 1.3em;
-
-      &::before {
-        content: '';
-        margin-bottom: -0.2218em;
-        display: table;
-      }
-
-      &::after {
-        content: '';
-        margin-top: -0.1507em;
-        display: table;
+      @media screen and (min-width: withPx($screen-min-desktop)) {
+        --space-x: 3.25rem;
+        --space-y: 2.3125rem;
       }
     }
+  }
+}
 
-    .trim-libre-barcode-128 {
-      line-height: 1em;
-
-      &::before {
-        content: '';
-        margin-bottom: 0.0475em;
-        display: table;
-      }
-
-      &::after {
-        content: '';
-        margin-top: -0.3425em;
-        display: table;
-      }
-    }
-
-    a {
-      color: $color-white;
-    }
-
-    .truncate {
-      // display: -webkit-box;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
-      min-width: 0;
-    }
-
-    html,
-    body,
-    div,
-    span,
-    applet,
-    object,
-    iframe,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    blockquote,
-    pre,
-    a,
-    abbr,
-    acronym,
-    address,
-    big,
-    cite,
-    code,
-    del,
-    dfn,
-    em,
-    img,
-    ins,
-    kbd,
-    q,
-    s,
-    samp,
-    small,
-    strike,
-    strong,
-    sub,
-    sup,
-    tt,
-    var,
-    b,
-    u,
-    i,
-    center,
-    dl,
-    dt,
-    dd,
-    ol,
-    ul,
-    li,
-    fieldset,
-    form,
-    label,
-    legend,
-    table,
-    caption,
-    tbody,
-    tfoot,
-    thead,
-    tr,
-    th,
-    td,
-    article,
-    aside,
-    canvas,
-    details,
-    embed,
-    figure,
-    figcaption,
-    footer,
-    header,
-    hgroup,
-    menu,
-    nav,
-    output,
-    ruby,
-    section,
-    summary,
-    time,
-    mark,
-    audio,
-    video {
-      margin: 0;
-      padding: 0;
-      border: 0;
-      font-size: 100%;
-      font: inherit;
-      vertical-align: baseline;
+@mixin defaultValue() {
+  @layer base {
+    * {
+      transition-property: none;
+      transition-duration: 0.1s;
+      transition-timing-function: ease-in-out;
     }
   }
 }

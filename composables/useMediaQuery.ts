@@ -33,7 +33,7 @@ export const useMediaQuery = (query: string) => {
     }
   );
   watch(
-    () => ({ ready: isClient.value, id: sequence.currentID.value, executed: isExecuted.value }),
+    () => ({ ready: isClient.value, id: sequence.currentID(), executed: isExecuted.value }),
     (newState) => {
       if (newState.ready && newState.id && newState.executed) {
         sequence.updateSequence(newState.id, true);
@@ -45,5 +45,5 @@ export const useMediaQuery = (query: string) => {
     isClient.value = true;
   });
 
-  return matches;
+  return () => matches.value;
 };

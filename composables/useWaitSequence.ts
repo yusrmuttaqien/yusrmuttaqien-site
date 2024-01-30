@@ -1,4 +1,4 @@
-export const useWaitSequence = (id?: string) => {
+export const useWaitSequence = (id?: string, withDisable?: boolean) => {
   const currentID = ref<string | null>(null);
   const states = useWaitList();
   const config = useSequenceConfig();
@@ -48,11 +48,15 @@ export const useWaitSequence = (id?: string) => {
     }
   });
 
+  onUnmounted(() => {
+    _cleanupSequence(withDisable);
+  });
+
   return {
     updateSequence: _updateSequence,
     cleanupSequence: _cleanupSequence,
     setEnableSequence: _setEnableSequence,
     isSequenceComplete,
-    currentID,
+    currentID: () => currentID.value,
   };
 };
