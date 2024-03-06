@@ -21,6 +21,9 @@ const config: Config = {
         8: '8px',
       },
     },
+    screens: {
+      tablet: '834px',
+    },
   },
   plugins: [],
 };
