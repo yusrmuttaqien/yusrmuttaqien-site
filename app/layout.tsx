@@ -1,5 +1,6 @@
 import localFont from 'next/font/local';
 import { tv } from 'tailwind-variants';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import Navbar from '@/app/components/navbar';
 import Footer from '@/app/components/footer';
 import type { Metadata } from 'next';
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: Props) {
         <Navbar />
         {children}
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   );
