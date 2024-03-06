@@ -1,0 +1,96 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { AnimatePresence, MotionProps, motion } from 'framer-motion';
+import { tv } from 'tailwind-variants';
+
+type AnimatedDigitProps = {
+  digit: string;
+  variant: MotionProps;
+  sign: string;
+  className?: string;
+};
+const numVariant: MotionProps = {
+  variants: {
+    initial: { opacity: 0, y: '-50%' },
+    visible: { opacity: 1, y: '0%' },
+    hidden: { opacity: 0, y: '50%' },
+  },
+  initial: 'initial',
+  animate: 'visible',
+  exit: 'hidden',
+};
+const colVariant: MotionProps = {
+  variants: {
+    visible: { opacity: 0 },
+    hidden: { opacity: 1 },
+  },
+  animate: 'visible',
+  exit: 'hidden',
+};
+
+export default function NavbarClock({ className }: { className?: string }) {
+  const [time, setTime] = useState({ hour: ['0', '0'], minute: ['0', '0'], second: ['0', '0'] });
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(getDate());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <p className={className}>
+      <AnimateDigit digit={time.hour[0]} variant={numVariant} sign={`hur-0-${time.hour[0]}`} />
+      <AnimateDigit digit={time.hour[1]} variant={numVariant} sign={`hur-1-${time.hour[1]}`} />
+      <AnimateDigit
+        className="ml-[0.075rem] mr-[0.0938rem]"
+        digit=":"
+        variant={colVariant}
+        sign={`col-0-${time.second[1]}`}
+      />
+      <AnimateDigit digit={time.minute[0]} variant={numVariant} sign={`min-0-${time.minute[0]}`} />
+      <AnimateDigit
+        digit={time.minute[1]}
+        variant={numVariant}
+        sign={`min-1-${time.minute[1]}`}
+      />{' '}
+      WIB
+    </p>
+  );
+}
+
+function AnimateDigit({ digit, variant, sign, className }: AnimatedDigitProps) {
+  const styles = tv({
+    base: 'relative inline-block',
+  });
+
+  return (
+    <span className={styles({ className })}>
+      <AnimatePresence>
+        <motion.span className="absolute left-0 top-0" key={sign} {...variant}>
+          {digit}
+        </motion.span>
+      </AnimatePresence>
+      <span className="opacity-0">{digit}</span>
+    </span>
+  );
+}
+
+function getDate() {
+  const formatedDate = new Intl.DateTimeFormat('id-ID', {
+    timeStyle: 'long',
+  }).format(new Date());
+  const splitedDate = formatedDate.split('.');
+
+  function splitDigit(digits: string) {
+    return digits.split('').map((digit) => digit);
+  }
+
+  return {
+    hour: splitDigit(splitedDate[0]),
+    minute: splitDigit(splitedDate[1]),
+    second: splitDigit(splitedDate[2].split(' ')[0]),
+  };
+}

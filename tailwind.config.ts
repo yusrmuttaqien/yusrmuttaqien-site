@@ -1,11 +1,15 @@
+import { fluidExtractor, fluidCorePlugins, defaultThemeScreensInRems } from 'fluid-tailwind';
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: {
+    files: [
+      './pages/**/*.{js,ts,jsx,tsx,mdx}',
+      './components/**/*.{js,ts,jsx,tsx,mdx}',
+      './app/**/*.{js,ts,jsx,tsx,mdx}',
+    ],
+    extract: fluidExtractor(),
+  },
   theme: {
     extend: {
       fontFamily: {
@@ -22,9 +26,10 @@ const config: Config = {
       },
     },
     screens: {
-      tablet: '834px',
+      ...defaultThemeScreensInRems,
+      tablet: '52.125rem',
     },
   },
-  plugins: [],
+  plugins: [fluidCorePlugins],
 };
 export default config;
