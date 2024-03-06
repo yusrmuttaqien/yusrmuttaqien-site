@@ -12,22 +12,22 @@ const helveticaNeue = localFont({
   src: [
     {
       style: 'normal',
-      path: './fonts/HelveticaNeueRoman.otf',
+      path: './fonts/HelveticaNeue-Roman.woff',
       weight: '400',
     },
     {
       style: 'normal',
-      path: './fonts/HelveticaNeueThin.otf',
+      path: './fonts/HelveticaNeue-Thin.woff',
       weight: '200',
     },
     {
       style: 'normal',
-      path: './fonts/HelveticaNeueMedium.otf',
+      path: './fonts/HelveticaNeue-Medium.woff',
       weight: '500',
     },
     {
       style: 'normal',
-      path: './fonts/HelveticaNeueBold.otf',
+      path: './fonts/HelveticaNeue-Bold.woff',
       weight: '700',
     },
   ],
@@ -35,7 +35,7 @@ const helveticaNeue = localFont({
   variable: '--font-helvetica-neue',
 });
 const nohemi = localFont({
-  src: './fonts/Nohemi-ExtraBold.ttf',
+  src: './fonts/Nohemi-ExtraBold.woff',
   display: 'swap',
   style: 'normal',
   weight: '800',
