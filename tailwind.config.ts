@@ -1,5 +1,8 @@
-import { fluidExtractor, fluidCorePlugins, defaultThemeScreensInRems } from 'fluid-tailwind';
+import { fluidExtractor, fluidCorePlugins } from 'fluid-tailwind';
+import plugin from 'tailwindcss/plugin';
 import type { Config } from 'tailwindcss';
+
+const { scrSize } = require('./app/constants');
 
 const config: Config = {
   content: {
@@ -26,10 +29,25 @@ const config: Config = {
       },
     },
     screens: {
-      ...defaultThemeScreensInRems,
-      tablet: '52.125rem',
+      sm: scrSize('sm', true),
+      md: scrSize('md', true),
+      lg: scrSize('lg', true),
+      xl: scrSize('xl', true),
+      '2xl': scrSize('2xl', true),
     },
   },
-  plugins: [fluidCorePlugins],
+  plugins: [
+    fluidCorePlugins,
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        '.translate-center': {
+          transform: 'translate(-50%, -50%)',
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+        },
+      });
+    }),
+  ],
 };
 export default config;

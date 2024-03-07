@@ -1,8 +1,8 @@
 import localFont from 'next/font/local';
-import { tv } from 'tailwind-variants';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Navbar from '@/app/components/navbar';
 import Footer from '@/app/components/footer';
+import classMerge from '@/app/utils/class-merge';
 import type { Metadata } from 'next';
 import './globals.css';
 
@@ -42,15 +42,6 @@ const nohemi = localFont({
   weight: '800',
   variable: '--font-nohemi',
 });
-const styles = tv({
-  base: [
-    helveticaNeue.variable,
-    nohemi.variable,
-    'font-helvetica',
-    'bg-beige dark:bg-grey',
-    'text-grey dark:text-beige',
-  ],
-});
 
 export const metadata: Metadata = {
   title: {
@@ -62,8 +53,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang="en">
-      <body className={styles()}>
+    <html className="min-w-80" lang="en">
+      <body
+        className={classMerge(
+          helveticaNeue.variable,
+          nohemi.variable,
+          'font-helvetica min-w-full',
+          'bg-beige dark:bg-grey',
+          'text-grey dark:text-beige'
+        )}
+      >
         <Navbar />
         {children}
         <Footer />

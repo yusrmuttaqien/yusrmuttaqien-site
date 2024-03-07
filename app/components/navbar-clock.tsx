@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { AnimatePresence, MotionProps, motion } from 'framer-motion';
-import { tv } from 'tailwind-variants';
+import classMerge from '@/app/utils/class-merge';
 
 type AnimatedDigitProps = {
   digit: string;
@@ -33,11 +33,27 @@ export default function NavbarClock({ className }: { className?: string }) {
   const [time, setTime] = useState({ hour: ['0', '0'], minute: ['0', '0'], second: ['0', '0'] });
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(getDate());
-    }, 1000);
+    let interval: NodeJS.Timeout;
 
-    return () => clearInterval(interval);
+    function clear() {
+      clearInterval(interval);
+    }
+    function runInterval() {
+      interval && clear();
+      interval = setInterval(() => {
+        setTime(getDate());
+      }, 1000);
+    }
+
+    window.addEventListener('focus', runInterval);
+    window.addEventListener('blur', clear);
+    runInterval();
+
+    return () => {
+      window.removeEventListener('focus', runInterval);
+      window.removeEventListener('blur', clear);
+      clear();
+    };
   }, []);
 
   return (
@@ -45,7 +61,7 @@ export default function NavbarClock({ className }: { className?: string }) {
       <AnimateDigit digit={time.hour[0]} variant={numVariant} sign={`hur-0-${time.hour[0]}`} />
       <AnimateDigit digit={time.hour[1]} variant={numVariant} sign={`hur-1-${time.hour[1]}`} />
       <AnimateDigit
-        className="ml-[0.075rem] mr-[0.0938rem]"
+        className="ml-[.1em] mr-[.1em]"
         digit=":"
         variant={colVariant}
         sign={`col-0-${time.second[1]}`}
@@ -62,12 +78,8 @@ export default function NavbarClock({ className }: { className?: string }) {
 }
 
 function AnimateDigit({ digit, variant, sign, className }: AnimatedDigitProps) {
-  const styles = tv({
-    base: 'relative inline-block',
-  });
-
   return (
-    <span className={styles({ className })}>
+    <span className={classMerge('relative inline-block', className)}>
       <AnimatePresence>
         <motion.span className="absolute left-0 top-0" key={sign} {...variant}>
           {digit}
