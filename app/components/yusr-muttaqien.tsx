@@ -8,14 +8,16 @@ import type { YusrMuttaqienProps } from '@/app/types/yusr-muttaqien';
 
 const fillStyles = 'fill-grey dark:fill-beige';
 
-export default function YusrMuttaqien({ className }: YusrMuttaqienProps) {
+export default function YusrMuttaqien({ className, asPlaceholder }: YusrMuttaqienProps) {
   const { isTablet } = useMediaQueryCtx();
+  const layoutId = !asPlaceholder ? LAYOUT_YUSR_MUTTAQIEN : undefined;
+
+  if (isTablet === undefined) {
+    return null;
+  }
 
   return isTablet ? (
-    <motion.div
-      className={classMerge('w-full', className)}
-      layoutId={LAYOUT_YUSR_MUTTAQIEN + '-long'}
-    >
+    <motion.div className={classMerge('w-full', className)} layoutId={layoutId}>
       <svg width="100%" viewBox="0 0 785 101" fill="none">
         <path
           d="M747.378 79H726.245V20.2372H747.378V38.5722C749.475 25.2829 755.977 18.6382 766.886 18.6382C769.871 18.6382 772.465 19.1445 774.668 20.1572C776.889 21.1699 778.719 22.7067 780.158 24.7676C781.615 26.8286 782.698 29.4225 783.409 32.5494C784.137 35.6763 784.502 39.354 784.502 43.5824V79H763.368V48.9123C763.368 44.7727 762.729 41.6991 761.45 39.6915C760.188 37.6839 758.243 36.6801 755.613 36.6801C752.895 36.6801 750.843 37.7105 749.457 39.7715C748.071 41.8324 747.378 44.9504 747.378 49.1255V79Z"
@@ -73,10 +75,7 @@ export default function YusrMuttaqien({ className }: YusrMuttaqienProps) {
       </svg>
     </motion.div>
   ) : (
-    <motion.div
-      className={classMerge('w-full', className)}
-      layoutId={LAYOUT_YUSR_MUTTAQIEN + '-short'}
-    >
+    <motion.div className={classMerge('w-full', className)} layoutId={layoutId}>
       <svg width="100%" viewBox="0 0 379 90" fill="none">
         <path
           d="M299.609 66.0003H276.799V2.5764H299.609V22.2507C301.872 7.98397 308.756 0.850586 320.261 0.850586C323.157 0.850586 325.698 1.3108 327.884 2.23124C330.089 3.1325 331.949 4.51316 333.464 6.3732C334.998 8.21408 336.196 10.5439 337.059 13.3628C337.941 16.1624 338.507 19.4607 338.756 23.2575C340.827 8.31955 347.769 0.850586 359.581 0.850586C362.745 0.850586 365.497 1.3971 367.836 2.49011C370.176 3.58313 372.112 5.24184 373.647 7.46622C375.2 9.69061 376.35 12.4903 377.098 15.8652C377.865 19.2401 378.249 23.2095 378.249 27.7734V66.0003H355.439V33.5261C355.439 29.0581 354.778 25.7407 353.454 23.5739C352.15 21.407 350.137 20.3236 347.414 20.3236C341.757 20.3236 338.929 24.8011 338.929 33.7562V66.0003H316.119V33.5261C316.119 29.0581 315.458 25.7407 314.135 23.5739C312.831 21.407 310.817 20.3236 308.094 20.3236C302.437 20.3236 299.609 24.8011 299.609 33.7562V66.0003Z"
