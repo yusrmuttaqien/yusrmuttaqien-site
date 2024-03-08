@@ -26,7 +26,7 @@ export default function MainHeroYusrMuttaqien() {
         draft.isHeroNavHandoff = !inView;
       }
     });
-  }, [inView]);
+  }, [inView, isHeroNavHandoff, setState]);
 
   return (
     <div className="relative w-full">
