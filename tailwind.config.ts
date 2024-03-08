@@ -1,7 +1,12 @@
 import plugin from 'tailwindcss/plugin';
 import type { Config } from 'tailwindcss';
 
-const { scrSize, COLOR_BEIGE, COLOR_GREEN, COLOR_GREY } = require('./app/constants');
+const {
+  scrSize,
+  COLOR_BEIGE,
+  COLOR_GREEN,
+  COLOR_GREY,
+} = require('./app/constants/tailwind-config');
 
 const config: Config = {
   content: {
@@ -42,6 +47,16 @@ const config: Config = {
           position: 'absolute',
           left: '50%',
           top: '50%',
+        },
+        '.body-subheading': {
+          textTransform: 'uppercase',
+          fontSize: 'clamp(0.75rem, -0.25rem + 5vw, 1.0938rem)',
+          fontWeight: '500',
+        },
+        '.container': {
+          paddingInline: 'clamp(1.1162rem, 1.4542rem + -1.6902vw, 1rem)',
+          maxWidth: '80rem',
+          marginInline: 'auto',
         },
       });
     }),

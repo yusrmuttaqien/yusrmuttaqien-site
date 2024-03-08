@@ -1,33 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AnimatePresence, MotionProps, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import classMerge from '@/app/utils/class-merge';
-
-type AnimatedDigitProps = {
-  digit: string;
-  variant: MotionProps;
-  sign: string;
-  className?: string;
-};
-const numVariant: MotionProps = {
-  variants: {
-    initial: { opacity: 0, y: '-50%' },
-    visible: { opacity: 1, y: '0%' },
-    hidden: { opacity: 0, y: '50%' },
-  },
-  initial: 'initial',
-  animate: 'visible',
-  exit: 'hidden',
-};
-const colVariant: MotionProps = {
-  variants: {
-    visible: { opacity: 0 },
-    hidden: { opacity: 1 },
-  },
-  animate: 'visible',
-  exit: 'hidden',
-};
+import { numVariant, colVariant } from '@/app/constants/navbar-clock';
+import type { AnimatedDigitProps } from '@/app/types/navbar-clock';
 
 export default function NavbarClock({ className }: { className?: string }) {
   const [time, setTime] = useState({ hour: ['0', '0'], minute: ['0', '0'], second: ['0', '0'] });

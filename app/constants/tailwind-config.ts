@@ -1,4 +1,4 @@
-type ScreenSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+import type { ScreenSize } from '@/app/types/tailwind-config';
 
 const SCREEN_SIZE_SM = '320';
 const SCREEN_SIZE_MD = '430';
@@ -9,7 +9,7 @@ const SCREEN_SIZE_2XL = '1512';
 export const COLOR_GREEN = '#336633';
 export const COLOR_GREY = '#333333';
 export const COLOR_BEIGE = '#F5F5F5';
-export const FRAMER_LAYOUT_YUSR_MUTTAQIEN = 'framer-layout-yusr-muttaqien';
+
 export function scrSize(screen: ScreenSize, withUnit?: boolean): string {
   switch (screen) {
     case 'sm':

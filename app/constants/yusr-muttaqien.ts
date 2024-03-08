@@ -1,0 +1,4 @@
+export enum renderOnEnum {
+  SEQUENCE_START = 'SEQUENCE_START',
+  SEQUENCE_END = 'SEQUENCE_END',
+}

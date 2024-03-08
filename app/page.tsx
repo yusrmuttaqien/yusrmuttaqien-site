@@ -1,3 +1,9 @@
+import MainHero from '@/app/fragments/main-hero';
+
 export default function Page() {
-  return <main>page</main>;
+  return (
+    <main>
+      <MainHero />
+    </main>
+  );
 }
