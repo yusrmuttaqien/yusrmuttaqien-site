@@ -1,6 +1,7 @@
-import type { MediaQueryState } from '@/app/types/media-query';
-
-export const MEDIA_QUERY_INITIAL_STATE: MediaQueryState = {
+export const MEDIA_QUERY_INITIAL_STATE = {
   isTablet: undefined,
   isTouch: undefined,
+} as {
+  isTablet: boolean | undefined;
+  isTouch: boolean | undefined;
 };
