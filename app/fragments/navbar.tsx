@@ -8,12 +8,12 @@ export default function Navbar() {
   return (
     <nav
       className={classMerge(
-        'fixed top-0 left-0 right-0 z-50 container',
+        'fixed top-0 left-0 right-0 z-50 container box-border',
         'mix-blend-difference text-beige',
         'py-[clamp(0.3719rem,_-0.0008rem_+_1.8633vw,_0.5rem)]'
       )}
     >
-      <div className="flex justify-between self-stretch items-center lg:-mb-[clamp(1rem,_0.385rem_+_1.1799vw,_1.5rem)]">
+      <div className="flex justify-between items-center ">
         <p className={locStyles}>Malang, Indonesia</p>
         <NavbarClock className={locStyles} />
       </div>
