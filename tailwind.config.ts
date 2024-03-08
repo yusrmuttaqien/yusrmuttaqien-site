@@ -1,8 +1,7 @@
-import { fluidExtractor, fluidCorePlugins } from 'fluid-tailwind';
 import plugin from 'tailwindcss/plugin';
 import type { Config } from 'tailwindcss';
 
-const { scrSize } = require('./app/constants');
+const { scrSize, COLOR_BEIGE, COLOR_GREEN, COLOR_GREY } = require('./app/constants');
 
 const config: Config = {
   content: {
@@ -11,7 +10,6 @@ const config: Config = {
       './components/**/*.{js,ts,jsx,tsx,mdx}',
       './app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
-    extract: fluidExtractor(),
   },
   theme: {
     extend: {
@@ -20,9 +18,9 @@ const config: Config = {
         nohemi: ['var(--font-nohemi)', 'sans-serif'],
       },
       colors: {
-        green: '#336633',
-        grey: '#333333',
-        beige: '#F5F5F5',
+        green: COLOR_GREEN,
+        grey: COLOR_GREY,
+        beige: COLOR_BEIGE,
       },
       backdropBlur: {
         8: '8px',
@@ -37,7 +35,6 @@ const config: Config = {
     },
   },
   plugins: [
-    fluidCorePlugins,
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.translate-center': {
@@ -50,4 +47,5 @@ const config: Config = {
     }),
   ],
 };
+
 export default config;

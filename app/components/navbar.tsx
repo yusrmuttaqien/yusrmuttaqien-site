@@ -8,10 +8,11 @@ export default function Navbar() {
   return (
     <nav
       className={classMerge(
-        'sticky top-0 left-0 right-0 flex flex-col items-center max-w-7xl mx-auto',
-        '~sm/md:~gap-[0.465rem]/[0.625rem]',
-        '~sm/md:~py-[0.3719rem]/2',
-        '~sm/md:~px-[1.1162rem]/6'
+        'fixed top-0 left-0 right-0 flex flex-col items-center max-w-7xl mx-auto z-50',
+        'mix-blend-difference text-beige',
+        'gap-[clamp(0.465rem,_-0.0005rem_+_2.3273vw,_0.625rem)]',
+        'py-[clamp(0.3719rem,_-0.0008rem_+_1.8633vw,_0.5rem)]',
+        'px-[clamp(1.1162rem,_1.4542rem_+_-1.6902vw,_1rem)]'
       )}
     >
       <div className="flex justify-between self-stretch items-center">

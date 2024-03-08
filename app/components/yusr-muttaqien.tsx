@@ -16,7 +16,6 @@ export default function YusrMuttaqien({ as = 'p', className }: ComponentProps) {
   return (
     <Tag
       className={classMerge('font-nohemi font-extrabold block', className)}
-      layout="position"
       layoutId={FRAMER_LAYOUT_YUSR_MUTTAQIEN}
     >
       yusr.muttaqien
