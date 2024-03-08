@@ -16,7 +16,7 @@ export default function NavbarYusrMuttaqien() {
         'lg:-mt-[1.5rem]'
       )}
     >
-      {isHeroNavHandoff && <YusrMuttaqien />}
+      {isHeroNavHandoff && <YusrMuttaqien className={{ pathFill: 'fill-beige', wrapper: '' }} />}
     </div>
   );
 }
