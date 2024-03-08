@@ -1,13 +1,9 @@
 'use client';
 
 import { createContext, useContext, ReactNode } from 'react';
+import { useImmer } from 'use-immer';
 import { ANIMATION_SEQUENCE_INITIAL_STATE } from '@/app/constants/animation-sequence';
-import { useImmer, Updater } from 'use-immer';
-
-interface AnimationSequenceState {
-  state: typeof ANIMATION_SEQUENCE_INITIAL_STATE;
-  setState: Updater<typeof ANIMATION_SEQUENCE_INITIAL_STATE>;
-}
+import type { AnimationSequenceState } from '@/app/types/animation-sequence';
 
 const AnimationSequenceContext = createContext<AnimationSequenceState>({
   state: ANIMATION_SEQUENCE_INITIAL_STATE,
@@ -24,6 +20,6 @@ export default function AnimationSequenceProvider({ children }: { children: Reac
   );
 }
 
-export function useAnimationSequence() {
+export function useAnimationSequenceCtx() {
   return useContext(AnimationSequenceContext);
 }

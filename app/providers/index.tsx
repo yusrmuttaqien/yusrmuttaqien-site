@@ -1,6 +1,11 @@
 import { ReactNode } from 'react';
 import AnimationSequenceProvider from '@/app/providers/animation-sequence';
+import MediaQueryProvider from '@/app/providers/media-query';
 
 export default function Providers({ children }: { children: ReactNode }) {
-  return <AnimationSequenceProvider>{children}</AnimationSequenceProvider>;
+  return (
+    <MediaQueryProvider>
+      <AnimationSequenceProvider>{children}</AnimationSequenceProvider>
+    </MediaQueryProvider>
+  );
 }
