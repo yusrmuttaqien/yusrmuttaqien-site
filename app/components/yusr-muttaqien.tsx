@@ -12,9 +12,7 @@ export default function YusrMuttaqien({ className, asPlaceholder }: YusrMuttaqie
   const { isTablet } = useMediaQueryCtx();
   const layoutId = !asPlaceholder ? LAYOUT_YUSR_MUTTAQIEN : undefined;
 
-  if (isTablet === undefined) {
-    return null;
-  }
+  if (isTablet === undefined) return null;
 
   return isTablet ? (
     <motion.div className={classMerge('w-full', className)} layoutId={layoutId}>
