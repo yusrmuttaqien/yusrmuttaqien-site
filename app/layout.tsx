@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html className="min-w-80 min-h-[100svh] overflow-auto" lang="en">
+    <html className="min-w-80 h-[100svh] overflow-auto" lang="en">
       <body
         className={classMerge(
           helveticaNeue.variable,

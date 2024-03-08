@@ -4,7 +4,7 @@ import classMerge from '@/app/utils/class-merge';
 
 export default function MainHero() {
   return (
-    <section className="h-[100dvh] min-h-[25rem] w-full flex items-end relative">
+    <section className="h-[100svh] min-h-[25rem] w-full flex items-end relative">
       <header
         className={classMerge(
           'z-10 w-full relative',
