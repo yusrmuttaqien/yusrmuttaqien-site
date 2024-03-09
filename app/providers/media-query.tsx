@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, ReactNode, useEffect } from 'react';
+import { createContext, useContext, ReactNode, useLayoutEffect } from 'react';
 import { useImmer } from 'use-immer';
 import useMediaQuery from '@/app/hooks/media-query';
 import { MEDIA_QUERY_INITIAL_STATE } from '@/app/constants/media-query';
@@ -13,7 +13,7 @@ export default function MediaQueryProvider({ children }: { children: ReactNode }
   const [isTablet] = useMediaQuery(`screen and (min-width: ${scrSize('lg', true)})`);
   const [state, setState] = useImmer(MEDIA_QUERY_INITIAL_STATE);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setState((draft) => {
       draft.isTablet = isTablet;
     });

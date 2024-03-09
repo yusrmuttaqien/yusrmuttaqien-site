@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { useInView } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import YusrMuttaqien from '@/app/components/yusr-muttaqien';
@@ -17,7 +17,7 @@ export default function MainHeroYusrMuttaqien() {
     setState,
   } = useAnimationSequenceCtx();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let isOnHandoff: boolean;
 
     if (!inSync.current) {

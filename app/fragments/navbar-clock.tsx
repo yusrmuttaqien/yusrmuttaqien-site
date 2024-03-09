@@ -38,7 +38,7 @@ export default function NavbarClock({ className }: { className?: string }) {
       <AnimateDigit digit={time.hour[0]} variant={numVariant} sign={`hur-0-${time.hour[0]}`} />
       <AnimateDigit digit={time.hour[1]} variant={numVariant} sign={`hur-1-${time.hour[1]}`} />
       <AnimateDigit
-        className="ml-[.1em] mr-[.1em]"
+        className="ml-[.05rem] mr-[.23rem]"
         digit=":"
         variant={colVariant}
         sign={`col-0-${time.second[1]}`}

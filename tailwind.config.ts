@@ -52,6 +52,9 @@ const config: Config = {
           textTransform: 'uppercase',
           fontSize: 'clamp(0.75rem, -0.25rem + 5vw, 1.0938rem)',
           fontWeight: '500',
+          '@screen md': {
+            fontSize: 'clamp(1.0938rem, 0.9275rem + 0.6186vw, 1.25rem)',
+          },
         },
         '.container': {
           paddingInline: 'clamp(1.1162rem, 1.4542rem + -1.6902vw, 1rem)',

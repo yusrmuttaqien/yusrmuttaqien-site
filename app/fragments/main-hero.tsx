@@ -2,9 +2,11 @@ import MainHeroYusrMuttaqien from '@/app/fragments/main-hero-yusr-muttaqien';
 import Blueprint from '@/app/components/blueprint';
 import classMerge from '@/app/utils/class-merge';
 
-export default function MainHero() {
+export default function MainHero({ className }: { className?: string }) {
   return (
-    <section className="h-[100svh] min-h-[25rem] w-full flex items-end relative">
+    <section
+      className={classMerge('h-[100svh] min-h-[25rem] w-full flex items-end relative', className)}
+    >
       <header
         className={classMerge(
           'z-10 w-full',
