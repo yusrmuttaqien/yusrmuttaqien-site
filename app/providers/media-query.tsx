@@ -17,7 +17,7 @@ export default function MediaQueryProvider({ children }: { children: ReactNode }
     setState((draft) => {
       draft.isTablet = isTablet;
     });
-  }, [isTablet]);
+  }, [isTablet, setState]);
 
   return <MediaQueryContext.Provider value={state}>{children}</MediaQueryContext.Provider>;
 }

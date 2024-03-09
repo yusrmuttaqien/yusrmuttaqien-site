@@ -10,6 +10,7 @@ const MAGIC_HANDOFF_TRESHOLD = '-15% 0px 0px 0px';
 
 export default function MainHeroYusrMuttaqien() {
   const viewRef = useRef(null);
+  const inSync = useRef(false);
   const inView = useInView(viewRef, { margin: MAGIC_HANDOFF_TRESHOLD });
   const {
     state: { isHeroNavHandoff },
@@ -17,12 +18,17 @@ export default function MainHeroYusrMuttaqien() {
   } = useAnimationSequenceCtx();
 
   useEffect(() => {
-    const isOnHandoff = window.scrollY >= MAGIC_HANDOFF_PERCENTAGE * window.innerHeight;
+    let isOnHandoff: boolean;
+
+    if (!inSync.current) {
+      isOnHandoff = window.scrollY >= MAGIC_HANDOFF_PERCENTAGE * window.innerHeight;
+    }
 
     setState((draft) => {
-      if (isHeroNavHandoff === undefined) {
+      if (!inView !== isOnHandoff && !inSync.current) {
         draft.isHeroNavHandoff = isOnHandoff;
       } else {
+        inSync.current = true;
         draft.isHeroNavHandoff = !inView;
       }
     });
