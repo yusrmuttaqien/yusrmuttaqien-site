@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+@layer utilities {
   *::selection {
     @apply bg-grey/80 dark:bg-beige/80 text-beige dark:text-grey;
   }

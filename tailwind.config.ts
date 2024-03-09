@@ -40,13 +40,21 @@ const config: Config = {
     },
   },
   plugins: [
-    plugin(function ({ addUtilities }) {
-      addUtilities({
+    plugin(function ({ addComponents }) {
+      addComponents({
         '.translate-center': {
           transform: 'translate(-50%, -50%)',
           position: 'absolute',
           left: '50%',
           top: '50%',
+        },
+        '.container': {
+          paddingInline: 'clamp(1.125rem, 0.0341rem + 5.4545vw, 1.5rem)',
+          maxWidth: '80rem',
+          marginInline: 'auto',
+          '@screen lg': {
+            paddingInline: 'clamp(1.5rem, -6.4473rem + 15.2466vw, 5.75rem)',
+          },
         },
         '.body-subheading': {
           textTransform: 'uppercase',
@@ -56,10 +64,24 @@ const config: Config = {
             fontSize: 'clamp(1.0938rem, 0.9275rem + 0.6186vw, 1.25rem)',
           },
         },
-        '.container': {
-          paddingInline: 'clamp(1.1162rem, 1.4542rem + -1.6902vw, 1rem)',
-          maxWidth: '80rem',
-          marginInline: 'auto',
+        '.text-green-dynamic': {
+          color: COLOR_GREEN.DEFAULT,
+          '@media (prefers-color-scheme: dark)': {
+            color: COLOR_GREEN.light,
+          },
+        },
+        '.h2-normal': {
+          fontWeight: '700',
+          fontSize: 'clamp(1.4884rem, 0rem + 7.4418vw, 2rem)',
+          lineHeight: 'clamp(1.8125rem, -0.0057rem + 9.0909vw, 2.4375rem)',
+          '@screen md': {
+            fontSize: 'clamp(2rem, 1.7339rem + 0.9901vw, 2.25rem)',
+            lineHeight: 'clamp(2.4375rem, 2.1049rem + 1.2376vw, 2.75rem)',
+          },
+          '@screen lg': {
+            fontSize: 'clamp(2.25rem, 1.5488rem + 1.3453vw, 2.625rem)',
+            lineHeight: 'clamp(2.75rem, 1.9319rem + 1.5695vw, 3.1875rem)',
+          },
         },
       });
     }),

@@ -5,7 +5,11 @@ import classMerge from '@/app/utils/class-merge';
 export default function MainHero({ className }: { className?: string }) {
   return (
     <section
-      className={classMerge('h-[100svh] min-h-[25rem] w-full flex items-end relative', className)}
+      className={classMerge(
+        'h-[100svh] min-h-[25rem] w-full flex items-end relative isolate',
+        'bg-beige dark:bg-grey',
+        className
+      )}
     >
       <header
         className={classMerge(

@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html className="min-w-80" lang="en">
+      {/* TODO: Remove nohemi if not used */}
       <body
         className={classMerge(
           helveticaNeue.variable,

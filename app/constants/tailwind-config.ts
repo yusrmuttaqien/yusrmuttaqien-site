@@ -6,7 +6,7 @@ const SCREEN_SIZE_LG = '834';
 const SCREEN_SIZE_XL = '1280';
 const SCREEN_SIZE_2XL = '1512';
 
-export const COLOR_GREEN = '#336633';
+export const COLOR_GREEN = { DEFAULT: '#336633', light: '#4E844E' };
 export const COLOR_GREY = '#333333';
 export const COLOR_BEIGE = '#F5F5F5';
 
