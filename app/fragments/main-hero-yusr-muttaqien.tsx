@@ -6,7 +6,7 @@ import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import YusrMuttaqien from '@/app/components/yusr-muttaqien';
 
 const MAGIC_HANDOFF_PERCENTAGE = 83.1 / 100;
-const MAGIC_HANDOFF_TRESHOLD = '-15% 0px 0px 0px';
+const MAGIC_HANDOFF_TRESHOLD = '-20% 0px 0px 0px';
 
 export default function MainHeroYusrMuttaqien() {
   const viewRef = useRef(null);

@@ -83,6 +83,10 @@ const config: Config = {
             lineHeight: 'clamp(2.75rem, 1.9319rem + 1.5695vw, 3.1875rem)',
           },
         },
+        '.body-normal': {
+          fontSize: 'clamp(0.7444rem, 0.0007rem + 3.7182vw, 1rem)',
+          lineHeight: 'clamp(1rem, -0.4545rem + 7.2727vw, 1.5rem)',
+        },
       });
     }),
   ],
