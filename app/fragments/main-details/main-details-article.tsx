@@ -1,17 +1,12 @@
 import classMerge from '@/app/utils/class-merge';
+import type { MainDetailsArticleProps } from '@/app/types/main-details-article';
 
 const styles = {
   firstParagraph: 'body-normal',
   nextParagraphs: 'text-grey/60 dark:text-beige/60 body-normal text-justify',
 };
 
-export default function MainDetailsArticle({
-  title,
-  contents,
-}: {
-  title: string;
-  contents: string[];
-}) {
+export default function MainDetailsArticle({ title, contents }: MainDetailsArticleProps) {
   return (
     <article
       className={classMerge(
