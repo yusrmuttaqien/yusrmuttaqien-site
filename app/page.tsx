@@ -1,6 +1,6 @@
-import MainHero from '@/app/fragments/main-hero';
-import MainDetails from '@/app/fragments/main-details';
-import MainProjects from '@/app/fragments/main-projects';
+import MainHero from '@/app/fragments/main-hero/main-hero';
+import MainDetails from '@/app/fragments/main-details/main-details';
+import MainProjects from '@/app/fragments/main-projects/main-projects';
 
 export default function Page() {
   return (

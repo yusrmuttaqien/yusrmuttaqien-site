@@ -21,13 +21,13 @@ export default function MainDetailsArticle({
       )}
     >
       <h3 className="body-normal uppercase ">{title}</h3>
-      <section className="space-y-[1lh] lg:w-[clamp(24.4375rem,_25.1387rem_+_-1.3453vw,_24.0625rem)] shrink-0">
+      <div className="space-y-[1lh] lg:w-[clamp(24.4375rem,_25.1387rem_+_-1.3453vw,_24.0625rem)] shrink-0">
         {contents.map((content, idx) => (
           <p key={content} className={idx === 0 ? styles.firstParagraph : styles.nextParagraphs}>
             {content}
           </p>
         ))}
-      </section>
+      </div>
     </article>
   );
 }

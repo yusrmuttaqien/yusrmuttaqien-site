@@ -1,5 +1,5 @@
 import SectionHeader from '@/app/components/section-header';
-import MainDetailsArticle from '@/app/fragments/main-details-article';
+import MainDetailsArticle from '@/app/fragments/main-details/main-details-article';
 import classMerge from '@/app/utils/class-merge';
 
 const DUMMY_ARTICLE_CONTENTS = {

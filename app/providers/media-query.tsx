@@ -11,13 +11,15 @@ const MediaQueryContext = createContext<MediaQueryState>(MEDIA_QUERY_INITIAL_STA
 
 export default function MediaQueryProvider({ children }: { children: ReactNode }) {
   const [isTablet] = useMediaQuery(`screen and (min-width: ${scrSize('lg', true)})`);
+  const [isHover] = useMediaQuery(`screen and (hover: hover)`);
   const [state, setState] = useImmer(MEDIA_QUERY_INITIAL_STATE);
 
   useLayoutEffect(() => {
     setState((draft) => {
       draft.isTablet = isTablet;
+      draft.isHover = isHover;
     });
-  }, [isTablet, setState]);
+  }, [isTablet, isHover, setState]);
 
   return <MediaQueryContext.Provider value={state}>{children}</MediaQueryContext.Provider>;
 }

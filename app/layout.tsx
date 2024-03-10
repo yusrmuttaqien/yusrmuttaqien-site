@@ -1,6 +1,6 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Providers from '@/app/providers';
-import Navbar from '@/app/fragments/navbar';
+import Navbar from '@/app/fragments/navbar/navbar';
 import Footer from '@/app/fragments/footer';
 import classMerge from '@/app/utils/class-merge';
 import { helveticaNeue, nohemi } from '@/app/constants/root-layout';

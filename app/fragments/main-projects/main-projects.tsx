@@ -1,4 +1,5 @@
 import SectionHeader from '@/app/components/section-header';
+import MainProjectsTable from '@/app/fragments/main-projects/main-projects-table';
 import classMerge from '@/app/utils/class-merge';
 
 export default function MainProjects({ className }: { className?: string }) {
@@ -15,6 +16,7 @@ export default function MainProjects({ className }: { className?: string }) {
           subtitle="Projects"
           title="Lorem ipsum dolor sit amet consectetur. A tempor bibendum a nunc sagittis congue."
         />
+        <MainProjectsTable />
       </div>
     </section>
   );

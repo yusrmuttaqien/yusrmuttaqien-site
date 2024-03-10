@@ -1,5 +1,5 @@
-import NavbarClock from '@/app/fragments/navbar-clock';
-import NavbarYusrMuttaqien from '@/app/fragments/navbar-yusr-muttaqien';
+import NavbarClock from '@/app/fragments/navbar/navbar-clock';
+import NavbarYusrMuttaqien from '@/app/fragments/navbar/navbar-yusr-muttaqien';
 import classMerge from '@/app/utils/class-merge';
 
 const locStyles = 'text-[clamp(0.7444rem,_0.0008rem_+_3.7178vw,_1rem)]';

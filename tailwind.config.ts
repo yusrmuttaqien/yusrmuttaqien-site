@@ -30,6 +30,10 @@ const config: Config = {
       backdropBlur: {
         8: '8px',
       },
+      screens: {
+        hoverable: { raw: '(hover: hover)' },
+        unhoverable: { raw: '(hover: none)' },
+      },
     },
     screens: {
       sm: scrSize('sm', true),
