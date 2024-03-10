@@ -1,4 +1,5 @@
 import localFont from 'next/font/local';
+import { Roboto_Mono } from 'next/font/google';
 
 export const helveticaNeue = localFont({
   src: [
@@ -27,10 +28,9 @@ export const helveticaNeue = localFont({
   variable: '--font-helvetica-neue',
 });
 
-export const nohemi = localFont({
-  src: '../fonts/Nohemi-ExtraBold.woff',
+export const robotoMono = Roboto_Mono({
+  weight: '500',
   display: 'swap',
-  style: 'normal',
-  weight: '800',
-  variable: '--font-nohemi',
+  variable: '--font-roboto-mono',
+  subsets: ['latin'],
 });

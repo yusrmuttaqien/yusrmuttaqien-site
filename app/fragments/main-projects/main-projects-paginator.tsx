@@ -13,9 +13,10 @@ const menuBtnStyles = tv({
   slots: {
     wrapper: 'isolate relative',
     button: classMerge(
-      'body-normal transition-colors w-full text-left',
+      'body-normal transition-colors w-full text-left unhoverable:underline',
       'relative hoverable:hover:text-beige dark:hoverable:hover:text-grey',
-      'unhoverable:underline disabled:text-grey/20 disabled:pointer-events-none'
+      'disabled:text-grey/20 dark:disabled:text-beige/20 disabled:pointer-events-none',
+      'hoverable:active:bg-beige/30 hoverable:active:dark:bg-grey/20'
     ),
   },
 });
@@ -56,6 +57,11 @@ function MenuButton({
       setHovered(state);
     };
   }
+  function _onClick() {
+    if (disabled) return;
+
+    navigator.vibrate(100);
+  }
 
   return (
     <li
@@ -77,7 +83,11 @@ function MenuButton({
           </motion.div>
         )}
       </AnimatePresence>
-      <button className={button({ className: className?.button })} disabled={disabled}>
+      <button
+        className={button({ className: className?.button })}
+        disabled={disabled}
+        onClick={_onClick}
+      >
         {text}
       </button>
     </li>

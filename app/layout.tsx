@@ -3,7 +3,7 @@ import Providers from '@/app/providers';
 import Navbar from '@/app/fragments/navbar/navbar';
 import Footer from '@/app/fragments/footer';
 import classMerge from '@/app/utils/class-merge';
-import { helveticaNeue, nohemi } from '@/app/constants/root-layout';
+import { helveticaNeue, robotoMono } from '@/app/constants/root-layout';
 import type { RootLayoutProps } from '@/app/types/root-layout';
 import type { Metadata } from 'next';
 import './globals.css';
@@ -18,13 +18,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html className="min-w-80" lang="en">
-      {/* TODO: Remove nohemi if not used */}
+    <html className="unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)]" lang="en">
       <body
         className={classMerge(
           helveticaNeue.variable,
-          nohemi.variable,
-          'font-helvetica min-w-full',
+          robotoMono.variable,
+          'font-helvetica-neue min-w-full',
           'bg-beige dark:bg-grey',
           'text-grey dark:text-beige'
         )}

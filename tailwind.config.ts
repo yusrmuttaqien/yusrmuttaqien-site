@@ -19,8 +19,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        helvetica: ['var(--font-helvetica-neue)', 'sans-serif'],
-        nohemi: ['var(--font-nohemi)', 'sans-serif'],
+        'helvetica-neue': ['var(--font-helvetica-neue)', 'sans-serif'],
+        'roboto-mono': ['var(--font-roboto-mono)', 'sans-serif'],
       },
       colors: {
         green: COLOR_GREEN,
@@ -86,6 +86,11 @@ const config: Config = {
             fontSize: 'clamp(2.25rem, 1.5488rem + 1.3453vw, 2.625rem)',
             lineHeight: 'clamp(2.75rem, 1.9319rem + 1.5695vw, 3.1875rem)',
           },
+        },
+        '.h3-normal': {
+          fontWeight: '500',
+          fontSize: 'clamp(1.4881rem, -0.001rem + 7.4455vw, 2rem)',
+          lineHeight: 'clamp(1.8125rem, -0.0057rem + 9.0909vw, 2.4375rem)',
         },
         '.body-normal': {
           fontSize: 'clamp(0.7444rem, 0.0007rem + 3.7182vw, 1rem)',
