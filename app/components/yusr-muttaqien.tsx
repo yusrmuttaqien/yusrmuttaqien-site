@@ -17,7 +17,7 @@ const styles = tv({
 export default function YusrMuttaqien({
   className,
   asPlaceholder,
-}: YusrMuttaqienProps & { className?: typeof styles.slots }) {
+}: YusrMuttaqienProps & { className?: Partial<typeof styles.slots> }) {
   const { isTablet } = useMediaQueryCtx();
   const layoutId = !asPlaceholder ? LAYOUT_YUSR_MUTTAQIEN : undefined;
   const { wrapper, pathFill } = styles();

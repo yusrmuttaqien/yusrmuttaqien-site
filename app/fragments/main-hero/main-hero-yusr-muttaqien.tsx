@@ -36,9 +36,7 @@ export default function MainHeroYusrMuttaqien() {
 
   return (
     <div className="relative w-full">
-      {!isHeroNavHandoff && (
-        <YusrMuttaqien className={{ wrapper: 'absolute top-0 left-0', pathFill: '' }} />
-      )}
+      {!isHeroNavHandoff && <YusrMuttaqien className={{ wrapper: 'absolute top-0 left-0' }} />}
       <div ref={viewRef} className="w-full opacity-0">
         <YusrMuttaqien />
       </div>
