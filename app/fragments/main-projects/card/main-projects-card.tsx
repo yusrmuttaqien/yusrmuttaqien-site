@@ -25,7 +25,7 @@ function CardCover() {
     >
       <header
         className={classMerge(
-          'flex flex-col lg-only:justify-center lg:items-center lg:flex-row',
+          'flex flex-col lg-only:justify-center lg:items-center lg:flex-row min-w-0',
           gapStyle
         )}
       >
@@ -40,7 +40,12 @@ function CardCover() {
             )}
           />
         </div>
-        <h3 className="h3-normal">Project One</h3>
+        <h3
+          className="h3-normal after:table after:-mt-[.12em] truncate"
+          title="Project One when there is way to much text wha gonna happen?"
+        >
+          Project One when there is way to much text wha gonna happen?
+        </h3>
       </header>
       <MainProjectsCardTags />
     </div>
