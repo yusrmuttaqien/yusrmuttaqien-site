@@ -10,19 +10,18 @@ export const COLOR_GREEN = { DEFAULT: '#336633', light: '#4E844E' };
 export const COLOR_GREY = '#333333';
 export const COLOR_BEIGE = '#F5F5F5';
 
-export function scrSize(screen: ScreenSize, withUnit?: boolean): string {
+export function scrSize(screen: ScreenSize, withUnit?: boolean, modifier: number = 0): string {
   switch (screen) {
-    case 'sm':
-      return SCREEN_SIZE_SM + (withUnit ? 'px' : '');
     case 'md':
-      return SCREEN_SIZE_MD + (withUnit ? 'px' : '');
+      return (+SCREEN_SIZE_MD + modifier).toString() + (withUnit ? 'px' : '');
     case 'lg':
-      return SCREEN_SIZE_LG + (withUnit ? 'px' : '');
+      return (+SCREEN_SIZE_LG + modifier).toString() + (withUnit ? 'px' : '');
     case 'xl':
-      return SCREEN_SIZE_XL + (withUnit ? 'px' : '');
+      return (+SCREEN_SIZE_XL + modifier).toString() + (withUnit ? 'px' : '');
     case '2xl':
-      return SCREEN_SIZE_2XL + (withUnit ? 'px' : '');
+      return (+SCREEN_SIZE_2XL + modifier).toString() + (withUnit ? 'px' : '');
     default:
-      return SCREEN_SIZE_SM + (withUnit ? 'px' : '');
+    case 'sm':
+      return (+SCREEN_SIZE_SM + modifier).toString() + (withUnit ? 'px' : '');
   }
 }

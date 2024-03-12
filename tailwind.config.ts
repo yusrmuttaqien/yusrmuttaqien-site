@@ -41,10 +41,11 @@ const config: Config = {
       lg: scrSize('lg', true),
       xl: scrSize('xl', true),
       '2xl': scrSize('2xl', true),
+      'lg-only': { raw: `(max-width: ${scrSize('xl', true, -1)})` },
     },
   },
   plugins: [
-    plugin(function ({ addComponents }) {
+    plugin(function ({ addComponents, addUtilities }) {
       addComponents({
         '.translate-center': {
           transform: 'translate(-50%, -50%)',
@@ -95,6 +96,20 @@ const config: Config = {
         '.body-normal': {
           fontSize: 'clamp(0.7444rem, 0.0007rem + 3.7182vw, 1rem)',
           lineHeight: 'clamp(1rem, -0.4545rem + 7.2727vw, 1.5rem)',
+        },
+        '.body-tag': {
+          fontSize: 'clamp(0.5581rem, 0rem + 2.7907vw, 0.75rem)',
+          fontWeight: '200',
+          lineHeight: 'clamp(0.6875rem, -0.0398rem + 3.6364vw, 0.9375rem)',
+        },
+      });
+      addUtilities({
+        '.hide-scrollbar': {
+          scrollbarWidth: 'none',
+          '-ms-overflow-style': 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
         },
       });
     }),

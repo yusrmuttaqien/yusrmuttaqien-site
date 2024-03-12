@@ -1,5 +1,5 @@
 import MainProjectsPaginator from '@/app/fragments/main-projects/main-projects-paginator';
-import MainProjectsCard from '@/app/fragments/main-projects/main-projects-card';
+import MainProjectsCard from '@/app/fragments/main-projects/card/main-projects-card';
 
 export default function MainProjectsTable() {
   return (

@@ -18,7 +18,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html className="unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)]" lang="en">
+    <html
+      className="unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased"
+      lang="en"
+    >
       <body
         className={classMerge(
           helveticaNeue.variable,

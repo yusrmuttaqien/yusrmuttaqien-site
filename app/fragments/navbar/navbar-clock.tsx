@@ -1,10 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import classMerge from '@/app/utils/class-merge';
 import { numVariant, colVariant } from '@/app/constants/navbar-clock';
 import type { AnimatedDigitProps } from '@/app/types/navbar-clock';
+
+const MemoizedAnimateDigit = memo(AnimateDigit);
 
 export default function NavbarClock({ className }: { className?: string }) {
   const [time, setTime] = useState({ hour: ['0', '0'], minute: ['0', '0'], second: ['0', '0'] });
@@ -35,16 +37,28 @@ export default function NavbarClock({ className }: { className?: string }) {
 
   return (
     <p className={className}>
-      <AnimateDigit digit={time.hour[0]} variant={numVariant} sign={`hur-0-${time.hour[0]}`} />
-      <AnimateDigit digit={time.hour[1]} variant={numVariant} sign={`hur-1-${time.hour[1]}`} />
+      <MemoizedAnimateDigit
+        digit={time.hour[0]}
+        variant={numVariant}
+        sign={`hur-0-${time.hour[0]}`}
+      />
+      <MemoizedAnimateDigit
+        digit={time.hour[1]}
+        variant={numVariant}
+        sign={`hur-1-${time.hour[1]}`}
+      />
       <AnimateDigit
         className="ml-[.3ch] mr-[.3ch]"
         digit=":"
         variant={colVariant}
         sign={`col-0-${time.second[1]}`}
       />
-      <AnimateDigit digit={time.minute[0]} variant={numVariant} sign={`min-0-${time.minute[0]}`} />
-      <AnimateDigit
+      <MemoizedAnimateDigit
+        digit={time.minute[0]}
+        variant={numVariant}
+        sign={`min-0-${time.minute[0]}`}
+      />
+      <MemoizedAnimateDigit
         digit={time.minute[1]}
         variant={numVariant}
         sign={`min-1-${time.minute[1]}`}
