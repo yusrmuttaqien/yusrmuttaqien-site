@@ -81,7 +81,7 @@ export default function MainProjectsCardTags() {
           className={classMerge('float-end bg-gradient-to-l', overflowStyle)}
         />
       </div>
-      <div ref={tagWrapper} id="tag-wrapper" className="max-w-fit xl:max-w-[25rem] overflow-hidden">
+      <div ref={tagWrapper} id="tag-wrapper" className="max-w-fit overflow-hidden">
         <motion.div
           className="flex gap-[clamp(0.465rem,_-0.0005rem_+_2.3273vw,_0.625rem)] w-fit hover:cursor-ew-resize"
           drag="x"
