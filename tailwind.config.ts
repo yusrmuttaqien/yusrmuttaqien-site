@@ -38,10 +38,11 @@ const config: Config = {
     screens: {
       sm: scrSize('sm', true),
       md: scrSize('md', true),
+      'md-only': { raw: `(max-width: ${scrSize('lg', true, -1)})` },
       lg: scrSize('lg', true),
+      'lg-only': { raw: `(max-width: ${scrSize('xl', true, -1)})` },
       xl: scrSize('xl', true),
       '2xl': scrSize('2xl', true),
-      'lg-only': { raw: `(max-width: ${scrSize('xl', true, -1)})` },
     },
   },
   plugins: [
@@ -101,6 +102,17 @@ const config: Config = {
           fontSize: 'clamp(0.5581rem, 0rem + 2.7907vw, 0.75rem)',
           fontWeight: '200',
           lineHeight: 'clamp(0.6875rem, -0.0398rem + 3.6364vw, 0.9375rem)',
+        },
+        '.link-email': {
+          fontWeight: '500',
+          fontSize: 'clamp(1.4884rem, 0rem + 7.4418vw, 2rem)',
+          lineHeight: 'clamp(1.8125rem, -0.0057rem + 9.0909vw, 2.4375rem)',
+          textDecoration: 'underline',
+        },
+        '.link-footer': {
+          fontWeight: '500',
+          fontSize: 'clamp(1.1162rem, -0.0001rem + 5.5818vw, 1.5rem)',
+          lineHeight: 'clamp(1.375rem, 0.1023rem + 6.3636vw, 1.8125rem)',
         },
       });
       addUtilities({

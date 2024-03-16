@@ -4,7 +4,7 @@ import MainProjects from '@/app/fragments/main-projects/main-projects';
 
 export default function Page() {
   return (
-    <main>
+    <main className="isolate">
       <MainHero className="z-10" />
       {/* <div className="h-[300dvh] -mt-[100dvh]">
         <div className="sticky top-0"> */}

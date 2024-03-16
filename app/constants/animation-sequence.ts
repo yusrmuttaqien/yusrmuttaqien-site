@@ -1,7 +1,16 @@
 export const ANIMATION_SEQUENCE_INITIAL_STATE = {
+  hydrateCompleted: false,
   isSplashScreen: true,
-  isHeroNavHandoff: undefined,
+  bigTitlePos: {
+    hero: false,
+    footer: false,
+    navbar: false,
+  },
 } as {
   isSplashScreen: boolean;
-  isHeroNavHandoff: boolean | undefined;
+  bigTitlePos: {
+    hero: boolean;
+    footer: boolean;
+    navbar: boolean;
+  };
 };

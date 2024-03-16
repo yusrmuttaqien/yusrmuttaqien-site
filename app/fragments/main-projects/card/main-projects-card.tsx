@@ -1,46 +1,161 @@
+'use client';
+
+import Link from 'next/link';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { useMediaQueryCtx } from '@/app/providers/media-query';
 import MainProjectsCardTags from '@/app/fragments/main-projects/card/main-projects-card-tags';
 import classMerge from '@/app/utils/class-merge';
+import type { CardContentWrapperProps, CardCoverProps } from '@/app/types/main-projects-card';
 
-export default function MainProjectsCard() {
+const paddingStyle = 'p-[clamp(0.7444rem,_0.0007rem_+_3.7182vw,_1rem)]';
+
+export default function MainProjectsCard({ idx = 1 }: { idx: number }) {
+  const state = useMotionValue(0);
+  const yPosCover = useTransform(state, [0, 100], ['0%', '101%']);
+  const stringIdx = idx.toString().padStart(2, '0');
+
+  function _onToggleCover() {
+    if (state.get() === 0) {
+      state.set(100);
+    } else {
+      state.set(0);
+    }
+  }
+
   return (
-    <figure className="relative">
-      <CardCover className="relative z-10" />
-      <div className="absolute inset-1 bg-red-400"></div>
+    <figure className="relative overflow-hidden border-y-2 border-grey/60 dark:border-beige/60">
+      <CardCover
+        className="relative z-10 transition-transform"
+        style={{ y: yPosCover }}
+        toggleCover={_onToggleCover}
+        content={{
+          countText: stringIdx,
+          title: 'Project One when there is way to much text wha gonna happen?',
+        }}
+      />
+      <CardContentWrapper
+        className="absolute inset-0"
+        toggleCover={_onToggleCover}
+        textSizePlaceholder={stringIdx}
+      ></CardContentWrapper>
     </figure>
   );
 }
 
-function CardCover({ className }: { className?: string }) {
+function CardContentWrapper({
+  className,
+  toggleCover,
+  textSizePlaceholder,
+  children,
+}: CardContentWrapperProps) {
   return (
     <div
       className={classMerge(
-        'space-y-[clamp(0.7444rem,_0.0007rem_+_3.7182vw,_1rem)]',
-        'p-[clamp(0.7444rem,_0.0007rem_+_3.7182vw,_1rem)] isolate',
-        'border-y-2 border-grey/60 dark:border-beige/60 overflow-hidden',
-        'md:px-[clamp(1rem,_-0.0644rem_+_3.9604vw,_2rem)]',
+        paddingStyle,
+        'px-[calc(clamp(0.7444rem,_0.0007rem_+_3.7182vw,_1rem)_-_0.125rem)]',
+        'md:px-[calc(clamp(1rem,_-0.0644rem_+_3.9604vw,_2rem)_-_0.125rem)]',
+        'mx-[0.125rem]',
         className
       )}
     >
+      <div
+        className={classMerge(
+          'absolute overflow-hidden w-fit',
+          'top-[clamp(0.7444rem,_0.0007rem_+_3.7182vw,_1rem)]',
+          'left-[calc(clamp(0.7444rem,_0.0007rem_+_3.7182vw,_1rem)_-_0.125rem)]',
+          'md:left-[calc(clamp(1rem,_-0.0644rem_+_3.9604vw,_2rem)_-_0.125rem)]'
+        )}
+      >
+        <button
+          className={classMerge(
+            'absolute inset-0 transition-[transform,_opacity,background-color] cursor-zoom-out',
+            'hover:bg-beige/60 dark:hover:bg-grey/60'
+          )}
+          onClick={toggleCover}
+        >
+          <span className="translate-center font-roboto-mono text-3xl">-</span>
+        </button>
+        <p
+          className={classMerge(
+            'font-roboto-mono invisible',
+            'text-[clamp(1.4881rem,_-0.001rem_+_7.4455vw,_2rem)]'
+          )}
+        >
+          {textSizePlaceholder}
+        </p>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function CardCover({ className, style, toggleCover, content }: CardCoverProps) {
+  const state = useMotionValue(0);
+  const { isHover } = useMediaQueryCtx();
+  const yPosNum = useTransform(state, [0, 100], ['0%', '100%']);
+  const yPosButton = useTransform(state, [0, 100], ['-100%', '0%']);
+  const opacityNum = useTransform(state, [0, 100], [100, 0]);
+
+  function _toggleMagnifier() {
+    if (!isHover) return;
+
+    if (state.get() === 0) {
+      state.set(100);
+    } else {
+      state.set(0);
+    }
+  }
+
+  return (
+    <motion.div
+      className={classMerge(
+        'space-y-[clamp(0.7444rem,_0.0007rem_+_3.7182vw,_1rem)] isolate overflow-hidden',
+        'md:px-[clamp(1rem,_-0.0644rem_+_3.9604vw,_2rem)]',
+        paddingStyle,
+        className
+      )}
+      style={style}
+    >
       <header className="space-y-[clamp(0.7444rem,_0.0007rem_+_3.7182vw,_1rem)]">
         <div className="flex gap-[clamp(0.7444rem,_0.0007rem_+_3.7182vw,_1rem)]">
-          <p className="font-roboto-mono text-[clamp(1.4881rem,_-0.001rem_+_7.4455vw,_2rem)] select-none">
-            01
-          </p>
+          <div
+            className="relative overflow-hidden z-10"
+            onMouseEnter={_toggleMagnifier}
+            onMouseLeave={_toggleMagnifier}
+          >
+            <motion.button
+              className="absolute inset-0 transition-[transform,_opacity] cursor-zoom-in"
+              style={{ y: yPosButton, opacity: state }}
+              onClick={toggleCover}
+            >
+              <span className="translate-center font-roboto-mono text-3xl">+</span>
+            </motion.button>
+            <motion.p
+              className={classMerge(
+                'font-roboto-mono select-none transition-[transform,_opacity]',
+                'text-[clamp(1.4881rem,_-0.001rem_+_7.4455vw,_2rem)]'
+              )}
+              style={{ y: yPosNum, opacity: opacityNum }}
+            >
+              {content.countText}
+            </motion.p>
+          </div>
           <div
             className={classMerge(
-              'relative before:absolute before:-z-[10] before:-inset-[99rem] flex-1',
+              'relative before:absolute before:-z-[10] before:-inset-[99rem] flex-1 hoverable:backdrop-blur-8',
               'before:border-[99rem] before:dark:border-grey before:border-beige xl:w-28'
             )}
           />
         </div>
-        <h3
-          className="h3-normal after:table after:-mt-[.12em] truncate"
-          title="Project One when there is way to much text wha gonna happen?"
+        <Link
+          className="block h3-normal after:table after:-mt-[.12em] truncate z-10 relative before:absolute before:-bottom-1 before:left-0 before:right-0 before:h-[0.125rem] before:bg-current"
+          href="/project/project-one"
+          title={content.title}
         >
-          Project One when there is way to much text wha gonna happen?
-        </h3>
+          {content.title}
+        </Link>
       </header>
       <MainProjectsCardTags />
-    </div>
+    </motion.div>
   );
 }

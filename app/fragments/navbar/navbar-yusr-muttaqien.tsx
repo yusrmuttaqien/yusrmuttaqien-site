@@ -6,8 +6,9 @@ import classMerge from '@/app/utils/class-merge';
 
 export default function NavbarYusrMuttaqien() {
   const {
-    state: { isHeroNavHandoff },
+    state: { bigTitlePos },
   } = useAnimationSequenceCtx();
+  const isShowTitle = !bigTitlePos.hero && !bigTitlePos.footer;
 
   return (
     <div
@@ -16,7 +17,7 @@ export default function NavbarYusrMuttaqien() {
         'lg:-mt-[1.5rem]'
       )}
     >
-      {isHeroNavHandoff && <YusrMuttaqien className={{ pathFill: 'fill-beige' }} />}
+      {isShowTitle && <YusrMuttaqien className={{ pathFill: 'fill-beige' }} />}
     </div>
   );
 }

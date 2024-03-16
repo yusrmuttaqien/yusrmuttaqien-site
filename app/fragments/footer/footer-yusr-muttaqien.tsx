@@ -5,30 +5,30 @@ import { useLayoutEffect, useRef } from 'react';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import YusrMuttaqien from '@/app/components/yusr-muttaqien';
 
-const PLACEHOLDER_ID = 'main-hero-yusr-muttaqien-placeholder';
+const PLACEHOLDER_ID = 'main-footer-yusr-muttaqien-placeholder';
 
-export default function MainHeroYusrMuttaqien() {
+export default function FooterYusrMuttaqien() {
   const viewRef = useRef(null);
   const {
     state: { bigTitlePos },
     setState,
   } = useAnimationSequenceCtx();
-  const isShowTitle = bigTitlePos.hero;
+  const isShowTitle = bigTitlePos.footer;
 
   useLayoutEffect(() => {
     const stopObserve = inView(
       document.getElementById(PLACEHOLDER_ID) as HTMLElement,
       () => {
         setState((draft) => {
-          draft.bigTitlePos.hero = true;
+          draft.bigTitlePos.footer = true;
         });
 
         return () =>
           setState((draft) => {
-            draft.bigTitlePos.hero = false;
+            draft.bigTitlePos.footer = false;
           });
       },
-      { margin: '-20% 0% 0% 0%', amount: 'some' }
+      { margin: '0% 0% -5% 0%', amount: 'some' }
     );
 
     return () => stopObserve();

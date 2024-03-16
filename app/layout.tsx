@@ -1,7 +1,7 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Providers from '@/app/providers';
 import Navbar from '@/app/fragments/navbar/navbar';
-import Footer from '@/app/fragments/footer';
+import Footer from '@/app/fragments/footer/footer';
 import classMerge from '@/app/utils/class-merge';
 import { helveticaNeue, robotoMono } from '@/app/constants/root-layout';
 import type { RootLayoutProps } from '@/app/types/root-layout';

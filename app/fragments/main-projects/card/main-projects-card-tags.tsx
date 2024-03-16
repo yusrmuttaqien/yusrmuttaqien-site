@@ -70,7 +70,7 @@ export default function MainProjectsCardTags() {
   }, [_startResizeOrDrag, overflowLPos, overflowRPos]);
 
   return (
-    <div className="relative" onResize={(e) => console.log('resized', e)}>
+    <div className="relative">
       <div className="absolute -inset-1 pointer-events-none overflow-hidden z-10">
         <motion.span
           style={{ x: overflowLPos }}
