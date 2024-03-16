@@ -1,4 +1,4 @@
-export const FOOTER_LINKS: Record<string, Record<string, string>> = {
+export const footerLinks: Record<string, Record<string, string>> = {
   Sitemaps: {
     Hero: '#',
     Details: '#',

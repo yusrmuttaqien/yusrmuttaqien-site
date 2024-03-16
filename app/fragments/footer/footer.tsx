@@ -3,7 +3,7 @@ import Blueprint from '@/app/components/blueprint';
 import SectionHeader from '@/app/components/section-header';
 import FooterYusrMuttaqien from '@/app/fragments/footer/footer-yusr-muttaqien';
 import classMerge from '@/app/utils/class-merge';
-import { FOOTER_LINKS } from '@/app/languages/en/footer';
+import { footerLinks } from '@/app/languages/en/footer';
 
 export default function Footer() {
   return (
@@ -50,11 +50,11 @@ export default function Footer() {
 function FooterLinks() {
   return (
     <div className="flex gap-[clamp(4.2794rem,_0.0012rem_+_21.3909vw,_5.75rem)]">
-      {Object.keys(FOOTER_LINKS).map((key) => (
+      {Object.keys(footerLinks).map((key) => (
         <div key={key}>
           <h3 className="h3-normal mb-[clamp(1.4881rem,_-0.001rem_+_7.4455vw,_2rem)]">{key}</h3>
           <menu className="space-y-[clamp(0.5581rem,_-0.0001rem_+_2.7909vw,_0.75rem)]">
-            {Object.entries(FOOTER_LINKS[key]).map(([key, value]) => (
+            {Object.entries(footerLinks[key]).map(([key, value]) => (
               <li key={key}>
                 <Link
                   className={classMerge(

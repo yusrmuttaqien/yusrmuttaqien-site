@@ -11,5 +11,12 @@ export type CardCoverProps = {
   className?: string;
   style?: MotionStyle;
   toggleCover: () => void;
-  content: { countText: string; title: string };
+  content: { countText: string; title: string; tags: string[] };
+};
+
+export type MainProjectsCardProps = {
+  idx: number;
+  title: string;
+  children: React.ReactNode;
+  tags: string[];
 };

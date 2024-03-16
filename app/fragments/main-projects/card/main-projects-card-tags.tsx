@@ -8,7 +8,7 @@ import classMerge from '@/app/utils/class-merge';
 
 const overflowStyle = 'block w-10 h-full from-beige dark:from-grey transition-transform';
 
-export default function MainProjectsCardTags() {
+export default function MainProjectsCardTags({ tags }: { tags: string[] }) {
   const isOverflowing = useRef(false);
   const tagWrapper = useRef<HTMLDivElement>(null);
   const tagContainer = useRef<HTMLDivElement>(null);
@@ -90,14 +90,9 @@ export default function MainProjectsCardTags() {
           ref={tagContainer}
           onDrag={_startResizeOrDrag}
         >
-          <Tag text="categories" />
-          <Tag text="categories" />
-          <Tag text="categories" />
-          <Tag text="categories" />
-          <Tag text="categories" />
-          <Tag text="categories" />
-          <Tag text="categories" />
-          <Tag text="categories" />
+          {tags.map((tag) => (
+            <Tag text={tag} key={tag} />
+          ))}
         </motion.div>
       </div>
     </div>

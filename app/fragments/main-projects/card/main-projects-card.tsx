@@ -5,11 +5,15 @@ import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useMediaQueryCtx } from '@/app/providers/media-query';
 import MainProjectsCardTags from '@/app/fragments/main-projects/card/main-projects-card-tags';
 import classMerge from '@/app/utils/class-merge';
-import type { CardContentWrapperProps, CardCoverProps } from '@/app/types/main-projects-card';
+import type {
+  CardContentWrapperProps,
+  CardCoverProps,
+  MainProjectsCardProps,
+} from '@/app/types/main-projects-card';
 
 const paddingStyle = 'p-[clamp(0.7444rem,_0.0007rem_+_3.7182vw,_1rem)]';
 
-export default function MainProjectsCard({ idx = 1 }: { idx: number }) {
+export default function MainProjectsCard({ idx, title, children, tags }: MainProjectsCardProps) {
   const state = useMotionValue(0);
   const yPosCover = useTransform(state, [0, 100], ['0%', '101%']);
   const stringIdx = idx.toString().padStart(2, '0');
@@ -28,16 +32,15 @@ export default function MainProjectsCard({ idx = 1 }: { idx: number }) {
         className="relative z-10 transition-transform"
         style={{ y: yPosCover }}
         toggleCover={_onToggleCover}
-        content={{
-          countText: stringIdx,
-          title: 'Project One when there is way to much text wha gonna happen?',
-        }}
+        content={{ countText: stringIdx, title, tags }}
       />
       <CardContentWrapper
         className="absolute inset-0"
         toggleCover={_onToggleCover}
         textSizePlaceholder={stringIdx}
-      ></CardContentWrapper>
+      >
+        {children}
+      </CardContentWrapper>
     </figure>
   );
 }
@@ -155,7 +158,7 @@ function CardCover({ className, style, toggleCover, content }: CardCoverProps) {
           {content.title}
         </Link>
       </header>
-      <MainProjectsCardTags />
+      <MainProjectsCardTags tags={content.tags} />
     </motion.div>
   );
 }
