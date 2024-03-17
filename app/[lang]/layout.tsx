@@ -6,7 +6,7 @@ import classMerge from '@/app/utils/class-merge';
 import { helveticaNeue, robotoMono } from '@/app/constants/root-layout';
 import type { RootLayoutProps } from '@/app/types/root-layout';
 import type { Metadata } from 'next';
-import './globals.css';
+import '../globals.css';
 
 export const metadata: Metadata = {
   title: {
@@ -16,11 +16,11 @@ export const metadata: Metadata = {
   description: 'View all my works and projects.',
 };
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children, params }: RootLayoutProps) {
   return (
     <html
       className="unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased"
-      lang="en"
+      lang={params.lang}
     >
       <body
         className={classMerge(

@@ -1,12 +1,12 @@
 import classMerge from '@/app/utils/class-merge';
-import type { MainDetailsArticleProps } from '@/app/types/main-details-article';
+import type { MainMasteriesArticleProps } from '@/app/types/main-masteries-article';
 
 const styles = {
   firstParagraph: 'body-normal',
   nextParagraphs: 'text-grey/60 dark:text-beige/60 body-normal text-justify',
 };
 
-export default function MainDetailsArticle({ title, contents }: MainDetailsArticleProps) {
+export default function MainMasteriesArticle({ title, contents }: MainMasteriesArticleProps) {
   return (
     <article
       className={classMerge(
