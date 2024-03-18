@@ -1,34 +1,31 @@
-import Negotiator from 'negotiator';
-import { match } from '@formatjs/intl-localematcher';
-import { i18nOptions, defaulti18n } from '@/app/constants/i18n';
 import { type NextRequest, NextResponse } from 'next/server';
+import { match } from '@formatjs/intl-localematcher';
+import Negotiator from 'negotiator';
+import { defaulti18n, i18nOptions } from '@/app/constants/i18n';
 
 function getLocale(request: NextRequest): string | undefined {
-  const negotiatorHeaders: Record<string, string> = {};
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
+  const headers: Record<string, string> = {};
+  request.headers.forEach((value, key) => (headers[key] = value));
 
-  const locales = i18nOptions;
-  const languages = new Negotiator({ headers: negotiatorHeaders }).languages(locales);
+  const languages = new Negotiator({ headers }).languages(i18nOptions as unknown as string[]);
 
-  return match(languages, locales, defaulti18n);
+  return match(languages, i18nOptions, defaulti18n);
 }
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const endpoints = pathname.split('/');
+  const isPathname = i18nOptions.some((locale) => locale === endpoints[1]);
 
-  const pathnameIsMissingLocale = i18nOptions.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  );
+  if (isPathname) return;
 
-  if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
+  const locale = getLocale(request);
+  const newEndpoints = endpoints[2] ? `/${endpoints[2]}` : '';
+  request.nextUrl.pathname = `/${locale}${newEndpoints}`;
 
-    return NextResponse.redirect(
-      new URL(`/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`, request.url)
-    );
-  }
+  return NextResponse.redirect(request.nextUrl);
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!_next).*)'],
 };

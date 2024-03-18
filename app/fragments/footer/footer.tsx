@@ -3,7 +3,7 @@ import Blueprint from '@/app/components/blueprint';
 import SectionHeader from '@/app/components/section-header';
 import FooterYusrMuttaqien from '@/app/fragments/footer/footer-yusr-muttaqien';
 import classMerge from '@/app/utils/class-merge';
-import { footerLinks } from '@/app/languages/en/footer';
+import { footerLinks } from '@/app/contents/footer';
 
 export default function Footer() {
   return (

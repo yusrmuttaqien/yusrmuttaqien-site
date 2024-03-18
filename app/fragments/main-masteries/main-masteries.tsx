@@ -1,6 +1,6 @@
 import SectionHeader from '@/app/components/section-header';
 import MainMasteriesArticle from '@/app/fragments/main-masteries/main-masteries-article';
-import { masteryLists } from '@/app/languages/en/masteries';
+import { masteryLists } from '@/app/contents/masteries';
 import classMerge from '@/app/utils/class-merge';
 
 export default function MainMasteries({ className }: { className?: string }) {
