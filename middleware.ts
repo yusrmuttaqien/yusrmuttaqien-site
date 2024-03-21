@@ -1,6 +1,7 @@
+import * as locales from 'locale-codes';
+import Negotiator from 'negotiator';
 import { type NextRequest, NextResponse } from 'next/server';
 import { match } from '@formatjs/intl-localematcher';
-import Negotiator from 'negotiator';
 import { defaulti18n, i18nOptions } from '@/app/constants/i18n';
 
 function getLocale(request: NextRequest): string | undefined {
@@ -15,17 +16,31 @@ function getLocale(request: NextRequest): string | undefined {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const endpoints = pathname.split('/');
-  const isPathname = i18nOptions.some((locale) => locale === endpoints[1]);
+  const isValidLocale = locales.getByTag(endpoints[1]) !== undefined;
+  const isAvailableLocale = i18nOptions.some((locale) => locale === endpoints[1]);
 
-  if (isPathname) return;
+  if (isValidLocale && isAvailableLocale) return;
+  if (isValidLocale && !isAvailableLocale) {
+    const locale = getLocale(request);
 
-  const locale = getLocale(request);
-  const newEndpoints = endpoints[2] ? `/${endpoints[2]}` : '';
-  request.nextUrl.pathname = `/${locale}${newEndpoints}`;
+    request.nextUrl.pathname = `/${locale}/${endpoints
+      .slice(2)
+      .filter((n) => n)
+      .join('/')}`;
+    return NextResponse.redirect(request.nextUrl);
+  }
+  if (!isValidLocale) {
+    const locale = getLocale(request);
 
-  return NextResponse.redirect(request.nextUrl);
+    request.nextUrl.pathname = `/${locale}/${endpoints
+      .slice(1)
+      .filter((n) => n)
+      .join('/')}`;
+    return NextResponse.redirect(request.nextUrl);
+  }
 }
 
 export const config = {
-  matcher: ['/((?!_next).*)'],
+  // Matcher ignoring `/_next/` and `/api/`
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|apple-icon.png|icon.png).*)'],
 };

@@ -61,8 +61,8 @@ function FooterLinks() {
                     'text-grey/60 dark:text-beige/60 link-footer relative',
                     'after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[0.125rem]',
                     'after:bg-grey/60 after:dark:bg-beige/60 after:scale-x-0',
-                    'hoverable:hover:after:scale-x-100 after:transition-transform after:origin-right',
-                    'hover:after:origin-left'
+                    'hoverable:hover:after:scale-x-100 after:transition-transform after:origin-left',
+                    'hover:after:origin-right'
                   )}
                   href={value}
                 >

@@ -6,6 +6,8 @@ const {
   COLOR_BEIGE,
   COLOR_GREEN,
   COLOR_GREY,
+  SIZING_CONTAINER_DEFAULT,
+  SIZING_CONTAINER_LG,
 } = require('./app/constants/tailwind-config');
 
 const config: Config = {
@@ -21,6 +23,7 @@ const config: Config = {
       fontFamily: {
         'helvetica-neue': ['var(--font-helvetica-neue)', 'sans-serif'],
         'roboto-mono': ['var(--font-roboto-mono)', 'sans-serif'],
+        nohemi: ['var(--font-nohemi)', 'sans-serif'],
       },
       colors: {
         green: COLOR_GREEN,
@@ -55,11 +58,17 @@ const config: Config = {
           top: '50%',
         },
         '.container': {
-          paddingInline: 'clamp(1.125rem, 0.0341rem + 5.4545vw, 1.5rem)',
+          paddingInline: SIZING_CONTAINER_DEFAULT,
           maxWidth: '80rem',
           marginInline: 'auto',
           '@screen lg': {
-            paddingInline: 'clamp(1.5rem, -6.4473rem + 15.2466vw, 5.75rem)',
+            paddingInline: SIZING_CONTAINER_LG,
+          },
+        },
+        '.container-b': {
+          paddingBottom: SIZING_CONTAINER_DEFAULT,
+          '@screen lg': {
+            paddingBottom: SIZING_CONTAINER_LG,
           },
         },
         '.body-subheading': {
@@ -113,6 +122,16 @@ const config: Config = {
           fontWeight: '500',
           fontSize: 'clamp(1.1162rem, -0.0001rem + 5.5818vw, 1.5rem)',
           lineHeight: 'clamp(1.375rem, 0.1023rem + 6.3636vw, 1.8125rem)',
+        },
+        '.project-title': {
+          fontSize: 'clamp(2.9769rem, 0.0005rem + 14.8818vw, 4rem)',
+          fontWeight: '800',
+          lineHeight: 'clamp(3rem, 0.0909rem + 14.5455vw, 4rem)',
+          fontFamily: 'nohemi',
+          '@screen md': {
+            fontSize: 'clamp(4rem, 1.6052rem + 8.9109vw, 6.25rem)',
+            lineHeight: 'clamp(4rem, 1.6052rem + 8.9109vw, 6.25rem)',
+          },
         },
       });
       addUtilities({

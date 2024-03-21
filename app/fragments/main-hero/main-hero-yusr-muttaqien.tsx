@@ -1,7 +1,7 @@
 'use client';
 
 import { inView } from 'framer-motion';
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useEffect, useRef } from 'react';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import YusrMuttaqien from '@/app/components/yusr-muttaqien';
 
@@ -10,7 +10,7 @@ const PLACEHOLDER_ID = 'main-hero-yusr-muttaqien-placeholder';
 export default function MainHeroYusrMuttaqien() {
   const viewRef = useRef(null);
   const {
-    state: { bigTitlePos },
+    state: { bigTitlePos, navbarAnimatePresence },
     setState,
   } = useAnimationSequenceCtx();
   const isShowTitle = bigTitlePos.hero;
@@ -33,6 +33,20 @@ export default function MainHeroYusrMuttaqien() {
 
     return () => stopObserve();
   }, [setState]);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    if (navbarAnimatePresence) {
+      timeout = setTimeout(() => {
+        setState((draft) => {
+          draft.navbarAnimatePresence = false;
+        });
+      }, 50);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [navbarAnimatePresence, setState]);
 
   return (
     <div className="relative w-full">

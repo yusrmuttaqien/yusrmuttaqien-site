@@ -3,7 +3,7 @@ import Providers from '@/app/providers';
 import Navbar from '@/app/fragments/navbar/navbar';
 import Footer from '@/app/fragments/footer/footer';
 import classMerge from '@/app/utils/class-merge';
-import { helveticaNeue, robotoMono } from '@/app/constants/root-layout';
+import { helveticaNeue, robotoMono, nohemi } from '@/app/constants/root-layout';
 import type { RootLayoutProps } from '@/app/types/root-layout';
 import type { Metadata } from 'next';
 import '../globals.css';
@@ -26,6 +26,7 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
         className={classMerge(
           helveticaNeue.variable,
           robotoMono.variable,
+          nohemi.variable,
           'font-helvetica-neue min-w-full',
           'bg-beige dark:bg-grey',
           'text-grey dark:text-beige'

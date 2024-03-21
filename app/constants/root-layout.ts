@@ -28,6 +28,18 @@ export const helveticaNeue = localFont({
   variable: '--font-helvetica-neue',
 });
 
+export const nohemi = localFont({
+  src: [
+    {
+      style: 'normal',
+      path: '../fonts/Nohemi-ExtraBold.woff',
+      weight: '800',
+    },
+  ],
+  display: 'swap',
+  variable: '--font-nohemi',
+});
+
 export const robotoMono = Roboto_Mono({
   weight: '500',
   display: 'swap',

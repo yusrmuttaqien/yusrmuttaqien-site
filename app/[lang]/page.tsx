@@ -7,7 +7,7 @@ export default PageWithRootParams(() => {
   return (
     <main className="isolate">
       <MainHero className="z-10" />
-      {/* <div className="h-[300dvh] -mt-[100dvh]">
+      {/* <div className="h-[300svh] -mt-[100svh]">
         <div className="sticky top-0"> */}
       <MainMasteries />
       <MainProjects />

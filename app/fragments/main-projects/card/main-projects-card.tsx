@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useMediaQueryCtx } from '@/app/providers/media-query';
+import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import MainProjectsCardTags from '@/app/fragments/main-projects/card/main-projects-card-tags';
 import classMerge from '@/app/utils/class-merge';
 import type {
@@ -95,6 +96,7 @@ function CardContentWrapper({
 function CardCover({ className, style, toggleCover, content }: CardCoverProps) {
   const state = useMotionValue(0);
   const { isHover } = useMediaQueryCtx();
+  const { setState } = useAnimationSequenceCtx();
   const yPosNum = useTransform(state, [0, 100], ['0%', '100%']);
   const yPosButton = useTransform(state, [0, 100], ['-100%', '0%']);
   const opacityNum = useTransform(state, [0, 100], [100, 0]);
@@ -107,6 +109,11 @@ function CardCover({ className, style, toggleCover, content }: CardCoverProps) {
     } else {
       state.set(0);
     }
+  }
+  function _toggleNavbarAnimatePresence() {
+    setState((draft) => {
+      draft.navbarAnimatePresence = true;
+    });
   }
 
   return (
@@ -145,15 +152,20 @@ function CardCover({ className, style, toggleCover, content }: CardCoverProps) {
           </div>
           <div
             className={classMerge(
-              'relative before:absolute before:-z-[10] before:-inset-[99rem] flex-1 hoverable:backdrop-blur-8',
-              'before:border-[99rem] before:dark:border-grey before:border-beige xl:w-28'
+              'relative before:absolute before:-inset-[99rem] flex-1 hoverable:backdrop-blur-8',
+              'before:border-[99rem] before:dark:border-grey before:border-beige xl:w-28 before:-z-[10]'
             )}
           />
         </div>
         <Link
-          className="block h3-normal after:table after:-mt-[.12em] truncate z-10 relative before:absolute before:-bottom-1 before:left-0 before:right-0 before:h-[0.125rem] before:bg-current"
+          className={classMerge(
+            'block h3-normal truncate z-10 relative w-fit',
+            'after:table after:-mt-[.12em] before:absolute before:-bottom-1 before:left-0',
+            'before:right-0 before:h-[0.125rem] before:bg-current'
+          )}
           href="/project/project-one"
           title={content.title}
+          onClick={_toggleNavbarAnimatePresence}
         >
           {content.title}
         </Link>

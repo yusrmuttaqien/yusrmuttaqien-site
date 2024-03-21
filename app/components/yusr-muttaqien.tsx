@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type HTMLMotionProps } from 'framer-motion';
 import { tv } from 'tailwind-variants';
 import { useMediaQueryCtx } from '@/app/providers/media-query';
 import classMerge from '@/app/utils/class-merge';
@@ -17,7 +17,11 @@ const styles = tv({
 export default function YusrMuttaqien({
   className,
   asPlaceholder,
-}: YusrMuttaqienProps & { className?: Partial<typeof styles.slots> }) {
+  ...rest
+}: YusrMuttaqienProps & { className?: Partial<typeof styles.slots> } & Omit<
+    HTMLMotionProps<'div'>,
+    'className'
+  >) {
   const { isTablet } = useMediaQueryCtx();
   const layoutId = !asPlaceholder ? LAYOUT_YUSR_MUTTAQIEN : undefined;
   const { wrapper, pathFill } = styles();
@@ -28,6 +32,7 @@ export default function YusrMuttaqien({
     <motion.div
       className={classMerge('w-full', wrapper({ className: className?.wrapper }))}
       layoutId={layoutId}
+      {...rest}
     >
       <svg width="100%" viewBox="0 0 785 101" fill="none">
         <path

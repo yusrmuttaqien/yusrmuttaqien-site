@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, ReactNode } from 'react';
+import { createContext, useContext, type ReactNode } from 'react';
 import { useImmer } from 'use-immer';
 import { ANIMATION_SEQUENCE_INITIAL_STATE } from '@/app/constants/animation-sequence';
 import type { AnimationSequenceState } from '@/app/types/animation-sequence';

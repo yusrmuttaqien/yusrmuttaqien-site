@@ -5,13 +5,14 @@ import { motion, useMotionValue } from 'framer-motion';
 import Tag from '@/app/components/tag';
 import isOverflow from '@/app/utils/is-overflow';
 import classMerge from '@/app/utils/class-merge';
+import debounce from '@/app/utils/debounce';
 
 const overflowStyle = 'block w-10 h-full from-beige dark:from-grey transition-transform';
 
 export default function MainProjectsCardTags({ tags }: { tags: string[] }) {
   const isOverflowing = useRef(false);
-  const tagWrapper = useRef<HTMLDivElement>(null);
-  const tagContainer = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const overflowLPos = useMotionValue('-100%');
   const overflowRPos = useMotionValue('100%');
   const _startResizeOrDrag = useCallback(() => {
@@ -37,11 +38,11 @@ export default function MainProjectsCardTags({ tags }: { tags: string[] }) {
   }, [overflowLPos, overflowRPos]);
 
   function _getPos(): 'start' | 'end' | 'middle' {
-    const transformX = tagContainer.current?.style.transform;
+    const transformX = containerRef.current?.style.transform;
     if (transformX === '' || transformX === 'none') return 'middle';
 
-    const wrapperPos = tagWrapper.current?.clientWidth || 0;
-    const containerPos = tagContainer.current?.clientWidth || 0;
+    const wrapperPos = wrapperRef.current?.clientWidth || 0;
+    const containerPos = containerRef.current?.clientWidth || 0;
     const xPos = parseInt(transformX?.split('(')[1].split(')')[0] || '');
     const diff = containerPos - wrapperPos;
     const isStart = xPos > 0;
@@ -52,7 +53,7 @@ export default function MainProjectsCardTags({ tags }: { tags: string[] }) {
 
   useLayoutEffect(() => {
     function whenResize() {
-      const currentOverflow = isOverflow(tagWrapper.current);
+      const currentOverflow = isOverflow(wrapperRef.current);
       isOverflowing.current = currentOverflow;
 
       if (currentOverflow) {
@@ -63,10 +64,11 @@ export default function MainProjectsCardTags({ tags }: { tags: string[] }) {
       }
     }
 
-    window.addEventListener('resize', whenResize);
+    const debouncedWhenResize = debounce(whenResize, 100);
+    window.addEventListener('resize', debouncedWhenResize);
     whenResize();
 
-    return () => window.removeEventListener('resize', whenResize);
+    return () => window.removeEventListener('resize', debouncedWhenResize);
   }, [_startResizeOrDrag, overflowLPos, overflowRPos]);
 
   return (
@@ -81,13 +83,13 @@ export default function MainProjectsCardTags({ tags }: { tags: string[] }) {
           className={classMerge('float-end bg-gradient-to-l', overflowStyle)}
         />
       </div>
-      <div ref={tagWrapper} id="tag-wrapper" className="max-w-fit overflow-hidden">
+      <div ref={wrapperRef} id="tag-wrapper" className="max-w-fit overflow-hidden">
         <motion.div
           className="flex gap-[clamp(0.465rem,_-0.0005rem_+_2.3273vw,_0.625rem)] w-fit hover:cursor-ew-resize"
           drag="x"
-          dragConstraints={tagWrapper}
+          dragConstraints={wrapperRef}
           id="tag-container"
-          ref={tagContainer}
+          ref={containerRef}
           onDrag={_startResizeOrDrag}
         >
           {tags.map((tag) => (
