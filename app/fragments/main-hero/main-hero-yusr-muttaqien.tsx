@@ -9,6 +9,7 @@ const PLACEHOLDER_ID = 'main-hero-yusr-muttaqien-placeholder';
 
 export default function MainHeroYusrMuttaqien() {
   const viewRef = useRef(null);
+  const isLeaving = useRef(false);
   const {
     state: { bigTitlePos, navbarAnimatePresence },
     setState,
@@ -35,17 +36,17 @@ export default function MainHeroYusrMuttaqien() {
   }, [setState]);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
-
-    if (navbarAnimatePresence) {
-      timeout = setTimeout(() => {
+    if (navbarAnimatePresence && !isLeaving.current) {
+      requestAnimationFrame(() => {
         setState((draft) => {
           draft.navbarAnimatePresence = false;
         });
-      }, 50);
+      });
     }
 
-    return () => clearTimeout(timeout);
+    return () => {
+      isLeaving.current = true;
+    };
   }, [navbarAnimatePresence, setState]);
 
   return (

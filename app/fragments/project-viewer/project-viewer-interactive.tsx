@@ -90,7 +90,7 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
         className={classMerge(
           'pt-[calc(clamp(3rem,_0.0909rem_+_14.5455vw,_4rem)_+_var(--navbar-height))]',
           'md:pt-[calc(clamp(4rem,_1.6052rem_+_8.9109vw,_6.25rem)_+_var(--navbar-height))]',
-          'xl:py-[auto] container-b overflow-hidden sticky top-0 h-[100svh]',
+          ' container-b overflow-hidden sticky top-0 h-[100svh]',
           className
         )}
       >
@@ -105,7 +105,7 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
             } as CSSProperties
           }
           className={classMerge(
-            'container absolute top-0 left-0 z-10 opacity-[var(--opacity-header)]',
+            'container absolute top-0 left-0 z-20 opacity-[var(--opacity-header)]',
             'mt-[calc(var(--navbar-height)_+_var(--size-container))]',
             'lg:mt-[calc(var(--navbar-height)_+_var(--size-container-lg))]'
           )}
@@ -133,12 +133,12 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
             'xl:gap-[var(--gap-xl)] z-10 h-full'
           )}
         >
-          <Blueprint className="bg-grey/10 w-[unset]" />
-          <Blueprint className="bg-grey/10 w-[unset]" />
-          <Blueprint className="bg-grey/10 w-[unset]" />
-          <Blueprint className="bg-grey/10 w-[unset]" />
-          <Blueprint className="bg-grey/10 w-[unset]" />
-          <Blueprint className="bg-grey/10 w-[unset]" />
+          <Blueprint className="bg-grey/10 dark:bg-beige/10" />
+          <Blueprint className="bg-grey/10 dark:bg-beige/10" />
+          <Blueprint className="bg-grey/10 dark:bg-beige/10" />
+          <Blueprint className="bg-grey/10 dark:bg-beige/10" />
+          <Blueprint className="bg-grey/10 dark:bg-beige/10" />
+          <Blueprint className="bg-grey/10 dark:bg-beige/10" />
           <div
             className={classMerge(
               'shrink-0 w-[var(--size-container)] lg:w-[var(--size-container-lg)]',

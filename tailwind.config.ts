@@ -49,7 +49,7 @@ const config: Config = {
     },
   },
   plugins: [
-    plugin(function ({ addComponents, addUtilities }) {
+    plugin(function ({ addComponents, addUtilities, theme }) {
       addComponents({
         '.translate-center': {
           transform: 'translate(-50%, -50%)',
@@ -127,7 +127,7 @@ const config: Config = {
           fontSize: 'clamp(2.9769rem, 0.0005rem + 14.8818vw, 4rem)',
           fontWeight: '800',
           lineHeight: 'clamp(3rem, 0.0909rem + 14.5455vw, 4rem)',
-          fontFamily: 'nohemi',
+          fontFamily: theme('fontFamily.nohemi'),
           '@screen md': {
             fontSize: 'clamp(4rem, 1.6052rem + 8.9109vw, 6.25rem)',
             lineHeight: 'clamp(4rem, 1.6052rem + 8.9109vw, 6.25rem)',

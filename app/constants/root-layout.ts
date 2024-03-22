@@ -29,13 +29,9 @@ export const helveticaNeue = localFont({
 });
 
 export const nohemi = localFont({
-  src: [
-    {
-      style: 'normal',
-      path: '../fonts/Nohemi-ExtraBold.woff',
-      weight: '800',
-    },
-  ],
+  style: 'normal',
+  src: '../fonts/Nohemi-ExtraBold.woff',
+  weight: '800',
   display: 'swap',
   variable: '--font-nohemi',
 });
