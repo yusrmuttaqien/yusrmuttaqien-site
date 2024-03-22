@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { motion, useMotionValue, useScroll, useTransform, inView } from 'framer-motion';
 import { useMeasurementCtx } from '@/app/providers/measurements';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
+import useProjectViewerHeaderTransformer from '@/app/hooks/project-viewer-header-transformer';
 import Blueprint from '@/app/components/blueprint';
 import classMerge from '@/app/utils/class-merge';
 import debounce from '@/app/utils/debounce';
@@ -17,11 +18,10 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
   } = useMeasurementCtx();
   const wrapperRef = useRef(null);
   const { scrollYProgress: yScrollContent } = useScroll({ target: wrapperRef });
+  const { className: dynamicCN, style: dynamicStyle } =
+    useProjectViewerHeaderTransformer(yScrollContent);
   const [xEndPos, setXEndPos] = useState('-100px');
   const xPosContents = useTransform(yScrollContent, [0, 1], ['0px', xEndPos]);
-  const yPosHeader = useTransform(yScrollContent, [0, 0.03], [1, 0.4]);
-  const yPosHeaderLg = useTransform(yScrollContent, [0, 0.03], [1, 0.5]);
-  const opacityHeader = useTransform(yScrollContent, [0, 0.03], [1, 0.1]);
   const { setState: setAnimateState } = useAnimationSequenceCtx();
   const heightWrapper = useMotionValue(`calc(100svh - ${navbarHeight}px)`);
 
@@ -90,7 +90,7 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
         className={classMerge(
           'pt-[calc(clamp(3rem,_0.0909rem_+_14.5455vw,_4rem)_+_var(--navbar-height))]',
           'md:pt-[calc(clamp(4rem,_1.6052rem_+_8.9109vw,_6.25rem)_+_var(--navbar-height))]',
-          ' container-b overflow-hidden sticky top-0 h-[100svh]',
+          'container-b overflow-hidden sticky top-0 h-[100svh]',
           className
         )}
       >
@@ -99,18 +99,17 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
             {
               '--size-container': SIZING_CONTAINER_DEFAULT,
               '--size-container-lg': SIZING_CONTAINER_LG,
-              '--y-pos-header': yPosHeader,
-              '--y-pos-header-lg': yPosHeaderLg,
-              '--opacity-header': opacityHeader,
+              ...dynamicStyle,
             } as CSSProperties
           }
           className={classMerge(
-            'container absolute top-0 left-0 z-20 opacity-[var(--opacity-header)]',
+            'container absolute lg-only:top-0 left-1/2 z-20 opacity-[var(--opacity-header)]',
             'mt-[calc(var(--navbar-height)_+_var(--size-container))]',
-            'lg:mt-[calc(var(--navbar-height)_+_var(--size-container-lg))]'
+            'lg:mt-[calc(var(--navbar-height)_+_var(--size-container-lg))]',
+            'xl:bottom-[var(--size-container-lg)] -translate-x-1/2'
           )}
         >
-          <div className="origin-top-left scale-[var(--y-pos-header)] lg:scale-[var(--y-pos-header-lg)]">
+          <div className={classMerge('origin-top-left', dynamicCN)}>
             <p className="body-subheading">It’s about damn time</p>
             <h1 className="project-title" title="Project One two three for five six">
               Project One two three for five six
@@ -129,8 +128,8 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
             } as CSSProperties
           }
           className={classMerge(
-            'relative flex lg-only:container gap-[var(--gap)]',
-            'xl:gap-[var(--gap-xl)] z-10 h-full'
+            'container relative flex gap-[var(--gap)]',
+            'xl:gap-[var(--gap-xl)] z-10 h-full 2xl:px-[calc(var(--size-container-lg)_+_6.5625rem)]'
           )}
         >
           <Blueprint className="bg-grey/10 dark:bg-beige/10" />
