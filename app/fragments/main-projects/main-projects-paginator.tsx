@@ -5,9 +5,9 @@ import { tv } from 'tailwind-variants';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMediaQueryCtx } from '@/app/providers/media-query';
 import classMerge from '@/app/utils/class-merge';
-import { bgVariant } from '@/app/constants/main-projects-paginator';
+import { VARIANT_PAGINATION_BTN_BG } from '@/app/constants/main';
 import { LAYOUT_PROJECTS_PAGINATION_BUTTON } from '@/app/constants/framer-motion';
-import type { MenuButtonProps } from '@/app/types/main-projects-paginator';
+import type { MenuButtonProps } from '@/app/types/main';
 
 const menuBtnStyles = tv({
   slots: {
@@ -73,7 +73,7 @@ function MenuButton({
           <motion.div
             className="absolute inset-0"
             layoutId={LAYOUT_PROJECTS_PAGINATION_BUTTON}
-            {...bgVariant}
+            {...VARIANT_PAGINATION_BTN_BG}
           >
             <span
               className={classMerge('block w-full h-full', 'bg-grey dark:bg-beige')}

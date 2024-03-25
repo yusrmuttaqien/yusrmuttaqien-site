@@ -6,7 +6,7 @@ import Tag from '@/app/components/tag';
 import isOverflow from '@/app/utils/is-overflow';
 import classMerge from '@/app/utils/class-merge';
 import debounce from '@/app/utils/debounce';
-import { ID_PROJECT_CARD_TAGS } from '@/app/constants/main-projects-card';
+import { ID_PROJECT_CARD_TAGS } from '@/app/constants/main';
 
 const overflowStyle = 'block w-10 h-full from-beige dark:from-grey transition-transform';
 

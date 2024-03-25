@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import YusrMuttaqien from '@/app/components/yusr-muttaqien';
 import classMerge from '@/app/utils/class-merge';
-import { nameVariant } from '@/app/constants/navbar-yusr-muttaqien';
+import { VARIANT_YUSR_MUTTAQIEN } from '@/app/constants/navbar';
 import { ID_NAVBAR_YUSR_MUTTAQIEN } from '@/app/constants/navbar';
 
 export default function NavbarYusrMuttaqien() {
@@ -14,7 +14,7 @@ export default function NavbarYusrMuttaqien() {
   } = useAnimationSequenceCtx();
   const isShowTitle = !bigTitlePos.hero && !bigTitlePos.footer && bigTitlePos.navbar;
   const Wrapper = navbarAnimatePresence ? AnimatePresence : Fragment;
-  const variants = navbarAnimatePresence ? nameVariant : {};
+  const variants = navbarAnimatePresence ? VARIANT_YUSR_MUTTAQIEN : {};
   const wrapperProps = navbarAnimatePresence ? { initial: false } : {};
 
   return (

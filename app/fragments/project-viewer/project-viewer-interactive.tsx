@@ -8,9 +8,9 @@ import useProjectViewerHeaderTransformer from '@/app/hooks/project-viewer-header
 import Blueprint from '@/app/components/blueprint';
 import classMerge from '@/app/utils/class-merge';
 import debounce from '@/app/utils/debounce';
-import { ID_PROJECT_PREVIEW_CONTENTS } from '@/app/constants/project-viewer';
+import { ID_PROJECT_PREVIEW_CONTENTS } from '@/app/constants/project';
 import { SIZING_CONTAINER_DEFAULT, SIZING_CONTAINER_LG } from '@/app/constants/tailwind-config';
-import type { ProjectViewerWrapperProps } from '@/app/types/project-viewer-wrapper';
+import type { ProjectViewerWrapperProps } from '@/app/types/project';
 
 export default function ProjectViewerWrapper({ className }: ProjectViewerWrapperProps) {
   const {

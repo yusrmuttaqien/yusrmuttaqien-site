@@ -8,12 +8,12 @@ import { useMediaQueryCtx } from '@/app/providers/media-query';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import MainProjectsCardTags from '@/app/fragments/main-projects/card/main-projects-card-tags';
 import classMerge from '@/app/utils/class-merge';
-import { ID_PROJECT_CARD_TAGS, ID_PROJECT_CARD_TOGGLE } from '@/app/constants/main-projects-card';
+import { ID_PROJECT_CARD_TAGS, ID_PROJECT_CARD_TOGGLE } from '@/app/constants/main';
 import type {
   CardContentWrapperProps,
   CardCoverProps,
   MainProjectsCardProps,
-} from '@/app/types/main-projects-card';
+} from '@/app/types/main';
 
 const paddingStyle = 'p-[clamp(0.7444rem,_0.0007rem_+_3.7182vw,_1rem)]';
 export const contentStyles = tv({

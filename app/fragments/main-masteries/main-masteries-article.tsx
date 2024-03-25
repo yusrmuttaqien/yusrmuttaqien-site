@@ -1,5 +1,5 @@
 import classMerge from '@/app/utils/class-merge';
-import type { MainMasteriesArticleProps } from '@/app/types/main-masteries-article';
+import type { MainMasteriesArticleProps } from '@/app/types/main';
 
 const styles = {
   firstParagraph: 'body-normal',

@@ -3,8 +3,8 @@
 import { useEffect, useState, memo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import classMerge from '@/app/utils/class-merge';
-import { numVariant, colVariant } from '@/app/constants/navbar-clock';
-import type { AnimatedDigitProps } from '@/app/types/navbar-clock';
+import { VARIANT_CLOCK_NUM, VARIANT_CLOCK_COLON } from '@/app/constants/navbar';
+import type { AnimatedDigitProps } from '@/app/types/navbar';
 
 const MemoizedAnimateDigit = memo(AnimateDigit);
 
@@ -39,28 +39,28 @@ export default function NavbarClock({ className }: { className?: string }) {
     <p className={className}>
       <MemoizedAnimateDigit
         digit={time.hour[0]}
-        variant={numVariant}
+        variant={VARIANT_CLOCK_NUM}
         sign={`hur-0-${time.hour[0]}`}
       />
       <MemoizedAnimateDigit
         digit={time.hour[1]}
-        variant={numVariant}
+        variant={VARIANT_CLOCK_NUM}
         sign={`hur-1-${time.hour[1]}`}
       />
       <AnimateDigit
         className="ml-[.3ch] mr-[.3ch]"
         digit=":"
-        variant={colVariant}
+        variant={VARIANT_CLOCK_COLON}
         sign={`col-0-${time.second[1]}`}
       />
       <MemoizedAnimateDigit
         digit={time.minute[0]}
-        variant={numVariant}
+        variant={VARIANT_CLOCK_NUM}
         sign={`min-0-${time.minute[0]}`}
       />
       <MemoizedAnimateDigit
         digit={time.minute[1]}
-        variant={numVariant}
+        variant={VARIANT_CLOCK_NUM}
         sign={`min-1-${time.minute[1]}`}
       />{' '}
       WIB
