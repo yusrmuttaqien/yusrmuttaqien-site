@@ -1,7 +1,7 @@
 import type { MotionStyle } from 'framer-motion';
+import { contentStyles } from '@/app/fragments/main-projects/card/main-projects-card';
 
 export type CardContentWrapperProps = {
-  className?: string;
   toggleCover: () => void;
   textSizePlaceholder: string;
   children?: React.ReactNode;
@@ -19,4 +19,5 @@ export type MainProjectsCardProps = {
   title: string;
   children: React.ReactNode;
   tags: string[];
+  className?: Partial<typeof contentStyles.slots>;
 };

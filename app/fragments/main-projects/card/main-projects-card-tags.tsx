@@ -6,6 +6,7 @@ import Tag from '@/app/components/tag';
 import isOverflow from '@/app/utils/is-overflow';
 import classMerge from '@/app/utils/class-merge';
 import debounce from '@/app/utils/debounce';
+import { ID_PROJECT_CARD_TAGS } from '@/app/constants/main-projects-card';
 
 const overflowStyle = 'block w-10 h-full from-beige dark:from-grey transition-transform';
 
@@ -72,7 +73,7 @@ export default function MainProjectsCardTags({ tags }: { tags: string[] }) {
   }, [_startResizeOrDrag, overflowLPos, overflowRPos]);
 
   return (
-    <div className="relative">
+    <div className="relative w-fit" id={ID_PROJECT_CARD_TAGS}>
       <div className="absolute -inset-1 pointer-events-none overflow-hidden z-10">
         <motion.span
           style={{ x: overflowLPos }}
