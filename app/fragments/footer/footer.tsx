@@ -3,7 +3,7 @@ import Blueprint from '@/app/components/blueprint';
 import SectionHeader from '@/app/components/section-header';
 import FooterYusrMuttaqien from '@/app/fragments/footer/footer-yusr-muttaqien';
 import classMerge from '@/app/utils/class-merge';
-import { footerLinks } from '@/app/contents/footer';
+import { footerLinks, emailAddress } from '@/app/contents/footer';
 
 export default function Footer() {
   return (
@@ -31,8 +31,8 @@ export default function Footer() {
             headerChildren: 'lg:hidden',
           }}
         >
-          <Link className="link-email" href="mailto:idyusril@gmail.com">
-            idyusril@gmail.com
+          <Link className="link-email" href={`mailto:${emailAddress}`}>
+            {emailAddress}
           </Link>
         </SectionHeader>
         <hr className="border-grey dark:border-beige border-2" />
@@ -64,7 +64,7 @@ function FooterLinks() {
                     'hoverable:hover:after:scale-x-100 after:transition-transform after:origin-left',
                     'hover:after:origin-right'
                   )}
-                  href={value}
+                  {...value}
                 >
                   {key}
                 </Link>

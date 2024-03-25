@@ -32,7 +32,6 @@ export default function MainProjectsPaginator() {
       <menu className={'flex flex-col lg:flex-row'}>
         <MenuButton className={{ button: btnStyle }} text="Previous List" />
         <MenuButton className={{ button: btnStyle }} text="Next List" />
-        <MenuButton className={{ button: btnStyle }} disabled text="Preview Off" />
       </menu>
     </div>
   );

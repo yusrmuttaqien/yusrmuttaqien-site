@@ -6,6 +6,7 @@ import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import YusrMuttaqien from '@/app/components/yusr-muttaqien';
 import classMerge from '@/app/utils/class-merge';
 import { nameVariant } from '@/app/constants/navbar-yusr-muttaqien';
+import { ID_NAVBAR_YUSR_MUTTAQIEN } from '@/app/constants/navbar';
 
 export default function NavbarYusrMuttaqien() {
   const {
@@ -18,6 +19,7 @@ export default function NavbarYusrMuttaqien() {
 
   return (
     <div
+      id={ID_NAVBAR_YUSR_MUTTAQIEN}
       className={classMerge(
         'absolute top-full left-0 w-full container pointer-events-none',
         'lg:-mt-[1.5rem]'
