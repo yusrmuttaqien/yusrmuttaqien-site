@@ -1,4 +1,4 @@
-import { MainMasteriesArticleProps } from '@/app/types/main-masteries-article';
+import { MainMasteriesArticleProps } from '@/app/types/main';
 
 export const masteryLists: MainMasteriesArticleProps[] = [
   {

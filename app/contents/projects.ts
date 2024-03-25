@@ -1,4 +1,4 @@
-import { MainProjectsCardProps } from '@/app/types/main-projects-card';
+import { MainProjectsCardProps } from '@/app/types/main';
 import type { Optional } from '@/app/utils/ts-helper';
 
 export const projectLists: Optional<MainProjectsCardProps, 'idx'>[] = [
