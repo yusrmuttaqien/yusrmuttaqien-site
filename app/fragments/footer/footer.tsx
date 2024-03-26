@@ -1,11 +1,17 @@
-import Link from 'next/link';
+import Link from '@/app/components/link';
 import Blueprint from '@/app/components/blueprint';
 import SectionHeader from '@/app/components/section-header';
 import FooterYusrMuttaqien from '@/app/fragments/footer/footer-yusr-muttaqien';
 import classMerge from '@/app/utils/class-merge';
-import { footerLinks, emailAddress } from '@/app/contents/footer';
+import footerContents from '@/app/contents/footer';
+import { getRootParams } from '@/app/utils/root-params';
+import type { i18nTypes } from '@/app/types/i18n';
+import type { FooterLinksTitles } from '@/app/types/contents';
 
-export default function Footer() {
+export default async function Footer() {
+  const { params } = getRootParams();
+  const { emailAddress, footerHeader, copyright } = await footerContents(params.lang as i18nTypes);
+
   return (
     <footer className="mt-[clamp(11.6281rem,_0.0009rem_+_58.1364vw,_15.625rem)] relative isolate">
       <div
@@ -15,8 +21,8 @@ export default function Footer() {
         )}
       >
         <SectionHeader
-          subtitle="Work Together"
-          title="Lorem ipsum dolor sit amet consectetur. A tempor bibendum a nunc sagittis congue."
+          subtitle={footerHeader.subtitle}
+          title={footerHeader.title}
           className={{
             subheadingChildren: 'hidden lg:block',
             header: 'md-only:gap-0',
@@ -39,7 +45,7 @@ export default function Footer() {
         <FooterLinks />
       </div>
       <div className="p-[clamp(1.125rem,_0.0341rem_+_5.4545vw,_1.5rem)]">
-        <p className="body-subheading lg:-mb-[1.5vw]">Copyright @ yusr.muttaqien 2024</p>
+        <p className="body-subheading lg:-mb-[1.5vw]">{copyright}</p>
         <FooterYusrMuttaqien />
       </div>
       <Blueprint className="absolute inset-0 z-0" />
@@ -47,12 +53,17 @@ export default function Footer() {
   );
 }
 
-function FooterLinks() {
+async function FooterLinks() {
+  const { params } = getRootParams();
+  const { footerLinks, footerLinksTitles } = await footerContents(params.lang as i18nTypes);
+
   return (
     <div className="flex gap-[clamp(4.2794rem,_0.0012rem_+_21.3909vw,_5.75rem)]">
       {Object.keys(footerLinks).map((key) => (
         <div key={key}>
-          <h3 className="h3-normal mb-[clamp(1.4881rem,_-0.001rem_+_7.4455vw,_2rem)]">{key}</h3>
+          <h3 className="h3-normal mb-[clamp(1.4881rem,_-0.001rem_+_7.4455vw,_2rem)]">
+            {footerLinksTitles[key as FooterLinksTitles]}
+          </h3>
           <menu className="space-y-[clamp(0.5581rem,_-0.0001rem_+_2.7909vw,_0.75rem)]">
             {Object.entries(footerLinks[key]).map(([key, value]) => (
               <li key={key}>
@@ -65,8 +76,9 @@ function FooterLinks() {
                     'hover:after:origin-right'
                   )}
                   {...value}
+                  locale={params.lang as i18nTypes}
                 >
-                  {key}
+                  {footerLinksTitles[key as FooterLinksTitles] || key}
                 </Link>
               </li>
             ))}

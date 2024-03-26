@@ -1,5 +1,5 @@
 import { ANCHOR_HERO, ANCHOR_MASTERIES, ANCHOR_PROJECTS } from '@/app/constants/anchor';
-import type { FooterLinks } from '@/app/types/footer';
+import type { FooterLinks } from '@/app/types/contents';
 
 export const footerLinks: FooterLinks = {
   Sitemaps: {
@@ -13,4 +13,7 @@ export const footerLinks: FooterLinks = {
     Instagram: { href: 'https://www.instagram.com/yusrmuttaqien/', target: '_blank' },
   },
 };
-export const emailAddress = 'idyusril@gmail.com';
+const emailAddress = 'idyusril@gmail.com';
+
+const all = { footerLinks, emailAddress };
+export default all;

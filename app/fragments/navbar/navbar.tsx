@@ -1,6 +1,7 @@
 import NavbarClock from '@/app/fragments/navbar/navbar-clock';
 import NavbarYusrMuttaqien from '@/app/fragments/navbar/navbar-yusr-muttaqien';
 import NavbarMeasurement from '@/app/fragments/navbar/navbar-measurement';
+import NavbarLang from '@/app/fragments/navbar/navbar-lang';
 import classMerge from '@/app/utils/class-merge';
 
 const locStyles = 'text-[clamp(0.7444rem,_0.0008rem_+_3.7178vw,_1rem)]';
@@ -16,7 +17,11 @@ export default function Navbar() {
       )}
     >
       <div className="flex justify-between items-center ">
-        <p className={locStyles}>Malang, Indonesia</p>
+        <div className="flex justify-between items-center gap-[1ch]">
+          <p className={locStyles}>Malang, Indonesia</p>
+          <span className={locStyles}>|</span>
+          <NavbarLang className={locStyles} />
+        </div>
         <NavbarClock className={locStyles} />
       </div>
       <NavbarYusrMuttaqien />

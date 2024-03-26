@@ -14,9 +14,15 @@ function getLocale(request: NextRequest): string | undefined {
 }
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const {
+    nextUrl: { pathname },
+    headers,
+  } = request;
+  const referer = (headers.get('referer') || '/').split('/');
   const endpoints = pathname.split('/');
+  const isValidRefLocale = locales.getByTag(referer[3]) !== undefined;
   const isValidLocale = locales.getByTag(endpoints[1]) !== undefined;
+  const isAvailableRefLocale = i18nOptions.some((locale) => locale === referer[3]);
   const isAvailableLocale = i18nOptions.some((locale) => locale === endpoints[1]);
 
   if (isValidLocale && isAvailableLocale) return;
@@ -29,7 +35,13 @@ export function middleware(request: NextRequest) {
       .join('/')}`;
     return NextResponse.redirect(request.nextUrl);
   }
-  if (!isValidLocale) {
+  if (isValidRefLocale && isAvailableRefLocale) {
+    request.nextUrl.pathname = `/${referer[3]}/${endpoints
+      .slice(1)
+      .filter((n) => n)
+      .join('/')}`;
+    return NextResponse.redirect(request.nextUrl);
+  } else {
     const locale = getLocale(request);
 
     request.nextUrl.pathname = `/${locale}/${endpoints

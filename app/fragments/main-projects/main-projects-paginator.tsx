@@ -8,6 +8,7 @@ import classMerge from '@/app/utils/class-merge';
 import { VARIANT_PAGINATION_BTN_BG } from '@/app/constants/main';
 import { LAYOUT_PROJECTS_PAGINATION_BUTTON } from '@/app/constants/framer-motion';
 import type { MenuButtonProps } from '@/app/types/main';
+import type { ProjectsPagination } from '@/app/types/contents';
 
 const menuBtnStyles = tv({
   slots: {
@@ -25,13 +26,13 @@ const btnStyle = classMerge(
   'lg:px-[calc(clamp(2rem,_3.87rem_+_-3.5874vw,_1rem)/2)] lg:pb-0 lg:pt-[.2em]'
 );
 
-export default function MainProjectsPaginator() {
+export default function MainProjectsPaginator({ t }: { t: ProjectsPagination }) {
   return (
     <div className="flex justify-between items-center">
-      <p className="text-grey/60 dark:text-beige/60 body-normal">List 01/10</p>
+      <p className="text-grey/60 dark:text-beige/60 body-normal">{t.list} 01/10</p>
       <menu className={'flex flex-col lg:flex-row'}>
-        <MenuButton className={{ button: btnStyle }} text="Previous List" />
-        <MenuButton className={{ button: btnStyle }} text="Next List" />
+        <MenuButton className={{ button: btnStyle }} text={t.previousList} />
+        <MenuButton className={{ button: btnStyle }} text={t.nextList} />
       </menu>
     </div>
   );

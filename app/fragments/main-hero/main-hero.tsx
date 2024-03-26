@@ -1,9 +1,15 @@
 import MainHeroYusrMuttaqien from '@/app/fragments/main-hero/main-hero-yusr-muttaqien';
 import Blueprint from '@/app/components/blueprint';
 import classMerge from '@/app/utils/class-merge';
+import { getRootParams } from '@/app/utils/root-params';
+import mainContents from '@/app/contents/main';
 import { ANCHOR_HERO } from '@/app/constants/anchor';
+import { i18nTypes } from '@/app/types/i18n';
 
-export default function MainHero({ className }: { className?: string }) {
+export default async function MainHero({ className }: { className?: string }) {
+  const { params } = getRootParams();
+  const { tagline } = await mainContents(params.lang as i18nTypes);
+
   return (
     <section
       id={ANCHOR_HERO.replace('/#', '')}
@@ -20,7 +26,7 @@ export default function MainHero({ className }: { className?: string }) {
           'bg-beige/80 backdrop-blur-8 dark:bg-grey/80'
         )}
       >
-        <p className="body-subheading lg:-mb-[1.5vw]">Frontend developer | UIUX</p>
+        <p className="body-subheading lg:-mb-[1.5vw]">{tagline}</p>
         <MainHeroYusrMuttaqien />
       </header>
       <Blueprint className="absolute top-0 left-0" />

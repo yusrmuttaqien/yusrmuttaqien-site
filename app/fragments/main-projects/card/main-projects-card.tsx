@@ -1,11 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { tv } from 'tailwind-variants';
 import { type MouseEvent, useRef, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useMediaQueryCtx } from '@/app/providers/media-query';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
+import Link from '@/app/components/link';
 import MainProjectsCardTags from '@/app/fragments/main-projects/card/main-projects-card-tags';
 import classMerge from '@/app/utils/class-merge';
 import { ID_PROJECT_CARD_TAGS, ID_PROJECT_CARD_TOGGLE } from '@/app/constants/main';
