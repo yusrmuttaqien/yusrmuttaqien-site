@@ -1,7 +1,5 @@
 export const ANIMATION_SEQUENCE_INITIAL_STATE = {
-  isCompsReady: {
-    navbar: false,
-  },
+  isCompsReady: {},
   isSplashScreen: true,
   bigTitlePos: {
     hero: false,
@@ -9,10 +7,9 @@ export const ANIMATION_SEQUENCE_INITIAL_STATE = {
     navbar: true,
   },
   navbarAnimatePresence: false,
+  announcing: false,
 } as {
-  isCompsReady: {
-    navbar: boolean;
-  };
+  isCompsReady: {};
   isSplashScreen: boolean;
   bigTitlePos: {
     hero: boolean;
@@ -20,4 +17,5 @@ export const ANIMATION_SEQUENCE_INITIAL_STATE = {
     navbar: boolean;
   };
   navbarAnimatePresence: boolean;
+  announcing: boolean | 'manually';
 };

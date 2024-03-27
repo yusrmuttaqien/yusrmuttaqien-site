@@ -22,16 +22,16 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
     useProjectViewerHeaderTransformer(yScrollContent);
   const [xEndPos, setXEndPos] = useState('-100px');
   const xPosContents = useTransform(yScrollContent, [0, 1], ['0px', xEndPos]);
-  const { setState: setAnimateState } = useAnimationSequenceCtx();
+  const { setState } = useAnimationSequenceCtx();
   const heightWrapper = useMotionValue(`calc(100svh - ${navbarHeight}px)`);
 
   yScrollContent.on('change', (v) => {
     if (v >= 1) {
-      setAnimateState((draft) => {
+      setState((draft) => {
         draft.bigTitlePos.navbar = true;
       });
     } else {
-      setAnimateState((draft) => {
+      setState((draft) => {
         draft.bigTitlePos.navbar = false;
       });
     }
@@ -40,31 +40,32 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
   useLayoutEffect(() => {
     const stopObserve = inView(
       document.getElementsByTagName('footer')[0] as HTMLElement,
-      (e) => {
-        setAnimateState((draft) => {
+      () => {
+        setState((draft) => {
           draft.navbarAnimatePresence = false;
         });
 
         return () =>
-          setAnimateState((draft) => {
+          setState((draft) => {
             draft.navbarAnimatePresence = true;
           });
       },
       { margin: '0% 0% -10% 0%', amount: 'some' }
     );
 
-    setAnimateState((draft) => {
+    setState((draft) => {
       draft.bigTitlePos.navbar = false;
       draft.navbarAnimatePresence = true;
+      draft.announcing = false;
     });
 
     return () => {
-      setAnimateState((draft) => {
+      setState((draft) => {
         draft.bigTitlePos.navbar = true;
       });
       stopObserve();
     };
-  }, [setAnimateState]);
+  }, [setState]);
 
   useLayoutEffect(() => {
     function defineNeededHeight() {

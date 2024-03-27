@@ -228,6 +228,7 @@ function CardCover({ className, style, toggleCover, content }: CardCoverProps) {
           />
         </div>
         <Link
+          announcing="manually"
           className={classMerge(
             'block h3-normal truncate z-10 relative w-fit',
             'after:table after:-mt-[.12em] before:absolute before:-bottom-1 before:left-0',

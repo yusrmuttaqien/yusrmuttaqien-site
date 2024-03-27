@@ -2,6 +2,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import Providers from '@/app/providers';
 import Navbar from '@/app/fragments/navbar/navbar';
 import Footer from '@/app/fragments/footer/footer';
+import Announcer from '@/app/fragments/announcer/announcer';
+import Loader from '@/app/fragments/loader/loader';
 import classMerge from '@/app/utils/class-merge';
 import { helveticaNeue, robotoMono, nohemi } from '@/app/constants/root-layout';
 import type { RootLayoutProps } from '@/app/types/root-layout';
@@ -33,6 +35,8 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
         )}
       >
         <Providers>
+          <Loader />
+          <Announcer />
           <Navbar />
           {children}
           <Footer />

@@ -12,7 +12,7 @@ export default async function MainProjects({ className }: { className?: string }
 
   return (
     <section
-      id={ANCHOR_PROJECTS.replace('/#', '')}
+      id={ANCHOR_PROJECTS.replace('#', '')}
       className={classMerge(
         'mt-[clamp(9.3125rem,_0.0398rem_+_46.3636vw,_12.5rem)]',
         'lg:mt-[clamp(12.5rem,_6.6564rem_+_11.2108vw,_15.625rem)]',

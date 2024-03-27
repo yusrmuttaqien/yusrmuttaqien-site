@@ -1,6 +1,6 @@
 import { MotionProps } from 'framer-motion';
 
-export const ID_NAVBAR_YUSR_MUTTAQIEN = 'id_navbar_yusr_muttaqien';
+export const ID_NAVBAR_YUSR_MUTTAQIEN = 'id-navbar-yusr-muttaqien';
 export const VARIANT_YUSR_MUTTAQIEN: MotionProps = {
   variants: {
     initial: { opacity: 0, y: '-10%' },
