@@ -12,8 +12,8 @@ export default function LoaderExit() {
     const loaderExitEl = document.getElementById(ID_LOADER_EXIT);
 
     // NOTE: Move to hooks?
-    loaderExitEl?.classList.remove('animate-swipe-up-show');
-    loaderExitEl?.classList.remove('after:animate-loader-exit');
+    loaderExitEl?.classList.remove('animate-loader-exit-push-up-show');
+    loaderExitEl?.classList.remove('after:animate-loader-exit-backdrop-show');
   }, [pathname]);
   return (
     <div

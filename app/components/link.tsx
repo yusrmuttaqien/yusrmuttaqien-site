@@ -17,6 +17,7 @@ export default function Link({
   announcing = true,
   href,
   replace,
+  scroll,
   ...rest
 }: LinkProps) {
   const { setState } = useAnimationSequenceCtx();
@@ -51,27 +52,28 @@ export default function Link({
 
     const loaderExitEl = document.getElementById(ID_LOADER_EXIT);
     const mainEl = document.getElementsByTagName('main')[0];
-    const method = replace ? router.replace : router.push;
 
     function animationEnd() {
+      const method = replace ? router.replace : router.push;
+
       setState((draft) => {
         draft.announcing = announcing;
         draft.isLoader = true;
       });
       loaderExitEl?.removeEventListener('animationend', animationEnd);
-      method(href as string);
+      method(href as string, { scroll });
     }
 
     // NOTE: Move to hooks?
     loaderExitEl?.addEventListener('animationend', animationEnd);
     mainEl.classList.add('origin-bottom');
-    mainEl.classList.add('animate-swipe-up-hide');
-    loaderExitEl?.classList.add('animate-swipe-up-show');
-    loaderExitEl?.classList.add('after:animate-loader-exit');
+    mainEl.classList.add('animate-main-push-up-hide');
+    loaderExitEl?.classList.add('animate-loader-exit-push-up-show');
+    loaderExitEl?.classList.add('after:animate-loader-exit-backdrop-show');
   }
 
   return (
-    <Nextlink {...rest} href={href} replace={replace} onClick={_overrideOnClick}>
+    <Nextlink {...rest} href={href} replace={replace} scroll={scroll} onClick={_overrideOnClick}>
       {children}
     </Nextlink>
   );

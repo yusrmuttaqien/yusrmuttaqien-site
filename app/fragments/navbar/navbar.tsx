@@ -2,6 +2,7 @@ import NavbarClock from '@/app/fragments/navbar/navbar-clock';
 import NavbarYusrMuttaqien from '@/app/fragments/navbar/navbar-yusr-muttaqien';
 import NavbarMeasurement from '@/app/fragments/navbar/navbar-measurement';
 import NavbarLang from '@/app/fragments/navbar/navbar-lang';
+import { ID_NAVBAR } from '@/app/constants/navbar';
 import classMerge from '@/app/utils/class-merge';
 
 const locStyles = 'text-[clamp(0.7444rem,_0.0008rem_+_3.7178vw,_1rem)]';
@@ -9,7 +10,7 @@ const locStyles = 'text-[clamp(0.7444rem,_0.0008rem_+_3.7178vw,_1rem)]';
 export default function Navbar() {
   return (
     <nav
-      id="navbar"
+      id={ID_NAVBAR}
       className={classMerge(
         'fixed top-0 left-0 right-0 z-[100] container box-border',
         'mix-blend-difference text-beige',
