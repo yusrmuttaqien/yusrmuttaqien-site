@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import { animate, stagger } from 'framer-motion';
+import { animate, stagger, cubicBezier } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
-import { ID_LOADER_PERCENT, ID_LOADER } from '@/app/constants/loader';
+import { ID_LOADER_PERCENT, ID_LOADER_ENTER } from '@/app/constants/loader';
 
 declare global {
   interface Window {
@@ -21,7 +21,7 @@ export default function LoaderInteractive() {
     clearInterval(window.ymLoader);
     let timeoutFadeOut: NodeJS.Timeout;
 
-    function fadeOut() {
+    function exit() {
       const loaderPercentEl = document.getElementById(ID_LOADER_PERCENT);
       const loaderPercentContent = loaderPercentEl?.innerHTML;
       const contentSpans = loaderPercentContent
@@ -37,23 +37,22 @@ export default function LoaderInteractive() {
           spans,
           { y: ['0%', '-100%'] },
           {
-            delay: stagger(0.05),
-            duration: 0.3,
-            ease: 'easeInOut',
+            delay: stagger(0.04),
+            duration: 0.6,
+            ease: cubicBezier(0.83, 0, 0.17, 1),
             onComplete: () => {
-              const loaderEl = document.getElementById(ID_LOADER);
+              const loaderEnterEl = document.getElementById(ID_LOADER_ENTER);
 
-              loaderEl?.classList.add('hidden');
+              loaderEnterEl?.classList.add('hidden');
               setState((draft) => {
-                draft.isSplashScreen = false;
+                draft.isLoader = false;
               });
             },
           }
         );
-      }, 250);
+      }, 100);
     }
-
-    const timeout = setTimeout(() => {
+    function takeover() {
       const loaderPercentEl = document.getElementById(ID_LOADER_PERCENT);
       const preloader = Object.values(isCompsReady);
       const progressFrom = parseInt(loaderPercentEl?.innerText || '0');
@@ -73,15 +72,15 @@ export default function LoaderInteractive() {
         onUpdate: (value) => {
           loaderPercentEl && (loaderPercentEl.innerText = Math.round(value).toString());
 
-          value === 100 && fadeOut();
+          value === 99 && loaderPercentEl?.classList.remove('animate-pulse');
+          value === 100 && exit();
         },
       });
-    }, 100);
+    }
 
-    return () => {
-      clearTimeout(timeout);
-      clearTimeout(timeoutFadeOut);
-    };
+    requestAnimationFrame(takeover);
+
+    return () => clearTimeout(timeoutFadeOut);
   }, [isCompsReady, setState]);
 
   return null;

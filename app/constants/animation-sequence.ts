@@ -1,6 +1,6 @@
 export const ANIMATION_SEQUENCE_INITIAL_STATE = {
   isCompsReady: {},
-  isSplashScreen: true,
+  isLoader: true,
   bigTitlePos: {
     hero: false,
     footer: false,
@@ -10,7 +10,7 @@ export const ANIMATION_SEQUENCE_INITIAL_STATE = {
   announcing: false,
 } as {
   isCompsReady: {};
-  isSplashScreen: boolean;
+  isLoader: boolean;
   bigTitlePos: {
     hero: boolean;
     footer: boolean;

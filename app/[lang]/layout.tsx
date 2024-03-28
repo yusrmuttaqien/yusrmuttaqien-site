@@ -35,9 +35,9 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
         )}
       >
         <Providers>
-          <Loader />
           <Announcer />
           <Navbar />
+          <Loader />
           {children}
           <Footer />
         </Providers>

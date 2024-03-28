@@ -11,7 +11,7 @@ export default function Navbar() {
     <nav
       id="navbar"
       className={classMerge(
-        'fixed top-0 left-0 right-0 z-50 container box-border',
+        'fixed top-0 left-0 right-0 z-[100] container box-border',
         'mix-blend-difference text-beige',
         'py-[clamp(0.3719rem,_-0.0008rem_+_1.8633vw,_0.5rem)]'
       )}

@@ -12,7 +12,7 @@ export default async function MainHero({ className }: { className?: string }) {
 
   return (
     <section
-      id={ANCHOR_HERO.replace('#', '')}
+      id={ANCHOR_HERO.replace('/#', '')}
       className={classMerge(
         'h-[100svh] min-h-[25rem] w-full flex items-end relative isolate',
         'bg-beige dark:bg-grey',

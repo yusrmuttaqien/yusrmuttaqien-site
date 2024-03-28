@@ -6,6 +6,7 @@ const {
   COLOR_BEIGE,
   COLOR_GREEN,
   COLOR_GREY,
+  EASE_IN_OUT_QUINT_CSS,
   SIZING_CONTAINER_DEFAULT,
   SIZING_CONTAINER_LG,
 } = require('./app/constants/tailwind-config');
@@ -36,6 +37,25 @@ const config: Config = {
       screens: {
         hoverable: { raw: '(hover: hover)' },
         unhoverable: { raw: '(hover: none)' },
+      },
+      keyframes: {
+        'swipe-up-show': {
+          '0%': { transform: 'translateY(100%)' },
+          '100%': { transform: 'translateY(0%)' },
+        },
+        'swipe-up-hide': {
+          '0%': { transform: 'translateY(0pz)' },
+          '100%': { transform: 'translateY(-20vh)' },
+        },
+        'loader-exit': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '0.5' },
+        },
+      },
+      animation: {
+        'swipe-up-show': `swipe-up-show .8s ${EASE_IN_OUT_QUINT_CSS} forwards`,
+        'swipe-up-hide': `swipe-up-hide 1.3s ${EASE_IN_OUT_QUINT_CSS} forwards`,
+        'loader-exit': `loader-exit .8s linear forwards`,
       },
     },
     screens: {

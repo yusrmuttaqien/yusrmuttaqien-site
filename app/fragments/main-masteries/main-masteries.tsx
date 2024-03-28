@@ -12,7 +12,7 @@ export default async function MainMasteries({ className }: { className?: string 
 
   return (
     <section
-      id={ANCHOR_MASTERIES.replace('#', '')}
+      id={ANCHOR_MASTERIES.replace('/#', '')}
       className={classMerge(
         'mt-[clamp(5.5625rem,_-0.0739rem_+_28.1818vw,_7.5rem)]',
         'scroll-mt-[calc(var(--navbar-total-height)_*_1px)]',

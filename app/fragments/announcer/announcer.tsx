@@ -35,7 +35,7 @@ export default function Announcer() {
       initial={{ scale: 0 }}
       animate={control}
       className={classMerge(
-        'fixed top-0 left-0 right-0 z-[100]',
+        'fixed top-0 left-0 right-0 z-[101]',
         'mask-image-[radial-gradient(circle,_rgba(2,0,36,1)_0%,_rgba(0,212,255,0)_100%)]'
       )}
     >
