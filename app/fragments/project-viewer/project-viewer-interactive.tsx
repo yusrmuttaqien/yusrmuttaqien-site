@@ -2,7 +2,6 @@
 
 import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion';
-import { useMeasurementCtx } from '@/app/providers/measurements';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import usePageTransition from '@/app/hooks/page-transition';
 import useProjectViewerHeaderTransformer from '@/app/hooks/project-viewer-header-transformer';
@@ -14,16 +13,13 @@ import { SIZING_CONTAINER_DEFAULT, SIZING_CONTAINER_LG } from '@/app/constants/t
 import type { ProjectViewerWrapperProps } from '@/app/types/project';
 
 export default function ProjectViewerWrapper({ className }: ProjectViewerWrapperProps) {
-  const {
-    state: { navbarHeight },
-  } = useMeasurementCtx();
   const wrapperRef = useRef(null);
   const { complete } = usePageTransition();
   const { setState } = useAnimationSequenceCtx();
   const [xEndPos, setXEndPos] = useState('-100px');
   const { scrollYProgress: yScrollContent } = useScroll({ target: wrapperRef });
   const xPosContents = useTransform(yScrollContent, [0, 1], ['0px', xEndPos]);
-  const heightWrapper = useMotionValue(`calc(100svh - ${navbarHeight}px)`);
+  const heightWrapper = useMotionValue(`calc(100svh - (var(--navbar-height) * 1px))`);
   const { className: dynamicCN, style: dynamicStyle } =
     useProjectViewerHeaderTransformer(yScrollContent);
 
@@ -45,7 +41,7 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
       const contents = document.getElementById(ID_PROJECT_PREVIEW_CONTENTS);
 
       if (contents) {
-        heightWrapper.set(`calc(${contents.scrollWidth}px - ${navbarHeight}px)`);
+        heightWrapper.set(`calc(${contents.scrollWidth}px - (var(--navbar-height) * 1px))`);
         setXEndPos(`-${contents.scrollWidth - contents.clientWidth}px`);
       }
     }
@@ -55,15 +51,14 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
     defineNeededHeight();
 
     return () => window.removeEventListener('resize', debouncedDefineNeededHeight);
-  }, [navbarHeight, heightWrapper]);
+  }, [heightWrapper]);
 
   return (
     <motion.article style={{ height: heightWrapper }} ref={wrapperRef}>
       <div
-        style={{ '--navbar-height': `${navbarHeight}px` } as CSSProperties}
         className={classMerge(
-          'pt-[calc(clamp(3rem,_0.0909rem_+_14.5455vw,_4rem)_+_var(--navbar-height))]',
-          'md:pt-[calc(clamp(4rem,_1.6052rem_+_8.9109vw,_6.25rem)_+_var(--navbar-height))]',
+          'pt-[calc(clamp(3rem,_0.0909rem_+_14.5455vw,_4rem)_+_(var(--navbar-height)_*_1px))]',
+          'md:pt-[calc(clamp(4rem,_1.6052rem_+_8.9109vw,_6.25rem)_+_(var(--navbar-height)_*_1px))]',
           'container-b overflow-hidden sticky top-0 h-[100svh]',
           className
         )}
@@ -78,8 +73,8 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
           }
           className={classMerge(
             'container absolute lg-only:top-0 left-1/2 z-20 opacity-[var(--opacity-header)]',
-            'mt-[calc(var(--navbar-height)_+_var(--size-container))]',
-            'lg:mt-[calc(var(--navbar-height)_+_var(--size-container-lg))]',
+            'mt-[calc((var(--navbar-height)_*_1px)_+_var(--size-container))]',
+            'lg:mt-[calc((var(--navbar-height)_*_1px)_+_var(--size-container-lg))]',
             'xl:bottom-[var(--size-container-lg)] -translate-x-1/2'
           )}
         >

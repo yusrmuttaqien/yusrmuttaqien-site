@@ -53,6 +53,7 @@ export default function YusrMuttaqien({
               withPlaceholder ? 'absolute top-0 left-0' : undefined
             )}
             layoutId={layoutId}
+            layoutDependency={isVisible}
             {...variants}
           >
             <YusrMuttaqienSVGS className={className} {...rest} />
