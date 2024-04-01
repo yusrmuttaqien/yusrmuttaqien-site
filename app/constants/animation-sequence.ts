@@ -9,7 +9,7 @@ export const ANIMATION_SEQUENCE_INITIAL_STATE = {
     footer: false,
     navbar: true,
     config: {
-      forceDisableLayout: true,
+      forceDisableLayout: false,
     },
   },
   announcer: { announcing: false },

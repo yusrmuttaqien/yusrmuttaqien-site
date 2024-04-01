@@ -1,7 +1,7 @@
 'use client';
 
 import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
-import { motion, useMotionValue, useScroll, useTransform, inView } from 'framer-motion';
+import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion';
 import { useMeasurementCtx } from '@/app/providers/measurements';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import usePageTransition from '@/app/hooks/page-transition';
@@ -27,34 +27,7 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
   const { className: dynamicCN, style: dynamicStyle } =
     useProjectViewerHeaderTransformer(yScrollContent);
 
-  yScrollContent.on('change', (v) => {
-    if (v >= 1) {
-      setState((draft) => {
-        draft.yusrMuttaqien.navbar = true;
-      });
-    } else {
-      setState((draft) => {
-        draft.yusrMuttaqien.navbar = false;
-      });
-    }
-  });
-
   useLayoutEffect(() => {
-    const stopObserve = inView(
-      document.getElementsByTagName('footer')[0] as HTMLElement,
-      () => {
-        setState((draft) => {
-          draft.yusrMuttaqien.config.forceDisableLayout = false;
-        });
-
-        return () =>
-          setState((draft) => {
-            draft.yusrMuttaqien.config.forceDisableLayout = true;
-          });
-      },
-      { margin: '0% 0% -10% 0%', amount: 'some' }
-    );
-
     complete({
       sequences(draft) {
         draft.yusrMuttaqien.config.forceDisableLayout = true;
@@ -65,8 +38,6 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
         });
       },
     });
-
-    return () => stopObserve();
   }, []);
 
   useLayoutEffect(() => {

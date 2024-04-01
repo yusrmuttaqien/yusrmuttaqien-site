@@ -46,7 +46,6 @@ export default function LoaderInteractive() {
               loaderEnterEl?.classList.add('hidden');
               setState((draft) => {
                 draft.isLoader.enter = false;
-                draft.yusrMuttaqien.config.forceDisableLayout = false;
               });
             },
           }
