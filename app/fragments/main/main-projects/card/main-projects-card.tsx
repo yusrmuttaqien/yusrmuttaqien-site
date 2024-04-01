@@ -4,9 +4,8 @@ import { tv } from 'tailwind-variants';
 import { type MouseEvent, useRef, useEffect, useCallback } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useMediaQueryCtx } from '@/app/providers/media-query';
-import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import Link from '@/app/components/link';
-import MainProjectsCardTags from '@/app/fragments/main-projects/card/main-projects-card-tags';
+import MainProjectsCardTags from '@/app/fragments/main/main-projects/card/main-projects-card-tags';
 import classMerge from '@/app/utils/class-merge';
 import { ID_PROJECT_CARD_TAGS, ID_PROJECT_CARD_TOGGLE } from '@/app/constants/main';
 import type {
@@ -114,7 +113,6 @@ function CardCover({ className, style, toggleCover, content }: CardCoverProps) {
   const arrowRef = useRef(null);
   const buttonRef = useRef(null);
   const { isHover } = useMediaQueryCtx();
-  const { setState } = useAnimationSequenceCtx();
   const yMouse = useMotionValue(0);
   const xMouse = useMotionValue(0);
   const scale = useMotionValue(0);
@@ -123,11 +121,6 @@ function CardCover({ className, style, toggleCover, content }: CardCoverProps) {
   const yPosButton = useTransform(state, [0, 100], ['-100%', '0%']);
   const opacityNum = useTransform(state, [0, 100], [100, 0]);
 
-  function _toggleNavbarAnimatePresence() {
-    setState((draft) => {
-      draft.navbarAnimatePresence = true;
-    });
-  }
   function _rotateArrow() {
     const arrowRect = (arrowRef.current as unknown as Element)?.getBoundingClientRect();
     const targetRect = (buttonRef.current as unknown as Element)?.getBoundingClientRect();
@@ -228,7 +221,7 @@ function CardCover({ className, style, toggleCover, content }: CardCoverProps) {
           />
         </div>
         <Link
-          announcing="manually"
+          manualRestore
           className={classMerge(
             'block h3-normal truncate z-10 relative w-fit',
             'after:table after:-mt-[.12em] before:absolute before:-bottom-1 before:left-0',
@@ -236,7 +229,6 @@ function CardCover({ className, style, toggleCover, content }: CardCoverProps) {
           )}
           href="/project/project-one"
           title={content.title}
-          onClick={_toggleNavbarAnimatePresence}
         >
           {content.title}
         </Link>

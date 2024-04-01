@@ -1,5 +1,5 @@
-import MainProjectsPaginator from '@/app/fragments/main-projects/main-projects-paginator';
-import MainProjectsCard from '@/app/fragments/main-projects/card/main-projects-card';
+import MainProjectsPaginator from '@/app/fragments/main/main-projects/main-projects-paginator';
+import MainProjectsCard from '@/app/fragments/main/main-projects/card/main-projects-card';
 import { getRootParams } from '@/app/utils/root-params';
 import mainContents from '@/app/contents/main';
 import type { i18nTypes } from '@/app/types/i18n';

@@ -1,21 +1,31 @@
 export const ANIMATION_SEQUENCE_INITIAL_STATE = {
   isCompsReady: {},
-  isLoader: true,
-  bigTitlePos: {
+  isLoader: {
+    exit: false,
+    enter: true,
+  },
+  yusrMuttaqien: {
     hero: false,
     footer: false,
     navbar: true,
+    config: {
+      forceDisableLayout: true,
+    },
   },
-  navbarAnimatePresence: false,
-  announcing: false,
+  announcer: { announcing: false },
 } as {
   isCompsReady: {};
-  isLoader: boolean;
-  bigTitlePos: {
+  isLoader: {
+    exit: boolean;
+    enter: boolean;
+  };
+  yusrMuttaqien: {
     hero: boolean;
     footer: boolean;
     navbar: boolean;
+    config: {
+      forceDisableLayout: boolean;
+    };
   };
-  navbarAnimatePresence: boolean;
-  announcing: boolean | 'manually';
+  announcer: { announcing: boolean | 'manually' };
 };

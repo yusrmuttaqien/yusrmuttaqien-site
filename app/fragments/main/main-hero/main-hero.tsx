@@ -1,4 +1,4 @@
-import MainHeroYusrMuttaqien from '@/app/fragments/main-hero/main-hero-yusr-muttaqien';
+import MainHeroYusrMuttaqien from '@/app/fragments/main/main-hero/main-hero-yusr-muttaqien';
 import Blueprint from '@/app/components/blueprint';
 import classMerge from '@/app/utils/class-merge';
 import { getRootParams } from '@/app/utils/root-params';

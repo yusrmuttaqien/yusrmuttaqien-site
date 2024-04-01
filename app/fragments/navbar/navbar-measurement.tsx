@@ -11,22 +11,19 @@ export default function NavbarMeasurement() {
   const timeRetries = useRef(0);
   const { setState: measurementState } = useMeasurementCtx();
 
-  const _measure = useCallback(
-    (cb?: ((isComplete: boolean) => void) | null) => {
-      const navbar = document.getElementById(ID_NAVBAR)?.offsetHeight || undefined;
-      const navbarYusrMuttaqien =
-        document.getElementById(ID_NAVBAR_YUSR_MUTTAQIEN)?.offsetHeight || undefined;
-      const navbarTotal = navbarYusrMuttaqien ? (navbar || 0) + (navbarYusrMuttaqien || 0) : navbar;
+  const _measure = useCallback((cb?: ((isComplete: boolean) => void) | null) => {
+    const navbar = document.getElementById(ID_NAVBAR)?.offsetHeight || undefined;
+    const navbarYusrMuttaqien =
+      document.getElementById(ID_NAVBAR_YUSR_MUTTAQIEN)?.offsetHeight || undefined;
+    const navbarTotal = navbarYusrMuttaqien ? (navbar || 0) + (navbarYusrMuttaqien || 0) : navbar;
 
-      cb?.(!!navbarYusrMuttaqien);
-      measurementState((draft) => {
-        draft.navbarHeight = navbar;
-        draft.navbarYusrMuttaqienHeight = navbarYusrMuttaqien;
-        draft.navbarTotalHeight = navbarTotal;
-      });
-    },
-    [measurementState]
-  );
+    cb?.(!!navbarYusrMuttaqien);
+    measurementState((draft) => {
+      draft.navbarHeight = navbar;
+      draft.navbarYusrMuttaqienHeight = navbarYusrMuttaqien;
+      draft.navbarTotalHeight = navbarTotal;
+    });
+  }, []);
 
   useLayoutEffect(() => {
     const debouncedMeasure = debounce(_measure, 100);

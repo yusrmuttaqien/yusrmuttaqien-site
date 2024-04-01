@@ -45,7 +45,8 @@ export default function LoaderInteractive() {
 
               loaderEnterEl?.classList.add('hidden');
               setState((draft) => {
-                draft.isLoader = false;
+                draft.isLoader.enter = false;
+                draft.yusrMuttaqien.config.forceDisableLayout = false;
               });
             },
           }
@@ -81,7 +82,7 @@ export default function LoaderInteractive() {
     requestAnimationFrame(takeover);
 
     return () => clearTimeout(timeoutFadeOut);
-  }, [isCompsReady, setState]);
+  }, [isCompsReady]);
 
   return null;
 }

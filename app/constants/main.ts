@@ -2,6 +2,7 @@ import { MotionProps } from 'framer-motion';
 
 export const ID_PROJECT_CARD_TOGGLE = 'id-project-card-toggle';
 export const ID_PROJECT_CARD_TAGS = 'id-project-card-tags';
+export const LAYOUT_PROJECTS_PAGINATION_BUTTON = 'layout-projects-pagination-button';
 export const VARIANT_PAGINATION_BTN_BG: MotionProps = {
   transition: { duration: 0.1 },
   variants: {

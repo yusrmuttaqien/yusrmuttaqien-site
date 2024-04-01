@@ -1,5 +1,5 @@
 import SectionHeader from '@/app/components/section-header';
-import MainProjectsTable from '@/app/fragments/main-projects/main-projects-table';
+import MainProjectsTable from '@/app/fragments/main/main-projects/main-projects-table';
 import classMerge from '@/app/utils/class-merge';
 import { getRootParams } from '@/app/utils/root-params';
 import mainContents from '@/app/contents/main';

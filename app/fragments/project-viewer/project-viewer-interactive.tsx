@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { motion, useMotionValue, useScroll, useTransform, inView } from 'framer-motion';
 import { useMeasurementCtx } from '@/app/providers/measurements';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
+import usePageTransition from '@/app/hooks/page-transition';
 import useProjectViewerHeaderTransformer from '@/app/hooks/project-viewer-header-transformer';
 import Blueprint from '@/app/components/blueprint';
 import classMerge from '@/app/utils/class-merge';
@@ -17,22 +18,23 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
     state: { navbarHeight },
   } = useMeasurementCtx();
   const wrapperRef = useRef(null);
+  const { complete } = usePageTransition();
+  const { setState } = useAnimationSequenceCtx();
+  const [xEndPos, setXEndPos] = useState('-100px');
   const { scrollYProgress: yScrollContent } = useScroll({ target: wrapperRef });
+  const xPosContents = useTransform(yScrollContent, [0, 1], ['0px', xEndPos]);
+  const heightWrapper = useMotionValue(`calc(100svh - ${navbarHeight}px)`);
   const { className: dynamicCN, style: dynamicStyle } =
     useProjectViewerHeaderTransformer(yScrollContent);
-  const [xEndPos, setXEndPos] = useState('-100px');
-  const xPosContents = useTransform(yScrollContent, [0, 1], ['0px', xEndPos]);
-  const { setState } = useAnimationSequenceCtx();
-  const heightWrapper = useMotionValue(`calc(100svh - ${navbarHeight}px)`);
 
   yScrollContent.on('change', (v) => {
     if (v >= 1) {
       setState((draft) => {
-        draft.bigTitlePos.navbar = true;
+        draft.yusrMuttaqien.navbar = true;
       });
     } else {
       setState((draft) => {
-        draft.bigTitlePos.navbar = false;
+        draft.yusrMuttaqien.navbar = false;
       });
     }
   });
@@ -42,30 +44,30 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
       document.getElementsByTagName('footer')[0] as HTMLElement,
       () => {
         setState((draft) => {
-          draft.navbarAnimatePresence = false;
+          draft.yusrMuttaqien.config.forceDisableLayout = false;
         });
 
         return () =>
           setState((draft) => {
-            draft.navbarAnimatePresence = true;
+            draft.yusrMuttaqien.config.forceDisableLayout = true;
           });
       },
       { margin: '0% 0% -10% 0%', amount: 'some' }
     );
 
-    setState((draft) => {
-      draft.bigTitlePos.navbar = false;
-      draft.navbarAnimatePresence = true;
-      draft.announcing = false;
+    complete({
+      sequences(draft) {
+        draft.yusrMuttaqien.config.forceDisableLayout = true;
+      },
+      after() {
+        setState((draft) => {
+          draft.yusrMuttaqien.navbar = false;
+        });
+      },
     });
 
-    return () => {
-      setState((draft) => {
-        draft.bigTitlePos.navbar = true;
-      });
-      stopObserve();
-    };
-  }, [setState]);
+    return () => stopObserve();
+  }, []);
 
   useLayoutEffect(() => {
     function defineNeededHeight() {

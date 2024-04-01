@@ -1,21 +1,15 @@
 'use client';
 
-import { Fragment } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import YusrMuttaqien from '@/app/components/yusr-muttaqien';
 import classMerge from '@/app/utils/class-merge';
-import { VARIANT_YUSR_MUTTAQIEN } from '@/app/constants/navbar';
 import { ID_NAVBAR_YUSR_MUTTAQIEN } from '@/app/constants/navbar';
 
 export default function NavbarYusrMuttaqien() {
   const {
-    state: { bigTitlePos, navbarAnimatePresence },
+    state: { yusrMuttaqien },
   } = useAnimationSequenceCtx();
-  const isShowTitle = !bigTitlePos.hero && !bigTitlePos.footer && bigTitlePos.navbar;
-  const Wrapper = navbarAnimatePresence ? AnimatePresence : Fragment;
-  const variants = navbarAnimatePresence ? VARIANT_YUSR_MUTTAQIEN : {};
-  const wrapperProps = navbarAnimatePresence ? { initial: false } : {};
+  const isShowTitle = !yusrMuttaqien.hero && !yusrMuttaqien.footer && yusrMuttaqien.navbar;
 
   return (
     <div
@@ -25,13 +19,7 @@ export default function NavbarYusrMuttaqien() {
         'lg:-mt-[1.5rem]'
       )}
     >
-      <Wrapper {...wrapperProps}>
-        {isShowTitle && (
-          <motion.div key="navbar-yusr-muttaqien-animate" {...variants}>
-            <YusrMuttaqien className={{ pathFill: 'fill-beige' }} />
-          </motion.div>
-        )}
-      </Wrapper>
+      <YusrMuttaqien className={{ pathFill: 'fill-beige' }} isVisible={isShowTitle} />
     </div>
   );
 }

@@ -23,7 +23,7 @@ export default function MediaQueryProvider({ children }: { children: ReactNode }
       draft.isLargeDesktop = isLargeDesktop;
       draft.isDesktop = isDesktop;
     });
-  }, [isTablet, isHover, isLargeDesktop, isDesktop, setState]);
+  }, [isTablet, isHover, isLargeDesktop, isDesktop]);
 
   return <MediaQueryContext.Provider value={state}>{children}</MediaQueryContext.Provider>;
 }

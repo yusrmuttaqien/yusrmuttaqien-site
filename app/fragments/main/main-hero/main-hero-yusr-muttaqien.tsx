@@ -5,24 +5,24 @@ import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import YusrMuttaqien from '@/app/components/yusr-muttaqien';
 import YusrMuttaqienPlaceholderObserver from '@/app/utils/fragments/yusr-muttaqien-placeholder-observer';
 
-const YUSR_MUTTAQIEN_PLACEHOLDER_ID = '-footer';
+const YUSR_MUTTAQIEN_PLACEHOLDER_ID = '-hero';
 
-export default function FooterYusrMuttaqien() {
+export default function MainHeroYusrMuttaqien() {
   const {
     state: { yusrMuttaqien },
     setState,
   } = useAnimationSequenceCtx();
-  const isShowTitle = yusrMuttaqien.footer;
+  const isShowTitle = yusrMuttaqien.hero;
 
   useLayoutEffect(() => {
     function togglePlaceholder() {
       setState((draft) => {
-        draft.yusrMuttaqien.footer = true;
+        draft.yusrMuttaqien.hero = true;
       });
 
       return () =>
         setState((draft) => {
-          draft.yusrMuttaqien.footer = false;
+          draft.yusrMuttaqien.hero = false;
         });
     }
 
@@ -30,7 +30,7 @@ export default function FooterYusrMuttaqien() {
       YUSR_MUTTAQIEN_PLACEHOLDER_ID,
       togglePlaceholder,
       {
-        margin: '0% 0% -5% 0%',
+        margin: '-20% 0% 0% 0%',
         amount: 'some',
       }
     );

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion, useAnimationControls } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
@@ -8,27 +8,22 @@ import classMerge from '@/app/utils/class-merge';
 
 export default function Announcer() {
   const control = useAnimationControls();
-  const pathname = usePathname();
-  const currentPathname = useRef(pathname);
   const {
-    state: { announcing },
-    setState,
+    state: {
+      announcer: { announcing },
+    },
   } = useAnimationSequenceCtx();
 
   useEffect(() => {
-    if (announcing && currentPathname.current === pathname) {
+    if (announcing) {
       control.start(
         { scale: 1 },
         { repeat: Infinity, repeatType: 'reverse', duration: 1.5, ease: 'easeInOut' }
       );
-    } else if (announcing !== 'manually' && currentPathname.current !== pathname) {
-      currentPathname.current = pathname;
+    } else {
       control.start({ scale: 0 }, { duration: 1.5, ease: 'easeInOut' });
-      setState((draft) => {
-        draft.announcing = false;
-      });
     }
-  }, [announcing, pathname, control, setState]);
+  }, [announcing, control]);
 
   return (
     <motion.div

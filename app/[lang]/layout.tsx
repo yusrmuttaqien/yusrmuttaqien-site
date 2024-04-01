@@ -5,7 +5,7 @@ import Footer from '@/app/fragments/footer/footer';
 import Announcer from '@/app/fragments/announcer/announcer';
 import Loader from '@/app/fragments/loader/loader';
 import classMerge from '@/app/utils/class-merge';
-import { helveticaNeue, robotoMono, nohemi } from '@/app/constants/root-layout';
+import { helveticaNeue, robotoMono, nohemi, ID_EXPANDED_MAIN } from '@/app/constants/root-layout';
 import type { RootLayoutProps } from '@/app/types/root-layout';
 import type { Metadata } from 'next';
 import '../globals.css';
@@ -38,8 +38,10 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
           <Announcer />
           <Navbar />
           <Loader />
-          {children}
-          <Footer />
+          <div id={ID_EXPANDED_MAIN}>
+            {children}
+            <Footer />
+          </div>
         </Providers>
         <SpeedInsights />
       </body>

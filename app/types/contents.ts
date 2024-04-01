@@ -9,7 +9,7 @@ export type ProjectsPagination = typeof projectsPagination;
 export type LinkProperties = {
   href: string;
   target: '_self' | '_blank';
-  onClick?: () => void;
+  onClick?: VoidFunction;
 };
 export type FooterLinks = Record<string, Record<string, LinkProperties>>;
 export type FooterLinksTitles = keyof typeof footerLinksTitles;

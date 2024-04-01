@@ -1,5 +1,5 @@
 import SectionHeader from '@/app/components/section-header';
-import MainMasteriesArticle from '@/app/fragments/main-masteries/main-masteries-article';
+import MainMasteriesArticle from '@/app/fragments/main/main-masteries/main-masteries-article';
 import { getRootParams } from '@/app/utils/root-params';
 import classMerge from '@/app/utils/class-merge';
 import mainContents from '@/app/contents/main';

@@ -3,24 +3,15 @@
 import Nextlink from 'next/link';
 import { useLenis } from '@studio-freight/react-lenis';
 import { usePathname, useRouter } from 'next/navigation';
-import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import { useMeasurementCtx } from '@/app/providers/measurements';
-import { ID_LOADER_EXIT } from '@/app/constants/loader';
+import usePageTransition from '@/app/hooks/page-transition';
 import { EXTERNAL_LINKS } from '@/app/constants/link';
 import type { MouseEvent } from 'react';
 import type { LinkProps } from '@/app/types/link';
 import type { Url } from 'next/dist/shared/lib/router/router';
 
-export default function Link({
-  children,
-  onClick,
-  announcing = true,
-  href,
-  replace,
-  scroll,
-  ...rest
-}: LinkProps) {
-  const { setState } = useAnimationSequenceCtx();
+export default function Link({ children, onClick, href, replace, scroll, ...rest }: LinkProps) {
+  const { start } = usePageTransition();
   const {
     state: { navbarTotalHeight },
   } = useMeasurementCtx();
@@ -39,7 +30,8 @@ export default function Link({
     const isLocalId = endpoints[0] === pathname;
 
     isLocalId && e.preventDefault();
-    isLocalId && lenis?.scrollTo(`#${endpoints[1]}`, { offset: (navbarTotalHeight || 0) * -1 });
+    isLocalId &&
+      lenis?.scrollTo(`#${endpoints[1]}`, { offset: (navbarTotalHeight || 0) * -1, duration: 1.8 });
 
     return isLocalId;
   }
@@ -50,26 +42,12 @@ export default function Link({
     if (_localId(e, href)) return;
     e.preventDefault();
 
-    const loaderExitEl = document.getElementById(ID_LOADER_EXIT);
-    const mainEl = document.getElementsByTagName('main')[0];
-
-    function animationEnd() {
+    function redirect() {
       const method = replace ? router.replace : router.push;
-
-      setState((draft) => {
-        draft.announcing = announcing;
-        draft.isLoader = true;
-      });
-      loaderExitEl?.removeEventListener('animationend', animationEnd);
-      method(href as string, { scroll });
+      requestAnimationFrame(() => method(href as string, { scroll }));
     }
 
-    // NOTE: Move to hooks?
-    loaderExitEl?.addEventListener('animationend', animationEnd);
-    mainEl.classList.add('origin-bottom');
-    mainEl.classList.add('animate-main-push-up-hide');
-    loaderExitEl?.classList.add('animate-loader-exit-push-up-show');
-    loaderExitEl?.classList.add('after:animate-loader-exit-backdrop-show');
+    start({ after: redirect });
   }
 
   return (
