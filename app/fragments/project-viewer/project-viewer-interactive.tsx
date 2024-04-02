@@ -25,6 +25,7 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
     setState((draft) => {
       draft.announcer.announcing = false;
       draft.yusrMuttaqien.navbar = false;
+      draft.yusrMuttaqien.config.forceDisableLayout = true;
     });
   }, []);
 

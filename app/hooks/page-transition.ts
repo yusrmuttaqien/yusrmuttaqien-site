@@ -47,7 +47,7 @@ export default function usePageTransition() {
     const mainEl = document.getElementById(ID_EXPANDED_MAIN);
 
     function finalCleanup() {
-      mainEl?.classList.remove('animate-main-push-up-show');
+      mainEl?.classList.remove('animate-main-push-in-show');
       loaderExitEl?.classList.remove('animate-loader-exit-push-up-hide');
       loaderExitEl?.classList.remove('after:translate-y-full');
       loaderExitEl?.classList.remove('after:animate-loader-exit-backdrop-hide');
@@ -63,7 +63,7 @@ export default function usePageTransition() {
     }
 
     if (
-      mainEl?.classList.contains('animate-main-push-up-show') ||
+      mainEl?.classList.contains('animate-main-push-in-show') ||
       loaderExitEl?.classList.contains('animate-loader-exit-push-up-hide') ||
       loaderExitEl?.classList.contains('after:translate-y-full') ||
       loaderExitEl?.classList.contains('after:animate-loader-exit-backdrop-hide')
@@ -78,7 +78,7 @@ export default function usePageTransition() {
     loaderExitEl?.classList.remove('animate-loader-exit-push-up-show');
     loaderExitEl?.classList.remove('after:animate-loader-exit-backdrop-show');
     loaderExitEl?.addEventListener('animationend', reveal);
-    mainEl?.classList.add('animate-main-push-up-show');
+    mainEl?.classList.add('animate-main-push-in-show');
     loaderExitEl?.classList.add('animate-loader-exit-push-up-hide');
     loaderExitEl?.classList.add('after:translate-y-full');
     loaderExitEl?.classList.add('after:animate-loader-exit-backdrop-hide');

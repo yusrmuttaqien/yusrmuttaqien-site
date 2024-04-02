@@ -28,7 +28,7 @@ export default function LoaderInteractive() {
       const mainEl = document.getElementById(ID_EXPANDED_MAIN);
 
       function reveal() {
-        mainEl?.classList.remove('animate-main-push-up-show');
+        mainEl?.classList.remove('animate-main-push-in-show');
         loaderExitEl?.classList.remove('animate-loader-exit-push-up-hide');
         loaderExitEl?.classList.remove('after:translate-y-full');
         loaderExitEl?.classList.remove('after:animate-loader-exit-backdrop-hide');
@@ -39,7 +39,7 @@ export default function LoaderInteractive() {
       }
 
       loaderExitEl?.addEventListener('animationend', reveal);
-      mainEl?.classList.add('animate-main-push-up-show');
+      mainEl?.classList.add('animate-main-push-in-show');
       loaderExitEl?.classList.add('animate-loader-exit-push-up-hide');
       loaderExitEl?.classList.add('after:translate-y-full');
       loaderExitEl?.classList.add('after:animate-loader-exit-backdrop-hide');

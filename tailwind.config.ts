@@ -51,9 +51,9 @@ const config: Config = {
           '0%': { transform: 'translateY(0pz)' },
           '100%': { transform: 'translateY(-20vh)' },
         },
-        'main-push-up-show': {
-          '0%': { transform: 'translateY(20vh)' },
-          '100%': { transform: 'translateY(0pz)' },
+        'main-push-in-show': {
+          '0%': { scale: '0.8' },
+          '100%': { scale: '1' },
         },
         'loader-exit-backdrop-show': {
           '0%': { opacity: '0' },
@@ -72,7 +72,7 @@ const config: Config = {
         'loader-exit-push-up-show': `loader-exit-push-up-show .8s ${EASE_IN_OUT_QUINT_CSS} forwards`,
         'loader-exit-push-up-hide': `loader-exit-push-up-hide .8s ${EASE_IN_OUT_QUINT_CSS} forwards`,
         'main-push-up-hide': `main-push-up-hide 1.3s ${EASE_IN_OUT_QUINT_CSS} forwards`,
-        'main-push-up-show': `main-push-up-show .8s ${EASE_IN_OUT_QUINT_CSS} forwards`,
+        'main-push-in-show': `main-push-in-show .8s ${EASE_IN_OUT_QUINT_CSS} forwards`,
         'loader-exit-backdrop-show': `loader-exit-backdrop-show .8s linear forwards`,
         'loader-exit-backdrop-hide': `loader-exit-backdrop-hide .8s linear forwards`,
         'navbar-push-up-hide': `navbar-push-up-hide .8s ${EASE_IN_OUT_QUINT_CSS} forwards`,
