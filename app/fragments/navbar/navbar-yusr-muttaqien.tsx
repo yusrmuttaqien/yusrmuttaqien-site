@@ -14,6 +14,7 @@ export default function NavbarYusrMuttaqien() {
   return (
     <div
       id={ID_NAVBAR_YUSR_MUTTAQIEN}
+      data-framer="nav-yusr-muttaqien"
       className={classMerge(
         'absolute top-full left-0 w-full container pointer-events-none',
         'lg:-mt-[1.5rem]'

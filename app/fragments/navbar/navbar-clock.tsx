@@ -36,7 +36,7 @@ export default function NavbarClock({ className }: { className?: string }) {
   }, []);
 
   return (
-    <p className={className}>
+    <p className={className} data-framer="nav-clock">
       <MemoizedAnimateDigit
         digit={time.hour[0]}
         variant={VARIANT_CLOCK_NUM}

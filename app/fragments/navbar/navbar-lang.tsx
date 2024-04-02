@@ -15,7 +15,7 @@ export default function NavbarLang({ className }: { className?: string }) {
 
   function _retractNavbar() {
     const navbar = document.getElementById(ID_NAVBAR);
-    navbar?.classList.add('animate-navbar-push-up-hidden');
+    navbar?.classList.add('animate-navbar-push-up-hide');
   }
 
   return (
@@ -25,25 +25,26 @@ export default function NavbarLang({ className }: { className?: string }) {
         const isActive = locale === currentLocale;
         const newLink = `/${locale}${cleanPathname}`;
         const LinkEl = (
-          <Link
-            href={newLink}
-            locale={currentLocale}
-            lang={currentLocale}
-            key={locale}
-            replace
-            scroll={false}
-            className={classMerge(
-              'uppercase',
-              i18nOptionsCursorEmoji[idx],
-              isActive
-                ? 'opacity-100 underline !cursor-not-allowed'
-                : 'opacity-50 hoverable:hover:opacity-80 transition-opacity',
-              className
-            )}
-            onClick={_retractNavbar}
-          >
-            {locale}
-          </Link>
+          <div className="inline-block" data-framer="nav-langs" key={locale}>
+            <Link
+              href={newLink}
+              locale={currentLocale}
+              lang={currentLocale}
+              replace
+              scroll={false}
+              className={classMerge(
+                'uppercase',
+                i18nOptionsCursorEmoji[idx],
+                isActive
+                  ? 'opacity-100 underline !cursor-not-allowed'
+                  : 'opacity-50 hoverable:hover:opacity-80 transition-opacity',
+                className
+              )}
+              onClick={_retractNavbar}
+            >
+              {locale}
+            </Link>
+          </div>
         );
 
         return isLastLocale ? (
@@ -51,7 +52,12 @@ export default function NavbarLang({ className }: { className?: string }) {
         ) : (
           <Fragment key={locale}>
             {LinkEl}
-            <span className={classMerge('mx-[.5ch] pointer-events-none', className)}>/</span>
+            <span
+              className={classMerge('mx-[.5ch] pointer-events-none inline-block', className)}
+              data-framer="nav-langs"
+            >
+              /
+            </span>
           </Fragment>
         );
       })}

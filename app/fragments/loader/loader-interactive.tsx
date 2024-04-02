@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 import { animate, stagger, cubicBezier } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
-import { ID_LOADER_PERCENT, ID_LOADER_ENTER } from '@/app/constants/loader';
+import { ID_LOADER_PERCENT, ID_LOADER_ENTER, ID_LOADER_EXIT } from '@/app/constants/loader';
+import { ID_EXPANDED_MAIN } from '@/app/constants/root-layout';
 
 declare global {
   interface Window {
@@ -22,14 +23,41 @@ export default function LoaderInteractive() {
     let timeoutFadeOut: NodeJS.Timeout;
 
     function exit() {
+      const loaderExitEl = document.getElementById(ID_LOADER_EXIT);
+      const loaderEnterEl = document.getElementById(ID_LOADER_ENTER);
+      const mainEl = document.getElementById(ID_EXPANDED_MAIN);
+
+      function reveal() {
+        mainEl?.classList.remove('animate-main-push-up-show');
+        loaderExitEl?.classList.remove('animate-loader-exit-push-up-hide');
+        loaderExitEl?.classList.remove('after:translate-y-full');
+        loaderExitEl?.classList.remove('after:animate-loader-exit-backdrop-hide');
+
+        setState((draft) => {
+          draft.isLoader.exit = false;
+        });
+      }
+
+      loaderExitEl?.addEventListener('animationend', reveal);
+      mainEl?.classList.add('animate-main-push-up-show');
+      loaderExitEl?.classList.add('animate-loader-exit-push-up-hide');
+      loaderExitEl?.classList.add('after:translate-y-full');
+      loaderExitEl?.classList.add('after:animate-loader-exit-backdrop-hide');
+      loaderEnterEl?.classList.add('hidden');
+      setState((draft) => {
+        draft.isLoader.enter = false;
+        draft.isLoader.exit = true;
+      });
+    }
+    function replace() {
       const loaderPercentEl = document.getElementById(ID_LOADER_PERCENT);
       const loaderPercentContent = loaderPercentEl?.innerHTML;
-      const contentSpans = loaderPercentContent
+      const percentSpans = loaderPercentContent
         ?.split('')
         .map((char) => `<span class="inline-block">${char}</span>`)
         .join('');
 
-      loaderPercentEl && (loaderPercentEl.innerHTML = contentSpans || '');
+      loaderPercentEl && (loaderPercentEl.innerHTML = percentSpans || '');
       const spans = document.querySelectorAll(`#${ID_LOADER_PERCENT} span`);
 
       timeoutFadeOut = setTimeout(() => {
@@ -40,14 +68,7 @@ export default function LoaderInteractive() {
             delay: stagger(0.04),
             duration: 0.6,
             ease: cubicBezier(0.83, 0, 0.17, 1),
-            onComplete: () => {
-              const loaderEnterEl = document.getElementById(ID_LOADER_ENTER);
-
-              loaderEnterEl?.classList.add('hidden');
-              setState((draft) => {
-                draft.isLoader.enter = false;
-              });
-            },
+            onComplete: exit,
           }
         );
       }, 100);
@@ -73,7 +94,7 @@ export default function LoaderInteractive() {
           loaderPercentEl && (loaderPercentEl.innerText = Math.round(value).toString());
 
           value === 99 && loaderPercentEl?.classList.remove('animate-pulse');
-          value === 100 && exit();
+          value === 100 && replace();
         },
       });
     }

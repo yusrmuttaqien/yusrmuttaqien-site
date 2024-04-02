@@ -43,24 +43,39 @@ const config: Config = {
           '0%': { transform: 'translateY(100%)' },
           '100%': { transform: 'translateY(0%)' },
         },
+        'loader-exit-push-up-hide': {
+          '0%': { transform: 'translateY(0%)' },
+          '100%': { transform: 'translateY(-100%)' },
+        },
         'main-push-up-hide': {
           '0%': { transform: 'translateY(0pz)' },
           '100%': { transform: 'translateY(-20vh)' },
+        },
+        'main-push-up-show': {
+          '0%': { transform: 'translateY(20vh)' },
+          '100%': { transform: 'translateY(0pz)' },
         },
         'loader-exit-backdrop-show': {
           '0%': { opacity: '0' },
           '100%': { opacity: '0.5' },
         },
-        'navbar-push-up-hidden': {
+        'loader-exit-backdrop-hide': {
+          '0%': { opacity: '0.5' },
+          '100%': { opacity: '0' },
+        },
+        'navbar-push-up-hide': {
           '0%': { transform: 'translateY(0px)' },
           '100%': { transform: 'translateY(calc(var(--navbar-total-height) * -1px))' },
         },
       },
       animation: {
         'loader-exit-push-up-show': `loader-exit-push-up-show .8s ${EASE_IN_OUT_QUINT_CSS} forwards`,
+        'loader-exit-push-up-hide': `loader-exit-push-up-hide .8s ${EASE_IN_OUT_QUINT_CSS} forwards`,
         'main-push-up-hide': `main-push-up-hide 1.3s ${EASE_IN_OUT_QUINT_CSS} forwards`,
+        'main-push-up-show': `main-push-up-show .8s ${EASE_IN_OUT_QUINT_CSS} forwards`,
         'loader-exit-backdrop-show': `loader-exit-backdrop-show .8s linear forwards`,
-        'navbar-push-up-hidden': `navbar-push-up-hidden .8s ${EASE_IN_OUT_QUINT_CSS} forwards`,
+        'loader-exit-backdrop-hide': `loader-exit-backdrop-hide .8s linear forwards`,
+        'navbar-push-up-hide': `navbar-push-up-hide .8s ${EASE_IN_OUT_QUINT_CSS} forwards`,
       },
     },
     screens: {

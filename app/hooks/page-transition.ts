@@ -1,3 +1,8 @@
+'use client';
+
+import { flushSync } from 'react-dom';
+import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import { ID_LOADER_EXIT } from '@/app/constants/loader';
 import { ID_EXPANDED_MAIN } from '@/app/constants/root-layout';
@@ -16,15 +21,19 @@ export default function usePageTransition() {
 
     function animationEnd() {
       loaderExitEl?.removeEventListener('animationend', animationEnd);
-      cb.after();
+      flushSync(() => {
+        cb.after();
+      });
     }
 
     await cb.before?.();
-    setState((draft) => {
-      draft.announcer.announcing = true;
-      draft.isLoader.exit = true;
-      draft.yusrMuttaqien.config.forceDisableLayout = true;
-      cb.sequences?.(draft);
+    flushSync(() => {
+      setState((draft) => {
+        draft.announcer.announcing = true;
+        draft.isLoader.exit = true;
+        draft.yusrMuttaqien.config.forceDisableLayout = true;
+        cb.sequences?.(draft);
+      });
     });
 
     loaderExitEl?.addEventListener('animationend', animationEnd);
@@ -33,28 +42,58 @@ export default function usePageTransition() {
     loaderExitEl?.classList.add('animate-loader-exit-push-up-show');
     loaderExitEl?.classList.add('after:animate-loader-exit-backdrop-show');
   }
-  async function _completeTransitioning(cb?: {
-    before?: VoidFunction;
-    after?: VoidFunction;
-    sequences?: (draft: AnimationSequenceState['state']) => void;
-  }) {
+  async function _completeTransitioning() {
     const loaderExitEl = document.getElementById(ID_LOADER_EXIT);
     const mainEl = document.getElementById(ID_EXPANDED_MAIN);
 
-    await cb?.before?.();
+    function finalCleanup() {
+      mainEl?.classList.remove('animate-main-push-up-show');
+      loaderExitEl?.classList.remove('animate-loader-exit-push-up-hide');
+      loaderExitEl?.classList.remove('after:translate-y-full');
+      loaderExitEl?.classList.remove('after:animate-loader-exit-backdrop-hide');
+    }
+    function reveal() {
+      finalCleanup();
+
+      flushSync(() => {
+        setState((draft) => {
+          draft.isLoader.exit = false;
+        });
+      });
+    }
+
+    if (
+      mainEl?.classList.contains('animate-main-push-up-show') ||
+      loaderExitEl?.classList.contains('animate-loader-exit-push-up-hide') ||
+      loaderExitEl?.classList.contains('after:translate-y-full') ||
+      loaderExitEl?.classList.contains('after:animate-loader-exit-backdrop-hide')
+    ) {
+      finalCleanup();
+      mainEl?.offsetWidth;
+      loaderExitEl?.offsetWidth;
+    }
+
     mainEl?.classList.remove('origin-bottom');
     mainEl?.classList.remove('animate-main-push-up-hide');
     loaderExitEl?.classList.remove('animate-loader-exit-push-up-show');
     loaderExitEl?.classList.remove('after:animate-loader-exit-backdrop-show');
-
-    setState((draft) => {
-      draft.announcer.announcing = false;
-      draft.isLoader.exit = false;
-      draft.yusrMuttaqien.config.forceDisableLayout = false;
-      cb?.sequences?.(draft);
-    });
-    cb?.after?.();
+    loaderExitEl?.addEventListener('animationend', reveal);
+    mainEl?.classList.add('animate-main-push-up-show');
+    loaderExitEl?.classList.add('animate-loader-exit-push-up-hide');
+    loaderExitEl?.classList.add('after:translate-y-full');
+    loaderExitEl?.classList.add('after:animate-loader-exit-backdrop-hide');
   }
 
   return { start: _startTransitioning, complete: _completeTransitioning };
+}
+
+export function PageTransitionListener() {
+  const { complete } = usePageTransition();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    complete();
+  }, [pathname]);
+
+  return null;
 }

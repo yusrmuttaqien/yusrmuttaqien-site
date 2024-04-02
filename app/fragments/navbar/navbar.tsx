@@ -2,6 +2,7 @@ import NavbarClock from '@/app/fragments/navbar/navbar-clock';
 import NavbarYusrMuttaqien from '@/app/fragments/navbar/navbar-yusr-muttaqien';
 import NavbarMeasurement from '@/app/fragments/navbar/navbar-measurement';
 import NavbarLang from '@/app/fragments/navbar/navbar-lang';
+import NavbarAnimate from '@/app/fragments/navbar/navbar-animate';
 import { ID_NAVBAR } from '@/app/constants/navbar';
 import classMerge from '@/app/utils/class-merge';
 
@@ -19,14 +20,19 @@ export default function Navbar() {
     >
       <div className="flex justify-between items-center ">
         <div className="flex justify-between items-center gap-[1ch]">
-          <p className={locStyles}>Malang, Indonesia</p>
-          <span className={locStyles}>|</span>
+          <p data-framer="nav-loc" className={locStyles}>
+            Malang, Indonesia
+          </p>
+          <span data-framer="nav-sep" className={locStyles}>
+            |
+          </span>
           <NavbarLang className={locStyles} />
         </div>
         <NavbarClock className={locStyles} />
       </div>
       <NavbarYusrMuttaqien />
       <NavbarMeasurement />
+      <NavbarAnimate />
     </nav>
   );
 }

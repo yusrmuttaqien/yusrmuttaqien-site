@@ -1,9 +1,11 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Providers from '@/app/providers';
+import { PageTransitionListener } from '@/app/hooks/page-transition';
 import Navbar from '@/app/fragments/navbar/navbar';
 import Footer from '@/app/fragments/footer/footer';
 import Announcer from '@/app/fragments/announcer/announcer';
 import Loader from '@/app/fragments/loader/loader';
+import Debugger from '@/app/fragments/debugger/debugger';
 import classMerge from '@/app/utils/class-merge';
 import { helveticaNeue, robotoMono, nohemi, ID_EXPANDED_MAIN } from '@/app/constants/root-layout';
 import type { RootLayoutProps } from '@/app/types/root-layout';
@@ -42,6 +44,8 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
             {children}
             <Footer />
           </div>
+          <Debugger />
+          <PageTransitionListener />
         </Providers>
         <SpeedInsights />
       </body>

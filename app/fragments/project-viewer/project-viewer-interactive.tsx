@@ -3,7 +3,6 @@
 import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
-import usePageTransition from '@/app/hooks/page-transition';
 import useProjectViewerHeaderTransformer from '@/app/hooks/project-viewer-header-transformer';
 import Blueprint from '@/app/components/blueprint';
 import classMerge from '@/app/utils/class-merge';
@@ -14,7 +13,6 @@ import type { ProjectViewerWrapperProps } from '@/app/types/project';
 
 export default function ProjectViewerWrapper({ className }: ProjectViewerWrapperProps) {
   const wrapperRef = useRef(null);
-  const { complete } = usePageTransition();
   const { setState } = useAnimationSequenceCtx();
   const [xEndPos, setXEndPos] = useState('-100px');
   const { scrollYProgress: yScrollContent } = useScroll({ target: wrapperRef });
@@ -24,15 +22,9 @@ export default function ProjectViewerWrapper({ className }: ProjectViewerWrapper
     useProjectViewerHeaderTransformer(yScrollContent);
 
   useLayoutEffect(() => {
-    complete({
-      sequences(draft) {
-        draft.yusrMuttaqien.config.forceDisableLayout = true;
-      },
-      after() {
-        setState((draft) => {
-          draft.yusrMuttaqien.navbar = false;
-        });
-      },
+    setState((draft) => {
+      draft.announcer.announcing = false;
+      draft.yusrMuttaqien.navbar = false;
     });
   }, []);
 

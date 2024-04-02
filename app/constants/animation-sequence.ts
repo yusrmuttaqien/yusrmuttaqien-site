@@ -1,7 +1,7 @@
 export const ANIMATION_SEQUENCE_INITIAL_STATE = {
   isCompsReady: {},
   isLoader: {
-    exit: false,
+    exit: true,
     enter: true,
   },
   yusrMuttaqien: {
