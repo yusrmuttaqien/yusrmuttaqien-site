@@ -41,7 +41,9 @@ export default function MainHeroAnimate({ className, children }: MainHeroAnimate
     function trackMouse(e: MouseEvent) {
       requestAnimationFrame(() => {
         // TODO: Separate constraint to x and y, update accordingly based on viewport to enhance angle
-        const constraint = 20;
+        const { clientWidth, clientHeight } = document.documentElement;
+        const xRotateConstraint = (clientWidth * 15) / clientWidth;
+        const yRotateConstraint = (clientHeight * 15) / clientHeight;
         const target = e.target as HTMLElement;
         const xBoundaryCentre = target.offsetWidth / 20;
         const yBoundaryCentre = target.offsetHeight / 20;
@@ -64,8 +66,8 @@ export default function MainHeroAnimate({ className, children }: MainHeroAnimate
           Math.max(e.pageY - target.offsetHeight / 2, -yBoundaryCross),
           yBoundaryCross
         );
-        const xRotate = -(e.pageY - y - height / 2) / constraint;
-        const yRotate = (e.pageX - x - width / 2) / constraint;
+        const xRotate = -(e.pageY - y - height / 2) / xRotateConstraint;
+        const yRotate = (e.pageX - x - width / 2) / yRotateConstraint;
 
         blueprintCentreEl.style.transform = `translate(${xMoveCentre}px, ${yMoveCentre}px) rotateX(${xRotate}deg) rotateY(${yRotate}deg) scale(.5)`;
         blueprintCrossEl.style.transform = `translate(${xMoveCross}px, ${yMoveCross}px)`;
@@ -99,9 +101,9 @@ export default function MainHeroAnimate({ className, children }: MainHeroAnimate
       });
     }
     function dragBlueprint(e: number) {
-      blueprintCentreEl.style.transform = `translateY(${e * -100}px)`;
+      blueprintCentreEl.style.transform = `translateY(${e * -250}px)`;
       blueprintCentreEl.style.filter = `blur(${e * 25}px)`;
-      blueprintCrossEl.style.transform = `translateY(${e * -75}px)`;
+      blueprintCrossEl.style.transform = `translateY(${e * -150}px)`;
       blueprintCrossEl.style.filter = `blur(${e * 50}px)`;
     }
     function cleanup() {
@@ -113,6 +115,19 @@ export default function MainHeroAnimate({ className, children }: MainHeroAnimate
     }
 
     animate(SEQUENCE);
+    blueprintCentreEl.style.perspective = '100px';
+    blueprintCentreEl.classList.add(
+      'origin-center',
+      'transition-transform',
+      'ease-out-expo',
+      'duration-1000'
+    );
+    blueprintCrossEl.classList.add(
+      'origin-center',
+      'transition-[transform,_filter]',
+      'ease-out-expo',
+      'duration-1000'
+    );
 
     if (!enter) {
       stopObserve = inView(heroEl, () => {
@@ -129,20 +144,6 @@ export default function MainHeroAnimate({ className, children }: MainHeroAnimate
 
       return cleanup;
     }
-
-    blueprintCentreEl.style.perspective = '100px';
-    blueprintCentreEl.classList.add(
-      'origin-center',
-      'transition-transform',
-      'ease-[cubic-bezier(0.16,_1,_0.3,_1)]',
-      'duration-1000'
-    );
-    blueprintCrossEl.classList.add(
-      'origin-center',
-      'transition-[transform,_filter]',
-      'ease-[cubic-bezier(0.16,_1,_0.3,_1)]',
-      'duration-1000'
-    );
 
     heroEl.addEventListener('mousemove', trackMouse);
     heroEl.addEventListener('mouseleave', deTrackMouse);

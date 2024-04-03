@@ -7,6 +7,7 @@ const {
   COLOR_GREEN,
   COLOR_GREY,
   EASE_IN_OUT_QUINT_CSS,
+  EASE_OUT_EXPO_CSS,
   SIZING_CONTAINER_DEFAULT,
   SIZING_CONTAINER_LG,
 } = require('./app/constants/tailwind-config');
@@ -40,6 +41,7 @@ const config: Config = {
       },
       transitionTimingFunction: {
         'in-out-quint': EASE_IN_OUT_QUINT_CSS,
+        'out-expo': EASE_OUT_EXPO_CSS,
       },
       keyframes: {
         'loader-exit-push-up-show': {
