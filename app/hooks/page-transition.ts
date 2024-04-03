@@ -37,10 +37,11 @@ export default function usePageTransition() {
     });
 
     loaderExitEl?.addEventListener('animationend', animationEnd);
-    mainEl?.classList.add('origin-bottom');
-    mainEl?.classList.add('animate-main-push-up-hide');
-    loaderExitEl?.classList.add('animate-loader-exit-push-up-show');
-    loaderExitEl?.classList.add('after:animate-loader-exit-backdrop-show');
+    mainEl?.classList.add('origin-bottom', 'animate-main-push-up-hide');
+    loaderExitEl?.classList.add(
+      'animate-loader-exit-push-up-show',
+      'after:animate-loader-exit-backdrop-show'
+    );
   }
   async function _completeTransitioning() {
     const loaderExitEl = document.getElementById(ID_LOADER_EXIT);
@@ -48,9 +49,11 @@ export default function usePageTransition() {
 
     function finalCleanup() {
       mainEl?.classList.remove('animate-main-push-in-show');
-      loaderExitEl?.classList.remove('animate-loader-exit-push-up-hide');
-      loaderExitEl?.classList.remove('after:translate-y-full');
-      loaderExitEl?.classList.remove('after:animate-loader-exit-backdrop-hide');
+      loaderExitEl?.classList.remove(
+        'animate-loader-exit-push-up-hide',
+        'after:translate-y-full',
+        'after:animate-loader-exit-backdrop-hide'
+      );
     }
     function reveal() {
       finalCleanup();
@@ -73,15 +76,18 @@ export default function usePageTransition() {
       loaderExitEl?.offsetWidth;
     }
 
-    mainEl?.classList.remove('origin-bottom');
-    mainEl?.classList.remove('animate-main-push-up-hide');
-    loaderExitEl?.classList.remove('animate-loader-exit-push-up-show');
-    loaderExitEl?.classList.remove('after:animate-loader-exit-backdrop-show');
+    mainEl?.classList.remove('origin-bottom', 'animate-main-push-up-hide');
+    loaderExitEl?.classList.remove(
+      'animate-loader-exit-push-up-show',
+      'after:animate-loader-exit-backdrop-show'
+    );
     loaderExitEl?.addEventListener('animationend', reveal);
     mainEl?.classList.add('animate-main-push-in-show');
-    loaderExitEl?.classList.add('animate-loader-exit-push-up-hide');
-    loaderExitEl?.classList.add('after:translate-y-full');
-    loaderExitEl?.classList.add('after:animate-loader-exit-backdrop-hide');
+    loaderExitEl?.classList.add(
+      'animate-loader-exit-push-up-hide',
+      'after:translate-y-full',
+      'after:animate-loader-exit-backdrop-hide'
+    );
   }
 
   return { start: _startTransitioning, complete: _completeTransitioning };

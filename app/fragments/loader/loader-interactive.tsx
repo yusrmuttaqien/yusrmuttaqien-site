@@ -29,9 +29,11 @@ export default function LoaderInteractive() {
 
       function reveal() {
         mainEl?.classList.remove('animate-main-push-in-show');
-        loaderExitEl?.classList.remove('animate-loader-exit-push-up-hide');
-        loaderExitEl?.classList.remove('after:translate-y-full');
-        loaderExitEl?.classList.remove('after:animate-loader-exit-backdrop-hide');
+        loaderExitEl?.classList.remove(
+          'animate-loader-exit-push-up-hide',
+          'after:translate-y-full',
+          'after:animate-loader-exit-backdrop-hide'
+        );
 
         setState((draft) => {
           draft.isLoader.exit = false;
@@ -40,9 +42,11 @@ export default function LoaderInteractive() {
 
       loaderExitEl?.addEventListener('animationend', reveal);
       mainEl?.classList.add('animate-main-push-in-show');
-      loaderExitEl?.classList.add('animate-loader-exit-push-up-hide');
-      loaderExitEl?.classList.add('after:translate-y-full');
-      loaderExitEl?.classList.add('after:animate-loader-exit-backdrop-hide');
+      loaderExitEl?.classList.add(
+        'animate-loader-exit-push-up-hide',
+        'after:translate-y-full',
+        'after:animate-loader-exit-backdrop-hide'
+      );
       loaderEnterEl?.classList.add('hidden');
       setState((draft) => {
         draft.isLoader.enter = false;

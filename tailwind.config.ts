@@ -38,6 +38,9 @@ const config: Config = {
         hoverable: { raw: '(hover: hover)' },
         unhoverable: { raw: '(hover: none)' },
       },
+      transitionTimingFunction: {
+        'in-out-quint': EASE_IN_OUT_QUINT_CSS,
+      },
       keyframes: {
         'loader-exit-push-up-show': {
           '0%': { transform: 'translateY(100%)' },

@@ -18,7 +18,7 @@ export default function Navbar() {
         'py-[clamp(0.3719rem,_-0.0008rem_+_1.8633vw,_0.5rem)]'
       )}
     >
-      <div className="flex justify-between items-center ">
+      <div className="flex justify-between items-center">
         <div className="flex justify-between items-center gap-[1ch]">
           <p data-framer="nav-loc" className={locStyles}>
             Malang, Indonesia

@@ -1,9 +1,14 @@
-import type { MotionStyle } from 'framer-motion';
 import { contentStyles } from '@/app/fragments/main/main-projects/card/main-projects-card';
+import type { ReactNode } from 'react';
+import type { MotionStyle } from 'framer-motion';
 
 export type MainMasteriesArticleProps = {
   title: string;
   contents: string[];
+};
+export type MainHeroAnimateProps = {
+  className?: string;
+  children?: ReactNode;
 };
 export type CardContentWrapperProps = {
   toggleCover: VoidFunction;
