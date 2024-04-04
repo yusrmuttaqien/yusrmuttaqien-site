@@ -1,39 +1,32 @@
 'use client';
 
-import { flushSync } from 'react-dom';
-import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import { ID_LOADER_EXIT } from '@/app/constants/loader';
 import { ID_EXPANDED_MAIN } from '@/app/constants/root-layout';
 import type { AnimationSequenceState } from '@/app/types/animation-sequence';
 
 export default function usePageTransition() {
-  const { setState } = useAnimationSequenceCtx();
+  const {
+    setState,
+    state: { isStarting },
+  } = useAnimationSequenceCtx();
 
-  async function _startTransitioning(cb: {
-    before?: VoidFunction;
-    after: VoidFunction;
+  function _startTransitioning(cb?: {
     sequences?: (draft: AnimationSequenceState['state']) => void;
+    after?: VoidFunction;
   }) {
     const loaderExitEl = document.getElementById(ID_LOADER_EXIT);
     const mainEl = document.getElementById(ID_EXPANDED_MAIN);
 
     function animationEnd() {
       loaderExitEl?.removeEventListener('animationend', animationEnd);
-      flushSync(() => {
-        cb.after();
-      });
+      cb?.after?.();
     }
 
-    await cb.before?.();
-    flushSync(() => {
-      setState((draft) => {
-        draft.announcer.announcing = true;
-        draft.isLoader.exit = true;
-        draft.yusrMuttaqien.config.forceDisableLayout = true;
-        cb.sequences?.(draft);
-      });
+    setState((draft) => {
+      draft.announcer.announcing = true;
+      draft.isLoader = true;
+      cb?.sequences?.(draft);
     });
 
     loaderExitEl?.addEventListener('animationend', animationEnd);
@@ -43,7 +36,14 @@ export default function usePageTransition() {
       'after:animate-loader-exit-backdrop-show'
     );
   }
-  async function _completeTransitioning() {
+  function _completeTransitioning(cb?: {
+    sequences?: (draft: AnimationSequenceState['state']) => void;
+    starting?: VoidFunction;
+  }) {
+    if (isStarting) {
+      return cb?.starting?.();
+    }
+
     const loaderExitEl = document.getElementById(ID_LOADER_EXIT);
     const mainEl = document.getElementById(ID_EXPANDED_MAIN);
 
@@ -58,10 +58,10 @@ export default function usePageTransition() {
     function reveal() {
       finalCleanup();
 
-      flushSync(() => {
-        setState((draft) => {
-          draft.isLoader.exit = false;
-        });
+      setState((draft) => {
+        draft.announcer.announcing = false;
+        draft.isLoader = false;
+        cb?.sequences?.(draft);
       });
     }
 
@@ -90,16 +90,9 @@ export default function usePageTransition() {
     );
   }
 
-  return { start: _startTransitioning, complete: _completeTransitioning };
-}
-
-export function PageTransitionListener() {
-  const { complete } = usePageTransition();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    complete();
-  }, [pathname]);
-
-  return null;
+  return {
+    start: _startTransitioning,
+    complete: _completeTransitioning,
+    _manualSetState: setState,
+  };
 }

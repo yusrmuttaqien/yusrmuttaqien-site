@@ -1,13 +1,10 @@
 'use client';
 
-import { Fragment } from 'react';
 import { tv } from 'tailwind-variants';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMediaQueryCtx } from '@/app/providers/media-query';
-import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
 import classMerge from '@/app/utils/class-merge';
 import {
-  LAYOUT_YUSR_MUTTAQIEN,
   VARIANT_YUSR_MUTTAQIEN,
   ID_YUSR_MUTTAQIEN_PLACEHOLDER,
 } from '@/app/constants/yusr-muttaqien';
@@ -27,24 +24,13 @@ export default function YusrMuttaqien({
   ...rest
 }: YusrMuttaqienProps) {
   const { isTablet } = useMediaQueryCtx();
-  const {
-    state: {
-      yusrMuttaqien: {
-        config: { forceDisableLayout },
-      },
-    },
-  } = useAnimationSequenceCtx();
-  const Wrapper = forceDisableLayout ? AnimatePresence : Fragment;
-  const variants = forceDisableLayout ? VARIANT_YUSR_MUTTAQIEN : {};
-  const wrapperProps = forceDisableLayout ? { initial: false } : {};
-  const layoutId = !forceDisableLayout ? LAYOUT_YUSR_MUTTAQIEN : undefined;
   const { wrapper } = styles();
 
   if (isTablet === undefined) return null;
 
   return (
     <div className="relative">
-      <Wrapper {...wrapperProps}>
+      <AnimatePresence initial={false}>
         {isVisible && (
           <motion.div
             className={classMerge(
@@ -52,14 +38,13 @@ export default function YusrMuttaqien({
               wrapper({ className: className?.wrapper }),
               withPlaceholder ? 'absolute top-0 left-0' : undefined
             )}
-            layoutId={layoutId}
-            layoutDependency={isVisible}
-            {...variants}
+            {...VARIANT_YUSR_MUTTAQIEN}
+            {...rest}
           >
             <YusrMuttaqienSVGS className={className} {...rest} />
           </motion.div>
         )}
-      </Wrapper>
+      </AnimatePresence>
       {withPlaceholder && (
         <div id={ID_YUSR_MUTTAQIEN_PLACEHOLDER + withPlaceholder} className="opacity-0">
           <YusrMuttaqienSVGS />

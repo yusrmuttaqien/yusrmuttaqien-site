@@ -1,6 +1,5 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Providers from '@/app/providers';
-import { PageTransitionListener } from '@/app/hooks/page-transition';
 import Navbar from '@/app/fragments/navbar/navbar';
 import Footer from '@/app/fragments/footer/footer';
 import Announcer from '@/app/fragments/announcer/announcer';
@@ -45,7 +44,6 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
             <Footer />
           </div>
           <Debugger />
-          <PageTransitionListener />
         </Providers>
         <SpeedInsights />
       </body>

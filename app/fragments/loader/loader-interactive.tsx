@@ -20,7 +20,6 @@ export default function LoaderInteractive() {
 
   useEffect(() => {
     clearInterval(window.ymLoader);
-    let timeoutFadeOut: NodeJS.Timeout;
 
     function exit() {
       const loaderExitEl = document.getElementById(ID_LOADER_EXIT);
@@ -36,7 +35,8 @@ export default function LoaderInteractive() {
         );
 
         setState((draft) => {
-          draft.isLoader.exit = false;
+          draft.isLoader = false;
+          draft.isStarting = false;
         });
       }
 
@@ -48,10 +48,6 @@ export default function LoaderInteractive() {
         'after:animate-loader-exit-backdrop-hide'
       );
       loaderEnterEl?.classList.add('hidden');
-      setState((draft) => {
-        draft.isLoader.enter = false;
-        draft.isLoader.exit = true;
-      });
     }
     function replace() {
       const loaderPercentEl = document.getElementById(ID_LOADER_PERCENT);
@@ -64,18 +60,16 @@ export default function LoaderInteractive() {
       loaderPercentEl && (loaderPercentEl.innerHTML = percentSpans || '');
       const spans = document.querySelectorAll(`#${ID_LOADER_PERCENT} span`);
 
-      timeoutFadeOut = setTimeout(() => {
-        animate(
-          spans,
-          { y: ['0%', '-100%'] },
-          {
-            delay: stagger(0.04),
-            duration: 0.6,
-            ease: cubicBezier(0.83, 0, 0.17, 1),
-            onComplete: exit,
-          }
-        );
-      }, 100);
+      animate(
+        spans,
+        { y: ['0%', '-100%'] },
+        {
+          delay: stagger(0.04, { startDelay: 0.3 }),
+          duration: 0.6,
+          ease: cubicBezier(0.83, 0, 0.17, 1),
+          onComplete: exit,
+        }
+      );
     }
     function takeover() {
       const loaderPercentEl = document.getElementById(ID_LOADER_PERCENT);
@@ -104,8 +98,6 @@ export default function LoaderInteractive() {
     }
 
     requestAnimationFrame(takeover);
-
-    return () => clearTimeout(timeoutFadeOut);
   }, [isCompsReady]);
 
   return null;

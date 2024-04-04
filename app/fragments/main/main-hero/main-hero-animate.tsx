@@ -13,9 +13,7 @@ import { MainHeroAnimateProps } from '@/app/types/main';
 
 export default function MainHeroAnimate({ className, children }: MainHeroAnimateProps) {
   const {
-    state: {
-      isLoader: { enter },
-    },
+    state: { isLoader },
   } = useAnimationSequenceCtx();
   const isHeaderHidden = useRef(false);
   const { isHover } = useMediaQueryCtx();
@@ -40,7 +38,6 @@ export default function MainHeroAnimate({ className, children }: MainHeroAnimate
     }, 250);
     function trackMouse(e: MouseEvent) {
       requestAnimationFrame(() => {
-        // TODO: Separate constraint to x and y, update accordingly based on viewport to enhance angle
         const { clientWidth, clientHeight } = document.documentElement;
         const xRotateConstraint = (clientWidth * 15) / clientWidth;
         const yRotateConstraint = (clientHeight * 15) / clientHeight;
@@ -129,10 +126,10 @@ export default function MainHeroAnimate({ className, children }: MainHeroAnimate
       'duration-1000'
     );
 
-    if (!enter) {
+    if (!isLoader) {
       stopObserve = inView(heroEl, () => {
         SEQUENCE = [
-          [blueprintCrossEl, { filter: 'blur(0px)', scale: 1.5 }, { delay: 0.5 }],
+          [blueprintCrossEl, { filter: 'blur(0px)', scale: 1.5 }],
           [blueprintCentreEl, { scale: 1, filter: 'blur(0px)' }, { at: 0.7 }],
         ];
         animate(SEQUENCE);
@@ -151,7 +148,7 @@ export default function MainHeroAnimate({ className, children }: MainHeroAnimate
     scrollYProgress.on('change', fadeinHeader);
 
     return cleanup;
-  }, [enter, isHover]);
+  }, [isLoader, isHover]);
 
   return (
     <section

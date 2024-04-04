@@ -1,24 +1,17 @@
 'use client';
 
 import { useLayoutEffect } from 'react';
-import { useAnimationSequenceCtx } from '@/app/providers/animation-sequence';
+import usePageTransition from '@/app/hooks/page-transition';
 
 export default function MainInteractive() {
-  const { setState } = useAnimationSequenceCtx();
+  const { complete } = usePageTransition();
 
   useLayoutEffect(() => {
-    setState((draft) => {
-      draft.yusrMuttaqien.navbar = true;
-      draft.announcer.announcing = false;
+    complete({
+      sequences(draft) {
+        draft.yusrMuttaqien.navbar = true;
+      },
     });
-
-    const timeout = setTimeout(() => {
-      setState((draft) => {
-        draft.yusrMuttaqien.config.forceDisableLayout = false;
-      });
-    }, 100);
-
-    return () => clearTimeout(timeout);
   }, []);
 
   return null;
