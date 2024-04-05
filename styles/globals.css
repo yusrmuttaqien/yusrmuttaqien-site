@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    scrollbar-width: thin; /* 11px */
+    scrollbar-color: theme(colors.grey / 10%) theme(colors.beige);
+  }
+
+  *::-webkit-scrollbar {
+    --scrollbar-dimension: 11px;
+
+    width: var(--scrollbar-dimension);
+    height: var(--scrollbar-dimension);
+  }
+
+  *::-webkit-scrollbar-track {
+    background-color: theme(colors.beige);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: theme(colors.grey / 10%);
+  }
+
+  *::selection {
+    @apply bg-grey/80 dark:bg-beige/80 text-beige dark:text-grey;
+  }
+
+  html {
+    @apply bg-beige dark:bg-grey;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  body {
+    @apply unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased min-w-full text-grey dark:text-beige;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    * {
+      scrollbar-color: theme(colors.beige / 10%) theme(colors.grey);
+    }
+
+    *::-webkit-scrollbar-track {
+      background-color: theme(colors.grey);
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background-color: theme(colors.beige / 10%);
+    }
+  }
+}
