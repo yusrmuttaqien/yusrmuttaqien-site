@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import type { AppProps } from 'next/app';
 import Providers from '@/providers';
 import Loader from '@/fragments/loader';
+import Debugger from '@/fragments/debugger/debugger';
 import Navbar from '@/fragments/navbar/navbar';
 import classMerge from '@/utils/class-merge';
 import { helveticaNeue, robotoMono, nohemi } from '@/constants/root-app';
@@ -19,8 +20,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <meta name="description" content="View all my works and projects" key="description" />
         <title key="title">Yusril Muttaqien</title>
       </Head>
-      <Loader />
       <Providers>
+        <Loader />
+        <Debugger />
         <div
           className={classMerge(
             helveticaNeue.variable,
