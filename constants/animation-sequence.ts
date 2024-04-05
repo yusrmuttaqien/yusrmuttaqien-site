@@ -1,5 +1,6 @@
 export const ANIMATION_SEQUENCE_INITIAL_STATE = {
   isCompsReady: {},
+  isLoader: true,
   yusrMuttaqien: {
     hero: false,
     footer: false,
@@ -8,6 +9,7 @@ export const ANIMATION_SEQUENCE_INITIAL_STATE = {
   announcer: { announcing: false },
 } as {
   isCompsReady: {};
+  isLoader: boolean;
   yusrMuttaqien: {
     hero: boolean;
     footer: boolean;

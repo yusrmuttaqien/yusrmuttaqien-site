@@ -23,24 +23,25 @@ function Lang({ locale, className, idx }: LangProps) {
 
   return (
     <Fragment key={locale}>
-      <Link
-        data-framer="language"
-        href={asPath}
-        locale={locale}
-        lang={locale}
-        replace
-        scroll={false}
-        className={classMerge(
-          'uppercase inline-block',
-          i18nOptionsCursorEmoji[idx],
-          isActive
-            ? 'opacity-100 underline !cursor-not-allowed'
-            : 'opacity-50 hoverable:hover:opacity-80 transition-opacity',
-          className
-        )}
-      >
-        {locale}
-      </Link>
+      <div className="inline-block" data-framer="language">
+        <Link
+          href={asPath}
+          locale={locale}
+          lang={locale}
+          replace
+          scroll={false}
+          className={classMerge(
+            'uppercase',
+            i18nOptionsCursorEmoji[idx],
+            isActive
+              ? 'opacity-100 underline !cursor-not-allowed'
+              : 'opacity-50 hoverable:hover:opacity-80 transition-opacity',
+            className
+          )}
+        >
+          {locale}
+        </Link>
+      </div>
       {!isLastLocale && (
         <span
           className={classMerge('mx-[.5ch] pointer-events-none inline-block', className)}

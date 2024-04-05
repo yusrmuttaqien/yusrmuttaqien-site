@@ -5,7 +5,7 @@
 @layer base {
   * {
     scrollbar-width: thin; /* 11px */
-    scrollbar-color: theme(colors.grey / 10%) theme(colors.beige);
+    scrollbar-color: theme(colors.grey.DEFAULT / 10%) theme(colors.beige);
   }
 
   *::-webkit-scrollbar {
@@ -20,7 +20,7 @@
   }
 
   *::-webkit-scrollbar-thumb {
-    background-color: theme(colors.grey / 10%);
+    background-color: theme(colors.grey.DEFAULT / 10%);
   }
 
   *::selection {
@@ -58,11 +58,11 @@
 
   @media (prefers-color-scheme: dark) {
     * {
-      scrollbar-color: theme(colors.beige / 10%) theme(colors.grey);
+      scrollbar-color: theme(colors.beige / 10%) theme(colors.grey.DEFAULT);
     }
 
     *::-webkit-scrollbar-track {
-      background-color: theme(colors.grey);
+      background-color: theme(colors.grey.DEFAULT);
     }
 
     *::-webkit-scrollbar-thumb {

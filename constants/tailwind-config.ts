@@ -1,4 +1,4 @@
-import type { ScreenSize } from '@/types/tailwind-config';
+import type { ScreenSize, Easing } from '@/types/tailwind-config';
 
 const SCREEN_SIZE_SM = '320';
 const SCREEN_SIZE_MD = '430';
@@ -6,12 +6,13 @@ const SCREEN_SIZE_LG = '834';
 const SCREEN_SIZE_XL = '1280';
 const SCREEN_SIZE_2XL = '1512';
 
-export const COLOR_GREEN = { DEFAULT: '#336633', light: '#4E844E' };
-export const COLOR_GREY = '#333333';
+export const COLOR_GREEN = { DEFAULT: '#336633' };
+export const COLOR_GREY = { DEFAULT: '#333333', 10: '#3333331a' };
 export const COLOR_BEIGE = '#F5F5F5';
 
-export const EASE_IN_OUT_QUINT_NUM = [0.83, 0, 0.17, 1];
+export const EASE_IN_OUT_QUINT_NUM: Easing = [0.83, 0, 0.17, 1];
 export const EASE_IN_OUT_QUINT_CSS = 'cubic-bezier(0.83, 0, 0.17, 1)';
+export const EASE_OUT_EXPO_NUM: Easing = [0.16, 1, 0.3, 1];
 export const EASE_OUT_EXPO_CSS = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
 export const SIZING_CONTAINER_DEFAULT = 'clamp(1.125rem, 0.0341rem + 5.4545vw, 1.5rem)';

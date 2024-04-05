@@ -3,9 +3,11 @@ import { Fragment } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import type { AppProps } from 'next/app';
 import Providers from '@/providers';
+import Loader from '@/fragments/loader';
 import Navbar from '@/fragments/navbar/navbar';
 import classMerge from '@/utils/class-merge';
 import { helveticaNeue, robotoMono, nohemi } from '@/constants/root-app';
+
 import '@/styles/globals.css';
 
 export default function App({ Component, pageProps, router }: AppProps) {
@@ -17,6 +19,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <meta name="description" content="View all my works and projects" key="description" />
         <title key="title">Yusril Muttaqien</title>
       </Head>
+      <Loader />
       <Providers>
         <div
           className={classMerge(
