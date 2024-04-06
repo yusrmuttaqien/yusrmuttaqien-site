@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useAnimate, useInView, type AnimationSequence } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
@@ -10,18 +11,20 @@ export default function useHomeAnimate() {
   } = useAnimationSequenceCtx();
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
+  const isReady = useRef(false);
 
   useIsomorphicLayoutEffect(() => {
-    if (isInView && isLoader) {
+    if (isInView && !isLoader) {
+      animate(Sequences('go'));
+    } else if (!isReady.current) {
       animate(Sequences('ready')).then(() => {
         const root = scope.current as Element;
 
+        isReady.current = true;
         root.classList.remove('invisible');
         (root.querySelector(gFD('blueprint')) as HTMLElement).style.perspective = '100px';
         (root.querySelector(gFD('blueprint-centre')) as HTMLElement).style.perspective = '100px';
       });
-    } else if (isInView && !isLoader) {
-      animate(Sequences('go'));
     }
   }, [isInView, isLoader]);
 
