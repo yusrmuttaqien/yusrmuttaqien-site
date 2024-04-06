@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import TransitionSlideUp from '@/components/transition-slide-up';
+import TransitionSlideUp from '@/transitions/transition-slide-up';
 
 export default function ProjectsID() {
   return (

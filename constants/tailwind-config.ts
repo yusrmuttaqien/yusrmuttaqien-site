@@ -14,6 +14,8 @@ export const EASE_IN_OUT_QUINT_NUM: Easing = [0.83, 0, 0.17, 1];
 export const EASE_IN_OUT_QUINT_CSS = 'cubic-bezier(0.83, 0, 0.17, 1)';
 export const EASE_OUT_EXPO_NUM: Easing = [0.16, 1, 0.3, 1];
 export const EASE_OUT_EXPO_CSS = 'cubic-bezier(0.16, 1, 0.3, 1)';
+export const EASE_IN_OUT_QUART_NUM: Easing = [0.76, 0, 0.24, 1];
+export const EASE_IN_OUT_QUART_CSS = 'cubic-bezier(0.76, 0, 0.24, 1)';
 
 export const SIZING_CONTAINER_DEFAULT = 'clamp(1.125rem, 0.0341rem + 5.4545vw, 1.5rem)';
 export const SIZING_CONTAINER_LG = 'clamp(1.5rem, -6.4473rem + 15.2466vw, 5.75rem)';

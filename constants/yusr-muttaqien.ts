@@ -1,11 +1,23 @@
+import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
 import type { MotionProps } from 'framer-motion';
 
-export const ID_YUSR_MUTTAQIEN_PLACEHOLDER = 'id-yusr-muttaqien-placeholder';
 export const VARIANT_YUSR_MUTTAQIEN: MotionProps = {
   variants: {
-    initial: { opacity: 0, y: '-10%' },
-    visible: { opacity: 1, y: '0%' },
-    hidden: { opacity: 0 },
+    initial: {
+      opacity: 0,
+      y: '-10%',
+      transition: { ...FRAMER_DEFAULT_TIMING },
+    },
+    visible: {
+      opacity: 1,
+      y: '0%',
+      transition: { ...FRAMER_DEFAULT_TIMING },
+    },
+    hidden: {
+      opacity: 0,
+      y: '10%',
+      transition: { ...FRAMER_DEFAULT_TIMING },
+    },
   },
   initial: 'initial',
   animate: 'visible',

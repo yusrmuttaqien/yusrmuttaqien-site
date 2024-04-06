@@ -8,6 +8,7 @@ const {
   COLOR_GREY,
   EASE_IN_OUT_QUINT_CSS,
   EASE_OUT_EXPO_CSS,
+  EASE_IN_OUT_QUART_CSS,
   SIZING_CONTAINER_DEFAULT,
   SIZING_CONTAINER_LG,
 } = require('./constants/tailwind-config');
@@ -19,6 +20,8 @@ const config: Config = {
       './components/**/*.{js,ts,jsx,tsx,mdx}',
       './fragments/**/*.{js,ts,jsx,tsx,mdx}',
       './constants/**/*.{js,ts,jsx,tsx,mdx}',
+      './transitions/**/*.{js,ts,jsx,tsx,mdx}',
+      './hooks/**/*.{js,ts,jsx,tsx,mdx}',
     ],
   },
   theme: {
@@ -49,30 +52,33 @@ const config: Config = {
           '0%': {
             scale: '0',
           },
-          '20%, 24%': {
+          '30%, 30.1%': {
             opacity: '1',
             scale: '1',
           },
-          '35%, 100%': {
+          '50%, 100%': {
             opacity: '0',
             scale: '1.5',
           },
         },
         'loader-bubble-out': {
-          '0%, 17%': {
-            opacity: '1',
+          '0%, 18%': {
+            transform: 'translate(-50%, -50%) scale(0.5)',
           },
-          '20%, 24%': {
-            opacity: '0.6',
+          '30%, 30.1%': {
+            transform: 'translate(-50%, -50%) scale(0.497)',
           },
-          '24%, 100%': {
-            opacity: '1',
+          '42.2%': {
+            transform: 'translate(-50%, -50%) scale(0.503)',
+          },
+          '55.2%, 100%': {
+            transform: 'translate(-50%, -50%) scale(0.5)',
           },
         },
       },
       animation: {
-        'loader-scale-radiate-out': `loader-scale-radiate-out 2.5s ease-out infinite`,
-        'loader-bubble-out': `loader-bubble-out 2.5s ease-out infinite`,
+        'loader-scale-radiate-out': `loader-scale-radiate-out 2.5s ${EASE_IN_OUT_QUART_CSS} infinite`,
+        'loader-bubble-out': `loader-bubble-out 2.5s ${EASE_IN_OUT_QUART_CSS} infinite`,
       },
     },
     screens: {

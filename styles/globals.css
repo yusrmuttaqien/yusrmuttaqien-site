@@ -37,7 +37,7 @@
   }
 
   body {
-    @apply unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased min-w-full text-grey dark:text-beige;
+    @apply unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased min-w-full text-grey dark:text-beige font-helvetica-neue;
   }
 
   .lenis.lenis-smooth {

@@ -1,4 +1,5 @@
 import { motion, type HTMLMotionProps, type MotionProps } from 'framer-motion';
+import classMerge from '@/utils/class-merge';
 
 export const VARIANT: MotionProps = {
   variants: {
@@ -11,9 +12,13 @@ export const VARIANT: MotionProps = {
   exit: 'hidden',
 };
 
-export default function TransitionSlideUp({ children, ...rest }: HTMLMotionProps<'main'>) {
+export default function TransitionSlideUp({
+  children,
+  className,
+  ...rest
+}: HTMLMotionProps<'main'>) {
   return (
-    <motion.main {...VARIANT} {...rest}>
+    <motion.main {...VARIANT} className={classMerge('relative', className)} {...rest}>
       {children}
     </motion.main>
   );

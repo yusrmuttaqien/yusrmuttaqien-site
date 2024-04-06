@@ -3,7 +3,6 @@ import { useMeasurementCtx } from '@/providers/measurements';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import debounce from '@/utils/debounce';
 import { MEASURE_NAVBAR_TRIES } from '@/constants/navbar';
-import { ID_YUSR_MUTTAQIEN_PLACEHOLDER } from '@/constants/yusr-muttaqien';
 
 export default function useNavbarMeasure(el: RefObject<HTMLDivElement | undefined>) {
   const retries = useRef(0);
@@ -11,13 +10,11 @@ export default function useNavbarMeasure(el: RefObject<HTMLDivElement | undefine
 
   const _measure = useCallback((cb?: ((isComplete: boolean) => void) | null) => {
     requestAnimationFrame(() => {
-      const navHeight = el.current?.offsetHeight || undefined;
-      const navYusrMuttaqienHeight =
-        (
-          el.current?.querySelector(
-            '#' + ID_YUSR_MUTTAQIEN_PLACEHOLDER + 'navbar'
-          ) as HTMLDivElement
-        )?.offsetHeight || undefined;
+      const navHeight = el.current?.offsetHeight;
+      const navYusrMuttaqienPlaceholder = el.current?.children.item(1)?.children.item(0)?.children;
+      const navYusrMuttaqienHeight = (
+        navYusrMuttaqienPlaceholder?.item(navYusrMuttaqienPlaceholder.length - 1) as HTMLDivElement
+      ).offsetHeight;
 
       cb?.(!!navYusrMuttaqienHeight);
       setState((draft) => {

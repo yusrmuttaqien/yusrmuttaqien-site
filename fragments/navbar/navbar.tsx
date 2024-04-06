@@ -20,7 +20,7 @@ export default function Navbar() {
       ref={mergeRefs(navRef, scope)}
       className={classMerge(
         'fixed top-0 left-0 right-0 z-[100] container box-border',
-        'mix-blend-difference text-beige',
+        'mix-blend-difference text-beige invisible',
         'py-[clamp(0.3719rem,_-0.0008rem_+_1.8633vw,_0.5rem)]'
       )}
     >

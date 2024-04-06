@@ -2,7 +2,7 @@ import { styles } from '@/components/yusr-muttaqien';
 import type { HTMLMotionProps } from 'framer-motion';
 
 export type YusrMuttaqienProps = {
-  withPlaceholder?: string;
+  withPlaceholder?: boolean;
   isVisible: boolean;
   className?: Partial<typeof styles.slots>;
 } & Omit<HTMLMotionProps<'div'>, 'className'>;

@@ -19,7 +19,7 @@ export default function NavbarYusrMuttaqien() {
       <YusrMuttaqien
         className={{ pathFill: 'fill-beige' }}
         isVisible={isShowTitle}
-        withPlaceholder="navbar"
+        withPlaceholder
       />
     </div>
   );

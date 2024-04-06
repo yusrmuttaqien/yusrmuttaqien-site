@@ -1,8 +1,9 @@
+import { forwardRef } from 'react';
 import { tv } from 'tailwind-variants';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMediaQueryCtx } from '@/providers/media-query';
 import classMerge from '@/utils/class-merge';
-import { VARIANT_YUSR_MUTTAQIEN, ID_YUSR_MUTTAQIEN_PLACEHOLDER } from '@/constants/yusr-muttaqien';
+import { VARIANT_YUSR_MUTTAQIEN } from '@/constants/yusr-muttaqien';
 import type { YusrMuttaqienProps, YusrMuttaqienSVGSProps } from '@/types/yusr-muttaqien';
 
 export const styles = tv({
@@ -12,19 +13,14 @@ export const styles = tv({
   },
 });
 
-export default function YusrMuttaqien({
-  className,
-  withPlaceholder,
-  isVisible,
-  ...rest
-}: YusrMuttaqienProps) {
-  const { isTablet } = useMediaQueryCtx();
+const YusrMuttaqien = forwardRef<HTMLDivElement, YusrMuttaqienProps>(function YusrMuttaqien(
+  { className, withPlaceholder, isVisible, ...rest },
+  ref
+) {
   const { wrapper } = styles();
 
-  if (isTablet === undefined) return null;
-
   return (
-    <div className="relative">
+    <div className="relative" ref={ref}>
       <AnimatePresence initial={false}>
         {isVisible && (
           <motion.div
@@ -41,13 +37,15 @@ export default function YusrMuttaqien({
         )}
       </AnimatePresence>
       {withPlaceholder && (
-        <div id={ID_YUSR_MUTTAQIEN_PLACEHOLDER + withPlaceholder} className="opacity-0">
+        <div className="opacity-0">
           <YusrMuttaqienSVGS />
         </div>
       )}
     </div>
   );
-}
+});
+
+export default YusrMuttaqien;
 
 function YusrMuttaqienSVGS({ className }: YusrMuttaqienSVGSProps) {
   const { isTablet } = useMediaQueryCtx();
