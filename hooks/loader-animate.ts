@@ -4,6 +4,7 @@ import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import gFD from '@/utils/get-framer-data';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
 import { EASE_IN_OUT_QUART_NUM } from '@/constants/tailwind-config';
+import type { SequencesProps } from '@/types/loader';
 
 export default function useLoaderAnimate() {
   const [scope, animate] = useAnimate();
@@ -19,7 +20,7 @@ export default function useLoaderAnimate() {
       let scaleTo = Math.sqrt((clientWidth * clientWidth) / 4 + (clientHeight * clientHeight) / 4);
       scaleTo = Math.ceil(scaleTo) / (Math.min(clientHeight, clientWidth) / 4);
 
-      animate(Sequences('go', scaleFrom, scaleTo)).then(() => {
+      animate(Sequences({ part: 'go', scaleFrom, scaleTo })).then(() => {
         setState((draft) => {
           draft.isLoader = false;
         });
@@ -37,7 +38,7 @@ export default function useLoaderAnimate() {
       outerEl?.classList.remove('animate-loader-bubble-out');
       innerEl?.classList.remove('animate-loader-scale-radiate-out');
       innerEl?.removeEventListener('animationiteration', intercept);
-      animate(Sequences('ready')).then(exit);
+      animate(Sequences({ part: 'ready' })).then(exit);
     }
 
     innerEl?.addEventListener('animationiteration', intercept);
@@ -46,10 +47,9 @@ export default function useLoaderAnimate() {
   return scope;
 }
 
-function Sequences<T extends 'ready' | 'go'>(
-  part: T,
-  ...rest: T extends 'go' ? [scaleFrom: number, scaleTo: number] : [unset?: never]
-): AnimationSequence {
+function Sequences(props: SequencesProps): AnimationSequence {
+  const { part, scaleFrom, scaleTo } = props;
+
   const SEQUENCE: AnimationSequence[] = [
     [
       [gFD('loader-outer'), { scale: 0.5, x: '-50%', y: '-50%' }, { duration: 0 }],
@@ -66,10 +66,14 @@ function Sequences<T extends 'ready' | 'go'>(
       ],
     ],
     [
-      [gFD('loader-outer'), { opacity: 1, scale: rest[0], x: '-50%', y: '-50%' }, { duration: 0 }],
       [
         gFD('loader-outer'),
-        { scale: rest[1], x: '-50%', y: '-50%', opacity: 0.2 },
+        { opacity: 1, scale: scaleFrom, x: '-50%', y: '-50%' },
+        { duration: 0 },
+      ],
+      [
+        gFD('loader-outer'),
+        { scale: scaleTo, x: '-50%', y: '-50%', opacity: 0.2 },
         { ...FRAMER_DEFAULT_TIMING },
       ],
     ],

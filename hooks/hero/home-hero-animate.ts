@@ -4,6 +4,7 @@ import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import gFD from '@/utils/get-framer-data';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
+import type { HeroSequencesProps } from '@/types/home';
 
 export default function useHomeAnimate() {
   const {
@@ -15,9 +16,9 @@ export default function useHomeAnimate() {
 
   useIsomorphicLayoutEffect(() => {
     if (isInView && !isLoader) {
-      animate(Sequences('go'));
+      animate(Sequences({ part: 'go' }));
     } else if (!isReady.current) {
-      animate(Sequences('ready')).then(() => {
+      animate(Sequences({ part: 'ready' })).then(() => {
         const root = scope.current as Element;
 
         isReady.current = true;
@@ -31,52 +32,42 @@ export default function useHomeAnimate() {
   return scope;
 }
 
-function Sequences(part: 'ready' | 'go'): AnimationSequence {
+function Sequences(props: HeroSequencesProps): AnimationSequence {
+  const { part } = props;
+
   const SEQUENCE: AnimationSequence[] = [
     [
       // #region Blueprint
-      [
-        gFD('blueprint-cross'),
-        { opacity: 0, /* filter: 'blur(30px)', */ scale: 0.5 },
-        { duration: 0 },
-      ],
-      [
-        gFD('blueprint-centre-inner'),
-        { opacity: 0, /* filter: 'blur(10px)', */ scale: 0 },
-        { duration: 0 },
-      ],
-      [
-        gFD('blueprint-centre-outer'),
-        { opacity: 0, /* filter: 'blur(10px)', */ scale: 0 },
-        { duration: 0 },
-      ],
+      [gFD('blueprint-cross'), { opacity: 0, scale: 0.5 }, { duration: 0 }],
+      [gFD('blueprint-centre-inner'), { opacity: 0, scale: 0 }, { duration: 0 }],
+      [gFD('blueprint-centre-outer'), { opacity: 0, scale: 0 }, { duration: 0 }],
       // #endregion
     ],
     [
       // #region Blueprint
       [
         gFD('blueprint-centre-outer'),
-        { opacity: 1, /* filter: 'blur(0px)', */ scale: 1.1 },
+        { opacity: 1, scale: 1.1 },
         { ...FRAMER_DEFAULT_TIMING, duration: 1, at: '-0.25' },
       ],
       [
         gFD('blueprint-centre-inner'),
-        { opacity: 1, /* filter: 'blur(0px)', */ scale: 1.1 },
+        { opacity: 1, scale: 1.1 },
         { ...FRAMER_DEFAULT_TIMING, duration: 1, at: '-0.8' },
       ],
       [
         gFD('blueprint-cross'),
-        { opacity: 1, /* filter: 'blur(0px)', */ scale: 1.5 },
+        { opacity: 1, scale: 1.5 },
         { ...FRAMER_DEFAULT_TIMING, duration: 1, at: '-0.5' },
       ],
       [
         gFD('blueprint-centre-outer'),
-        { opacity: 1, /* filter: 'blur(0px)', */ scale: 1 },
+        { opacity: 1, scale: 1 },
         { ...FRAMER_DEFAULT_TIMING, duration: 1, at: '-0.7' },
       ],
       [
         gFD('blueprint-centre-inner'),
-        { opacity: 1, /* filter: 'blur(0px)', */ scale: 1 },
+        { opacity: 1, scale: 1 },
         { ...FRAMER_DEFAULT_TIMING, duration: 1, at: '-0.8' },
       ],
       // #endregion
