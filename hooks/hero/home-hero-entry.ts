@@ -17,15 +17,15 @@ export default function useHomeEntry() {
 
   useIsomorphicLayoutEffect(() => {
     if (isInView && !isLoader && !isComplete) {
+      const root = scope.current as HTMLElement;
+
+      root.classList.remove('invisible');
       animate(Sequences({ part: 'go' })).then(() => {
         setComplete(true);
       });
     } else if (!isReady.current) {
       animate(Sequences({ part: 'ready' })).then(() => {
-        const root = scope.current as HTMLElement;
-
         isReady.current = true;
-        root.classList.remove('invisible');
       });
     }
   }, [isInView, isLoader, isComplete]);

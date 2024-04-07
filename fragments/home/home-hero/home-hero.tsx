@@ -14,7 +14,7 @@ export default function HomeHero({ className }: { className?: string }) {
       ref={mergeRefs(entryScope, blueprintScope)}
       className={classMerge(
         'h-[100svh] min-h-[25rem] w-full flex items-end relative isolate',
-        'bg-beige dark:bg-grey invisible',
+        'bg-beige dark:bg-grey overflow-hidden invisible',
         className
       )}
     >

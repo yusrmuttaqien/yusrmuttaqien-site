@@ -12,10 +12,9 @@ export default function useNavbarEntry() {
 
   useIsomorphicLayoutEffect(() => {
     if (isLoader) {
-      animate(Sequences('ready')).then(() => {
-        (scope.current as HTMLElement).classList.remove('invisible');
-      });
+      animate(Sequences('ready'));
     } else {
+      (scope.current as HTMLElement).classList.remove('invisible');
       animate(Sequences('go'));
     }
   }, [isLoader]);
