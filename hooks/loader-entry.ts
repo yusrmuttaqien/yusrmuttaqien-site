@@ -6,7 +6,7 @@ import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
 import { EASE_IN_OUT_QUART_NUM } from '@/constants/tailwind-config';
 import type { SequencesProps } from '@/types/loader';
 
-export default function useLoaderAnimate() {
+export default function useLoaderEntry() {
   const [scope, animate] = useAnimate();
   const { setState } = useAnimationSequenceCtx();
 
@@ -16,7 +16,7 @@ export default function useLoaderAnimate() {
 
     function exit() {
       const { clientHeight, clientWidth } = document.documentElement;
-      const scaleFrom = +getComputedStyle(outerEl as Element).transform.split(',')[3];
+      const scaleFrom = +getComputedStyle(outerEl as HTMLElement).transform.split(',')[3];
       let scaleTo = Math.sqrt((clientWidth * clientWidth) / 4 + (clientHeight * clientHeight) / 4);
       scaleTo = Math.ceil(scaleTo) / (Math.min(clientHeight, clientWidth) / 4);
 
@@ -26,7 +26,7 @@ export default function useLoaderAnimate() {
         });
 
         function hide() {
-          (scope.current as Element).classList.add('hidden');
+          (scope.current as HTMLElement).classList.add('hidden');
 
           outerEl?.removeEventListener('transitionend', hide);
         }

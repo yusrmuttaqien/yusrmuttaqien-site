@@ -1,22 +1,29 @@
+import { forwardRef } from 'react';
 import classMerge from '@/utils/class-merge';
 import type { BlueprintProps } from '@/types/blueprint';
 
-export default function Blueprint({ className, ...rest }: BlueprintProps) {
+const Blueprint = forwardRef<HTMLDivElement, BlueprintProps>(function Blueprint(
+  { className, ...rest },
+  ref
+) {
   return (
     <div
       data-framer="blueprint"
       className={classMerge('h-full w-full shrink-0 relative overflow-hidden', className)}
+      ref={ref}
       {...rest}
     >
       <Cross />
       <Centre />
     </div>
   );
-}
+});
+
+export default Blueprint;
 
 function Cross() {
   return (
-    <div className="h-full w-full overflow-hidden" data-framer="blueprint-cross">
+    <div className="h-full w-full" data-framer="blueprint-cross">
       <svg width="100%" height="100%" viewBox="0 0 789 789" fill="none" preserveAspectRatio="none">
         <g clipPath="url(#clip0_3035_176)">
           <path
@@ -44,11 +51,8 @@ function Cross() {
 
 function Centre() {
   return (
-    <div className="absolute inset-0 h-full w-full overflow-hidden" data-framer="blueprint-centre">
-      <div
-        className="absolute inset-0 h-full w-full overflow-hidden"
-        data-framer="blueprint-centre-outer"
-      >
+    <div className="absolute inset-0 h-full w-full" data-framer="blueprint-centre">
+      <div className="absolute inset-0 h-full w-full" data-framer="blueprint-centre-outer">
         <svg
           className="absolute translate-center container"
           width="100%"
@@ -72,10 +76,7 @@ function Centre() {
           </defs>
         </svg>
       </div>
-      <div
-        className="absolute inset-0 h-full w-full overflow-hidden"
-        data-framer="blueprint-centre-inner"
-      >
+      <div className="absolute inset-0 h-full w-full" data-framer="blueprint-centre-inner">
         <svg
           className="absolute translate-center container"
           width="100%"

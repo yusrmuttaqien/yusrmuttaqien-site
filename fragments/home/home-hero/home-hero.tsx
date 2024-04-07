@@ -1,14 +1,17 @@
-import useHomeHeroAnimate from '@/hooks/hero/home-hero-animate';
+import mergeRefs from 'merge-refs';
+import useHomeHeroEntry from '@/hooks/hero/home-hero-entry';
+import useHomeHeroInteraction from '@/hooks/hero/home-hero-interaction';
 import Blueprint from '@/components/blueprint';
 import HomeHeroYusrMuttaqien from '@/fragments/home/home-hero/home-hero-yusr-muttaqien';
 import classMerge from '@/utils/class-merge';
 
 export default function HomeHero({ className }: { className?: string }) {
-  const scope = useHomeHeroAnimate();
+  const { scope: entryScope, isComplete } = useHomeHeroEntry();
+  const blueprintScope = useHomeHeroInteraction(isComplete);
 
   return (
     <section
-      ref={scope}
+      ref={mergeRefs(entryScope, blueprintScope)}
       className={classMerge(
         'h-[100svh] min-h-[25rem] w-full flex items-end relative isolate',
         'bg-beige dark:bg-grey invisible',

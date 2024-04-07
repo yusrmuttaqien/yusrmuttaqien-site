@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import mergeRefs from 'merge-refs';
 import useNavbarMeasure from '@/hooks/navbar/navbar-measure';
-import useNavbarAnimate from '@/hooks/navbar/navbar-animate';
+import useNavbarEntry from '@/hooks/navbar/navbar-entry';
 import NavbarClock from '@/fragments/navbar/navbar-clock';
 import NavbarYusrMuttaqien from '@/fragments/navbar/navbar-yusr-muttaqien';
 import NavbarLang from '@/fragments/navbar/navbar-lang';
@@ -11,7 +11,7 @@ const locStyles = 'text-[clamp(0.7444rem,_0.0008rem_+_3.7178vw,_1rem)]';
 
 export default function Navbar() {
   const navRef = useRef<HTMLDivElement>();
-  const scope = useNavbarAnimate();
+  const scope = useNavbarEntry();
 
   useNavbarMeasure(navRef);
 

@@ -4,7 +4,7 @@ import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import gFD from '@/utils/get-framer-data';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
 
-export default function useNavbarAnimate() {
+export default function useNavbarEntry() {
   const [scope, animate] = useAnimate();
   const {
     state: { isLoader },
@@ -13,7 +13,7 @@ export default function useNavbarAnimate() {
   useIsomorphicLayoutEffect(() => {
     if (isLoader) {
       animate(Sequences('ready')).then(() => {
-        (scope.current as Element).classList.remove('invisible');
+        (scope.current as HTMLElement).classList.remove('invisible');
       });
     } else {
       animate(Sequences('go'));
