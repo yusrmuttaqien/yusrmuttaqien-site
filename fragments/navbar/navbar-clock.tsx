@@ -1,81 +1,91 @@
-import { useEffect, useState, memo } from 'react';
+import { useEffect, useState, memo, useRef, forwardRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import classMerge from '@/utils/class-merge';
-import { VARIANT_CLOCK_NUM, VARIANT_CLOCK_COLON } from '@/constants/navbar';
+import { VARIANT_CLOCK_NUM } from '@/constants/navbar';
 import type { AnimatedDigitProps } from '@/types/navbar';
 
-const MemoizedAnimateDigit = memo(AnimateDigit);
+const AnimateDigit = memo(
+  forwardRef<HTMLSpanElement, AnimatedDigitProps>(function AnimateDigit(
+    { digit, variant = {}, sign, className },
+    ref
+  ) {
+    return (
+      <span className={classMerge('relative inline-block', className)} ref={ref}>
+        <AnimatePresence>
+          <motion.span className="absolute left-0 top-0" key={sign} {...variant}>
+            {digit}
+          </motion.span>
+        </AnimatePresence>
+        <span className="opacity-0">{digit}</span>
+      </span>
+    );
+  })
+);
 
 export default function NavbarClock({ className }: { className?: string }) {
-  const [time, setTime] = useState({ hour: ['0', '0'], minute: ['0', '0'], second: ['0', '0'] });
+  const colonRef = useRef<HTMLSpanElement>(null);
+  const [time, setTime] = useState({ hour: ['0', '0'], minute: ['0', '0'] });
 
   useEffect(() => {
+    const colon = colonRef.current as HTMLSpanElement;
     let interval: NodeJS.Timeout;
 
+    function stopBlink() {
+      colon.classList.remove('animate-navbar-clock-blink');
+      colon.removeEventListener('animationiteration', stopBlink);
+    }
     function clear() {
+      colon.addEventListener('animationiteration', stopBlink);
       clearInterval(interval);
     }
     function runInterval() {
-      interval && clear();
       interval = setInterval(() => {
         setTime(getDate());
       }, 1000);
+
+      colon.classList.add('animate-navbar-clock-blink');
     }
 
-    window.addEventListener('focus', runInterval);
     window.addEventListener('blur', clear);
+    window.addEventListener('focus', runInterval);
     runInterval();
 
     return () => {
       window.removeEventListener('focus', runInterval);
       window.removeEventListener('blur', clear);
-      clear();
     };
   }, []);
 
   return (
     <p className={className} data-framer="clock">
-      <MemoizedAnimateDigit
+      <AnimateDigit
         digit={time.hour[0]}
         variant={VARIANT_CLOCK_NUM}
         sign={`hur-0-${time.hour[0]}`}
       />
-      <MemoizedAnimateDigit
+      <AnimateDigit
         digit={time.hour[1]}
         variant={VARIANT_CLOCK_NUM}
         sign={`hur-1-${time.hour[1]}`}
       />
       <AnimateDigit
-        className="ml-[.3ch] mr-[.3ch]"
+        className="mx-[.3ch] animate-navbar-clock-blink"
         digit=":"
-        variant={VARIANT_CLOCK_COLON}
-        sign={`col-0-${time.second[1]}`}
+        sign=":"
+        ref={colonRef}
       />
-      <MemoizedAnimateDigit
+      <AnimateDigit
         digit={time.minute[0]}
         variant={VARIANT_CLOCK_NUM}
         sign={`min-0-${time.minute[0]}`}
       />
-      <MemoizedAnimateDigit
+      <AnimateDigit
         digit={time.minute[1]}
         variant={VARIANT_CLOCK_NUM}
         sign={`min-1-${time.minute[1]}`}
-      />{' '}
-      WIB
+      />
+      <AnimateDigit className="ml-[1ch]" digit="WIB" sign="WIB" />
     </p>
-  );
-}
-
-function AnimateDigit({ digit, variant, sign, className }: AnimatedDigitProps) {
-  return (
-    <span className={classMerge('relative inline-block', className)}>
-      <AnimatePresence>
-        <motion.span className="absolute left-0 top-0" key={sign} {...variant}>
-          {digit}
-        </motion.span>
-      </AnimatePresence>
-      <span className="opacity-0">{digit}</span>
-    </span>
   );
 }
 
@@ -92,6 +102,5 @@ function getDate() {
   return {
     hour: splitDigit(splitedDate[0]),
     minute: splitDigit(splitedDate[1]),
-    second: splitDigit(splitedDate[2].split(' ')[0]),
   };
 }

@@ -75,10 +75,19 @@ const config: Config = {
             transform: 'translate(-50%, -50%) scale(0.5)',
           },
         },
+        'navbar-clock-blink': {
+          '0%, 50%': {
+            opacity: '1',
+          },
+          '51%, 100%': {
+            opacity: '0',
+          },
+        },
       },
       animation: {
         'loader-scale-radiate-out': `loader-scale-radiate-out 2.5s ${EASE_IN_OUT_QUART_CSS} infinite`,
         'loader-bubble-out': `loader-bubble-out 2.5s ${EASE_IN_OUT_QUART_CSS} infinite`,
+        'navbar-clock-blink': `navbar-clock-blink 1s ${EASE_IN_OUT_QUART_CSS} infinite`,
       },
     },
     screens: {

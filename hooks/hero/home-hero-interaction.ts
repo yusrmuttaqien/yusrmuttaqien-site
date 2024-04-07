@@ -103,30 +103,34 @@ function RootHeaderMouseEnter(e: MouseEvent) {
   rootHeader.style.transform = 'scale(1.01)';
 }
 function RootYProgressHoverable(root: HTMLElement) {
-  const rootHeader = root.querySelector(gFD('home-hero-header')) as HTMLElement;
-  const blueprintCross = root.querySelector(gFD('blueprint-cross')) as HTMLElement;
-  const blueprintCentre = root.querySelector(gFD('blueprint-centre')) as HTMLElement;
-  const blueprintCentreOuter = root.querySelector(gFD('blueprint-centre-outer')) as HTMLElement;
+  requestAnimationFrame(() => {
+    const rootHeader = root.querySelector(gFD('home-hero-header')) as HTMLElement;
+    const blueprintCross = root.querySelector(gFD('blueprint-cross')) as HTMLElement;
+    const blueprintCentre = root.querySelector(gFD('blueprint-centre')) as HTMLElement;
+    const blueprintCentreOuter = root.querySelector(gFD('blueprint-centre-outer')) as HTMLElement;
 
-  blueprintCentre.style.transform = `translate(0px, 0px) rotateX(0deg) rotateY(0deg) perspective(5000px) scale(1)`;
-  blueprintCross.style.transform = `translate(0px, 0px)`;
-  blueprintCentreOuter.style.transform = `translateZ(0px)`;
-  blueprintCross.style.filter = `blur(0px)`;
-  rootHeader.style.opacity = '1';
-  rootHeader.style.transform = 'scale(1)';
-  rootHeader.classList.remove('pointer-events-none');
+    blueprintCentre.style.transform = `translate(0px, 0px) rotateX(0deg) rotateY(0deg) perspective(5000px) scale(1)`;
+    blueprintCross.style.transform = `translate(0px, 0px)`;
+    blueprintCentreOuter.style.transform = `translateZ(0px)`;
+    blueprintCross.style.filter = `blur(0px)`;
+    rootHeader.style.opacity = '1';
+    rootHeader.style.transform = 'scale(1)';
+    rootHeader.classList.remove('pointer-events-none');
+  });
 }
 function RootYProgressTouch(root: HTMLElement, e: number) {
-  const blueprintCross = root.querySelector(gFD('blueprint-cross')) as HTMLElement;
-  const blueprintCentre = root.querySelector(gFD('blueprint-centre')) as HTMLElement;
-  const blueprintCentreOuter = root.querySelector(gFD('blueprint-centre-outer')) as HTMLElement;
-  const blueprintCentreScale = transform(e, [0, 1], [1, 0.6]);
+  requestAnimationFrame(() => {
+    const blueprintCross = root.querySelector(gFD('blueprint-cross')) as HTMLElement;
+    const blueprintCentre = root.querySelector(gFD('blueprint-centre')) as HTMLElement;
+    const blueprintCentreOuter = root.querySelector(gFD('blueprint-centre-outer')) as HTMLElement;
+    const blueprintCentreScale = transform(e, [0, 1], [1, 0.6]);
 
-  blueprintCentre.style.transform = `translateY(${e * -50}px) 
-  rotateX(${e * -112}deg) perspective(5000px) scale(${blueprintCentreScale})`;
-  blueprintCentreOuter.style.transform = `translateZ(${e * 200}px)`;
-  blueprintCross.style.transform = `translateY(${e * -150}px)`;
-  blueprintCross.style.filter = `blur(${e * 15}px)`;
+    blueprintCentre.style.transform = `translateY(${e * -50}px) 
+    rotateX(${e * -112}deg) perspective(5000px) scale(${blueprintCentreScale})`;
+    blueprintCentreOuter.style.transform = `translateZ(${e * 200}px)`;
+    blueprintCross.style.transform = `translateY(${e * -150}px)`;
+    blueprintCross.style.filter = `blur(${e * 15}px)`;
+  });
 }
 
 function MoveTo({ page, offset, boundary }: { page: number; offset: number; boundary: number }) {

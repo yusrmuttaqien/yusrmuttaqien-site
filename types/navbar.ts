@@ -2,7 +2,7 @@ import type { MotionProps } from 'framer-motion';
 
 export type AnimatedDigitProps = {
   digit: string;
-  variant: MotionProps;
+  variant?: MotionProps;
   sign: string;
   className?: string;
 };

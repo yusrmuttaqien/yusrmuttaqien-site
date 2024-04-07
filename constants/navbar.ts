@@ -11,11 +11,3 @@ export const VARIANT_CLOCK_NUM: MotionProps = {
   animate: 'visible',
   exit: 'hidden',
 };
-export const VARIANT_CLOCK_COLON: MotionProps = {
-  variants: {
-    visible: { opacity: 0 },
-    hidden: { opacity: 1 },
-  },
-  animate: 'visible',
-  exit: 'hidden',
-};
