@@ -1,5 +1,6 @@
-import { useEffect, useState, memo, useRef, forwardRef } from 'react';
+import { useState, memo, useRef, forwardRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import classMerge from '@/utils/class-merge';
 import { VARIANT_CLOCK_NUM } from '@/constants/navbar';
 import type { AnimatedDigitProps } from '@/types/navbar';
@@ -26,7 +27,7 @@ export default function NavbarClock({ className }: { className?: string }) {
   const colonRef = useRef<HTMLSpanElement>(null);
   const [time, setTime] = useState({ hour: ['0', '0'], minute: ['0', '0'] });
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const colon = colonRef.current as HTMLSpanElement;
     let interval: NodeJS.Timeout;
 

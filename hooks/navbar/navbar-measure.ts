@@ -14,7 +14,7 @@ export default function useNavbarMeasure(el: RefObject<HTMLDivElement | undefine
       const navYusrMuttaqienPlaceholder = el.current?.children.item(1)?.children.item(0)?.children;
       const navYusrMuttaqienHeight = (
         navYusrMuttaqienPlaceholder?.item(navYusrMuttaqienPlaceholder.length - 1) as HTMLDivElement
-      ).offsetHeight;
+      )?.offsetHeight;
 
       cb?.(!!navYusrMuttaqienHeight);
       setState((draft) => {

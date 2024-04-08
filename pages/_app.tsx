@@ -25,7 +25,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       </Head>
       <Providers>
         <Loader />
-        <Debugger />
+        {/* <Debugger /> */}
         <Navbar />
         <AnimatePresence mode="wait" initial={false}>
           <Component {...pageProps} key={router.route} />

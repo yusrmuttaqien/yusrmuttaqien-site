@@ -28,15 +28,12 @@ export default function useHomeHeroInteraction(completeEntry: boolean) {
       blueprintCentre.classList.add(...classLists, 'transition-transform', 'duration-1000');
       return;
     }
+    const clearYProgress = scrollYProgress.on(
+      'change',
+      RootYProgress.bind(null, root, isHover || true)
+    );
 
-    if (!isHover) {
-      RootYProgressHoverable(scope.current as HTMLElement);
-      const clearYProgress = scrollYProgress.on('change', RootYProgressTouch.bind(null, root));
-
-      return () => clearYProgress();
-    }
-    RootYProgressHoverable(scope.current as HTMLElement);
-    const clearYProgress = scrollYProgress.on('change', RootYProgressHoverable.bind(null, root));
+    if (!isHover) return () => clearYProgress();
     const stopPropagation = (e: MouseEvent) => e.stopPropagation();
 
     root.addEventListener('mousemove', RootTrackMouse);
@@ -102,23 +99,7 @@ function RootHeaderMouseEnter(e: MouseEvent) {
   rootHeader.style.opacity = '0';
   rootHeader.style.transform = 'scale(1.01)';
 }
-function RootYProgressHoverable(root: HTMLElement) {
-  requestAnimationFrame(() => {
-    const rootHeader = root.querySelector(gFD('home-hero-header')) as HTMLElement;
-    const blueprintCross = root.querySelector(gFD('blueprint-cross')) as HTMLElement;
-    const blueprintCentre = root.querySelector(gFD('blueprint-centre')) as HTMLElement;
-    const blueprintCentreOuter = root.querySelector(gFD('blueprint-centre-outer')) as HTMLElement;
-
-    blueprintCentre.style.transform = `translate(0px, 0px) rotateX(0deg) rotateY(0deg) perspective(5000px) scale(1)`;
-    blueprintCross.style.transform = `translate(0px, 0px)`;
-    blueprintCentreOuter.style.transform = `translateZ(0px)`;
-    blueprintCross.style.filter = `blur(0px)`;
-    rootHeader.style.opacity = '1';
-    rootHeader.style.transform = 'scale(1)';
-    rootHeader.classList.remove('pointer-events-none');
-  });
-}
-function RootYProgressTouch(root: HTMLElement, e: number) {
+function RootYProgress(root: HTMLElement, isHover: boolean, e: number) {
   requestAnimationFrame(() => {
     const blueprintCross = root.querySelector(gFD('blueprint-cross')) as HTMLElement;
     const blueprintCentre = root.querySelector(gFD('blueprint-centre')) as HTMLElement;
@@ -130,6 +111,14 @@ function RootYProgressTouch(root: HTMLElement, e: number) {
     blueprintCentreOuter.style.transform = `translateZ(${e * 200}px)`;
     blueprintCross.style.transform = `translateY(${e * -150}px)`;
     blueprintCross.style.filter = `blur(${e * 15}px)`;
+
+    if (isHover) {
+      const rootHeader = root.querySelector(gFD('home-hero-header')) as HTMLElement;
+
+      rootHeader.style.opacity = '1';
+      rootHeader.style.transform = 'scale(1)';
+      rootHeader.classList.remove('pointer-events-none');
+    }
   });
 }
 

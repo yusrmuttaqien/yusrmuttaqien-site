@@ -6,7 +6,7 @@ import gFD from '@/utils/get-framer-data';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
 import type { HeroSequencesProps } from '@/types/home';
 
-export default function useHomeEntry() {
+export default function useHomeHeroEntry() {
   const {
     state: { isLoader },
   } = useAnimationSequenceCtx();
