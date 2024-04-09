@@ -42,7 +42,7 @@ export default function useHomeMasteriesEntry() {
             sequence.push([
               gFD(`home-masteries-list-title-${i}`),
               { opacity: 1, y: 0 },
-              { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: '-0.3' },
+              { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: '-0.4' },
             ]);
             sequence.push([
               gFD(`home-masteries-list-contents-${i}`),
@@ -56,6 +56,7 @@ export default function useHomeMasteriesEntry() {
       });
     } else if (!isReady.current) {
       const extraSequence: AnimationSequence = [];
+      const { height } = getComputedStyle(root);
 
       for (let i = 0; i < masteriesLists.children.length; i++) {
         extraSequence.push([
@@ -70,22 +71,44 @@ export default function useHomeMasteriesEntry() {
         ]);
       }
 
-      animate(Sequences({ part: 'ready', extraSequence })).then(() => {
-        isReady.current = true;
-      });
+      animate(Sequences({ part: 'ready', extraSequence, marqueeX: parseFloat(height) })).then(
+        () => {
+          isReady.current = true;
+        }
+      );
     }
   }, [isInView, isLoader]);
 
   return scope;
 }
 
-function Sequences({ part, extraSequence = [] }: MasteriesSequencesProps): AnimationSequence {
+function Sequences({
+  part,
+  extraSequence = [],
+  marqueeX,
+}: MasteriesSequencesProps): AnimationSequence {
   const SEQUENCE: AnimationSequence[] = [
     [
+      [
+        gFD('home-masteries-marquee-positive'),
+        { opacity: 0, x: -(marqueeX || 0) },
+        { duration: 0 },
+      ],
+      [gFD('home-masteries-marquee-negative'), { opacity: 0, x: marqueeX }, { duration: 0 }],
       [gFD('section-header-subtitle'), { opacity: 0, y: 10 }, { duration: 0 }],
       [gFD('section-header-title', '.line'), { opacity: 0, y: 10 }, { duration: 0 }],
     ],
     [
+      [
+        gFD('home-masteries-marquee-positive'),
+        { opacity: 1, x: 0 },
+        { ...FRAMER_DEFAULT_TIMING, duration: 1 },
+      ],
+      [
+        gFD('home-masteries-marquee-negative'),
+        { opacity: 1, x: 0 },
+        { ...FRAMER_DEFAULT_TIMING, duration: 1, at: '<' },
+      ],
       [
         gFD('section-header-subtitle'),
         { opacity: 1, y: 0 },

@@ -1,33 +1,71 @@
-import useHomeMasteriesEntry from '@/hooks/hero/home-masteries-entry';
+import { tv } from 'tailwind-variants';
+import mergeRefs from 'merge-refs';
+import useHomeMasteriesEntry from '@/hooks/home/home-masteries/home-masteries-entry';
+import useHomeMasteriesCalculate from '@/hooks/home/home-masteries/home-masteries-calculate';
 import SectionHeader from '@/components/section-header';
 import HomeMasteriesList from '@/fragments/home/home-masteries/home-masteries-list';
+import HomeMasteriesMarquee from '@/fragments/home/home-masteries/home-masteries-marquee';
 import classMerge from '@/utils/class-merge';
 import useContent from '@/contents/home';
 
-export default function HomeMasteries({ className }: { className?: string }) {
+const styles = tv({
+  slots: {
+    container: 'relative invisible isolate',
+    wrapper: 'container space-y-[clamp(4.25rem,_1.25rem_+_15vw,_5.75rem)] relative z-10',
+    marquee: 'w-[var(--height)] text-grey/5 dark:text-beige/5',
+  },
+});
+
+export default function HomeMasteries({ className }: { className?: Partial<typeof styles.slots> }) {
   const {
     masteries: { title, subtitle, masteries },
   } = useContent();
-  const scope = useHomeMasteriesEntry();
+  const entryScope = useHomeMasteriesEntry();
+  const calculateScope = useHomeMasteriesCalculate();
+  const { container, wrapper, marquee } = styles();
 
   return (
     <section
-      ref={scope}
+      ref={mergeRefs(entryScope, calculateScope)}
       id="home-masteries"
-      className={classMerge(
-        'scroll-mt-[calc(var(--navbar-total-height)_+_10)] invisible',
-        'container space-y-[clamp(4.25rem,_1.25rem_+_15vw,_5.75rem)]',
-        className
-      )}
+      className={container({ className: className?.container })}
     >
-      <SectionHeader subtitle={subtitle} title={title} />
+      <div className={wrapper({ className: className?.wrapper })}>
+        <SectionHeader subtitle={subtitle} title={title} />
+        <div
+          data-framer="home-masteries-lists"
+          className="space-y-[clamp(1.5rem,_0.0455rem_+_7.2727vw,_2rem)]"
+        >
+          {masteries.map((mastery, idx) => (
+            <HomeMasteriesList {...mastery} key={mastery.title} idx={idx} />
+          ))}
+        </div>
+      </div>
       <div
-        data-framer="home-masteries-lists"
-        className="space-y-[clamp(1.5rem,_0.0455rem_+_7.2727vw,_2rem)]"
+        className={classMerge(
+          'absolute -top-[var(--margin-top)] pointer-events-none -translate-y-full',
+          'translate-x-[var(--margin-block)] rotate-90 origin-bottom-left isolate',
+          'before:inset-0 before:bg-gradient-to-r before:from-grey before:block',
+          'before:absolute before:z-10 before:w-[10%] after:inset-0 after:bg-gradient-to-l',
+          'after:from-grey after:block after:absolute after:z-10 after:w-[10%] after:left-[unset]',
+          'md-only:top-[unset] md-only:translate-x-[var(--width)]',
+          'md-only:-rotate-90 overflow-hidden'
+        )}
       >
-        {masteries.map((mastery, idx) => (
-          <HomeMasteriesList {...mastery} key={mastery.title} idx={idx} />
-        ))}
+        <HomeMasteriesMarquee
+          className={{ container: marquee() }}
+          baseVelocity={100}
+          name="positive"
+        >
+          <p className="project-title">The devil in the details. 😈</p>
+        </HomeMasteriesMarquee>
+        <HomeMasteriesMarquee
+          className={{ container: marquee() }}
+          baseVelocity={-100}
+          name="negative"
+        >
+          <p className="project-title">The devil in the details. 😈</p>
+        </HomeMasteriesMarquee>
       </div>
     </section>
   );

@@ -13,15 +13,17 @@ export default function useSplitType(selector: string, options: Partial<SplitTyp
   useIsomorphicLayoutEffect(() => {
     instance.current = new SplitType(selector, options);
     const el = document.querySelector(selector) as HTMLElement;
-    const debouncedRecalculate = debounce(() => {
-      instance.current?.split(options);
+    const debouncedCalculate = debounce(() => {
+      requestAnimationFrame(() => {
+        instance.current?.split(options);
+      });
     }, 100);
 
     el.style.fontKerning = 'none';
-    window.addEventListener('resize', debouncedRecalculate);
+    window.addEventListener('resize', debouncedCalculate);
 
     return () => {
-      window.removeEventListener('resize', debouncedRecalculate);
+      window.removeEventListener('resize', debouncedCalculate);
       el.style.fontKerning = 'unset';
       instance.current?.revert();
     };

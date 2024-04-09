@@ -18,7 +18,7 @@ export default function MeasurementProvider({ children }: { children: ReactNode 
     Object.entries(state).map(([key, value]) => {
       const variable = camelToKebabCase(key);
 
-      document.documentElement.style.setProperty(`--${variable}`, value?.toString() || null);
+      document.documentElement.style.setProperty(`--${variable}`, value?.toString() + 'px' || null);
     });
   }, [state]);
 

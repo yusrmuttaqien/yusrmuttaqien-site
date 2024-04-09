@@ -1,6 +1,6 @@
-import { useState, memo, useRef, forwardRef } from 'react';
+import { memo, forwardRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
+import useNavbarClock from '@/hooks/navbar/navbar-clock';
 import classMerge from '@/utils/class-merge';
 import { VARIANT_CLOCK_NUM } from '@/constants/navbar';
 import type { AnimatedDigitProps } from '@/types/navbar';
@@ -24,38 +24,7 @@ const AnimateDigit = memo(
 );
 
 export default function NavbarClock({ className }: { className?: string }) {
-  const colonRef = useRef<HTMLSpanElement>(null);
-  const [time, setTime] = useState({ hour: ['0', '0'], minute: ['0', '0'] });
-
-  useIsomorphicLayoutEffect(() => {
-    const colon = colonRef.current as HTMLSpanElement;
-    let interval: NodeJS.Timeout;
-
-    function stopBlink() {
-      colon.classList.remove('animate-navbar-clock-blink');
-      colon.removeEventListener('animationiteration', stopBlink);
-    }
-    function clear() {
-      colon.addEventListener('animationiteration', stopBlink);
-      clearInterval(interval);
-    }
-    function runInterval() {
-      interval = setInterval(() => {
-        setTime(getDate());
-      }, 1000);
-
-      colon.classList.add('animate-navbar-clock-blink');
-    }
-
-    window.addEventListener('blur', clear);
-    window.addEventListener('focus', runInterval);
-    runInterval();
-
-    return () => {
-      window.removeEventListener('focus', runInterval);
-      window.removeEventListener('blur', clear);
-    };
-  }, []);
+  const time = useNavbarClock();
 
   return (
     <p className={className} data-framer="clock">
@@ -69,12 +38,7 @@ export default function NavbarClock({ className }: { className?: string }) {
         variant={VARIANT_CLOCK_NUM}
         sign={`hur-1-${time.hour[1]}`}
       />
-      <AnimateDigit
-        className="mx-[.3ch] animate-navbar-clock-blink"
-        digit=":"
-        sign=":"
-        ref={colonRef}
-      />
+      <AnimateDigit className="mx-[.3ch] animate-navbar-clock-blink" digit=":" sign=":" />
       <AnimateDigit
         digit={time.minute[0]}
         variant={VARIANT_CLOCK_NUM}
@@ -88,20 +52,4 @@ export default function NavbarClock({ className }: { className?: string }) {
       <AnimateDigit className="ml-[1ch]" digit="WIB" sign="WIB" />
     </p>
   );
-}
-
-function getDate() {
-  const formatedDate = new Intl.DateTimeFormat('id-ID', {
-    timeStyle: 'long',
-  }).format(new Date());
-  const splitedDate = formatedDate.split('.');
-
-  function splitDigit(digits: string) {
-    return digits.split('').map((digit) => digit);
-  }
-
-  return {
-    hour: splitDigit(splitedDate[0]),
-    minute: splitDigit(splitedDate[1]),
-  };
 }

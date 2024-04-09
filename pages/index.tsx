@@ -8,11 +8,14 @@ export default function Home() {
     <TransitionSlideUp>
       <HomeHero />
       <HomeMasteries
-        className={classMerge(
-          'mt-[clamp(5.5625rem,_-0.0739rem_+_28.1818vw,_7.5rem)]',
-          'mb-[clamp(9.3125rem,_0.0398rem_+_46.3636vw,_12.5rem)]',
-          'lg:mb-[clamp(12.5rem,_6.6564rem_+_11.2108vw,_15.625rem)]'
-        )}
+        className={{
+          wrapper: classMerge(
+            'mt-[clamp(5.5625rem,_-0.0739rem_+_28.1818vw,_7.5rem)]',
+            'mb-[clamp(9.3125rem,_0.0398rem_+_46.3636vw,_12.5rem)]',
+            'lg:mb-[clamp(12.5rem,_6.6564rem_+_11.2108vw,_15.625rem)]'
+          ),
+          container: 'scroll-mt-[calc(var(--navbar-total-height)_+_10)]',
+        }}
       />
     </TransitionSlideUp>
   );
