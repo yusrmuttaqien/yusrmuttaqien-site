@@ -48,10 +48,10 @@ const YusrMuttaqien = forwardRef<HTMLDivElement, YusrMuttaqienProps>(function Yu
 export default YusrMuttaqien;
 
 function YusrMuttaqienSVGS({ className }: YusrMuttaqienSVGSProps) {
-  const { isTablet } = useMediaQueryCtx();
+  const { isScreenTablet } = useMediaQueryCtx();
   const { pathFill } = styles();
 
-  return isTablet ? (
+  return isScreenTablet ? (
     <svg width="100%" viewBox="0 0 785 101" fill="none">
       <path
         d="M747.378 79H726.245V20.2372H747.378V38.5722C749.475 25.2829 755.977 18.6382 766.886 18.6382C769.871 18.6382 772.465 19.1445 774.668 20.1572C776.889 21.1699 778.719 22.7067 780.158 24.7676C781.615 26.8286 782.698 29.4225 783.409 32.5494C784.137 35.6763 784.502 39.354 784.502 43.5824V79H763.368V48.9123C763.368 44.7727 762.729 41.6991 761.45 39.6915C760.188 37.6839 758.243 36.6801 755.613 36.6801C752.895 36.6801 750.843 37.7105 749.457 39.7715C748.071 41.8324 747.378 44.9504 747.378 49.1255V79Z"

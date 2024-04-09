@@ -31,8 +31,12 @@ export default function useHomeMasteriesMarquee(children: ReactNode, baseVelocit
     const debouncedCalculate = debounce(calculate, 100);
 
     function calculate() {
-      requestAnimationFrame(() => {
+      let rAF: number;
+
+      rAF = requestAnimationFrame(() => {
         const root = scope.current as HTMLElement;
+
+        if (!root) return cancelAnimationFrame(rAF);
         const childWrapper = root.children.item(0) as HTMLElement;
         const child = childWrapper?.children.item(0) as HTMLElement;
         const cWidth = parseFloat(getComputedStyle(child).width);

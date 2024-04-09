@@ -1,11 +1,13 @@
 export const MEDIA_QUERY_INITIAL_STATE = {
-  isLargeDesktop: undefined,
-  isDesktop: undefined,
-  isTablet: undefined,
+  isScreenLargeDesktop: undefined,
+  isScreenDesktop: undefined,
+  isScreenTablet: undefined,
+  isDeviceMobile: undefined,
   isHover: undefined,
 } as {
-  isLargeDesktop: boolean | undefined;
-  isDesktop: boolean | undefined;
-  isTablet: boolean | undefined;
+  isScreenLargeDesktop: boolean | undefined;
+  isScreenDesktop: boolean | undefined;
+  isScreenTablet: boolean | undefined;
+  isDeviceMobile: boolean | undefined;
   isHover: boolean | undefined;
 };

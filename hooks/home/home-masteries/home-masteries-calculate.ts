@@ -9,8 +9,12 @@ export default function useHomeMasteriesCalculate() {
     const debouncedCalculate = debounce(calculate, 100);
 
     function calculate() {
-      requestAnimationFrame(() => {
+      let rAF: number;
+
+      rAF = requestAnimationFrame(() => {
         const root = scope.current as HTMLElement;
+
+        if (!root) return cancelAnimationFrame(rAF);
         const { marginTop, marginBottom, marginLeft, height, width } = getComputedStyle(
           root.children.item(0) as HTMLElement
         );
