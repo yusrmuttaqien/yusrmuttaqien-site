@@ -21,16 +21,14 @@ export default function useHomeMasteriesEntry() {
 
   useIsomorphicLayoutEffect(() => {
     const root = scope.current as HTMLElement;
-    const masteriesLists = root.querySelector(gFD('home-masteries-lists')) as HTMLElement;
+    const masteriesLists = root.querySelector(gFD('masteries-lists')) as HTMLElement;
 
     if (isInView && !isLoader) {
       root.classList.remove('invisible');
       animate(Sequences({ part: 'go' })).then(() => {
-        const stop = inView(
-          "#home-masteries [data-framer='home-masteries-list-0']",
-          animateContents,
-          { margin: '0% 0% -20% 0%' }
-        );
+        const stop = inView("#home-masteries [data-framer='masteries-list-0']", animateContents, {
+          margin: '0% 0% -20% 0%',
+        });
 
         function animateContents(e: IntersectionObserverEntry) {
           if (!e.isIntersecting) return;
@@ -40,12 +38,12 @@ export default function useHomeMasteriesEntry() {
 
           for (let i = 0; i < masteriesLists.children.length; i++) {
             sequence.push([
-              gFD(`home-masteries-list-title-${i}`),
+              gFD(`masteries-list-title-${i}`),
               { opacity: 1, y: 0 },
               { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: '-0.4' },
             ]);
             sequence.push([
-              gFD(`home-masteries-list-contents-${i}`),
+              gFD(`masteries-list-contents-${i}`),
               { opacity: 1, y: 0 },
               { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: '-0.4' },
             ]);
@@ -60,12 +58,12 @@ export default function useHomeMasteriesEntry() {
 
       for (let i = 0; i < masteriesLists.children.length; i++) {
         extraSequence.push([
-          gFD(`home-masteries-list-title-${i}`),
+          gFD(`masteries-list-title-${i}`),
           { opacity: 0, y: 20 },
           { duration: 0 },
         ]);
         extraSequence.push([
-          gFD(`home-masteries-list-contents-${i}`),
+          gFD(`masteries-list-contents-${i}`),
           { opacity: 0, y: 20 },
           { duration: 0 },
         ]);
@@ -89,30 +87,27 @@ function Sequences({
 }: MasteriesSequencesProps): AnimationSequence {
   const SEQUENCE: AnimationSequence[] = [
     [
-      [
-        gFD('home-masteries-marquee-positive'),
-        { opacity: 0, x: -(marqueeX || 0) },
-        { duration: 0 },
-      ],
-      [gFD('home-masteries-marquee-negative'), { opacity: 0, x: marqueeX }, { duration: 0 }],
+      [gFD('masteries-marquee-positive'), { opacity: 0, x: -(marqueeX || 0) }, { duration: 0 }],
+      [gFD('masteries-marquee-negative'), { opacity: 0, x: marqueeX }, { duration: 0 }],
       [gFD('section-header-subtitle'), { opacity: 0, y: 10 }, { duration: 0 }],
       [gFD('section-header-title', '.line'), { opacity: 0, y: 10 }, { duration: 0 }],
     ],
     [
       [
-        gFD('home-masteries-marquee-positive'),
+        gFD('masteries-marquee-positive'),
         { opacity: 1, x: 0 },
-        { ...FRAMER_DEFAULT_TIMING, duration: 1 },
+        { ...FRAMER_DEFAULT_TIMING, duration: 0.8 },
       ],
+      'start',
       [
-        gFD('home-masteries-marquee-negative'),
+        gFD('masteries-marquee-negative'),
         { opacity: 1, x: 0 },
-        { ...FRAMER_DEFAULT_TIMING, duration: 1, at: '<' },
+        { ...FRAMER_DEFAULT_TIMING, duration: 0.8, at: '<' },
       ],
       [
         gFD('section-header-subtitle'),
         { opacity: 1, y: 0 },
-        { ...FRAMER_DEFAULT_TIMING, duration: 0.5 },
+        { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: 'start' },
       ],
       [
         gFD('section-header-title', '.line'),

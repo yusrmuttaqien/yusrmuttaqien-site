@@ -22,7 +22,7 @@ export default function HomeMasteriesMarquee({
   return (
     <div
       className={container({ className: className?.container })}
-      data-framer={`home-masteries-marquee${name ? '-' + name : ''}`}
+      data-framer={`masteries-marquee${name ? '-' + name : ''}`}
       ref={scope}
     >
       <motion.div className={wrapper({ className: className?.wrapper })} style={{ x }}>

@@ -13,7 +13,7 @@ export default function useHomeHeroInteraction(completeEntry: boolean) {
 
   useIsomorphicLayoutEffect(() => {
     const root = scope.current as HTMLElement;
-    const rootHeader = root.querySelector(gFD('home-hero-header')) as HTMLElement;
+    const rootHeader = root.querySelector(gFD('hero-header')) as HTMLElement;
     const blueprintCross = root.querySelector(gFD('blueprint-cross')) as HTMLElement;
     const blueprintCentre = root.querySelector(gFD('blueprint-centre')) as HTMLElement;
 
@@ -113,7 +113,7 @@ function RootYProgress(root: HTMLElement, isHover: boolean, e: number) {
     blueprintCross.style.filter = `blur(${e * 15}px)`;
 
     if (isHover) {
-      const rootHeader = root.querySelector(gFD('home-hero-header')) as HTMLElement;
+      const rootHeader = root.querySelector(gFD('hero-header')) as HTMLElement;
 
       rootHeader.style.opacity = '1';
       rootHeader.style.transform = 'scale(1)';

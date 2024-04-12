@@ -19,7 +19,7 @@ export default function useHomeHeroEntry() {
     if (isInView && !isLoader && !isComplete) {
       const root = scope.current as HTMLElement;
 
-      root.classList.remove('invisible');
+      root.classList.remove('opacity-0');
       animate(Sequences({ part: 'go' })).then(() => {
         setComplete(true);
       });
@@ -41,7 +41,7 @@ function Sequences(props: HeroSequencesProps): AnimationSequence {
       [gFD('blueprint-cross'), { opacity: 0, scale: 0.5 }, { duration: 0 }],
       [gFD('blueprint-centre-inner'), { opacity: 0, scale: 0 }, { duration: 0 }],
       [gFD('blueprint-centre-outer'), { opacity: 0, scale: 0 }, { duration: 0 }],
-      [gFD('home-hero-header'), { opacity: 0, scale: 1.01 }, { duration: 0 }],
+      [gFD('hero-header'), { opacity: 0, scale: 1.01 }, { duration: 0 }],
     ],
     [
       [
@@ -70,7 +70,7 @@ function Sequences(props: HeroSequencesProps): AnimationSequence {
         { ...FRAMER_DEFAULT_TIMING, duration: 1, at: '-0.8' },
       ],
       [
-        gFD('home-hero-header'),
+        gFD('hero-header'),
         { opacity: 1, scale: 1 },
         { ...FRAMER_DEFAULT_TIMING, duration: 0.3, at: '-0.7' },
       ],

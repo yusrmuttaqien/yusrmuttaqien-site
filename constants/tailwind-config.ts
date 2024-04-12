@@ -2,13 +2,14 @@ import type { ScreenSize, Easing } from '@/types/tailwind-config';
 
 const SCREEN_SIZE_SM = '320';
 const SCREEN_SIZE_MD = '430';
+const SCREEN_SIZE_MD_550 = '550';
 const SCREEN_SIZE_LG = '834';
 const SCREEN_SIZE_XL = '1280';
 const SCREEN_SIZE_2XL = '1512';
 
-export const COLOR_GREEN = { DEFAULT: '#336633' };
-export const COLOR_GREY = { DEFAULT: '#333333', 10: '#3333331a' };
-export const COLOR_BEIGE = '#F5F5F5';
+export const COLOR_GREEN = { DEFAULT: '#336633', light: '#4E844E' };
+export const COLOR_GREY = { DEFAULT: '#333333', off: '#818181' };
+export const COLOR_BEIGE = { DEFAULT: '#F5F5F5', off: '#E0E0E0' };
 
 export const EASE_IN_OUT_QUINT_NUM: Easing = [0.83, 0, 0.17, 1];
 export const EASE_IN_OUT_QUINT_CSS = 'cubic-bezier(0.83, 0, 0.17, 1)';
@@ -24,6 +25,8 @@ export function scrSize(screen: ScreenSize, withUnit?: boolean, modifier: number
   switch (screen) {
     case 'md':
       return (+SCREEN_SIZE_MD + modifier).toString() + (withUnit ? 'px' : '');
+    case 'md-550':
+      return (+SCREEN_SIZE_MD_550 + modifier).toString() + (withUnit ? 'px' : '');
     case 'lg':
       return (+SCREEN_SIZE_LG + modifier).toString() + (withUnit ? 'px' : '');
     case 'xl':

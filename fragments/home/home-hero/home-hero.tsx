@@ -14,17 +14,18 @@ export default function HomeHero({ className }: { className?: string }) {
   const interactionScope = useHomeHeroInteraction(isComplete);
 
   return (
+    // NOTE: Using opacity-0 instead invisible to fix Safari missing inner centre
     <section
       ref={mergeRefs(entryScope, interactionScope)}
       id="home-hero"
       className={classMerge(
         'h-[100svh] min-h-[25rem] w-full flex items-end relative isolate',
-        'bg-beige dark:bg-grey overflow-hidden invisible',
+        'bg-beige dark:bg-grey overflow-hidden opacity-0',
         className
       )}
     >
       <header
-        data-framer="home-hero-header"
+        data-framer="hero-header"
         className={classMerge(
           'z-10 w-full relative p-[clamp(1.125rem,_0.0341rem_+_5.4545vw,_1.5rem)]',
           'bg-beige/80 backdrop-blur-8 dark:bg-grey/80'

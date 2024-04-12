@@ -5,7 +5,7 @@
 @layer base {
   * {
     scrollbar-width: thin; /* 11px */
-    scrollbar-color: theme(colors.grey.DEFAULT / 10%) theme(colors.beige);
+    scrollbar-color: theme(colors.grey.DEFAULT / 10%) theme(colors.beige.DEFAULT);
   }
 
   *::-webkit-scrollbar {
@@ -16,7 +16,7 @@
   }
 
   *::-webkit-scrollbar-track {
-    background-color: theme(colors.beige);
+    background-color: theme(colors.beige.DEFAULT);
   }
 
   *::-webkit-scrollbar-thumb {
@@ -37,7 +37,7 @@
   }
 
   body {
-    @apply unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased min-w-full text-grey dark:text-beige font-helvetica-neue;
+    @apply unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased min-w-full body-normal text-grey dark:text-beige font-helvetica-neue;
   }
 
   .lenis.lenis-smooth {
@@ -58,7 +58,7 @@
 
   @media (prefers-color-scheme: dark) {
     * {
-      scrollbar-color: theme(colors.beige / 10%) theme(colors.grey.DEFAULT);
+      scrollbar-color: theme(colors.beige.DEFAULT / 10%) theme(colors.grey.DEFAULT);
     }
 
     *::-webkit-scrollbar-track {
@@ -66,7 +66,7 @@
     }
 
     *::-webkit-scrollbar-thumb {
-      background-color: theme(colors.beige / 10%);
+      background-color: theme(colors.beige.DEFAULT / 10%);
     }
   }
 }

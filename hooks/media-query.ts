@@ -22,5 +22,5 @@ export default function useMediaQuery(query: string) {
     return cleanup;
   }, [query]);
 
-  return [matches] as const;
+  return matches;
 }

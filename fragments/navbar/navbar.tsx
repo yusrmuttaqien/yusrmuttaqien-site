@@ -7,8 +7,6 @@ import NavbarYusrMuttaqien from '@/fragments/navbar/navbar-yusr-muttaqien';
 import NavbarLang from '@/fragments/navbar/navbar-lang';
 import classMerge from '@/utils/class-merge';
 
-const locStyles = 'text-[clamp(0.7444rem,_0.0008rem_+_3.7178vw,_1rem)]';
-
 export default function Navbar() {
   const navRef = useRef<HTMLDivElement>();
   const scope = useNavbarEntry();
@@ -26,15 +24,11 @@ export default function Navbar() {
     >
       <div className="flex justify-between items-center">
         <div className="flex justify-between items-center gap-[1ch]">
-          <p data-framer="location" className={locStyles}>
-            Malang, Indonesia
-          </p>
-          <span data-framer="separator" className={locStyles}>
-            |
-          </span>
-          <NavbarLang className={locStyles} />
+          <p data-framer="location">Malang, Indonesia</p>
+          <span data-framer="separator">|</span>
+          <NavbarLang />
         </div>
-        <NavbarClock className={locStyles} />
+        <NavbarClock />
       </div>
       <NavbarYusrMuttaqien />
     </nav>

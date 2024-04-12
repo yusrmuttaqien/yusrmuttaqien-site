@@ -51,15 +51,9 @@ function Cross() {
 
 function Centre() {
   return (
-    <div className="absolute inset-0 h-full w-full" data-framer="blueprint-centre">
-      <div className="absolute inset-0 h-full w-full" data-framer="blueprint-centre-outer">
-        <svg
-          className="absolute translate-center container"
-          width="100%"
-          height="100%"
-          viewBox="0 0 289 289"
-          fill="none"
-        >
+    <div className="absolute inset-0" data-framer="blueprint-centre">
+      <div className="absolute inset-0" data-framer="blueprint-centre-outer">
+        <svg className="w-full h-full" viewBox="0 0 289 289" fill="none">
           <g clipPath="url(#clip0_3224_990)">
             <circle
               className="stroke-grey/20 dark:stroke-beige/20"
@@ -76,14 +70,8 @@ function Centre() {
           </defs>
         </svg>
       </div>
-      <div className="absolute inset-0 h-full w-full" data-framer="blueprint-centre-inner">
-        <svg
-          className="absolute translate-center container"
-          width="100%"
-          height="100%"
-          viewBox="0 0 289 289"
-          fill="none"
-        >
+      <div className="absolute inset-0" data-framer="blueprint-centre-inner">
+        <svg className="w-full h-full" viewBox="0 0 289 289" fill="none">
           <g clipPath="url(#clip0_3224_990)">
             <circle
               className="stroke-grey/20 dark:stroke-beige/20"

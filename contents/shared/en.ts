@@ -1,2 +1,2 @@
 export const masteries = 'Masteries';
-export const projects = 'Projects';
+export const projects = { string: 'Projects', injectable: 'Pro<coc>jects' };

@@ -13,7 +13,7 @@ const styles = tv({
   slots: {
     container: 'relative invisible isolate',
     wrapper: 'container space-y-[clamp(4.25rem,_1.25rem_+_15vw,_5.75rem)] relative z-10',
-    marquee: 'w-[var(--height)] text-grey/5 dark:text-beige/5',
+    marquee: 'w-[var(--height)] text-grey dark:text-beige',
   },
 });
 
@@ -35,7 +35,7 @@ export default function HomeMasteries({ className }: { className?: Partial<typeo
       <div className={wrapper({ className: className?.wrapper })}>
         <SectionHeader subtitle={subtitle} title={title} />
         <div
-          data-framer="home-masteries-lists"
+          data-framer="masteries-lists"
           className="space-y-[clamp(1.5rem,_0.0455rem_+_7.2727vw,_2rem)]"
         >
           {masteries.map((mastery, idx) => (
@@ -48,22 +48,23 @@ export default function HomeMasteries({ className }: { className?: Partial<typeo
           className={classMerge(
             'absolute -top-[var(--margin-top)] pointer-events-none -translate-y-full',
             'translate-x-[var(--margin-block)] rotate-90 origin-bottom-left isolate',
-            'before:inset-0 before:bg-gradient-to-r before:from-grey before:block',
-            'before:absolute before:z-10 before:w-[10%] after:inset-0 after:bg-gradient-to-l',
-            'after:from-grey after:block after:absolute after:z-10 after:w-[10%] after:left-[unset]',
+            'before:inset-0 before:bg-gradient-to-r before:from-beige dark:before:from-grey before:block',
+            'before:absolute before:z-10 before:w-[10%] after:inset-0 after:bg-gradient-to-l dark:after:from-grey',
+            'after:from-beige after:block after:absolute after:z-10 after:w-[10%] after:left-[unset]',
             'md-only:top-[unset] md-only:translate-x-[var(--width)]',
             'md-only:-rotate-90 overflow-hidden'
           )}
         >
+          {/* NOTE: Using opacity instead text-color/opacity to fix Safari opaque emoticon */}
           <HomeMasteriesMarquee
-            className={{ container: marquee() }}
+            className={{ container: marquee(), wrapper: 'opacity-5' }}
             baseVelocity={100}
             name="positive"
           >
             <p className="project-title">The devil in the details. 😈</p>
           </HomeMasteriesMarquee>
           <HomeMasteriesMarquee
-            className={{ container: marquee() }}
+            className={{ container: marquee(), wrapper: 'opacity-5' }}
             baseVelocity={-100}
             name="negative"
           >

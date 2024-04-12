@@ -10,10 +10,10 @@ import type { MediaQueryState } from '@/types/media-query';
 const MediaQueryContext = createContext<MediaQueryState>(MEDIA_QUERY_INITIAL_STATE);
 
 export default function MediaQueryProvider({ children }: { children: ReactNode }) {
-  const [isScreenLargeDesktop] = useMediaQuery(`screen and (min-width: ${scrSize('2xl', true)})`);
-  const [isScreenDesktop] = useMediaQuery(`screen and (min-width: ${scrSize('xl', true)})`);
-  const [isScreenTablet] = useMediaQuery(`screen and (min-width: ${scrSize('lg', true)})`);
-  const [isHover] = useMediaQuery(`screen and (hover: hover)`);
+  const isScreenLargeDesktop = useMediaQuery(`screen and (min-width: ${scrSize('2xl', true)})`);
+  const isScreenDesktop = useMediaQuery(`screen and (min-width: ${scrSize('xl', true)})`);
+  const isScreenTablet = useMediaQuery(`screen and (min-width: ${scrSize('lg', true)})`);
+  const isHover = useMediaQuery(`screen and (hover: hover)`);
   const [state, setState] = useImmer(MEDIA_QUERY_INITIAL_STATE);
 
   useIsomorphicLayoutEffect(() => {
