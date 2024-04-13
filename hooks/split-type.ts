@@ -51,8 +51,6 @@ export default function useSplitType(selector: string, options: Partial<SplitTyp
 
       observerInstance.current.observe(el as Node, {
         childList: true,
-        subtree: true,
-        characterData: true,
       });
       _resplit();
     }
