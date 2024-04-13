@@ -17,7 +17,7 @@ export default function useHomeProjectsEntry() {
   const isReady = useRef(false);
   const isComplete = useRef(false);
   const [scope, animate] = useAnimate();
-  const { isBruteCheck } = useMediaQueryCtx();
+  const { isValidated } = useMediaQueryCtx();
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
   const { lastRun: titleLR, disconnect: titleOff } = useSplitType(
     `#home-projects ${gFD('projects-header-title-0')}`,
@@ -57,7 +57,7 @@ export default function useHomeProjectsEntry() {
   }
 
   useIsomorphicLayoutEffect(() => {
-    if (!isBruteCheck) return;
+    if (!isValidated) return;
     if (isInView && !isLoader && !isComplete.current) {
       const root = scope.current as HTMLElement;
 
@@ -71,7 +71,7 @@ export default function useHomeProjectsEntry() {
     } else if (!isReady.current) {
       _preEntry();
     }
-  }, [isInView, isLoader, isBruteCheck]);
+  }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {
     if (!isComplete.current) {
       _preEntry();

@@ -17,7 +17,7 @@ export default function useHomeMasteriesEntry() {
   const isReady = useRef(false);
   const isComplete = useRef(false);
   const [scope, animate] = useAnimate();
-  const { isBruteCheck } = useMediaQueryCtx();
+  const { isValidated } = useMediaQueryCtx();
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
   const { lastRun, disconnect } = useSplitType(`#home-masteries ${gFD('section-header-title')}`, {
     types: 'lines',
@@ -49,7 +49,7 @@ export default function useHomeMasteriesEntry() {
   }
 
   useIsomorphicLayoutEffect(() => {
-    if (!isBruteCheck) return;
+    if (!isValidated) return;
     if (isInView && !isLoader && !isComplete.current) {
       const root = scope.current as HTMLElement;
       const masteriesLists = root.querySelector(gFD('masteries-lists')) as HTMLElement;
@@ -87,7 +87,7 @@ export default function useHomeMasteriesEntry() {
     } else if (!isReady.current) {
       _preEntry();
     }
-  }, [isInView, isLoader, isBruteCheck]);
+  }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {
     if (!isComplete.current) {
       _preEntry();

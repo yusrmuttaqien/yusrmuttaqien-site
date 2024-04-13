@@ -8,29 +8,28 @@ import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import debounce from '@/utils/debounce';
 
 export default function useSplitType(selector: string, options: Partial<SplitTypeOptions>) {
-  const currentLocale = useRef<string>();
+  const isDisengaged = useRef(false);
   const lastLocale = useRef<string>();
+  const currentLocale = useRef<string>();
   const splitInstance = useRef<SplitType | null>(null);
   const observerInstance = useRef<MutationObserver | null>(null);
   const [lastRun, setLastRun] = useState<number>(0);
-  const { isBruteCheck } = useMediaQueryCtx();
+  const { isValidated } = useMediaQueryCtx();
   const { locale } = useRouter();
   const debouncedResplit = useCallback(debounce(_resplit, 100), []);
 
   function _resplit() {
     splitInstance.current?.split(options);
-    setLastRun(Date.now());
+    !isDisengaged.current && setLastRun(Date.now());
   }
   function _disengage() {
-    SplitType.clearData();
     observerInstance.current?.disconnect();
     observerInstance.current = null;
-    splitInstance.current = null;
-    window.removeEventListener('resize', debouncedResplit);
+    isDisengaged.current = true;
   }
 
   useIsomorphicLayoutEffect(() => {
-    if (!isBruteCheck) return;
+    if (!isValidated) return;
     if (!splitInstance.current) {
       requestAnimationFrame(() => {
         splitInstance.current = SplitType.create(selector, options);
@@ -42,6 +41,7 @@ export default function useSplitType(selector: string, options: Partial<SplitTyp
     window.addEventListener('resize', debouncedResplit);
 
     if (!observerInstance.current) {
+      isDisengaged.current = false;
       observerInstance.current = new MutationObserver(() => {
         if (lastLocale.current === currentLocale.current) return;
 
@@ -55,11 +55,21 @@ export default function useSplitType(selector: string, options: Partial<SplitTyp
       _resplit();
     }
 
-    return _disengage;
-  }, [isBruteCheck]);
+    return () => {
+      _disengage();
+      window.removeEventListener('resize', debouncedResplit);
+    };
+  }, [isValidated]);
   useIsomorphicLayoutEffect(() => {
     SplitType.clearData();
-    currentLocale.current = locale;
+
+    if (isDisengaged.current) {
+      splitInstance.current = null;
+
+      window.removeEventListener('resize', debouncedResplit);
+    } else {
+      currentLocale.current = locale;
+    }
   }, [locale]);
 
   return { instance: splitInstance, resplit: _resplit, lastRun, disconnect: _disengage };

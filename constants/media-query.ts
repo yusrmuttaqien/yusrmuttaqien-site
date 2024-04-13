@@ -1,4 +1,3 @@
-export const CHECK_QUERY_TRIES = 2;
 export const MEDIA_QUERY_INITIAL_STATE = {
   isScreenLargeDesktop: undefined,
   isScreenDesktop: undefined,
@@ -6,7 +5,7 @@ export const MEDIA_QUERY_INITIAL_STATE = {
   isScreenFrom550: undefined,
   isDeviceMobile: undefined,
   isHover: undefined,
-  isBruteCheck: false,
+  isValidated: false,
 } as {
   isScreenLargeDesktop: boolean | undefined;
   isScreenDesktop: boolean | undefined;
@@ -14,5 +13,5 @@ export const MEDIA_QUERY_INITIAL_STATE = {
   isScreenFrom550: boolean | undefined;
   isDeviceMobile: boolean | undefined;
   isHover: boolean | undefined;
-  isBruteCheck: boolean;
+  isValidated: boolean;
 };
