@@ -5,32 +5,39 @@ import {
   type MotionValue,
 } from 'framer-motion';
 import { useRef } from 'react';
+import { useMediaQueryCtx } from '@/providers/media-query';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 
 export default function useImageInteraction(originalScale: number) {
   const target = useRef<HTMLImageElement>(null);
   const y = useMotionValue(0);
   const scale = useMotionValue(originalScale);
+  const { isHover } = useMediaQueryCtx();
   const { scrollYProgress } = useScroll({
     target: target,
     offset: ['start end', 'end start'],
   });
 
   useIsomorphicLayoutEffect(() => {
+    if (!isHover) {
+      y.set(0);
+      scale.set(1);
+
+      return;
+    }
     const image = target.current as HTMLElement;
     const bindedMouseMove = MouseMove.bind(null, image, { y, scale });
-    const clearYProgress = scrollYProgress.on(
-      'change',
-      TrackScroll.bind(null, image, originalScale, { y, scale })
-    );
+    const bindedTrackScroll = TrackScroll.bind(null, image, originalScale, { y, scale });
+    const clearYProgress = scrollYProgress.on('change', bindedTrackScroll);
 
     image.addEventListener('mousemove', bindedMouseMove);
+    bindedTrackScroll(0);
 
     return () => {
       image.removeEventListener('mousemove', bindedMouseMove);
       clearYProgress();
     };
-  }, []);
+  }, [isHover]);
 
   return { target, y, scale };
 }
