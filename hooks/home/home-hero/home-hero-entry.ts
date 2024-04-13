@@ -77,5 +77,5 @@ function Sequences(props: HeroSequencesProps): AnimationSequence {
     ],
   ];
 
-  return part === 'ready' ? SEQUENCE[0] : SEQUENCE[1];
+  return SEQUENCE[part === 'ready' ? 0 : 1];
 }

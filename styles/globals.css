@@ -3,14 +3,16 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --scrollbar-dimension: 11px;
+  }
+
   * {
     scrollbar-width: thin; /* 11px */
     scrollbar-color: theme(colors.grey.DEFAULT / 10%) theme(colors.beige.DEFAULT);
   }
 
   *::-webkit-scrollbar {
-    --scrollbar-dimension: 11px;
-
     width: var(--scrollbar-dimension);
     height: var(--scrollbar-dimension);
   }

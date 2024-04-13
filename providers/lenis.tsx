@@ -1,15 +1,7 @@
-'use client';
-
 import { ReactLenis } from '@studio-freight/react-lenis';
-import { LenisOptions } from '@studio-freight/lenis';
+import type { LenisProviderProps } from '@/types/lenis';
 
-export default function LenisProvider({
-  children,
-  options,
-}: {
-  children: React.ReactNode;
-  options?: LenisOptions;
-}) {
+export default function LenisProvider({ children, options }: LenisProviderProps) {
   return (
     <ReactLenis root options={options}>
       {children}

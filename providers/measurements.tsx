@@ -1,5 +1,3 @@
-'use client';
-
 import { useImmer } from 'use-immer';
 import { createContext, useContext, type ReactNode } from 'react';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';

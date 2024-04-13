@@ -8,14 +8,17 @@ export default function HomeProjects({ className }: { className?: string }) {
   const {
     projects: { projects },
   } = useContent();
-  const isTwoMore = projects.length >= 2;
   const scope = useHomeProjectsEntry();
+  const isTwoMore = projects.length >= 2;
 
   return (
     <section
       ref={scope}
       id="home-projects"
-      className={classMerge('space-y-[clamp(4.25rem,_1.25rem_+_15vw,_5.75rem)]', className)}
+      className={classMerge(
+        'space-y-[clamp(4.25rem,_1.25rem_+_15vw,_5.75rem)] invisible',
+        className
+      )}
     >
       <div className="container space-y-[clamp(4.25rem,_1.25rem_+_15vw,_5.75rem)]">
         <HomeProjectsHeader />
@@ -27,11 +30,11 @@ export default function HomeProjects({ className }: { className?: string }) {
           isTwoMore ? 'lg:grid-cols-2' : 'content-center'
         )}
       >
-        {projects.map((project, idx) => (
+        {projects.map((project) => (
           <div
             className={classMerge(isTwoMore ? '' : 'lg:container', 'w-full mx-auto')}
             key={project.title}
-            data-framer={`projects-project-${idx}`}
+            data-framer={`projects-projects`}
           >
             <HomeProjectsCard
               className={classMerge('w-full aspect-[3/2] lg-only:aspect-[9/10]')}

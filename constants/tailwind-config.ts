@@ -25,7 +25,7 @@ export function scrSize(screen: ScreenSize, withUnit?: boolean, modifier: number
   switch (screen) {
     case 'md':
       return (+SCREEN_SIZE_MD + modifier).toString() + (withUnit ? 'px' : '');
-    case 'md-550':
+    case 'from-550':
       return (+SCREEN_SIZE_MD_550 + modifier).toString() + (withUnit ? 'px' : '');
     case 'lg':
       return (+SCREEN_SIZE_LG + modifier).toString() + (withUnit ? 'px' : '');

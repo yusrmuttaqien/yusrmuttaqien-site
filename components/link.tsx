@@ -7,7 +7,7 @@ import type { LinkProps } from '@/types/link';
 import type { MouseEvent } from 'react';
 import type { Url } from 'next/dist/shared/lib/router/router';
 
-export default function Link({ onClick, href, ...rest }: LinkProps) {
+export default function Link({ onClick, href, scroll = false, ...rest }: LinkProps) {
   const {
     state: { navbarHeight },
   } = useMeasurementCtx();
@@ -32,5 +32,5 @@ export default function Link({ onClick, href, ...rest }: LinkProps) {
     if (EXTERNAL_LINKS.some((l) => href.toString().includes(l)) || _localID(e, href)) return;
   }
 
-  return <NextLink {...rest} onClick={_onClick} href={href} />;
+  return <NextLink {...rest} onClick={_onClick} href={href} scroll={scroll} />;
 }

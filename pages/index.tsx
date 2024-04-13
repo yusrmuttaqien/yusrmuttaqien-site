@@ -12,7 +12,7 @@ const spacingStyles = classMerge(
 
 export default function Home() {
   return (
-    <TransitionSlideUp>
+    <TransitionSlideUp className="overflow-x-hidden">
       <HomeHero />
       <HomeMasteries
         className={{

@@ -11,6 +11,10 @@ export type MasteriesSequencesProps = {
   extraSequence?: AnimationSequence;
   marqueeX?: number;
 };
+export type ProjectsSequencesProps = {
+  part: 'ready' | 'go';
+  title2ML?: number;
+};
 export type MasteriesListProps = {
   title: string;
   contents: string[];
