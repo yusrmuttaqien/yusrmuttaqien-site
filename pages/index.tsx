@@ -1,3 +1,5 @@
+import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
+import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import TransitionSlideUp from '@/transitions/transition-slide-up';
 import HomeHero from '@/fragments/home/home-hero/home-hero';
 import HomeMasteries from '@/fragments/home/home-masteries/home-masteries';
@@ -11,6 +13,14 @@ const spacingStyles = classMerge(
 );
 
 export default function Home() {
+  const { setState } = useAnimationSequenceCtx();
+
+  useIsomorphicLayoutEffect(() => {
+    setState((draft) => {
+      draft.announcer.announcing = false;
+    });
+  }, []);
+
   return (
     <TransitionSlideUp className="overflow-x-hidden">
       <HomeHero />
