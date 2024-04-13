@@ -1,5 +1,11 @@
 import { useRef } from 'react';
-import { useAnimate, useInView, stagger, type AnimationSequence } from 'framer-motion';
+import {
+  useAnimate,
+  useInView,
+  stagger,
+  type AnimationSequence,
+  type AnimationPlaybackControls,
+} from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import { useMediaQueryCtx } from '@/providers/media-query';
@@ -58,11 +64,14 @@ export default function useHomeProjectsEntry() {
 
   useIsomorphicLayoutEffect(() => {
     if (!isValidated) return;
+    let goInstance: AnimationPlaybackControls | null;
+
     if (isInView && !isLoader && !isComplete.current) {
       const root = scope.current as HTMLElement;
 
       root.classList.remove('invisible');
-      animate(Sequences({ part: 'go' })).then(() => {
+      goInstance = animate(Sequences({ part: 'go' }));
+      goInstance.then(() => {
         isComplete.current = true;
         titleOff();
         title2Off();
@@ -71,6 +80,10 @@ export default function useHomeProjectsEntry() {
     } else if (!isReady.current) {
       _preEntry();
     }
+
+    return () => {
+      goInstance?.complete();
+    };
   }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {
     if (!isComplete.current) {

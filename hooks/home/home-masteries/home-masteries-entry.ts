@@ -1,6 +1,13 @@
 import { useRef } from 'react';
 import { useRouter } from 'next/router';
-import { useAnimate, useInView, stagger, inView, type AnimationSequence } from 'framer-motion';
+import {
+  useAnimate,
+  useInView,
+  stagger,
+  inView,
+  type AnimationSequence,
+  AnimationPlaybackControls,
+} from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import { useMediaQueryCtx } from '@/providers/media-query';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
@@ -50,12 +57,15 @@ export default function useHomeMasteriesEntry() {
 
   useIsomorphicLayoutEffect(() => {
     if (!isValidated) return;
+    let goInstance: AnimationPlaybackControls | null;
+
     if (isInView && !isLoader && !isComplete.current) {
       const root = scope.current as HTMLElement;
       const masteriesLists = root.querySelector(gFD('masteries-lists')) as HTMLElement;
 
       root.classList.remove('invisible');
-      animate(Sequences({ part: 'go' })).then(() => {
+      goInstance = animate(Sequences({ part: 'go' }));
+      goInstance.then(() => {
         isComplete.current = true;
         disconnect();
         const stop = inView("#home-masteries [data-framer='masteries-list-0']", animateContents, {
@@ -87,6 +97,10 @@ export default function useHomeMasteriesEntry() {
     } else if (!isReady.current) {
       _preEntry();
     }
+
+    return () => {
+      goInstance?.complete();
+    };
   }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {
     if (!isComplete.current) {
