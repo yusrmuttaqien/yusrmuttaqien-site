@@ -186,6 +186,27 @@ const config: Config = {
             lineHeight: 'clamp(4rem, 1.6052rem + 8.9109vw, 6.25rem)',
           },
         },
+        '.project-title-em': {
+          fontSize: 'clamp(2.9769em, 0.0005em + 14.8818vw, 4em)',
+          fontWeight: '800',
+          lineHeight: '1em',
+          fontFamily: theme('fontFamily.nohemi'),
+          '@screen md': {
+            fontSize: 'clamp(4em, 1.6052em + 8.9109vw, 6.25em)',
+          },
+        },
+        '.project-title-trim': {
+          '&::before': {
+            content: '""',
+            display: 'table',
+            marginBottom: '-0.04em',
+          },
+          '&::after': {
+            content: '""',
+            display: 'table',
+            marginTop: '-0.2em',
+          },
+        },
         '.hover-underline': {
           '&::after': {
             position: 'absolute',
@@ -226,6 +247,9 @@ const config: Config = {
           'mask-image': (value: string) => ({
             WebkitMaskImage: value,
             maskImage: value,
+          }),
+          'letter-spacing': (value: string) => ({
+            letterSpacing: value,
           }),
         },
         { respectImportant: true }

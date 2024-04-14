@@ -26,6 +26,7 @@ export default function useHomeMasteriesEntry() {
   const [scope, animate] = useAnimate();
   const { isValidated } = useMediaQueryCtx();
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
+  const goInstance = useRef<AnimationPlaybackControls | null>(null);
   const { lastRun, disconnect } = useSplitType(`#home-masteries ${gFD('section-header-title')}`, {
     types: 'lines',
     lineClass: 'line whitespace-nowrap',
@@ -57,15 +58,21 @@ export default function useHomeMasteriesEntry() {
 
   useIsomorphicLayoutEffect(() => {
     if (!isValidated) return;
-    let goInstance: AnimationPlaybackControls | null;
+
+    function forceComplete() {
+      if (isComplete.current) return;
+
+      goInstance.current?.complete();
+      window.removeEventListener('resize', forceComplete);
+    }
 
     if (isInView && !isLoader && !isComplete.current) {
       const root = scope.current as HTMLElement;
       const masteriesLists = root.querySelector(gFD('masteries-lists')) as HTMLElement;
 
       root.classList.remove('invisible');
-      goInstance = animate(Sequences({ part: 'go' }));
-      goInstance.then(() => {
+      goInstance.current = animate(Sequences({ part: 'go' }));
+      goInstance.current?.then(() => {
         isComplete.current = true;
         disconnect();
         const stop = inView("#home-masteries [data-framer='masteries-list-0']", animateContents, {
@@ -98,8 +105,10 @@ export default function useHomeMasteriesEntry() {
       _preEntry();
     }
 
+    window.addEventListener('resize', forceComplete);
+
     return () => {
-      goInstance?.complete();
+      forceComplete();
     };
   }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {

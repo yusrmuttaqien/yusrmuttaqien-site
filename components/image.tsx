@@ -22,6 +22,7 @@ export default function Image({ className, imageScale = 1.25, ...rest }: ImagePr
         {...rest}
         fill
         ref={target}
+        draggable={false}
         // @ts-expect-error
         style={{ y, scale }}
         className={nextImage({ className: className?.nextImage?.replace('scale', 'none') })}

@@ -1,5 +1,5 @@
 import { tv } from 'tailwind-variants';
-import type { ProjectsCOCProps } from '@/types/home';
+import type { COCProps } from '@/types/coc';
 
 export const styles = tv({
   slots: {
@@ -10,12 +10,12 @@ export const styles = tv({
   },
 });
 
-export default function HomeProjectsCOC({ className }: ProjectsCOCProps) {
+export default function COC({ className }: COCProps) {
   const { container, stroke, path, svg } = styles();
 
   return (
     <div className={container({ className: className?.container })}>
-      <div data-framer="projects-header-coc">
+      <div data-framer="coc">
         <svg
           className={svg({ className: className?.svg })}
           viewBox="0 0 221 94"
@@ -24,6 +24,7 @@ export default function HomeProjectsCOC({ className }: ProjectsCOCProps) {
         >
           <path
             d="M166.289 45.7306L184.109 11.2125H185.937L203.757 45.7306H196.355L185.023 23.1469L173.691 45.7306H166.289Z"
+            data-framer="coc-command-path"
             className={path({ className: className?.path })}
           />
           <path
@@ -34,6 +35,7 @@ export default function HomeProjectsCOC({ className }: ProjectsCOCProps) {
           />
           <path
             d="M134.423 71.4349L105.271 40.4972H85.1655V33.9791H107.738L136.89 64.9168H156.995V71.4349H134.423ZM134.423 40.4972V33.9791H156.995V40.4972H134.423Z"
+            data-framer="coc-options-path"
             className={path({ className: className?.path })}
           />
           <path
@@ -44,6 +46,7 @@ export default function HomeProjectsCOC({ className }: ProjectsCOCProps) {
           />
           <path
             d="M24.7175 83.2777C16.2186 83.2777 10.7354 77.8613 10.7354 69.4154C10.7354 60.5105 16.0358 55.2777 26.4539 55.2777H31.8457V45.1793H26.4539C16.0358 45.1793 10.7354 39.9465 10.7354 31.0416C10.7354 22.5957 16.2186 17.1793 24.7175 17.1793C34.9528 17.1793 38.2427 23.6055 38.2427 31.317V38.9367H48.2953V31.317C48.2953 23.6055 51.5852 17.1793 61.8205 17.1793C70.3195 17.1793 75.8027 22.5957 75.8027 31.0416C75.8027 39.9465 70.5022 45.1793 60.0841 45.1793H54.6923V55.2777H60.0841C70.5022 55.2777 75.8027 60.5105 75.8027 69.4154C75.8027 77.8613 70.3195 83.2777 61.8205 83.2777C51.5852 83.2777 48.2953 76.8515 48.2953 69.14V61.5203H38.2427V69.14C38.2427 76.8515 34.9528 83.2777 24.7175 83.2777ZM54.6923 31.1334V38.9367H60.0841C66.5726 38.9367 69.3142 36.2744 69.3142 31.0416C69.3142 25.6252 66.1157 23.5137 61.8205 23.5137C57.0684 23.5137 54.6923 26.4515 54.6923 31.1334ZM26.4539 38.9367H31.8457V31.1334C31.8457 26.4515 29.4696 23.5137 24.7175 23.5137C20.4223 23.5137 17.2238 25.6252 17.2238 31.0416C17.2238 36.2744 19.9654 38.9367 26.4539 38.9367ZM38.2427 55.2777H48.2953V45.1793H38.2427V55.2777ZM24.7175 76.9433C29.4696 76.9433 31.8457 74.0055 31.8457 69.3236V61.5203H26.4539C19.9654 61.5203 17.2238 64.1826 17.2238 69.4154C17.2238 74.8318 20.4223 76.9433 24.7175 76.9433ZM54.6923 69.3236C54.6923 74.0055 57.0684 76.9433 61.8205 76.9433C66.1157 76.9433 69.3142 74.8318 69.3142 69.4154C69.3142 64.1826 66.5726 61.5203 60.0841 61.5203H54.6923V69.3236Z"
+            data-framer="coc-control-path"
             className={path({ className: className?.path })}
           />
           <path

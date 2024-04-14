@@ -1,15 +1,14 @@
 import { useRef } from 'react';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import { useMediaQueryCtx } from '@/providers/media-query';
-import HomeProjectsCOC from '@/fragments/home/home-projects/home-projects-coc';
+import COC from '@/components/coc';
 import InjectString from '@/utils/inject-string';
 import classMerge from '@/utils/class-merge';
 import useContent from '@/contents/home';
-import { PROJECTS_HEADER_TITLE_TRIM_STYLES } from '@/constants/home';
 
 const COMPS = {
   coc: (
-    <HomeProjectsCOC
+    <COC
       className={{
         container: classMerge(
           'absolute -top-2/4 w-[var(--coc-width)] rotate-12 origin-left',
@@ -52,10 +51,7 @@ export default function HomeProjectsHeader() {
         <h2
           ref={h2Ref}
           data-framer="projects-header-title"
-          className={classMerge(
-            'project-title uppercase isolate',
-            PROJECTS_HEADER_TITLE_TRIM_STYLES
-          )}
+          className="project-title uppercase isolate project-title-trim"
         >
           <InjectString
             comps={COMPS}

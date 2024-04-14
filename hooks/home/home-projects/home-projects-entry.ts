@@ -12,9 +12,7 @@ import { useMediaQueryCtx } from '@/providers/media-query';
 import useSplitType from '@/hooks/split-type';
 import gFD from '@/utils/get-framer-data';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
-import { PROJECTS_HEADER_TITLE_TRIM_STYLES } from '@/constants/home';
 import type { ProjectsSequencesProps } from '@/types/home';
-import classMerge from '@/utils/class-merge';
 
 export default function useHomeProjectsEntry() {
   const {
@@ -25,20 +23,21 @@ export default function useHomeProjectsEntry() {
   const [scope, animate] = useAnimate();
   const { isValidated } = useMediaQueryCtx();
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
+  const goInstance = useRef<AnimationPlaybackControls | null>(null);
   const { lastRun: titleLR, disconnect: titleOff } = useSplitType(
     `#home-projects ${gFD('projects-header-title-0')}`,
     {
       types: 'words,chars',
-      wordClass: classMerge('word overflow-hidden', PROJECTS_HEADER_TITLE_TRIM_STYLES),
-      charClass: classMerge('char', PROJECTS_HEADER_TITLE_TRIM_STYLES),
+      wordClass: 'word overflow-hidden project-title-trim',
+      charClass: 'char project-title-trim',
     }
   );
   const { lastRun: titleL2R, disconnect: title2Off } = useSplitType(
     `#home-projects ${gFD('projects-header-title-2')}`,
     {
       types: 'words,chars',
-      wordClass: classMerge('word overflow-hidden', PROJECTS_HEADER_TITLE_TRIM_STYLES),
-      charClass: classMerge('char', PROJECTS_HEADER_TITLE_TRIM_STYLES),
+      wordClass: 'word overflow-hidden project-title-trim',
+      charClass: 'char project-title-trim',
     }
   );
   const { lastRun: subtitleLR, disconnect: subtitleOff } = useSplitType(
@@ -64,14 +63,20 @@ export default function useHomeProjectsEntry() {
 
   useIsomorphicLayoutEffect(() => {
     if (!isValidated) return;
-    let goInstance: AnimationPlaybackControls | null;
+
+    function forceComplete() {
+      if (isComplete.current) return;
+
+      goInstance.current?.complete();
+      window.removeEventListener('resize', forceComplete);
+    }
 
     if (isInView && !isLoader && !isComplete.current) {
       const root = scope.current as HTMLElement;
 
       root.classList.remove('invisible');
-      goInstance = animate(Sequences({ part: 'go' }));
-      goInstance.then(() => {
+      goInstance.current = animate(Sequences({ part: 'go' }));
+      goInstance.current?.then(() => {
         isComplete.current = true;
         titleOff();
         title2Off();
@@ -81,8 +86,10 @@ export default function useHomeProjectsEntry() {
       _preEntry();
     }
 
+    window.addEventListener('resize', forceComplete);
+
     return () => {
-      goInstance?.complete();
+      forceComplete();
     };
   }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {
@@ -100,7 +107,7 @@ function Sequences({ part, title2ML = 0 }: ProjectsSequencesProps): AnimationSeq
       [gFD('projects-header-title', '.char'), { y: '101%' }, { duration: 0 }],
       [gFD('projects-header-title-2'), { x: -title2ML }, { duration: 0 }],
       [gFD('projects-header-subtitle', '.word'), { y: '100%' }, { duration: 0 }],
-      [gFD('projects-header-coc'), { opacity: 0, scale: 1.5 }, { duration: 0 }],
+      [gFD('coc'), { opacity: 0, scale: 1.5 }, { duration: 0 }],
       [gFD('projects-projects'), { opacity: 0, y: 10 }, { duration: 0 }],
       [gFD('projects-more'), { opacity: 0, y: 10 }, { duration: 0 }],
     ],
@@ -111,11 +118,7 @@ function Sequences({ part, title2ML = 0 }: ProjectsSequencesProps): AnimationSeq
         { ...FRAMER_DEFAULT_TIMING, duration: 0.5, delay: stagger(0.05) },
       ],
       [gFD('projects-header-title-2'), { x: 0 }, { ...FRAMER_DEFAULT_TIMING, duration: 0.5 }],
-      [
-        gFD('projects-header-coc'),
-        { opacity: 1, scale: 1 },
-        { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: '<' },
-      ],
+      [gFD('coc'), { opacity: 1, scale: 1 }, { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: '<' }],
       [
         gFD('projects-header-subtitle', '.line:first-child .word'),
         { y: '0%' },

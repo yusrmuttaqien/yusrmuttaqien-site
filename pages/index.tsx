@@ -4,6 +4,7 @@ import TransitionSlideUp from '@/transitions/transition-slide-up';
 import HomeHero from '@/fragments/home/home-hero/home-hero';
 import HomeMasteries from '@/fragments/home/home-masteries/home-masteries';
 import HomeProjects from '@/fragments/home/home-projects/home-projects';
+import HomeHow from '@/fragments/home/home-how/home-how';
 import classMerge from '@/utils/class-merge';
 
 const spacingStyles = classMerge(
@@ -32,6 +33,7 @@ export default function Home() {
         }}
       />
       <HomeProjects className={spacingStyles} />
+      <HomeHow className={spacingStyles} />
     </TransitionSlideUp>
   );
 }
