@@ -186,6 +186,28 @@ const config: Config = {
             lineHeight: 'clamp(4rem, 1.6052rem + 8.9109vw, 6.25rem)',
           },
         },
+        '.hover-underline': {
+          '&::after': {
+            position: 'absolute',
+            bottom: '0',
+            left: '0',
+            right: '0',
+            content: '""',
+            height: '0.125rem',
+            background: 'currentColor',
+            transform: 'scaleX(0)',
+            transformOrigin: 'right',
+            transitionProperty: 'transform',
+            transitionDuration: '.3s',
+            transitionTimingFunction: theme('transitionTimingFunction.in-out-quint'),
+          },
+          '&:hover': {
+            '&::after': {
+              transform: 'scaleX(1)',
+              transformOrigin: 'left',
+            },
+          },
+        },
       });
       addUtilities({
         '.hide-scrollbar': {

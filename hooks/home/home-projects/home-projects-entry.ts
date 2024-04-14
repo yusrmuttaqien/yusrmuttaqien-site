@@ -102,6 +102,7 @@ function Sequences({ part, title2ML = 0 }: ProjectsSequencesProps): AnimationSeq
       [gFD('projects-header-subtitle', '.word'), { y: '100%' }, { duration: 0 }],
       [gFD('projects-header-coc'), { opacity: 0, scale: 1.5 }, { duration: 0 }],
       [gFD('projects-projects'), { opacity: 0, y: 10 }, { duration: 0 }],
+      [gFD('projects-more'), { opacity: 0, y: 10 }, { duration: 0 }],
     ],
     [
       [
@@ -129,6 +130,11 @@ function Sequences({ part, title2ML = 0 }: ProjectsSequencesProps): AnimationSeq
         gFD('projects-projects'),
         { opacity: 1, y: 0 },
         { ...FRAMER_DEFAULT_TIMING, duration: 0.5, delay: stagger(0.1) },
+      ],
+      [
+        gFD('projects-more'),
+        { opacity: 1, y: 0 },
+        { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: '-0.3' },
       ],
     ],
   ];

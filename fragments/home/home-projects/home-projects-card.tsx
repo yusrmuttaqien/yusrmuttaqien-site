@@ -11,7 +11,7 @@ export default function HomeProjectsCard({ className, content }: ProjectsCardPro
   } = useContent();
 
   return (
-    <Link href={`/project/${title}`}>
+    <Link href={`/projects/${title}`}>
       <figure
         className={classMerge(
           'relative border border-grey/20 dark:border-beige/20',

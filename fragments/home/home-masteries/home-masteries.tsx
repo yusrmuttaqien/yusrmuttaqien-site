@@ -1,5 +1,6 @@
-import { tv } from 'tailwind-variants';
+import { memo } from 'react';
 import mergeRefs from 'merge-refs';
+import { tv } from 'tailwind-variants';
 import useHomeMasteriesEntry from '@/hooks/home/home-masteries/home-masteries-entry';
 import useHomeMasteriesCalculate from '@/hooks/home/home-masteries/home-masteries-calculate';
 import { useMediaQueryCtx } from '@/providers/media-query';
@@ -9,6 +10,7 @@ import HomeMasteriesMarquee from '@/fragments/home/home-masteries/home-masteries
 import classMerge from '@/utils/class-merge';
 import useContent from '@/contents/home';
 
+const MemoizedSectionHeader = memo(SectionHeader);
 const styles = tv({
   slots: {
     container: 'relative invisible isolate',
@@ -33,7 +35,7 @@ export default function HomeMasteries({ className }: { className?: Partial<typeo
       className={container({ className: className?.container })}
     >
       <div className={wrapper({ className: className?.wrapper })}>
-        <SectionHeader subtitle={subtitle} title={title} />
+        <MemoizedSectionHeader subtitle={subtitle} title={title} />
         <div
           data-framer="masteries-lists"
           className="space-y-[clamp(1.5rem,_0.0455rem_+_7.2727vw,_2rem)]"

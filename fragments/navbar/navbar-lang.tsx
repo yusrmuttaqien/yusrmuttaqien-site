@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { Fragment } from 'react';
 import { useRouter } from 'next/router';
+import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
+import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import { i18nOptions, i18nOptionsCursorEmoji } from '@/constants/i18n';
 import classMerge from '@/utils/class-merge';
 import type { LangProps } from '@/types/navbar';
@@ -17,9 +19,16 @@ export default function NavbarLang({ className }: { className?: string }) {
 
 function Lang({ locale, className, idx }: LangProps) {
   const { asPath, locale: currentLocale } = useRouter();
+  const { setState } = useAnimationSequenceCtx();
   const totalSupportedLocales = i18nOptions.length;
   const isLastLocale = idx === totalSupportedLocales - 1;
   const isActive = locale === currentLocale;
+
+  useIsomorphicLayoutEffect(() => {
+    setState((draft) => {
+      draft.announcer.announcing = false;
+    });
+  }, [currentLocale]);
 
   return (
     <Fragment key={locale}>
