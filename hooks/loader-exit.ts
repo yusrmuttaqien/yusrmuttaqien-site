@@ -1,14 +1,19 @@
 import { useAnimate, cubicBezier, type AnimationSequence } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
+import { useMediaQueryCtx } from '@/providers/media-query';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import gFD from '@/utils/get-framer-data';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
 import { EASE_IN_OUT_QUART_NUM } from '@/constants/tailwind-config';
 import type { SequencesProps } from '@/types/loader';
 
-export default function useLoaderEntry() {
+export default function useLoaderExit() {
   const [scope, animate] = useAnimate();
-  const { setState } = useAnimationSequenceCtx();
+  const {
+    state: { isPageReady },
+    setState,
+  } = useAnimationSequenceCtx();
+  const { isValidated } = useMediaQueryCtx();
 
   useIsomorphicLayoutEffect(() => {
     const outerEl = scope.current.children.item(0) as HTMLDivElement;
@@ -35,6 +40,8 @@ export default function useLoaderEntry() {
       });
     }
     function intercept() {
+      if (!isValidated || !isPageReady) return;
+
       outerEl?.classList.remove('animate-loader-bubble-out');
       innerEl?.classList.remove('animate-loader-scale-radiate-out');
       innerEl?.removeEventListener('animationiteration', intercept);
@@ -42,7 +49,11 @@ export default function useLoaderEntry() {
     }
 
     innerEl?.addEventListener('animationiteration', intercept);
-  }, []);
+
+    return () => {
+      innerEl?.removeEventListener('animationiteration', intercept);
+    };
+  }, [isValidated, isPageReady]);
 
   return scope;
 }

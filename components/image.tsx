@@ -1,7 +1,7 @@
 import NextImage from 'next/image';
 import { tv } from 'tailwind-variants';
 import { motion } from 'framer-motion';
-import useImageInteraction from '@/hooks/image-interaction';
+import useImageInteractive from '@/hooks/image-interactive';
 import type { ImageProps } from '@/types/image';
 
 export const styles = tv({
@@ -14,7 +14,7 @@ const NextImageMotion = motion(NextImage);
 
 export default function Image({ className, imageScale = 1.25, ...rest }: ImageProps) {
   const { container, nextImage } = styles();
-  const { target, y, scale } = useImageInteraction(imageScale);
+  const { target, y, scale } = useImageInteractive(imageScale);
 
   return (
     <div className={container({ className: className?.container })}>

@@ -1,6 +1,7 @@
 import { styles as MarquesStyles } from '@/fragments/home/home-masteries/home-masteries-marquee';
-import type { AnimationSequence } from 'framer-motion';
+import type { AnimationSequence, AnimationControls } from 'framer-motion';
 import type { ReactNode } from 'react';
+import type { HowSteps } from '@/types/content';
 
 export type HeroSequencesProps = {
   part: 'ready' | 'go';
@@ -32,4 +33,9 @@ export type ProjectsCardProps = {
     title: string;
     type: string;
   };
+};
+export type HowDesktopCardProps = {
+  className?: string;
+  active: keyof HowSteps | undefined;
+  control: AnimationControls;
 };

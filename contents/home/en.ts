@@ -1,27 +1,32 @@
 import { masteries as masteriesId, projects as projectsId } from '@/contents/shared/en';
+import { projects as projectsList } from '@/contents/shared/untranslated';
+import { projectTypes } from '@/contents/shared/en';
+import { howSteps } from '@/contents/home/untranslated';
 
 const hero = { tagline: 'Frontend developer | UI/UX designer' };
 const masteries = {
   subtitle: masteriesId,
-  title: 'Lorem ipsum dolor sit amet consectetur. A tempor bibendum a nunc sagittis congue.',
+  title:
+    'Eager in learning and applying (especially) web technologies. Aiming to create a better user experiences for everyone through toughtfull UI/UX and motion designs.',
   masteries: [
     {
       title: 'Frontend developer',
       contents: [
-        'Lorem ipsum dolor sit amet consectetur.',
-        'Natoque a massa non massa urna feugiat sit purus. Habitant pulvinar ultricies eget pellentesque amet aliquam. Mauris ornare egestas penatibus id sed vitae in magna nulla. Faucibus tortor dui non sed imperdiet consectetur risus lorem scelerisque.',
-        'Magna mattis tristique a elit mauris ultricies nisi eget sed. Sit sit facilisi eget habitant nunc nulla cras pellentesque nisl. Quisque sed ullamcorper arcu imperdiet. Id et sed tincidunt proin aliquet nec. Mattis duis urna amet mauris ut eu odio. Vitae urna pharetra feugiat.',
+        'Creating responsive and interactive web applications.',
+        'Using modern web technologies to create a better user experience.',
+        'Optimizing web performance and accessibility.',
       ],
     },
     {
       title: 'UI/UX designer',
       contents: [
-        'Lorem ipsum dolor sit amet consectetur.',
-        'Natoque a massa non massa urna feugiat sit purus. Habitant pulvinar ultricies eget pellentesque amet aliquam. Mauris ornare egestas penatibus id sed vitae in magna nulla. Faucibus tortor dui non sed imperdiet consectetur risus lorem scelerisque.',
-        'Magna mattis tristique a elit mauris ultricies nisi eget sed. Sit sit facilisi eget habitant nunc nulla cras pellentesque nisl. Quisque sed ullamcorper arcu imperdiet. Id et sed tincidunt proin aliquet nec. Mattis duis urna amet mauris ut eu odio. Vitae urna pharetra feugiat.',
+        'Craft an flexible and intuitive user interface design.',
+        'Designing motion graphics and animations.',
+        'Creating a seamless user experience.',
       ],
     },
   ],
+  marquee: 'The devil is in the details 😈',
 };
 const projects = {
   title: projectsId.injectable,
@@ -29,12 +34,19 @@ const projects = {
   card: {
     singular: 'A',
   },
-  projects: [
-    { title: 'find-movie', type: 'webapp', image: 'https://source.unsplash.com/random' },
-    { title: 'mini-apps', type: 'webapp', image: 'https://source.unsplash.com/random' },
-    { title: 'dashboard', type: 'webapp', image: 'https://source.unsplash.com/random' },
-    { title: 'laporkeun', type: 'webapp', image: 'https://source.unsplash.com/random' },
-  ],
+  projects: projectsList(projectTypes),
+};
+const how = {
+  header: {
+    title: 'See how i roll',
+    subtitle: 'Working holistically, from top to bottom. Make sure not to regret it midway.',
+  },
+  hows: howSteps({
+    command:
+      'Define what is the problem and what is the goal. Make sure to understand the proble thoroughly.',
+    options: 'Discover the possible solutions and choose the best one.',
+    control: 'Start the project and make sure it is on the right track.',
+  }),
 };
 
-export default { hero, masteries, projects };
+export default { hero, masteries, projects, how };

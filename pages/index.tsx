@@ -19,6 +19,7 @@ export default function Home() {
   useIsomorphicLayoutEffect(() => {
     setState((draft) => {
       draft.announcer.announcing = false;
+      draft.isPageReady = true;
     });
   }, []);
 

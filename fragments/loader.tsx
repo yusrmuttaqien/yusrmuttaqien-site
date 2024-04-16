@@ -1,10 +1,10 @@
-import useLoaderEntry from '@/hooks/loader-entry';
+import useLoaderExit from '@/hooks/loader-exit';
 import classMerge from '@/utils/class-merge';
 
 const style = 'rounded-full origin-center border-[2px]';
 
 export default function Loader() {
-  const scope = useLoaderEntry();
+  const scope = useLoaderExit();
 
   return (
     <div ref={scope} className="fixed inset-0 isolate z-[102] cursor-wait overflow-hidden">

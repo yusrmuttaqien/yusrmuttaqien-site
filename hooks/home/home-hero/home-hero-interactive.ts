@@ -3,10 +3,11 @@ import { useScroll, transform } from 'framer-motion';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import { useMediaQueryCtx } from '@/providers/media-query';
 import gFD from '@/utils/get-framer-data';
+import moveTo from '@/utils/move-to';
 
 const classLists = ['origin-center', 'ease-out-expo'];
 
-export default function useHomeHeroInteraction(completeEntry: boolean) {
+export default function useHomeHeroInteractive(completeEntry: boolean) {
   const scope = useRef<HTMLElement>(null);
   const { isHover } = useMediaQueryCtx();
   const { scrollYProgress } = useScroll({ target: scope, offset: ['start', 'end start'] });
@@ -73,10 +74,10 @@ function RootTrackMouse(e: MouseEvent) {
     const yBoundaryCentre = offsetHeight / 100;
     // #endregion valuePreparation
     // #region valueCalculation
-    const xMoveCross = MoveTo({ page: pageX, offset: offsetWidth, boundary: xBoundaryCross });
-    const yMoveCross = MoveTo({ page: pageY, offset: offsetHeight, boundary: yBoundaryCross });
-    const xMoveCentre = MoveTo({ page: pageX, offset: offsetWidth, boundary: xBoundaryCentre });
-    const yMoveCentre = MoveTo({ page: pageY, offset: offsetHeight, boundary: yBoundaryCentre });
+    const xMoveCross = moveTo({ anchor: pageX, offset: offsetWidth, boundary: xBoundaryCross });
+    const yMoveCross = moveTo({ anchor: pageY, offset: offsetHeight, boundary: yBoundaryCross });
+    const xMoveCentre = moveTo({ anchor: pageX, offset: offsetWidth, boundary: xBoundaryCentre });
+    const yMoveCentre = moveTo({ anchor: pageY, offset: offsetHeight, boundary: yBoundaryCentre });
     const yRotateCentre = ((pageX - offsetWidth / 2) / offsetWidth) * rotateConstraint;
     const xRotateCentre = (-(pageY - offsetHeight / 2) / offsetHeight) * rotateConstraint;
     // #endregion valueCalculation
@@ -120,8 +121,4 @@ function RootYProgress(root: HTMLElement, isHover: boolean, e: number) {
       rootHeader.classList.remove('pointer-events-none');
     }
   });
-}
-
-function MoveTo({ page, offset, boundary }: { page: number; offset: number; boundary: number }) {
-  return Math.min(Math.max(page - offset / 2, -boundary), boundary);
 }

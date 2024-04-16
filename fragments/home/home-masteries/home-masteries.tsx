@@ -21,12 +21,12 @@ const styles = tv({
 
 export default function HomeMasteries({ className }: { className?: Partial<typeof styles.slots> }) {
   const {
-    masteries: { title, subtitle, masteries },
+    masteries: { title, subtitle, masteries, marquee },
   } = useContent();
   const { isDeviceMobile } = useMediaQueryCtx();
   const entryScope = useHomeMasteriesEntry();
   const calculateScope = useHomeMasteriesCalculate();
-  const { container, wrapper, marquee } = styles();
+  const { container, wrapper, marquee: marqueeStyles } = styles();
 
   return (
     <section
@@ -59,18 +59,18 @@ export default function HomeMasteries({ className }: { className?: Partial<typeo
         >
           {/* NOTE: Using opacity instead text-color/opacity to fix Safari opaque emoticon */}
           <HomeMasteriesMarquee
-            className={{ container: marquee(), wrapper: 'opacity-5' }}
+            className={{ container: marqueeStyles(), wrapper: 'opacity-5' }}
             baseVelocity={100}
             name="positive"
           >
-            <p className="project-title">The devil in the details. 😈</p>
+            <p className="project-title">{marquee}</p>
           </HomeMasteriesMarquee>
           <HomeMasteriesMarquee
-            className={{ container: marquee(), wrapper: 'opacity-5' }}
+            className={{ container: marqueeStyles(), wrapper: 'opacity-5' }}
             baseVelocity={-100}
             name="negative"
           >
-            <p className="project-title">The devil in the details. 😈</p>
+            <p className="project-title">{marquee}</p>
           </HomeMasteriesMarquee>
         </div>
       )}

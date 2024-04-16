@@ -8,7 +8,7 @@ import { useRef } from 'react';
 import { useMediaQueryCtx } from '@/providers/media-query';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 
-export default function useImageInteraction(originalScale: number) {
+export default function useImageInteractive(originalScale: number) {
   const target = useRef<HTMLImageElement>(null);
   const y = useMotionValue(0);
   const scale = useMotionValue(originalScale);
@@ -19,7 +19,7 @@ export default function useImageInteraction(originalScale: number) {
   });
 
   useIsomorphicLayoutEffect(() => {
-    if (!isHover) {
+    if (!isHover || originalScale <= 1) {
       y.set(0);
       scale.set(1);
 

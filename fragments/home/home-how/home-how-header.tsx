@@ -1,8 +1,12 @@
 import { useMediaQueryCtx } from '@/providers/media-query';
 import COC from '@/components/coc';
 import classMerge from '@/utils/class-merge';
+import useContent from '@/contents/home';
 
 export default function HomeHowHeader() {
+  const {
+    how: { header },
+  } = useContent();
   const { isScreenDesktop } = useMediaQueryCtx();
 
   return (
@@ -13,16 +17,15 @@ export default function HomeHowHeader() {
       )}
     >
       <h2 className="body-subheading text-green-dynamic uppercase shrink-0">
-        See how i roll<span className="ml-[.5ch]">🛞</span>
+        {header.title}
+        <span className="ml-[.5ch]">🛞</span>
       </h2>
-      <p className="uppercase lg:max-w-[400px] lg:text-right xl:text-left">
-        Working holistically, from top to bottom. Make sure not to regrets midway.
-      </p>
+      <p className="lg:max-w-[400px] lg:text-right xl:text-left opacity-60">{header.subtitle}</p>
       {isScreenDesktop && (
         <COC
           className={{
             container: 'w-40',
-            path: 'fill-grey dark:fill-beige opacity-20',
+            path: 'fill-grey dark:fill-beige',
             stroke: 'fill-beige-off dark:fill-grey-off',
           }}
         />

@@ -1,6 +1,6 @@
 import mergeRefs from 'merge-refs';
 import useHomeHeroEntry from '@/hooks/home/home-hero/home-hero-entry';
-import useHomeHeroInteraction from '@/hooks/home/home-hero/home-hero-interaction';
+import useHomeHeroInteractive from '@/hooks/home/home-hero/home-hero-interactive';
 import Blueprint from '@/components/blueprint';
 import HomeHeroYusrMuttaqien from '@/fragments/home/home-hero/home-hero-yusr-muttaqien';
 import classMerge from '@/utils/class-merge';
@@ -11,7 +11,7 @@ export default function HomeHero({ className }: { className?: string }) {
     hero: { tagline },
   } = useContent();
   const { scope: entryScope, isComplete } = useHomeHeroEntry();
-  const interactionScope = useHomeHeroInteraction(isComplete);
+  const interactionScope = useHomeHeroInteractive(isComplete);
 
   return (
     // NOTE: Using opacity-0 instead invisible to fix Safari missing inner centre

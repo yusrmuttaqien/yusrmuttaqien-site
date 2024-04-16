@@ -248,11 +248,8 @@ const config: Config = {
             WebkitMaskImage: value,
             maskImage: value,
           }),
-          'letter-spacing': (value: string) => ({
-            letterSpacing: value,
-          }),
         },
-        { respectImportant: true }
+        { respectImportant: true, values: { '': '' } }
       );
     }),
   ],

@@ -1,24 +1,40 @@
-import HomeHowCard from '@/fragments/home/home-how/home-how-card';
+import { memo } from 'react';
+import { motion } from 'framer-motion';
+import useHomeHowDesktopInteractive from '@/hooks/home/home-how/home-how-desktop-interactive';
+import HomeHowDesktopCard from '@/fragments/home/home-how/home-how-desktop-card';
 import classMerge from '@/utils/class-merge';
+import type { RefObject } from 'react';
 
+const MemoizedSteps = memo(Steps);
 const stepStyles = classMerge(
   'project-title-em opacity-20 uppercase hoverable:cursor-pointer',
-  'hoverable:hover:opacity-60 transition-opacity w-max project-title-trim'
+  'hoverable:hover:opacity-60 transition-opacity w-max project-title-trim',
+  'block'
 );
 
-export default function HomeHowDesktop() {
+export default function HomeHowDesktop({ root }: { root: RefObject<HTMLDivElement> }) {
+  const { scope, active, control } = useHomeHowDesktopInteractive(root);
+
   return (
     <article
-      className={classMerge(
-        'px-[calc(clamp(1.125rem,_0.0341rem_+_5.4545vw,_1.5rem)_*_6)] flex justify-between'
-      )}
+      ref={scope}
+      className="flex gap-[7.5rem] 2xl:gap-[7.9vw] justify-center items-center h-min"
     >
-      <HomeHowCard />
-      <div className="space-y-16 text-[26px]">
-        <p className={stepStyles}>Command.</p>
-        <p className={stepStyles}>Options.</p>
-        <p className={stepStyles}>Control.</p>
-      </div>
+      <HomeHowDesktopCard className="w-[31.25rem]" active={active} control={control} />
+      <MemoizedSteps />
     </article>
+  );
+}
+
+function Steps() {
+  return (
+    <div
+      data-framer="how-desktop-steps"
+      className="space-y-8 text-[clamp(0.75rem,_-1.319rem_+_2.5862vw,_1.125rem)] 2xl:text-[1.19vw]"
+    >
+      <motion.button className={stepStyles}>Command.</motion.button>
+      <motion.button className={stepStyles}>Options.</motion.button>
+      <motion.button className={stepStyles}>Control.</motion.button>
+    </div>
   );
 }
