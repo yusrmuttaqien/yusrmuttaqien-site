@@ -39,3 +39,9 @@ export type HowDesktopCardProps = {
   active: keyof HowSteps | undefined;
   control: AnimationControls;
 };
+export type HowMobileCardProps = {
+  image: string;
+  desc: string;
+  name: string;
+  className?: string;
+};

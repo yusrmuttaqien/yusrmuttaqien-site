@@ -37,7 +37,10 @@ export default function useHomeHowDesktopInteractive(rootRef: RefObject<HTMLDivE
 
       control.start({ y: yMoveCard, transition: { duration: 0.3 } });
     }
-    function activeEnter(current: HTMLButtonElement, innerContent: string, e: MouseEvent) {
+    function activeEnter(e: MouseEvent) {
+      const current = e.target as HTMLButtonElement;
+      const innerContent = current.innerHTML.toLowerCase().replace('.', '');
+
       animate(current, { opacity: 0.6 });
       animate(
         gFD(`how-card-desktop-${innerContent}-img`),
@@ -49,7 +52,7 @@ export default function useHomeHowDesktopInteractive(rootRef: RefObject<HTMLDivE
       animate(
         gFD(`how-card-desktop-${innerContent}-desc`),
         { opacity: 1 },
-        { duration: 0.3, delay: 0.4 }
+        { duration: 0.3, delay: 0.2 }
       );
 
       isScreenDesktop && globalAnimate(cocSelect(innerContent), { opacity: 0.6 });
@@ -68,16 +71,15 @@ export default function useHomeHowDesktopInteractive(rootRef: RefObject<HTMLDivE
 
       if (cardDesktopEl) {
         animate(cardDesktopEl, { y: '101%', scale: 0, zIndex: 1 }, { duration: 0.6 });
-        animate(gFD(`how-card-desktop-${innerContent}-desc`), { opacity: 0 }, { duration: 0.3 });
+        animate(gFD(`how-card-desktop-${innerContent}-desc`), { opacity: 0 }, { duration: 0.2 });
       }
 
       lastEl.current = current;
     }
     function switchActive(e: MouseEvent) {
       const current = e.target as HTMLButtonElement;
-      const innerContent = current.innerHTML.toLowerCase().replace('.', '');
 
-      activeEnter(current, innerContent, e);
+      activeEnter(e);
       lastEl.current?.innerText !== current.innerText && activeLeave(current);
     }
 

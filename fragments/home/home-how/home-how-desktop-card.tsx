@@ -11,7 +11,7 @@ export default function HomeHowDesktopCard({ className, active, control }: HowDe
   const howsArray = Object.entries(hows);
 
   return (
-    <div className={classMerge('relative', className)}>
+    <div className={classMerge('relative shrink-0', className)}>
       <motion.figure
         layout
         data-framer="how-card"
@@ -45,7 +45,6 @@ function CardImage({ image, name }: { image: string; name: string }) {
       <Image
         src={image}
         alt={`coc-preview-${name}`}
-        imageScale={1}
         className={{ container: 'w-full aspect-video' }}
       />
     </motion.div>
