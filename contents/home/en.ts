@@ -38,7 +38,7 @@ const projects = {
 };
 const how = {
   header: {
-    title: 'See how i roll',
+    title: 'The three steps',
     subtitle: 'Working holistically, from top to bottom. Make sure not to regret it midway.',
   },
   hows: howSteps({

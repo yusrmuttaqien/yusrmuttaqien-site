@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { motion } from 'framer-motion';
 import useHomeHowDesktopInteractive from '@/hooks/home/home-how/home-how-desktop-interactive';
 import HomeHowDesktopCard from '@/fragments/home/home-how/home-how-desktop-card';
 import classMerge from '@/utils/class-merge';
@@ -32,9 +31,9 @@ function Steps() {
       data-framer="how-desktop-steps"
       className="space-y-8 text-[clamp(0.75rem,_-1.319rem_+_2.5862vw,_1.125rem)] 2xl:text-[1.19vw]"
     >
-      <motion.button className={stepStyles}>Command.</motion.button>
-      <motion.button className={stepStyles}>Options.</motion.button>
-      <motion.button className={stepStyles}>Control.</motion.button>
+      <button className={stepStyles}>Command.</button>
+      <button className={stepStyles}>Options.</button>
+      <button className={stepStyles}>Control.</button>
     </div>
   );
 }

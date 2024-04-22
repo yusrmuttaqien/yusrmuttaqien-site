@@ -14,7 +14,7 @@ export default function useHomeHowDesktopInteractive(rootRef: RefObject<HTMLDivE
   const lastEl = useRef<HTMLButtonElement | undefined>(undefined);
   const currentEl = useRef<HTMLButtonElement | undefined>(undefined);
 
-  function cocSelect(step: string) {
+  function cocSelectPath(step: string) {
     return '#home-how ' + gFD(`coc-${step}-path`);
   }
 
@@ -55,7 +55,7 @@ export default function useHomeHowDesktopInteractive(rootRef: RefObject<HTMLDivE
         { duration: 0.3, delay: 0.2 }
       );
 
-      isScreenDesktop && globalAnimate(cocSelect(innerContent), { opacity: 0.6 });
+      isScreenDesktop && globalAnimate(cocSelectPath(innerContent), { opacity: 0.6 });
       setActive(innerContent as keyof HowSteps);
       moveCard(e);
 
@@ -63,7 +63,7 @@ export default function useHomeHowDesktopInteractive(rootRef: RefObject<HTMLDivE
     }
     function activeLeave(current: HTMLButtonElement) {
       const innerContent = lastEl.current?.innerHTML.toLowerCase().replace('.', '');
-      const el = parentRoot?.querySelector(cocSelect(innerContent || ''));
+      const el = parentRoot?.querySelector(cocSelectPath(innerContent || ''));
       const cardDesktopEl = root.querySelector(gFD(`how-card-desktop-${innerContent}-img`));
 
       lastEl.current?.removeAttribute('style');
@@ -91,7 +91,7 @@ export default function useHomeHowDesktopInteractive(rootRef: RefObject<HTMLDivE
 
     cocSteps.forEach((button) => {
       const innerContent = button.innerHTML.toLowerCase().replace('.', '');
-      const el = parentRoot?.querySelector(cocSelect(innerContent));
+      const el = parentRoot?.querySelector(cocSelectPath(innerContent));
       const cardDesktopEl = root.querySelector(gFD(`how-card-desktop-${innerContent}-img`));
       lastEl.current = undefined;
       currentEl.current = undefined;

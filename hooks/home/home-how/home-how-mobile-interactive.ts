@@ -8,7 +8,7 @@ export default function useHomeHowMobileInteractive() {
 
   useIsomorphicLayoutEffect(() => {
     const root = scope.current as HTMLElement;
-    const cocSteps = root.querySelectorAll(gFD('how-mobile-steps'));
+    const cocSteps = root.querySelectorAll(gFD('how-mobile-step'));
     const stops: VoidFunction[] = [];
 
     function highlightStep(e: IntersectionObserverEntry) {

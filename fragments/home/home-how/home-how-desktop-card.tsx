@@ -11,7 +11,7 @@ export default function HomeHowDesktopCard({ className, active, control }: HowDe
   const howsArray = Object.entries(hows);
 
   return (
-    <div className={classMerge('relative shrink-0', className)}>
+    <div className={classMerge('relative shrink-0', !active && 'invisible', className)}>
       <motion.figure
         layout
         data-framer="how-card"

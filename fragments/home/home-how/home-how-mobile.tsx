@@ -22,7 +22,7 @@ export default function HomeHowMobile() {
 function Hows(props: { image: string; desc: string; name: string }) {
   return (
     <section
-      data-framer="how-mobile-steps"
+      data-framer="how-mobile-step"
       className={classMerge(
         'flex flex-col lg:flex-row lg:items-start',
         'gap-[clamp(0.75rem,_0.0227rem_+_3.6364vw,_1rem)] lg:gap-0'

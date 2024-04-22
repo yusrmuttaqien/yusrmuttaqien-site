@@ -38,7 +38,7 @@ const projects = {
 };
 const how = {
   header: {
-    title: 'Lihat bagaimana aku berpikir',
+    title: 'Tiga langkah',
     subtitle:
       'Bekerja secara holistik, dari atas ke bawah. Pastikan untuk tidak menyesalinya di tengah jalan.',
   },

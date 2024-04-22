@@ -16,11 +16,18 @@ export default function HomeHowHeader() {
         'lg:flex-row lg:items-center'
       )}
     >
-      <h2 className="body-subheading text-green-dynamic uppercase shrink-0">
+      <h2
+        data-framer="how-header-title"
+        className="body-subheading text-green-dynamic uppercase shrink-0 mr-[.5ch]"
+      >
         {header.title}
-        <span className="ml-[.5ch]">🛞</span>
       </h2>
-      <p className="lg:max-w-[400px] lg:text-right xl:text-left opacity-60">{header.subtitle}</p>
+      <p
+        data-framer="how-header-subtitle"
+        className="lg:max-w-[400px] lg:text-right xl:text-left opacity-60"
+      >
+        {header.subtitle}
+      </p>
       {isScreenDesktop && (
         <COC
           className={{
