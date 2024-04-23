@@ -1,16 +1,15 @@
-import { useRef } from 'react';
 import { useInView } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import YusrMuttaqien from '@/components/yusr-muttaqien';
+import type { RefObject } from 'react';
 
-export default function HomeHeroYusrMuttaqien() {
-  const yusrMuttaqienRef = useRef<HTMLDivElement>(null);
+export default function HomeHeroYusrMuttaqien({ root }: { root: RefObject<HTMLDivElement> }) {
   const {
     state: { yusrMuttaqien },
     setState,
   } = useAnimationSequenceCtx();
-  const isInView = useInView(yusrMuttaqienRef);
+  const isInView = useInView(root);
 
   useIsomorphicLayoutEffect(() => {
     if (isInView === yusrMuttaqien.hero) return;
@@ -20,5 +19,5 @@ export default function HomeHeroYusrMuttaqien() {
     });
   }, [yusrMuttaqien.hero, isInView]);
 
-  return <YusrMuttaqien isVisible={yusrMuttaqien.hero} withPlaceholder ref={yusrMuttaqienRef} />;
+  return <YusrMuttaqien isVisible={yusrMuttaqien.hero} withPlaceholder />;
 }

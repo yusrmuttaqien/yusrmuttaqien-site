@@ -1,29 +1,26 @@
-import { forwardRef } from 'react';
+import { motion } from 'framer-motion';
 import classMerge from '@/utils/class-merge';
-import type { BlueprintProps } from '@/types/blueprint';
+import type { HeroBlueprintProps } from '@/types/home';
 
-const Blueprint = forwardRef<HTMLDivElement, BlueprintProps>(function Blueprint(
-  { className, ...rest },
-  ref
-) {
+export default function HomeHeroBlueprint({
+  className,
+  framerStyles,
+  ...rest
+}: HeroBlueprintProps) {
   return (
     <div
-      data-framer="blueprint"
       className={classMerge('h-full w-full shrink-0 relative overflow-hidden', className)}
-      ref={ref}
       {...rest}
     >
-      <Cross />
-      <Centre />
+      <Cross framerStyles={framerStyles.cross} />
+      <Centre framerStyles={framerStyles.centre} />
     </div>
   );
-});
+}
 
-export default Blueprint;
-
-function Cross() {
+function Cross({ framerStyles }: { framerStyles: HeroBlueprintProps['framerStyles']['cross'] }) {
   return (
-    <div className="h-full w-full" data-framer="blueprint-cross">
+    <motion.div className="h-full w-full" data-framer="blueprint-cross" style={framerStyles}>
       <svg width="100%" height="100%" viewBox="0 0 789 789" fill="none" preserveAspectRatio="none">
         <g clipPath="url(#clip0_3035_176)">
           <path
@@ -45,14 +42,22 @@ function Cross() {
           </clipPath>
         </defs>
       </svg>
-    </div>
+    </motion.div>
   );
 }
 
-function Centre() {
+function Centre({ framerStyles }: { framerStyles: HeroBlueprintProps['framerStyles']['centre'] }) {
   return (
-    <div className="absolute inset-0" data-framer="blueprint-centre">
-      <div className="absolute inset-0" data-framer="blueprint-centre-outer">
+    <motion.div
+      className="absolute inset-0"
+      data-framer="blueprint-centre"
+      style={framerStyles.root}
+    >
+      <motion.div
+        className="absolute inset-0"
+        data-framer="blueprint-centre-outer"
+        style={framerStyles.outer}
+      >
         <svg className="w-full h-full" viewBox="0 0 289 289" fill="none">
           <g clipPath="url(#clip0_3224_990)">
             <circle
@@ -69,8 +74,8 @@ function Centre() {
             </clipPath>
           </defs>
         </svg>
-      </div>
-      <div className="absolute inset-0" data-framer="blueprint-centre-inner">
+      </motion.div>
+      <motion.div className="absolute inset-0" data-framer="blueprint-centre-inner">
         <svg className="w-full h-full" viewBox="0 0 289 289" fill="none">
           <g clipPath="url(#clip0_3224_990)">
             <circle
@@ -87,7 +92,7 @@ function Centre() {
             </clipPath>
           </defs>
         </svg>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

@@ -1,8 +1,13 @@
+import useHomeHeroInteractive from '@/hooks/home/home-hero/home-hero-interactive';
 import { styles as MarquesStyles } from '@/fragments/home/home-masteries/home-masteries-marquee';
 import type { AnimationSequence, AnimationControls } from 'framer-motion';
-import type { ReactNode } from 'react';
+import type { ReactNode, HTMLAttributes } from 'react';
 import type { HowSteps } from '@/types/content';
 
+export type HeroBlueprintProps = {
+  className?: string;
+  framerStyles: ReturnType<typeof useHomeHeroInteractive>['bpUnits'];
+} & HTMLAttributes<HTMLDivElement>;
 export type HeroSequencesProps = {
   part: 'ready' | 'go';
 };

@@ -1,124 +1,131 @@
 import { useRef } from 'react';
-import { useScroll, transform } from 'framer-motion';
+import { useTransform, useScroll } from 'framer-motion';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import { useMediaQueryCtx } from '@/providers/media-query';
 import gFD from '@/utils/get-framer-data';
 import moveTo from '@/utils/move-to';
+import type { EntryStatus } from '@/types/animation-sequence';
 
-const classLists = ['origin-center', 'ease-out-expo'];
-
-export default function useHomeHeroInteractive(completeEntry: boolean) {
-  const scope = useRef<HTMLElement>(null);
+export default function useHomeHeroInteractive(entryStatus: EntryStatus) {
   const { isHover } = useMediaQueryCtx();
+  const scope = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: scope, offset: ['start', 'end start'] });
+
+  const bpCentreTransX = useTransform(scrollYProgress, [0, 1], ['0px', '0px']);
+  const bpCentreTransY = useTransform(scrollYProgress, [0, 1], ['0px', '-50px']);
+  const bpCentreRotX = useTransform(scrollYProgress, [0, 1], ['0deg', '-113deg']);
+  const bpCentreRotY = useTransform(scrollYProgress, [0, 1], ['0deg', '0deg']);
+  const bpCentreScale = useTransform(scrollYProgress, [0, 1], [1, 0.6]);
+  const bpCentreOuterTransZ = useTransform(scrollYProgress, [0, 1], ['0px', '200px']);
+  const bpCrossTransX = useTransform(scrollYProgress, [0, 1], ['0px', '0px']);
+  const bpCrossTransY = useTransform(scrollYProgress, [0, 1], ['0px', '-150px']);
+  const bpCrossBlur = useTransform(scrollYProgress, [0, 1], ['blur(0px)', 'blur(15px)']);
+  const headerOpacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
 
   useIsomorphicLayoutEffect(() => {
     const root = scope.current as HTMLElement;
-    const rootHeader = root.querySelector(gFD('hero-header')) as HTMLElement;
+    const header = root.querySelector(gFD('hero-header')) as HTMLElement;
     const blueprintCross = root.querySelector(gFD('blueprint-cross')) as HTMLElement;
     const blueprintCentre = root.querySelector(gFD('blueprint-centre')) as HTMLElement;
 
-    if (!completeEntry) {
+    if (entryStatus !== 'complete') {
+      const classLists = ['origin-center', 'ease-out-expo'];
+
       blueprintCentre.style.transformStyle = 'preserve-3d';
-      rootHeader.classList.add(...classLists, 'transition-[opacity,_transform]', 'duration-500');
+      blueprintCentre.style.perspective = '5000px';
+
+      header.classList.add(
+        ...classLists,
+        'transition-[opacity,_transform]',
+        'duration-500',
+        'pointer-events-none'
+      );
+      blueprintCentre.classList.add(...classLists, 'transition-transform', 'duration-1000');
       blueprintCross.classList.add(
         ...classLists,
         'transition-[transform,_filter]',
         'duration-1000'
       );
-      blueprintCentre.classList.add(...classLists, 'transition-transform', 'duration-1000');
+
       return;
     }
-    const clearYProgress = scrollYProgress.on(
-      'change',
-      RootYProgress.bind(null, root, isHover || true)
-    );
+    if (!isHover) return;
 
-    if (!isHover) return () => clearYProgress();
-    const stopPropagation = (e: MouseEvent) => e.stopPropagation();
+    function _rootMouseMove(e: MouseEvent) {
+      requestAnimationFrame(() => {
+        const html = document.documentElement as HTMLElement;
 
-    root.addEventListener('mousemove', RootTrackMouse);
-    rootHeader.addEventListener('mouseenter', RootHeaderMouseEnter);
-    rootHeader.addEventListener('mousemove', stopPropagation);
+        if (html.classList.contains('lenis-scrolling')) return;
+        const root = e.target as HTMLElement;
+        const { pageX, pageY } = e;
+        const { offsetHeight, offsetWidth } = root;
+        const rotateConstraint = 56;
+        const xBoundaryCross = offsetWidth / 120;
+        const yBoundaryCross = offsetHeight / 120;
+        const xBoundaryCentre = offsetWidth / 100;
+        const yBoundaryCentre = offsetHeight / 100;
+        const xMoveCross = moveTo({ anchor: pageX, offset: offsetWidth, boundary: xBoundaryCross });
+        const yMoveCross = moveTo({
+          anchor: pageY,
+          offset: offsetHeight,
+          boundary: yBoundaryCross,
+        });
+        const xMoveCentre = moveTo({
+          anchor: pageX,
+          offset: offsetWidth,
+          boundary: xBoundaryCentre,
+        });
+        const yMoveCentre = moveTo({
+          anchor: pageY,
+          offset: offsetHeight,
+          boundary: yBoundaryCentre,
+        });
+        const yRotateCentre = ((pageX - offsetWidth / 2) / offsetWidth) * rotateConstraint;
+        const xRotateCentre = (-(pageY - offsetHeight / 2) / offsetHeight) * rotateConstraint;
+
+        bpCentreTransX.set(`${xMoveCentre}px`);
+        bpCentreTransY.set(`${yMoveCentre}px`);
+        bpCentreRotX.set(`${xRotateCentre}deg`);
+        bpCentreRotY.set(`${yRotateCentre}deg`);
+        bpCentreScale.set(0.6);
+        bpCrossTransX.set(`${xMoveCross}px`);
+        bpCrossTransY.set(`${yMoveCross}px`);
+        bpCentreOuterTransZ.set('200px');
+        bpCrossBlur.set('blur(5px)');
+        headerOpacity.set(0);
+      });
+    }
+
+    root.addEventListener('mousemove', _rootMouseMove);
 
     return () => {
-      root.removeEventListener('mousemove', RootTrackMouse);
-      rootHeader.removeEventListener('mouseenter', RootHeaderMouseEnter);
-      clearYProgress();
+      root.removeEventListener('mousemove', _rootMouseMove);
     };
-  }, [completeEntry, isHover]);
+  }, [isHover, entryStatus]);
 
-  return scope;
-}
-
-function RootTrackMouse(e: MouseEvent) {
-  requestAnimationFrame(() => {
-    const html = document.documentElement as HTMLElement;
-
-    if (html.classList.contains('lenis-scrolling')) return;
-    // #region elements
-    const root = e.target as HTMLElement;
-    const blueprintCross = root.querySelector(gFD('blueprint-cross')) as HTMLElement;
-    const blueprintCentre = root.querySelector(gFD('blueprint-centre')) as HTMLElement;
-    const blueprintCentreOuter = root.querySelector(gFD('blueprint-centre-outer')) as HTMLElement;
-    // #endregion elements
-    // #region valueFetch
-    const { pageX, pageY } = e;
-    const { offsetHeight, offsetWidth } = root;
-    // #endregion valueFetch
-    // #region valuePreparation
-    const rotateConstraint = 56;
-    const xBoundaryCross = offsetWidth / 120;
-    const yBoundaryCross = offsetHeight / 120;
-    const xBoundaryCentre = offsetWidth / 100;
-    const yBoundaryCentre = offsetHeight / 100;
-    // #endregion valuePreparation
-    // #region valueCalculation
-    const xMoveCross = moveTo({ anchor: pageX, offset: offsetWidth, boundary: xBoundaryCross });
-    const yMoveCross = moveTo({ anchor: pageY, offset: offsetHeight, boundary: yBoundaryCross });
-    const xMoveCentre = moveTo({ anchor: pageX, offset: offsetWidth, boundary: xBoundaryCentre });
-    const yMoveCentre = moveTo({ anchor: pageY, offset: offsetHeight, boundary: yBoundaryCentre });
-    const yRotateCentre = ((pageX - offsetWidth / 2) / offsetWidth) * rotateConstraint;
-    const xRotateCentre = (-(pageY - offsetHeight / 2) / offsetHeight) * rotateConstraint;
-    // #endregion valueCalculation
-    // #region commit
-    blueprintCentre.style.transform = `translate(${xMoveCentre}px, ${yMoveCentre}px) rotateX(${xRotateCentre}deg) rotateY(${yRotateCentre}deg) perspective(5000px) scale(0.6)`;
-    blueprintCross.style.transform = `translate(${xMoveCross}px, ${yMoveCross}px)`;
-    blueprintCentreOuter.style.transform = `translateZ(100px)`;
-    blueprintCross.style.filter = `blur(10px)`;
-    // #endregion commit
-  });
-}
-function RootHeaderMouseEnter(e: MouseEvent) {
-  const html = document.documentElement as HTMLElement;
-
-  if (html.classList.contains('lenis-scrolling')) return;
-
-  const rootHeader = e.target as HTMLElement;
-
-  rootHeader.classList.add('pointer-events-none');
-  rootHeader.style.opacity = '0';
-  rootHeader.style.transform = 'scale(1.01)';
-}
-function RootYProgress(root: HTMLElement, isHover: boolean, e: number) {
-  requestAnimationFrame(() => {
-    const blueprintCross = root.querySelector(gFD('blueprint-cross')) as HTMLElement;
-    const blueprintCentre = root.querySelector(gFD('blueprint-centre')) as HTMLElement;
-    const blueprintCentreOuter = root.querySelector(gFD('blueprint-centre-outer')) as HTMLElement;
-    const blueprintCentreScale = transform(e, [0, 1], [1, 0.6]);
-
-    blueprintCentre.style.transform = `translateY(${e * -50}px) 
-    rotateX(${e * -112}deg) perspective(5000px) scale(${blueprintCentreScale})`;
-    blueprintCentreOuter.style.transform = `translateZ(${e * 200}px)`;
-    blueprintCross.style.transform = `translateY(${e * -150}px)`;
-    blueprintCross.style.filter = `blur(${e * 15}px)`;
-
-    if (isHover) {
-      const rootHeader = root.querySelector(gFD('hero-header')) as HTMLElement;
-
-      rootHeader.style.opacity = '1';
-      rootHeader.style.transform = 'scale(1)';
-      rootHeader.classList.remove('pointer-events-none');
-    }
-  });
+  return {
+    scope,
+    bpUnits: {
+      centre: {
+        root: {
+          x: bpCentreTransX,
+          y: bpCentreTransY,
+          rotateX: bpCentreRotX,
+          rotateY: bpCentreRotY,
+          scale: bpCentreScale,
+        },
+        outer: {
+          z: bpCentreOuterTransZ,
+        },
+      },
+      cross: {
+        x: bpCrossTransX,
+        y: bpCrossTransY,
+        filter: bpCrossBlur,
+      },
+    },
+    headerUnits: {
+      opacity: headerOpacity,
+    },
+  };
 }

@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useAnimate, useInView, type AnimationSequence } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import gFD from '@/utils/get-framer-data';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
 import type { HeroSequencesProps } from '@/types/home';
+import type { EntryStatus } from '@/types/animation-sequence';
 
 export default function useHomeHeroEntry() {
   const {
@@ -12,25 +13,26 @@ export default function useHomeHeroEntry() {
   } = useAnimationSequenceCtx();
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
-  const isReady = useRef(false);
-  const [isComplete, setComplete] = useState(false);
+  const [status, setStatus] = useState<EntryStatus>('not-ready');
 
   useIsomorphicLayoutEffect(() => {
-    if (isInView && !isLoader && !isComplete) {
+    if (isInView && !isLoader && status === 'ready') {
+      setStatus('running');
       const root = scope.current as HTMLElement;
 
+      root.classList.add('overflow-hidden');
       root.classList.remove('opacity-0');
       animate(Sequences({ part: 'go' })).then(() => {
-        setComplete(true);
+        setStatus('complete');
       });
-    } else if (!isReady.current) {
+    } else if (status === 'not-ready') {
       animate(Sequences({ part: 'ready' })).then(() => {
-        isReady.current = true;
+        setStatus('ready');
       });
     }
-  }, [isInView, isLoader, isComplete]);
+  }, [isInView, isLoader, status]);
 
-  return { scope, isComplete };
+  return { scope, status };
 }
 
 function Sequences(props: HeroSequencesProps): AnimationSequence {
@@ -41,7 +43,7 @@ function Sequences(props: HeroSequencesProps): AnimationSequence {
       [gFD('blueprint-cross'), { opacity: 0, scale: 0.5 }, { duration: 0 }],
       [gFD('blueprint-centre-inner'), { opacity: 0, scale: 0 }, { duration: 0 }],
       [gFD('blueprint-centre-outer'), { opacity: 0, scale: 0 }, { duration: 0 }],
-      [gFD('hero-header'), { opacity: 0, scale: 1.01 }, { duration: 0 }],
+      [gFD('hero-header'), { y: '99%' }, { duration: 0 }],
     ],
     [
       [
@@ -69,11 +71,7 @@ function Sequences(props: HeroSequencesProps): AnimationSequence {
         { opacity: 1, scale: 1 },
         { ...FRAMER_DEFAULT_TIMING, duration: 1, at: '-0.8' },
       ],
-      [
-        gFD('hero-header'),
-        { opacity: 1, scale: 1 },
-        { ...FRAMER_DEFAULT_TIMING, duration: 0.3, at: '-0.7' },
-      ],
+      [gFD('hero-header'), { y: '0%' }, { ...FRAMER_DEFAULT_TIMING, duration: 0.3, at: '-0.7' }],
     ],
   ];
 
