@@ -2,6 +2,7 @@ import useHomeHowMobileInteractive from '@/hooks/home/home-how/home-how-mobile-i
 import HomeHowMobileCard from '@/fragments/home/home-how/home-how-mobile-card';
 import useContent from '@/contents/home';
 import classMerge from '@/utils/class-merge';
+import type { HowMobileHowsProps } from '@/types/home';
 
 export default function HomeHowMobile() {
   const {
@@ -19,7 +20,9 @@ export default function HomeHowMobile() {
   );
 }
 
-function Hows(props: { image: string; desc: string; name: string }) {
+function Hows(props: HowMobileHowsProps) {
+  const { name } = props;
+
   return (
     <section
       data-framer="how-mobile-step"
@@ -29,7 +32,7 @@ function Hows(props: { image: string; desc: string; name: string }) {
       )}
     >
       <div className="flex items-center flex-1">
-        <h3 className="uppercase">{props.name}</h3>
+        <h3 className="uppercase">{name}</h3>
         <span
           className={classMerge(
             'flex-1 h-[0.0625rem] bg-grey-dynamic-[] ml-8 relative',

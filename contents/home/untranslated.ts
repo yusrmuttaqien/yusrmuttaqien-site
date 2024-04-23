@@ -1,6 +1,8 @@
 import type { HowSteps } from '@/types/content';
 
-export function howSteps({ command, options, control }: HowSteps) {
+export function howSteps(props: HowSteps) {
+  const { command, options, control } = props;
+
   return {
     command: { desc: command, image: 'https://source.unsplash.com/random' },
     options: {

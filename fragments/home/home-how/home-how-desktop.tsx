@@ -2,7 +2,7 @@ import { memo } from 'react';
 import useHomeHowDesktopInteractive from '@/hooks/home/home-how/home-how-desktop-interactive';
 import HomeHowDesktopCard from '@/fragments/home/home-how/home-how-desktop-card';
 import classMerge from '@/utils/class-merge';
-import type { RefObject } from 'react';
+import type { HowDesktopProps } from '@/types/home';
 
 const MemoizedSteps = memo(Steps);
 const stepStyles = classMerge(
@@ -11,7 +11,8 @@ const stepStyles = classMerge(
   'block'
 );
 
-export default function HomeHowDesktop({ root }: { root: RefObject<HTMLDivElement> }) {
+export default function HomeHowDesktop(props: HowDesktopProps) {
+  const { root } = props;
   const { scope, active, control } = useHomeHowDesktopInteractive(root);
 
   return (

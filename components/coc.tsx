@@ -10,7 +10,8 @@ export const styles = tv({
   },
 });
 
-export default function COC({ className }: COCProps) {
+export default function COC(props: COCProps) {
+  const { className } = props;
   const { container, stroke, path, svg } = styles();
 
   return (

@@ -14,9 +14,10 @@ export const styles = tv({
 });
 
 const YusrMuttaqien = forwardRef<HTMLDivElement, YusrMuttaqienProps>(function YusrMuttaqien(
-  { className, withPlaceholder, isVisible, ...rest },
+  props,
   ref
 ) {
+  const { className, withPlaceholder, isVisible, ...rest } = props;
   const { wrapper } = styles();
 
   return (
@@ -47,7 +48,8 @@ const YusrMuttaqien = forwardRef<HTMLDivElement, YusrMuttaqienProps>(function Yu
 
 export default YusrMuttaqien;
 
-function YusrMuttaqienSVGS({ className }: YusrMuttaqienSVGSProps) {
+function YusrMuttaqienSVGS(props: YusrMuttaqienSVGSProps) {
+  const { className } = props;
   const { isScreenTablet } = useMediaQueryCtx();
   const { pathFill } = styles();
 

@@ -16,12 +16,8 @@ export const styles = tv({
   },
 });
 
-export default function SectionHeader({
-  subtitle,
-  title,
-  children,
-  className,
-}: SectionHeaderProps) {
+export default function SectionHeader(props: SectionHeaderProps) {
+  const { subtitle, title, children, className } = props;
   const {
     header,
     subheadingGroup,

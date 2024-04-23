@@ -7,7 +7,8 @@ import type { LinkProps } from '@/types/link';
 import type { MouseEvent } from 'react';
 import type { Url } from 'next/dist/shared/lib/router/router';
 
-export default function Link({ onClick, href, scroll = false, ...rest }: LinkProps) {
+export default function Link(props: LinkProps) {
+  const { onClick, href, scroll = false, ...rest } = props;
   const {
     state: { navbarHeight },
   } = useMeasurementCtx();

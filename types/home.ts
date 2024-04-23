@@ -63,3 +63,22 @@ export type HowMobileCardProps = {
   name: string;
   className?: string;
 };
+export type HowDesktopCardImageProps = {
+  image: string;
+  name: string;
+};
+export type HowDesktopCardDescProps = {
+  desc: string;
+  name: string;
+};
+export type HowDesktopProps = {
+  root: RefObject<HTMLDivElement>;
+};
+export type HowMobileHowsProps = {
+  image: string;
+  desc: string;
+  name: string;
+};
+export type HowProps = {
+  className?: string;
+};

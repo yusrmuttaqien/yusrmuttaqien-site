@@ -2,7 +2,9 @@ import Image from '@/components/image';
 import classMerge from '@/utils/class-merge';
 import type { HowMobileCardProps } from '@/types/home';
 
-export default function HomeHowMobileCard({ image, desc, name, className }: HowMobileCardProps) {
+export default function HomeHowMobileCard(props: HowMobileCardProps) {
+  const { image, desc, name, className } = props;
+
   return (
     <figure
       className={classMerge(

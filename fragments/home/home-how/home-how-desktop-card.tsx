@@ -2,9 +2,14 @@ import { motion } from 'framer-motion';
 import Image from '@/components/image';
 import classMerge from '@/utils/class-merge';
 import useContent from '@/contents/home';
-import type { HowDesktopCardProps } from '@/types/home';
+import type {
+  HowDesktopCardProps,
+  HowDesktopCardDescProps,
+  HowDesktopCardImageProps,
+} from '@/types/home';
 
-export default function HomeHowDesktopCard({ className, active, control }: HowDesktopCardProps) {
+export default function HomeHowDesktopCard(props: HowDesktopCardProps) {
+  const { className, active, control } = props;
   const {
     how: { hows },
   } = useContent();
@@ -39,7 +44,7 @@ export default function HomeHowDesktopCard({ className, active, control }: HowDe
   );
 }
 
-function CardImage({ image, name }: { image: string; name: string }) {
+function CardImage({ image, name }: HowDesktopCardImageProps) {
   return (
     <motion.div data-framer={`how-card-desktop-${name}-img`} className="absolute inset-0">
       <Image
@@ -51,7 +56,7 @@ function CardImage({ image, name }: { image: string; name: string }) {
   );
 }
 
-function CardDesc({ desc, name }: { desc: string; name: string }) {
+function CardDesc({ desc, name }: HowDesktopCardDescProps) {
   return (
     <motion.figcaption
       data-framer={`how-card-desktop-${name}-desc`}

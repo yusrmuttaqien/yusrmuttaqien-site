@@ -9,7 +9,8 @@ import classMerge from '@/utils/class-merge';
 import useContent from '@/contents/home';
 import type { HeroProps } from '@/types/home';
 
-export default function HomeHero({ className }: HeroProps) {
+export default function HomeHero(props: HeroProps) {
+  const { className } = props;
   const {
     hero: { tagline },
   } = useContent();

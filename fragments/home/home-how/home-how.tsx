@@ -7,8 +7,10 @@ import HomeHowHeader from '@/fragments/home/home-how/home-how-header';
 import HomeHowDesktop from '@/fragments/home/home-how/home-how-desktop';
 import HomeHowMobile from '@/fragments/home/home-how/home-how-mobile';
 import classMerge from '@/utils/class-merge';
+import type { HowProps } from '@/types/home';
 
-export default function HomeHow({ className }: { className?: string }) {
+export default function HomeHow(props: HowProps) {
+  const { className } = props;
   const { locale } = useRouter();
   const { isScreenDesktop } = useMediaQueryCtx();
   const entryScope = useHomeHowEntry();

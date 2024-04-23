@@ -6,11 +6,9 @@ import type {
   HeroBlueprintCentreProps,
 } from '@/types/home';
 
-export default function HomeHeroBlueprint({
-  className,
-  framerStyles,
-  ...rest
-}: HeroBlueprintProps) {
+export default function HomeHeroBlueprint(props: HeroBlueprintProps) {
+  const { className, framerStyles, ...rest } = props;
+
   return (
     <div
       className={classMerge('h-full w-full shrink-0 relative overflow-hidden', className)}
@@ -22,7 +20,9 @@ export default function HomeHeroBlueprint({
   );
 }
 
-function Cross({ framerStyles }: HeroBlueprintCrossProps) {
+function Cross(props: HeroBlueprintCrossProps) {
+  const { framerStyles } = props;
+
   return (
     <motion.div className="h-full w-full" data-framer="blueprint-cross" style={framerStyles}>
       <svg width="100%" height="100%" viewBox="0 0 789 789" fill="none" preserveAspectRatio="none">
@@ -50,7 +50,9 @@ function Cross({ framerStyles }: HeroBlueprintCrossProps) {
   );
 }
 
-function Centre({ framerStyles }: HeroBlueprintCentreProps) {
+function Centre(props: HeroBlueprintCentreProps) {
+  const { framerStyles } = props;
+
   return (
     <motion.div
       className="absolute inset-0"

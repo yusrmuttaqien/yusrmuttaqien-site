@@ -4,7 +4,8 @@ import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import YusrMuttaqien from '@/components/yusr-muttaqien';
 import type { HeroYusrMuttaqienProps } from '@/types/home';
 
-export default function HomeHeroYusrMuttaqien({ root }: HeroYusrMuttaqienProps) {
+export default function HomeHeroYusrMuttaqien(props: HeroYusrMuttaqienProps) {
+  const { root } = props;
   const {
     state: { yusrMuttaqien },
     setState,
