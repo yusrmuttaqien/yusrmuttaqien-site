@@ -16,42 +16,40 @@ export default function useLoaderExit() {
   const { isValidated } = useMediaQueryCtx();
 
   useIsomorphicLayoutEffect(() => {
-    const outerEl = scope.current.children.item(0) as HTMLDivElement;
-    const innerEl = outerEl.children.item(0) as HTMLDivElement;
+    const root = scope.current as HTMLElement;
+    const outer = root.children.item(0) as HTMLDivElement;
+    const inner = outer.children.item(0) as HTMLDivElement;
 
-    function exit() {
+    function _hide() {
+      outer?.removeEventListener('transitionend', _hide);
+      root.classList.add('hidden');
+    }
+    function _exit() {
       const { clientHeight, clientWidth } = document.documentElement;
-      const scaleFrom = +getComputedStyle(outerEl as HTMLElement).transform.split(',')[3];
+      const scaleFrom = +getComputedStyle(outer as HTMLElement).transform.split(',')[3];
       let scaleTo = Math.sqrt((clientWidth * clientWidth) / 4 + (clientHeight * clientHeight) / 4);
       scaleTo = Math.ceil(scaleTo) / (Math.min(clientHeight, clientWidth) / 4);
 
+      outer?.addEventListener('transitionend', _hide);
       animate(Sequences({ part: 'go', scaleFrom, scaleTo })).then(() => {
         setState((draft) => {
           draft.isLoader = false;
         });
-
-        function hide() {
-          (scope.current as HTMLElement).classList.add('hidden');
-
-          outerEl?.removeEventListener('transitionend', hide);
-        }
-
-        outerEl?.addEventListener('transitionend', hide);
       });
     }
-    function intercept() {
+    function _intercept() {
       if (!isValidated || !isPageReady) return;
 
-      outerEl?.classList.remove('animate-loader-bubble-out');
-      innerEl?.classList.remove('animate-loader-scale-radiate-out');
-      innerEl?.removeEventListener('animationiteration', intercept);
-      animate(Sequences({ part: 'ready' })).then(exit);
+      inner?.removeEventListener('animationiteration', _intercept);
+      outer?.classList.remove('animate-loader-outer-bubble-out');
+      inner?.classList.remove('animate-loader-inner-radiate-out');
+      animate(Sequences({ part: 'ready' })).then(_exit);
     }
 
-    innerEl?.addEventListener('animationiteration', intercept);
+    inner?.addEventListener('animationiteration', _intercept);
 
     return () => {
-      innerEl?.removeEventListener('animationiteration', intercept);
+      inner?.removeEventListener('animationiteration', _intercept);
     };
   }, [isValidated, isPageReady]);
 
@@ -90,5 +88,5 @@ function Sequences(props: SequencesProps): AnimationSequence {
     ],
   ];
 
-  return part === 'ready' ? SEQUENCE[0] : SEQUENCE[1];
+  return SEQUENCE[part === 'ready' ? 0 : 1];
 }

@@ -48,30 +48,30 @@ const config: Config = {
         'out-expo': EASE_OUT_EXPO_CSS,
       },
       keyframes: {
-        'loader-scale-radiate-out': {
-          '0%': {
+        'loader-inner-radiate-out': {
+          '0%, 25%': {
             scale: '0',
           },
-          '30%, 30.1%': {
+          '55%, 57%': {
             opacity: '1',
             scale: '1',
           },
-          '50%, 100%': {
+          '75%, 100%': {
             opacity: '0',
             scale: '1.5',
           },
         },
-        'loader-bubble-out': {
-          '0%, 18%': {
+        'loader-outer-bubble-out': {
+          '0%, 25%': {
             transform: 'translate(-50%, -50%) scale(0.5)',
           },
-          '30%, 30.1%': {
-            transform: 'translate(-50%, -50%) scale(0.497)',
+          '55%, 57%': {
+            transform: 'translate(-50%, -50%) scale(0.48)',
           },
-          '42.2%': {
-            transform: 'translate(-50%, -50%) scale(0.503)',
+          '75%': {
+            transform: 'translate(-50%, -50%) scale(0.508)',
           },
-          '55.2%, 100%': {
+          '95%, 100%': {
             transform: 'translate(-50%, -50%) scale(0.5)',
           },
         },
@@ -85,8 +85,8 @@ const config: Config = {
         },
       },
       animation: {
-        'loader-scale-radiate-out': `loader-scale-radiate-out 2.5s ${EASE_IN_OUT_QUART_CSS} infinite`,
-        'loader-bubble-out': `loader-bubble-out 2.5s ${EASE_IN_OUT_QUART_CSS} infinite`,
+        'loader-inner-radiate-out': `loader-inner-radiate-out 2.5s ${EASE_IN_OUT_QUART_CSS} infinite`,
+        'loader-outer-bubble-out': `loader-outer-bubble-out 2.5s ${EASE_IN_OUT_QUART_CSS} infinite`,
         'navbar-clock-blink': `navbar-clock-blink 1s ${EASE_IN_OUT_QUART_CSS} infinite`,
       },
     },

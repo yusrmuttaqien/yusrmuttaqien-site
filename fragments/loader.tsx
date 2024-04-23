@@ -13,7 +13,7 @@ export default function Loader() {
         className={classMerge(
           'translate-center aspect-square w-screen max-w-[100vh] transition-transform ease-out-expo duration-1000',
           'scale-50 -translate-x-1/2 -translate-y-1/2 border-grey/30 dark:border-beige/30 border-[3px]',
-          'animate-loader-bubble-out',
+          'animate-loader-outer-bubble-out',
           style
         )}
       >
@@ -21,7 +21,7 @@ export default function Loader() {
           data-framer="loader-inner"
           className={classMerge(
             'h-full aspect-square border-grey/40 dark:border-beige/40',
-            'animate-loader-scale-radiate-out border-[3px]',
+            'animate-loader-inner-radiate-out border-[3px]',
             style
           )}
         />
