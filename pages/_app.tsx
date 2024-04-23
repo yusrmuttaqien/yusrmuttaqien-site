@@ -1,14 +1,13 @@
 import Head from 'next/head';
 import { Fragment } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import type { AppProps } from 'next/app';
 import Providers from '@/providers';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import Loader from '@/fragments/loader';
-import Announcer from '@/fragments/announcer/announcer';
-// import Debugger from '@/fragments/debugger/debugger';
+import Announcer from '@/fragments/announcer';
 import Navbar from '@/fragments/navbar/navbar';
-import { helveticaNeue, robotoMono, nohemi } from '@/constants/root-app';
+import { helveticaNeue, robotoMono, nohemi } from '@/constants/app';
+import type { AppProps } from 'next/app';
 import '@/styles/globals.css';
 
 export default function App({ Component, pageProps, router }: AppProps) {
@@ -27,7 +26,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <Providers>
         <Announcer />
         <Loader />
-        {/* <Debugger /> */}
         <Navbar />
         <AnimatePresence mode="wait" initial={false}>
           <Component {...pageProps} key={router.route} />
