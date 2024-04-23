@@ -5,9 +5,11 @@ import { howSteps } from '@/contents/home/untranslated';
 
 const hero = { tagline: 'Pengembang | Desainer Antarmuka' };
 const masteries = {
-  subtitle: masteriesId,
-  title:
-    'Bersemangat dalam mempelajari dan menerapkan (terutama) teknologi web. Bertujuan untuk menciptakan pengalaman pengguna yang lebih baik bagi semua orang melalui UI/UX dan desain gerak yang canggih.',
+  header: {
+    subtitle: masteriesId,
+    title:
+      'Bersemangat dalam mempelajari dan menerapkan (terutama) teknologi web. Bertujuan untuk menciptakan pengalaman pengguna yang lebih baik bagi semua orang melalui UI/UX dan desain gerak yang canggih.',
+  },
   masteries: [
     {
       title: 'Pengembang antarmuka',
@@ -29,8 +31,10 @@ const masteries = {
   marquee: 'Iblis ada dalam detailnya 😈',
 };
 const projects = {
-  title: projectsId.injectable + 'an',
-  subtitle: 'Mulai dari projek kontrak hingga personal.',
+  header: {
+    title: projectsId.injectable + 'an',
+    subtitle: 'Mulai dari projek kontrak hingga personal.',
+  },
   card: {
     singular: 'Sebuah',
   },

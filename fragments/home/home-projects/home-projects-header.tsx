@@ -26,7 +26,9 @@ const COMPS = {
 export default function HomeProjectsHeader() {
   const h2Ref = useRef<HTMLHeadingElement>(null);
   const {
-    projects: { title, subtitle },
+    projects: {
+      header: { title, subtitle },
+    },
   } = useContent();
   const { isScreenFrom550 } = useMediaQueryCtx();
 

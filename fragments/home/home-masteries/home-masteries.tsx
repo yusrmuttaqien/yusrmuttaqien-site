@@ -21,7 +21,11 @@ const styles = tv({
 
 export default function HomeMasteries({ className }: { className?: Partial<typeof styles.slots> }) {
   const {
-    masteries: { title, subtitle, masteries, marquee },
+    masteries: {
+      header: { title, subtitle },
+      masteries,
+      marquee,
+    },
   } = useContent();
   const { isDeviceMobile } = useMediaQueryCtx();
   const entryScope = useHomeMasteriesEntry();

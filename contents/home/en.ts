@@ -5,9 +5,11 @@ import { howSteps } from '@/contents/home/untranslated';
 
 const hero = { tagline: 'Frontend developer | UI/UX designer' };
 const masteries = {
-  subtitle: masteriesId,
-  title:
-    'Eager in learning and applying (especially) web technologies. Aiming to create a better user experiences for everyone through toughtfull UI/UX and motion designs.',
+  header: {
+    subtitle: masteriesId,
+    title:
+      'Eager in learning and applying (especially) web technologies. Aiming to create a better user experiences for everyone through toughtfull UI/UX and motion designs.',
+  },
   masteries: [
     {
       title: 'Frontend developer',
@@ -29,8 +31,10 @@ const masteries = {
   marquee: 'The devil is in the details 😈',
 };
 const projects = {
-  title: projectsId.injectable,
-  subtitle: 'Ranging from what i do for work to my own projects.',
+  header: {
+    title: projectsId.injectable,
+    subtitle: 'Ranging from what i do for work to my own projects.',
+  },
   card: {
     singular: 'A',
   },
