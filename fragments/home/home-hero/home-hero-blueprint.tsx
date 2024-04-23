@@ -24,13 +24,13 @@ function Cross({ framerStyles }: { framerStyles: HeroBlueprintProps['framerStyle
       <svg width="100%" height="100%" viewBox="0 0 789 789" fill="none" preserveAspectRatio="none">
         <g clipPath="url(#clip0_3035_176)">
           <path
-            className="fill-grey/20 dark:fill-beige/20"
+            className="fill-grey-dynamic-[20]"
             fillRule="evenodd"
             clipRule="evenodd"
             d="M789 789L-7.64152e-06 9.91943e-05L0.845306 -0.845215L789.845 788.155L789 789Z"
           />
           <path
-            className="fill-grey/20 dark:fill-beige/20"
+            className="fill-grey-dynamic-[20]"
             fillRule="evenodd"
             clipRule="evenodd"
             d="M789 2.42765e-05L7.64152e-06 789L-0.845306 788.155L788.155 -0.84529L789 2.42765e-05Z"
@@ -61,7 +61,7 @@ function Centre({ framerStyles }: { framerStyles: HeroBlueprintProps['framerStyl
         <svg className="w-full h-full" viewBox="0 0 289 289" fill="none">
           <g clipPath="url(#clip0_3224_990)">
             <circle
-              className="stroke-grey/20 dark:stroke-beige/20"
+              className="stroke-grey-dynamic-[30]"
               cx="144.052"
               cy="144.052"
               r="143.455"
@@ -79,7 +79,7 @@ function Centre({ framerStyles }: { framerStyles: HeroBlueprintProps['framerStyl
         <svg className="w-full h-full" viewBox="0 0 289 289" fill="none">
           <g clipPath="url(#clip0_3224_990)">
             <circle
-              className="stroke-grey/20 dark:stroke-beige/20"
+              className="stroke-grey-dynamic-[30]"
               cx="144.098"
               cy="142.902"
               r="98.2158"

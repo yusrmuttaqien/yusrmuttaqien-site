@@ -17,7 +17,7 @@ export default function HomeHowDesktopCard({ className, active, control }: HowDe
         data-framer="how-card"
         animate={control}
         className={classMerge(
-          'border border-grey/20 dark:border-beige/20',
+          'border border-grey-dynamic-[20]',
           'p-[0.625rem] space-y-[0.625rem] h-max overflow-hidden',
           'w-full absolute top-0 left-0 -mt-[30%]'
         )}

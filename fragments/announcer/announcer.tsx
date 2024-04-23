@@ -31,7 +31,7 @@ export default function Announcer() {
         'mask-image-[radial-gradient(circle,_rgba(2,0,36,1)_0%,_rgba(0,212,255,0)_100%)]'
       )}
     >
-      <span className="bg-grey/80 dark:bg-beige/80 w-full h-[0.0938rem] block" />
+      <span className="bg-grey-dynamic-[80] w-full h-[0.0938rem] block" />
     </motion.div>
   );
 }

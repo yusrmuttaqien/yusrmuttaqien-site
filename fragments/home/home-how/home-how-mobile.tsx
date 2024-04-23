@@ -32,9 +32,9 @@ function Hows(props: { image: string; desc: string; name: string }) {
         <h3 className="uppercase">{props.name}</h3>
         <span
           className={classMerge(
-            'flex-1 h-[0.0625rem] bg-grey dark:bg-beige ml-8 relative',
+            'flex-1 h-[0.0625rem] bg-grey-dynamic-[] ml-8 relative',
             'after:border-b after:border-r after:-rotate-45 after:absolute',
-            'after:border-grey after:dark:border-beige after:right-0',
+            'after:border-grey-dynamic-[] after:right-0',
             'after:inline-block after:p-[0.3125rem] after:top-1/2 after:-translate-y-1/2',
             'lg:mx-8 after:invisible lg:after:visible'
           )}

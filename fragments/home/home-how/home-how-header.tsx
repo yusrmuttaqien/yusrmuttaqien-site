@@ -32,8 +32,8 @@ export default function HomeHowHeader() {
         <COC
           className={{
             container: 'w-40',
-            path: 'fill-grey dark:fill-beige',
-            stroke: 'fill-beige-off dark:fill-grey-off',
+            path: 'fill-grey-dynamic-[]',
+            stroke: 'fill-beige-off-dynamic-[]',
           }}
         />
       )}

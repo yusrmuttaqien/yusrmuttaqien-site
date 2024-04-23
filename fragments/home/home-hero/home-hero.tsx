@@ -23,7 +23,7 @@ export default function HomeHero({ className }: { className?: string }) {
       id="home-hero"
       className={classMerge(
         'h-[100svh] min-h-[25rem] w-full flex items-end relative isolate',
-        'bg-beige dark:bg-grey overflow-hidden opacity-0',
+        'bg-beige-dynamic-[] overflow-hidden opacity-0',
         className
       )}
     >
@@ -32,7 +32,7 @@ export default function HomeHero({ className }: { className?: string }) {
         style={status === 'complete' ? headerUnits : {}}
         className={classMerge(
           'z-10 w-full relative p-[clamp(1.125rem,_0.0341rem_+_5.4545vw,_1.5rem)]',
-          'bg-beige/80 backdrop-blur-8 dark:bg-grey/80'
+          'bg-beige-dynamic-[80] backdrop-blur-8'
         )}
       >
         <p className="body-subheading lg:-mb-[1.6vw]">{tagline}</p>

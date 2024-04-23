@@ -26,11 +26,11 @@
   }
 
   *::selection {
-    @apply bg-grey/80 dark:bg-beige/80 text-beige dark:text-grey;
+    @apply bg-grey-dynamic-[80] text-beige-dynamic-[];
   }
 
   html {
-    @apply bg-beige dark:bg-grey;
+    @apply bg-beige-dynamic-[];
   }
 
   html.lenis,
@@ -39,7 +39,7 @@
   }
 
   body {
-    @apply unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased min-w-full body-normal text-grey dark:text-beige font-helvetica-neue;
+    @apply unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased min-w-full body-normal text-grey-dynamic-[] font-helvetica-neue 2xl:text-[1.125rem];
   }
 
   .lenis.lenis-smooth {

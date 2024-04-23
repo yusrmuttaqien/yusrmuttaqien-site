@@ -48,7 +48,7 @@ export default function useHomeHowEntry() {
 
         heading.style.perspective = '5000px';
         heading.classList.add('overflow-hidden', 'relative', 'isolate');
-        title.classList.add('relative', 'z-10', 'bg-beige', 'dark:bg-grey');
+        title.classList.add('relative', 'z-10', 'bg-beige-dynamic-[]');
         arrow.classList.add('z-0');
       });
     }

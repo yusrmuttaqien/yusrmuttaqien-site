@@ -3,7 +3,7 @@ import type { MasteriesListProps } from '@/types/home';
 
 const styles = {
   firstParagraph: '',
-  nextParagraphs: 'text-grey/60 dark:text-beige/60 text-justify',
+  nextParagraphs: 'text-grey-dynamic-[80] text-justify',
 };
 
 export default function HomeMasteriesList({ title, contents, idx }: MasteriesListProps) {

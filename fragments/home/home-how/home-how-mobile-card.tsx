@@ -6,7 +6,7 @@ export default function HomeHowMobileCard({ image, desc, name, className }: HowM
   return (
     <figure
       className={classMerge(
-        'border border-grey/20 dark:border-beige/20',
+        'border border-grey-dynamic-[20]',
         'p-[0.625rem] space-y-[0.625rem]',
         className
       )}

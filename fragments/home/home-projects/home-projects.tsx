@@ -57,9 +57,7 @@ export default function HomeProjects({ className }: { className?: string }) {
             href="/projects"
           >
             See all projects
-            <sup className="font-roboto-mono text-grey/60 dark:text-beige/60">
-              +{projects.length - 4}
-            </sup>
+            <sup className="font-roboto-mono text-grey-dynamic-[60]">+{projects.length - 4}</sup>
           </Link>
         </div>
       )}

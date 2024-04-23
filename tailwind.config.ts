@@ -248,6 +248,54 @@ const config: Config = {
             WebkitMaskImage: value,
             maskImage: value,
           }),
+          'border-grey-dynamic': (opacity: string) => ({
+            borderColor: `${COLOR_GREY.DEFAULT}${opacity}`,
+            '@media (prefers-color-scheme: dark)': {
+              borderColor: `${COLOR_BEIGE.DEFAULT}${opacity}`,
+            },
+          }),
+          'text-beige-dynamic': (opacity: string) => ({
+            color: `${COLOR_BEIGE.DEFAULT}${opacity}`,
+            '@media (prefers-color-scheme: dark)': {
+              color: `${COLOR_GREY.DEFAULT}${opacity}`,
+            },
+          }),
+          'text-grey-dynamic': (opacity: string) => ({
+            color: `${COLOR_GREY.DEFAULT}${opacity}`,
+            '@media (prefers-color-scheme: dark)': {
+              color: `${COLOR_BEIGE.DEFAULT}${opacity}`,
+            },
+          }),
+          'bg-grey-dynamic': (opacity: string) => ({
+            backgroundColor: `${COLOR_GREY.DEFAULT}${opacity}`,
+            '@media (prefers-color-scheme: dark)': {
+              backgroundColor: `${COLOR_BEIGE.DEFAULT}${opacity}`,
+            },
+          }),
+          'bg-beige-dynamic': (opacity: string) => ({
+            backgroundColor: `${COLOR_BEIGE.DEFAULT}${opacity}`,
+            '@media (prefers-color-scheme: dark)': {
+              backgroundColor: `${COLOR_GREY.DEFAULT}${opacity}`,
+            },
+          }),
+          'fill-grey-dynamic': (opacity: string) => ({
+            fill: `${COLOR_GREY.DEFAULT}${opacity}`,
+            '@media (prefers-color-scheme: dark)': {
+              fill: `${COLOR_BEIGE.DEFAULT}${opacity}`,
+            },
+          }),
+          'fill-beige-off-dynamic': (opacity: string) => ({
+            fill: `${COLOR_BEIGE.off}${opacity}`,
+            '@media (prefers-color-scheme: dark)': {
+              fill: `${COLOR_GREY.off}${opacity}`,
+            },
+          }),
+          'stroke-grey-dynamic': (opacity: string) => ({
+            stroke: `${COLOR_GREY.DEFAULT}${opacity}`,
+            '@media (prefers-color-scheme: dark)': {
+              stroke: `${COLOR_BEIGE.DEFAULT}${opacity}`,
+            },
+          }),
         },
         { respectImportant: true, values: { '': '' } }
       );

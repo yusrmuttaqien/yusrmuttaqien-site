@@ -15,7 +15,7 @@ const styles = tv({
   slots: {
     container: 'relative invisible isolate',
     wrapper: 'container space-y-[clamp(4.25rem,_1.25rem_+_15vw,_5.75rem)] relative z-10',
-    marquee: 'w-[var(--height)] text-grey dark:text-beige',
+    marquee: 'w-[var(--height)] text-grey-dynamic-[]',
   },
 });
 

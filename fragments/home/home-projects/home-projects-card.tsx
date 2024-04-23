@@ -14,7 +14,7 @@ export default function HomeProjectsCard({ className, content }: ProjectsCardPro
     <Link href={`/projects/${title}`}>
       <figure
         className={classMerge(
-          'relative border border-grey/20 dark:border-beige/20',
+          'relative border border-grey-dynamic-[20]',
           'p-[0.625rem] isolate',
           className
         )}

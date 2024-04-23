@@ -9,7 +9,7 @@ import type { YusrMuttaqienProps, YusrMuttaqienSVGSProps } from '@/types/yusr-mu
 export const styles = tv({
   slots: {
     wrapper: 'w-full',
-    pathFill: 'fill-grey dark:fill-beige',
+    pathFill: 'fill-grey-dynamic-[]',
   },
 });
 

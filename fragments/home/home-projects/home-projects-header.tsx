@@ -16,8 +16,8 @@ const COMPS = {
           'from-550:origin-center from-550:left-[2.5ch]',
           'from-550:-rotate-12 z-10'
         ),
-        path: 'fill-grey dark:fill-beige',
-        stroke: 'fill-beige-off dark:fill-grey-off',
+        path: 'fill-grey-dynamic-[]',
+        stroke: 'fill-beige-off-dynamic-[]',
       }}
     />
   ),
