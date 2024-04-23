@@ -10,12 +10,8 @@ export const styles = tv({
   },
 });
 
-export default function HomeMasteriesMarquee({
-  children,
-  baseVelocity,
-  className,
-  name,
-}: MasteriesMarqueeProps) {
+export default function HomeMasteriesMarquee(props: MasteriesMarqueeProps) {
+  const { children, baseVelocity, className, name } = props;
   const { scope, x, reps } = useHomeMasteriesMarquee(children, baseVelocity);
   const { container, wrapper } = styles();
 

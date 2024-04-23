@@ -6,7 +6,9 @@ const styles = {
   nextParagraphs: 'text-grey-dynamic-[80] text-justify',
 };
 
-export default function HomeMasteriesList({ title, contents, idx }: MasteriesListProps) {
+export default function HomeMasteriesList(props: MasteriesListProps) {
+  const { title, contents, idx } = props;
+
   return (
     <article
       data-framer={`masteries-list-${idx}`}

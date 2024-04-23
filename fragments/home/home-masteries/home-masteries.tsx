@@ -9,9 +9,10 @@ import HomeMasteriesList from '@/fragments/home/home-masteries/home-masteries-li
 import HomeMasteriesMarquee from '@/fragments/home/home-masteries/home-masteries-marquee';
 import classMerge from '@/utils/class-merge';
 import useContent from '@/contents/home';
+import type { MasteriesProps } from '@/types/home';
 
 const MemoizedSectionHeader = memo(SectionHeader);
-const styles = tv({
+export const styles = tv({
   slots: {
     container: 'relative invisible isolate',
     wrapper: 'container space-y-[clamp(4.25rem,_1.25rem_+_15vw,_5.75rem)] relative z-10',
@@ -19,7 +20,8 @@ const styles = tv({
   },
 });
 
-export default function HomeMasteries({ className }: { className?: Partial<typeof styles.slots> }) {
+export default function HomeMasteries(props: MasteriesProps) {
+  const { className } = props;
   const {
     masteries: {
       header: { title, subtitle },
