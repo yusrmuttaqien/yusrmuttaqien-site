@@ -5,3 +5,6 @@ export type MeasurementState = {
   state: typeof MEASUREMENT_INITIAL_STATE;
   setState: Updater<typeof MEASUREMENT_INITIAL_STATE>;
 };
+export type MeasurementInitialState = {
+  navbarHeight: number | undefined;
+};

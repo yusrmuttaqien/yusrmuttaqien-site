@@ -27,7 +27,7 @@ const YusrMuttaqien = forwardRef<HTMLDivElement, YusrMuttaqienProps>(function Yu
             className={classMerge(
               'w-full',
               wrapper({ className: className?.wrapper }),
-              withPlaceholder ? 'absolute top-0 left-0' : undefined
+              withPlaceholder && 'absolute top-0 left-0'
             )}
             {...VARIANT_YUSR_MUTTAQIEN}
             {...rest}

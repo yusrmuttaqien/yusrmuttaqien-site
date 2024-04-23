@@ -2,9 +2,9 @@ import { useInView } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import YusrMuttaqien from '@/components/yusr-muttaqien';
-import type { RefObject } from 'react';
+import type { HeroYusrMuttaqienProps } from '@/types/home';
 
-export default function HomeHeroYusrMuttaqien({ root }: { root: RefObject<HTMLDivElement> }) {
+export default function HomeHeroYusrMuttaqien({ root }: HeroYusrMuttaqienProps) {
   const {
     state: { yusrMuttaqien },
     setState,

@@ -1,3 +1,5 @@
+import type { AnimationSequenceInitialState } from '@/types/animation-sequence';
+
 export const ANIMATION_SEQUENCE_INITIAL_STATE = {
   isPageReady: false,
   isLoader: true,
@@ -7,13 +9,4 @@ export const ANIMATION_SEQUENCE_INITIAL_STATE = {
     navbar: true,
   },
   announcer: { announcing: false },
-} as {
-  isPageReady: boolean;
-  isLoader: boolean;
-  yusrMuttaqien: {
-    hero: boolean;
-    footer: boolean;
-    navbar: boolean;
-  };
-  announcer: { announcing: boolean | 'manually' };
-};
+} as AnimationSequenceInitialState;

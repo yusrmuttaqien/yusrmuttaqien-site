@@ -4,13 +4,13 @@ import { motion } from 'framer-motion';
 import useImageInteractive from '@/hooks/image-interactive';
 import type { ImageProps } from '@/types/image';
 
+const NextImageMotion = motion(NextImage);
 export const styles = tv({
   slots: {
     container: 'relative overflow-hidden',
     nextImage: 'origin-center duration-1000 ease-out-expo object-cover',
   },
 });
-const NextImageMotion = motion(NextImage);
 
 export default function Image({ className, imageScale = 1.25, ...rest }: ImageProps) {
   const { container, nextImage } = styles();

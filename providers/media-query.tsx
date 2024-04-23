@@ -6,9 +6,9 @@ import debounce from '@/utils/debounce';
 import deviceType from '@/utils/device-type';
 import { MEDIA_QUERY_INITIAL_STATE } from '@/constants/media-query';
 import { scrSize } from '@/constants/tailwind-config';
-import type { MediaQueryState } from '@/types/media-query';
+import type { MediaQueryInitialState } from '@/types/media-query';
 
-const MediaQueryContext = createContext<MediaQueryState>(MEDIA_QUERY_INITIAL_STATE);
+const MediaQueryContext = createContext<MediaQueryInitialState>(MEDIA_QUERY_INITIAL_STATE);
 
 export default function MediaQueryProvider({ children }: { children: ReactNode }) {
   const [revalidate, setRevalidate] = useState(0);

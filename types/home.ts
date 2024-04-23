@@ -1,24 +1,31 @@
 import useHomeHeroInteractive from '@/hooks/home/home-hero/home-hero-interactive';
 import { styles as MarquesStyles } from '@/fragments/home/home-masteries/home-masteries-marquee';
 import type { AnimationSequence, AnimationControls } from 'framer-motion';
-import type { ReactNode, HTMLAttributes } from 'react';
+import type { ReactNode, HTMLAttributes, RefObject } from 'react';
 import type { HowSteps } from '@/types/content';
 
+export type HeroProps = {
+  className?: string;
+};
 export type HeroBlueprintProps = {
   className?: string;
   framerStyles: ReturnType<typeof useHomeHeroInteractive>['bpUnits'];
 } & HTMLAttributes<HTMLDivElement>;
+export type HeroBlueprintCrossProps = { framerStyles: HeroBlueprintProps['framerStyles']['cross'] };
+export type HeroBlueprintCentreProps = {
+  framerStyles: HeroBlueprintProps['framerStyles']['centre'];
+};
+export type HeroYusrMuttaqienProps = {
+  root: RefObject<HTMLDivElement>;
+};
 export type HeroSequencesProps = {
   part: 'ready' | 'go';
 };
+
 export type MasteriesSequencesProps = {
   part: 'ready' | 'go';
   extraSequence?: AnimationSequence;
   marqueeX?: number;
-};
-export type ProjectsSequencesProps = {
-  part: 'ready' | 'go';
-  title2ML?: number;
 };
 export type MasteriesListProps = {
   title: string;
@@ -31,6 +38,11 @@ export type MasteriesMarqueeProps = {
   className?: Partial<typeof MarquesStyles.slots>;
   name?: string;
 };
+
+export type ProjectsSequencesProps = {
+  part: 'ready' | 'go';
+  title2ML?: number;
+};
 export type ProjectsCardProps = {
   className?: string;
   content: {
@@ -39,6 +51,7 @@ export type ProjectsCardProps = {
     type: string;
   };
 };
+
 export type HowDesktopCardProps = {
   className?: string;
   active: keyof HowSteps | undefined;

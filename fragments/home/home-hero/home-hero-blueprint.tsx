@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion';
 import classMerge from '@/utils/class-merge';
-import type { HeroBlueprintProps } from '@/types/home';
+import type {
+  HeroBlueprintProps,
+  HeroBlueprintCrossProps,
+  HeroBlueprintCentreProps,
+} from '@/types/home';
 
 export default function HomeHeroBlueprint({
   className,
@@ -18,7 +22,7 @@ export default function HomeHeroBlueprint({
   );
 }
 
-function Cross({ framerStyles }: { framerStyles: HeroBlueprintProps['framerStyles']['cross'] }) {
+function Cross({ framerStyles }: HeroBlueprintCrossProps) {
   return (
     <motion.div className="h-full w-full" data-framer="blueprint-cross" style={framerStyles}>
       <svg width="100%" height="100%" viewBox="0 0 789 789" fill="none" preserveAspectRatio="none">
@@ -46,7 +50,7 @@ function Cross({ framerStyles }: { framerStyles: HeroBlueprintProps['framerStyle
   );
 }
 
-function Centre({ framerStyles }: { framerStyles: HeroBlueprintProps['framerStyles']['centre'] }) {
+function Centre({ framerStyles }: HeroBlueprintCentreProps) {
   return (
     <motion.div
       className="absolute inset-0"

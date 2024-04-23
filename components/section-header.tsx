@@ -30,6 +30,7 @@ export default function SectionHeader({
     subheadingChildren,
     headerChildren,
   } = styles();
+
   return (
     <header className={header({ className: className?.header })}>
       <div className={subheadingGroup({ className: className?.subheadingGroup })}>

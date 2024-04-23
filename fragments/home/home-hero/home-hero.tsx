@@ -7,8 +7,9 @@ import HomeHeroYusrMuttaqien from '@/fragments/home/home-hero/home-hero-yusr-mut
 import HomeHeroBlueprint from '@/fragments/home/home-hero/home-hero-blueprint';
 import classMerge from '@/utils/class-merge';
 import useContent from '@/contents/home';
+import type { HeroProps } from '@/types/home';
 
-export default function HomeHero({ className }: { className?: string }) {
+export default function HomeHero({ className }: HeroProps) {
   const {
     hero: { tagline },
   } = useContent();
