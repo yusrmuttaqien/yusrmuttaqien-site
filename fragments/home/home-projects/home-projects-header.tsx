@@ -6,7 +6,7 @@ import InjectString from '@/utils/inject-string';
 import classMerge from '@/utils/class-merge';
 import useContent from '@/contents/home';
 
-const COMPS = {
+const comps = {
   coc: (
     <COC
       className={{
@@ -56,7 +56,7 @@ export default function HomeProjectsHeader() {
           className="project-title uppercase isolate project-title-trim"
         >
           <InjectString
-            comps={COMPS}
+            comps={comps}
             string={title}
             name="projects-header-title"
             classNames={{

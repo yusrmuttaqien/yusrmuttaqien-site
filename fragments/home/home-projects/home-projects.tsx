@@ -6,12 +6,14 @@ import HomeProjectsHeader from '@/fragments/home/home-projects/home-projects-hea
 import useContent from '@/contents/home';
 import classMerge from '@/utils/class-merge';
 import type { CSSProperties } from 'react';
+import type { ProjectsProps } from '@/types/home';
 
 const MemoizedProjectsHeader = memo(HomeProjectsHeader);
 
-export default function HomeProjects({ className }: { className?: string }) {
+export default function HomeProjects(props: ProjectsProps) {
+  const { className } = props;
   const {
-    projects: { projects },
+    projects: { projects, allProjects },
   } = useContent();
   const scope = useHomeProjectsEntry();
   const isTwoMore = projects.length >= 2;
@@ -56,7 +58,7 @@ export default function HomeProjects({ className }: { className?: string }) {
             className="h3-normal relative hoverable:hover-underline float-right"
             href="/projects"
           >
-            See all projects
+            {allProjects}
             <sup className="font-roboto-mono text-grey-dynamic-[60]">+{projects.length - 4}</sup>
           </Link>
         </div>

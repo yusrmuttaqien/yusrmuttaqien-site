@@ -1,10 +1,11 @@
 import Link from '@/components/link';
 import Image from '@/components/image';
-import type { ProjectsCardProps } from '@/types/home';
 import classMerge from '@/utils/class-merge';
 import useContent from '@/contents/home';
+import type { ProjectsCardProps } from '@/types/home';
 
-export default function HomeProjectsCard({ className, content }: ProjectsCardProps) {
+export default function HomeProjectsCard(props: ProjectsCardProps) {
+  const { className, content } = props;
   const { image, title, type } = content;
   const {
     projects: { card },

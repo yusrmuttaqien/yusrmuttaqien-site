@@ -55,6 +55,9 @@ export type ProjectsCardProps = {
     type: string;
   };
 };
+export type ProjectsProps = {
+  className?: string;
+};
 
 export type HowDesktopCardProps = {
   className?: string;

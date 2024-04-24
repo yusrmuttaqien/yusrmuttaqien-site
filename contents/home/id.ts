@@ -38,6 +38,7 @@ const projects = {
   card: {
     singular: 'Sebuah',
   },
+  allProjects: 'Lihat semua projek',
   projects: projectsList(projectTypes),
 };
 const how = {
