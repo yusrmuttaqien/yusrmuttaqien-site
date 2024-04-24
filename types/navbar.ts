@@ -7,7 +7,13 @@ export type AnimatedDigitProps = {
   className?: string;
 };
 export type LangProps = {
+  className?: string;
+};
+export type SwitchProps = {
   locale: string;
   className?: string;
   idx: number;
+};
+export type NavbarProps = {
+  className?: string;
 };

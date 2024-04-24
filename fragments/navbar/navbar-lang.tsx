@@ -5,19 +5,22 @@ import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import { i18nOptions, i18nOptionsCursorEmoji } from '@/constants/i18n';
 import classMerge from '@/utils/class-merge';
-import type { LangProps } from '@/types/navbar';
+import type { SwitchProps, LangProps } from '@/types/navbar';
 
-export default function NavbarLang({ className }: { className?: string }) {
+export default function NavbarLang(props: LangProps) {
+  const { className } = props;
+
   return (
     <div>
       {i18nOptions.map((locale, idx) => (
-        <Lang key={locale} idx={idx} locale={locale} className={className} />
+        <Switch key={locale} idx={idx} locale={locale} className={className} />
       ))}
     </div>
   );
 }
 
-function Lang({ locale, className, idx }: LangProps) {
+function Switch(props: SwitchProps) {
+  const { locale, className, idx } = props;
   const { asPath, locale: currentLocale } = useRouter();
   const { setState } = useAnimationSequenceCtx();
   const totalSupportedLocales = i18nOptions.length;

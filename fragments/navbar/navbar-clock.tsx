@@ -3,11 +3,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import useNavbarClock from '@/hooks/navbar/navbar-clock';
 import classMerge from '@/utils/class-merge';
 import { VARIANT_CLOCK_NUM } from '@/constants/navbar';
-import type { AnimatedDigitProps } from '@/types/navbar';
+import type { AnimatedDigitProps, NavbarProps } from '@/types/navbar';
 
 const MemoizedAnimateDigit = memo(AnimateDigit);
 
-export default function NavbarClock({ className }: { className?: string }) {
+export default function NavbarClock(props: NavbarProps) {
+  const { className } = props;
   const time = useNavbarClock();
 
   return (
@@ -38,7 +39,9 @@ export default function NavbarClock({ className }: { className?: string }) {
   );
 }
 
-function AnimateDigit({ digit, variant = {}, sign, className }: AnimatedDigitProps) {
+function AnimateDigit(props: AnimatedDigitProps) {
+  const { digit, variant = {}, sign, className } = props;
+
   return (
     <span className={classMerge('relative inline-block', className)}>
       <AnimatePresence>
