@@ -1,6 +1,6 @@
 import { tv } from 'tailwind-variants';
 import { motion } from 'framer-motion';
-import useHomeMasteriesMarquee from '@/hooks/home/home-masteries/home-masteries-marquee';
+import useHomeMasteriesMarqueeInteractive from '@/hooks/home/home-masteries/home-masteries-marquee-interactive';
 import type { MasteriesMarqueeProps } from '@/types/home';
 
 export const styles = tv({
@@ -12,7 +12,7 @@ export const styles = tv({
 
 export default function HomeMasteriesMarquee(props: MasteriesMarqueeProps) {
   const { children, baseVelocity, className, name } = props;
-  const { scope, x, reps } = useHomeMasteriesMarquee(children, baseVelocity);
+  const { scope, x, reps } = useHomeMasteriesMarqueeInteractive({ baseVelocity });
   const { container, wrapper } = styles();
 
   return (

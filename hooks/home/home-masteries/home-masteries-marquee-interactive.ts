@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactNode } from 'react';
+import { useRef, useState } from 'react';
 import {
   useScroll,
   useTransform,
@@ -9,10 +9,13 @@ import {
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import wrap from '@/utils/wrap';
 import debounce from '@/utils/debounce';
+import type { MasteriesMarqueeInteractive } from '@/types/home';
 
-export default function useHomeMasteriesMarquee(children: ReactNode, baseVelocity: number = 0) {
+export default function useHomeMasteriesInteractive(props: MasteriesMarqueeInteractive) {
+  const { baseVelocity = 0 } = props;
   const scope = useRef<HTMLDivElement>(null);
   const direction = useRef(1);
+  const rAF = useRef<number>(0);
   const { scrollY } = useScroll();
   const baseX = useMotionValue(0);
   const childWidth = useMotionValue(0);
@@ -28,15 +31,13 @@ export default function useHomeMasteriesMarquee(children: ReactNode, baseVelocit
   });
 
   useIsomorphicLayoutEffect(() => {
-    const debouncedCalculate = debounce(calculate, 100);
+    const debouncedCalculate = debounce(_calculate, 100);
 
-    function calculate() {
-      let rAF: number;
-
-      rAF = requestAnimationFrame(() => {
+    function _calculate() {
+      rAF.current = requestAnimationFrame(() => {
         const root = scope.current as HTMLElement;
 
-        if (!root) return cancelAnimationFrame(rAF);
+        if (!root) return cancelAnimationFrame(rAF.current);
         const childWrapper = root.children.item(0) as HTMLElement;
         const child = childWrapper?.children.item(0) as HTMLElement;
         const cWidth = parseFloat(getComputedStyle(child).width);
@@ -48,13 +49,12 @@ export default function useHomeMasteriesMarquee(children: ReactNode, baseVelocit
     }
 
     window.addEventListener('resize', debouncedCalculate);
-    calculate();
+    _calculate();
 
     return () => {
       window.removeEventListener('resize', debouncedCalculate);
     };
-  }, [children]);
-
+  }, []);
   useAnimationFrame((_, delta) => {
     let moveBy = direction.current * baseVelocity * (delta / 1000);
 

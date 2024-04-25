@@ -6,7 +6,7 @@ import {
   stagger,
   inView,
   type AnimationSequence,
-  AnimationPlaybackControls,
+  type AnimationPlaybackControls,
 } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import { useMediaQueryCtx } from '@/providers/media-query';
@@ -14,19 +14,19 @@ import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import useSplitType from '@/hooks/split-type';
 import gFD from '@/utils/get-framer-data';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
-import type { MasteriesSequencesProps } from '@/types/home';
+import type { MasteriesSequences, MasteriesSequencesSequence } from '@/types/home';
+import type { EntryStatus } from '@/types/animation-sequence';
 
 export default function useHomeMasteriesEntry() {
   const {
     state: { isLoader },
   } = useAnimationSequenceCtx();
   const { locale } = useRouter();
-  const isReady = useRef(false);
-  const isComplete = useRef(false);
   const [scope, animate] = useAnimate();
   const { isValidated } = useMediaQueryCtx();
+  const status = useRef<EntryStatus>('not-ready');
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
-  const goInstance = useRef<AnimationPlaybackControls | null>(null);
+  const activeAnimate = useRef<AnimationPlaybackControls | null>(null);
   const { lastRun, disconnect } = useSplitType(`#home-masteries ${gFD('section-header-title')}`, {
     types: 'lines',
     lineClass: 'line whitespace-nowrap',
@@ -51,39 +51,42 @@ export default function useHomeMasteriesEntry() {
       ]);
     }
 
-    animate(Sequences({ part: 'ready', extraSequence, marqueeX: parseFloat(height) })).then(() => {
-      isReady.current = true;
-    });
+    animate(sequences({ status: 'ready', extraSequence, marqueeX: parseFloat(height) })).then(
+      () => {
+        status.current = 'ready';
+      }
+    );
   }
 
   useIsomorphicLayoutEffect(() => {
     if (!isValidated) return;
 
-    function forceComplete() {
-      if (isComplete.current) return;
+    function _complete() {
+      if (status.current === 'complete') return;
 
-      goInstance.current?.complete();
-      window.removeEventListener('resize', forceComplete);
+      activeAnimate.current?.complete();
+      window.removeEventListener('resize', _complete);
     }
 
-    if (isInView && !isLoader && !isComplete.current) {
+    if (isInView && !isLoader && status.current === 'ready') {
       const root = scope.current as HTMLElement;
       const masteriesLists = root.querySelector(gFD('masteries-lists')) as HTMLElement;
 
       root.classList.remove('invisible');
-      goInstance.current = animate(Sequences({ part: 'go' }));
-      goInstance.current?.then(() => {
-        isComplete.current = true;
+      status.current = 'running';
+      activeAnimate.current = animate(sequences({ status: 'running' }));
+      activeAnimate.current?.then(() => {
+        status.current = 'complete';
         disconnect();
-        const stop = inView("#home-masteries [data-framer='masteries-list-0']", animateContents, {
+        const stop = inView(`#home-masteries ${gFD('masteries-list-0')}`, _animateContent, {
           margin: '0% 0% -20% 0%',
         });
 
-        function animateContents(e: IntersectionObserverEntry) {
+        function _animateContent(e: IntersectionObserverEntry) {
           if (!e.isIntersecting) return;
+          const sequence: AnimationSequence = [];
 
           stop();
-          const sequence: AnimationSequence = [];
 
           for (let i = 0; i < masteriesLists.children.length; i++) {
             sequence.push([
@@ -101,38 +104,33 @@ export default function useHomeMasteriesEntry() {
           animate(sequence);
         }
       });
-    } else if (!isReady.current) {
+    } else if (status.current === 'not-ready') {
       _preEntry();
     }
 
-    window.addEventListener('resize', forceComplete);
+    window.addEventListener('resize', _complete);
 
-    return () => {
-      forceComplete();
-    };
+    return _complete;
   }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {
-    if (!isComplete.current) {
+    if (!['running', 'complete'].includes(status.current)) {
       _preEntry();
     }
   }, [lastRun, locale]);
 
-  return scope;
+  return { scope };
 }
 
-function Sequences({
-  part,
-  extraSequence = [],
-  marqueeX = 0,
-}: MasteriesSequencesProps): AnimationSequence {
-  const SEQUENCE: AnimationSequence[] = [
-    [
+function sequences(props: MasteriesSequences): AnimationSequence {
+  const { status, extraSequence = [], marqueeX = 0 } = props;
+  const SEQUENCE: MasteriesSequencesSequence = {
+    ready: [
       [gFD('masteries-marquee-positive'), { opacity: 0, x: -marqueeX }, { duration: 0 }],
       [gFD('masteries-marquee-negative'), { opacity: 0, x: marqueeX }, { duration: 0 }],
       [gFD('section-header-subtitle'), { opacity: 0, y: 10 }, { duration: 0 }],
       [gFD('section-header-title', '.line'), { opacity: 0, y: 10 }, { duration: 0 }],
     ],
-    [
+    running: [
       [
         gFD('masteries-marquee-positive'),
         { opacity: 1, x: 0 },
@@ -154,7 +152,7 @@ function Sequences({
         { ...FRAMER_DEFAULT_TIMING, duration: 0.5, delay: stagger(0.2), at: '-0.3' },
       ],
     ],
-  ];
+  };
 
-  return [...SEQUENCE[part === 'ready' ? 0 : 1], ...extraSequence];
+  return [...(SEQUENCE[status] || []), ...extraSequence];
 }

@@ -30,8 +30,8 @@ export default function HomeMasteries(props: MasteriesProps) {
     },
   } = useContent();
   const { isDeviceMobile } = useMediaQueryCtx();
-  const entryScope = useHomeMasteriesEntry();
-  const calculateScope = useHomeMasteriesCalculate();
+  const { scope: entryScope } = useHomeMasteriesEntry();
+  const { scope: calculateScope } = useHomeMasteriesCalculate();
   const { container, wrapper, marquee: marqueeStyles } = styles();
 
   return (

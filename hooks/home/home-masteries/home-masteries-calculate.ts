@@ -3,18 +3,17 @@ import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import debounce from '@/utils/debounce';
 
 export default function useHomeMasteriesCalculate() {
+  const rAF = useRef<number>(0);
   const scope = useRef<HTMLDivElement>(null);
 
   useIsomorphicLayoutEffect(() => {
-    const debouncedCalculate = debounce(calculate, 100);
+    const debouncedCalculate = debounce(_calculate, 100);
 
-    function calculate() {
-      let rAF: number;
-
-      rAF = requestAnimationFrame(() => {
+    function _calculate() {
+      rAF.current = requestAnimationFrame(() => {
         const root = scope.current as HTMLElement;
 
-        if (!root) return cancelAnimationFrame(rAF);
+        if (!root) return cancelAnimationFrame(rAF.current);
         const { marginTop, marginBottom, marginLeft, height, width } = getComputedStyle(
           root.children.item(0) as HTMLElement
         );
@@ -30,12 +29,12 @@ export default function useHomeMasteriesCalculate() {
     }
 
     window.addEventListener('resize', debouncedCalculate);
-    calculate();
+    _calculate();
 
     return () => {
       window.removeEventListener('resize', debouncedCalculate);
     };
   }, []);
 
-  return scope;
+  return { scope };
 }

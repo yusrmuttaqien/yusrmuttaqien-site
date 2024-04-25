@@ -34,7 +34,7 @@ export default function useHomeHowEntry() {
     }
   );
 
-  function preEntry() {
+  function _preEntry() {
     const root = scope.current as HTMLElement;
     const desktopStep = root.querySelector(gFD('how-desktop-steps')) as HTMLElement;
     const mobileSteps = root.querySelectorAll(gFD('how-mobile-step'));
@@ -74,12 +74,12 @@ export default function useHomeHowEntry() {
         subtitleOff();
       });
     } else if (status.current === 'not-ready') {
-      preEntry();
+      _preEntry();
     }
   }, [isInView, isLoader, isValidated, isScreenDesktop]);
   useIsomorphicLayoutEffect(() => {
     if (!['running', 'complete'].includes(status.current)) {
-      preEntry();
+      _preEntry();
     }
   }, [titleLR, subtitleLR]);
 

@@ -24,7 +24,7 @@ const comps = {
 };
 
 export default function HomeProjectsHeader() {
-  const h2Ref = useRef<HTMLHeadingElement>(null);
+  const h2 = useRef<HTMLHeadingElement>(null);
   const {
     projects: {
       header: { title, subtitle },
@@ -33,7 +33,7 @@ export default function HomeProjectsHeader() {
   const { isScreenFrom550 } = useMediaQueryCtx();
 
   useIsomorphicLayoutEffect(() => {
-    h2Ref.current?.setAttribute(
+    h2.current?.setAttribute(
       'style',
       isScreenFrom550
         ? '--coc-width: clamp(9.375rem, 1.1939rem + 15.6951vw, 13.75rem)'
@@ -51,7 +51,7 @@ export default function HomeProjectsHeader() {
     >
       <div className="relative shrink-0">
         <h2
-          ref={h2Ref}
+          ref={h2}
           data-framer="projects-header-title"
           className="project-title uppercase isolate project-title-trim"
         >

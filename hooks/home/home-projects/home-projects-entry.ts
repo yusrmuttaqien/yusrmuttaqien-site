@@ -88,9 +88,7 @@ export default function useHomeProjectsEntry() {
 
     window.addEventListener('resize', forceComplete);
 
-    return () => {
-      forceComplete();
-    };
+    return forceComplete;
   }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {
     if (!isComplete.current) {

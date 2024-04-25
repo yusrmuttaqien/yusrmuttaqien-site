@@ -32,8 +32,9 @@ export type HeroSequencesSequence = Partial<Record<EntryStatus, AnimationSequenc
 // #endregion Hero
 
 // #region Masteries
-export type MasteriesSequencesProps = {
-  part: 'ready' | 'go';
+export type MasteriesSequencesSequence = Partial<Record<EntryStatus, AnimationSequence>>;
+export type MasteriesSequences = {
+  status: EntryStatus;
   extraSequence?: AnimationSequence;
   marqueeX?: number;
 };
@@ -50,6 +51,9 @@ export type MasteriesMarqueeProps = {
 };
 export type MasteriesProps = {
   className?: Partial<typeof MasteriesStyles.slots>;
+};
+export type MasteriesMarqueeInteractive = {
+  baseVelocity: number;
 };
 // #endregion Masteries
 
