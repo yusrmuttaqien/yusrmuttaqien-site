@@ -1,5 +1,3 @@
-import { MEDIA_QUERY_INITIAL_STATE } from '@/constants/media-query';
-
 export type MediaQueryInitialState = {
   isScreenLargeDesktop: boolean | undefined;
   isScreenDesktop: boolean | undefined;

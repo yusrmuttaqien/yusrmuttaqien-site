@@ -16,7 +16,7 @@ export default function HomeHero(props: HeroProps) {
   } = useContent();
   const scope = useRef<HTMLDivElement>(null);
   const { scope: entryScope, status } = useHomeHeroEntry();
-  const { scope: interactionScope, bpUnits, headerUnits } = useHomeHeroInteractive(status);
+  const { scope: interactionScope, bpUnits, headerUnits } = useHomeHeroInteractive({ status });
 
   return (
     // NOTE: Using opacity-0 instead invisible to fix Safari missing inner centre

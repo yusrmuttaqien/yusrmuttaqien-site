@@ -11,7 +11,7 @@ export default function useHomeHowMobileInteractive() {
     const cocSteps = root.querySelectorAll(gFD('how-mobile-step'));
     const stops: VoidFunction[] = [];
 
-    function highlightStep(e: IntersectionObserverEntry) {
+    function _highlight(e: IntersectionObserverEntry) {
       animate(e.target, { opacity: 1 });
 
       return () => {
@@ -21,7 +21,7 @@ export default function useHomeHowMobileInteractive() {
 
     cocSteps.forEach((step) => {
       animate(step, { opacity: 0.5 });
-      stops.push(inView(step, highlightStep, { margin: '-30% 0% -50% 0%' }));
+      stops.push(inView(step, _highlight, { margin: '-30% 0% -50% 0%' }));
     });
 
     return () => {
@@ -29,5 +29,5 @@ export default function useHomeHowMobileInteractive() {
     };
   }, []);
 
-  return scope;
+  return { scope };
 }

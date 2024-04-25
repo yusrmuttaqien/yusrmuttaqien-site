@@ -4,9 +4,10 @@ import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import { useMediaQueryCtx } from '@/providers/media-query';
 import gFD from '@/utils/get-framer-data';
 import moveTo from '@/utils/move-to';
-import type { EntryStatus } from '@/types/animation-sequence';
+import type { HeroInteractiveProps } from '@/types/home';
 
-export default function useHomeHeroInteractive(entryStatus: EntryStatus) {
+export default function useHomeHeroInteractive(props: HeroInteractiveProps) {
+  const { status } = props;
   const { isHover } = useMediaQueryCtx();
   const scope = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: scope, offset: ['start', 'end start'] });
@@ -28,7 +29,7 @@ export default function useHomeHeroInteractive(entryStatus: EntryStatus) {
     const blueprintCross = root.querySelector(gFD('blueprint-cross')) as HTMLElement;
     const blueprintCentre = root.querySelector(gFD('blueprint-centre')) as HTMLElement;
 
-    if (entryStatus !== 'complete') {
+    if (status !== 'complete') {
       const classLists = ['origin-center', 'ease-out-expo'];
 
       blueprintCentre.style.transformStyle = 'preserve-3d';
@@ -101,7 +102,7 @@ export default function useHomeHeroInteractive(entryStatus: EntryStatus) {
     return () => {
       root.removeEventListener('mousemove', _rootMouseMove);
     };
-  }, [isHover, entryStatus]);
+  }, [isHover, status]);
 
   return {
     scope,

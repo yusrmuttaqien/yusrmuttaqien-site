@@ -2,9 +2,12 @@ import useHomeHeroInteractive from '@/hooks/home/home-hero/home-hero-interactive
 import { styles as MarquesStyles } from '@/fragments/home/home-masteries/home-masteries-marquee';
 import { styles as MasteriesStyles } from '@/fragments/home/home-masteries/home-masteries';
 import type { AnimationSequence, AnimationControls } from 'framer-motion';
-import type { ReactNode, HTMLAttributes, RefObject } from 'react';
+import type { ReactNode, HTMLAttributes, RefObject, MutableRefObject } from 'react';
 import type { HowSteps } from '@/types/content';
+import type { EntryStatus } from '@/types/animation-sequence';
+import type { ScreenSize } from '@/types/tailwind-config';
 
+// #region Hero
 export type HeroProps = {
   className?: string;
 };
@@ -19,10 +22,16 @@ export type HeroBlueprintCentreProps = {
 export type HeroYusrMuttaqienProps = {
   root: RefObject<HTMLDivElement>;
 };
-export type HeroSequencesProps = {
-  part: 'ready' | 'go';
+export type HeroSequences = {
+  status: EntryStatus;
 };
+export type HeroInteractiveProps = {
+  status: EntryStatus;
+};
+export type HeroSequencesSequence = Partial<Record<EntryStatus, AnimationSequence>>;
+// #endregion Hero
 
+// #region Masteries
 export type MasteriesSequencesProps = {
   part: 'ready' | 'go';
   extraSequence?: AnimationSequence;
@@ -42,7 +51,9 @@ export type MasteriesMarqueeProps = {
 export type MasteriesProps = {
   className?: Partial<typeof MasteriesStyles.slots>;
 };
+// #endregion Masteries
 
+// #region Projects
 export type ProjectsSequencesProps = {
   part: 'ready' | 'go';
   title2ML?: number;
@@ -58,7 +69,9 @@ export type ProjectsCardProps = {
 export type ProjectsProps = {
   className?: string;
 };
+// #endregion Projects
 
+// #region How
 export type HowDesktopCardProps = {
   className?: string;
   active: keyof HowSteps | undefined;
@@ -89,3 +102,14 @@ export type HowMobileHowsProps = {
 export type HowProps = {
   className?: string;
 };
+export type HowDesktopInteractiveProps = {
+  root: RefObject<HTMLDivElement>;
+};
+export type HowSequences = {
+  status: EntryStatus;
+  screen: MutableRefObject<ScreenSize | undefined>;
+};
+export type HowSequencesSequence = Partial<
+  Record<ScreenSize, Partial<Record<EntryStatus, AnimationSequence>>>
+>;
+// #endregion How

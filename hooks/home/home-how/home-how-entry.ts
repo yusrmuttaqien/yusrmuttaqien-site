@@ -6,16 +6,19 @@ import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import useSplitType from '@/hooks/split-type';
 import gFD from '@/utils/get-framer-data';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
+import type { EntryStatus } from '@/types/animation-sequence';
+import type { ScreenSize } from '@/types/tailwind-config';
+import type { HowSequences, HowSequencesSequence } from '@/types/home';
 
 export default function useHomeHowEntry() {
   const {
     state: { isLoader },
   } = useAnimationSequenceCtx();
   const [scope, animate] = useAnimate();
+  const status = useRef<EntryStatus>('not-ready');
   const { isValidated, isScreenDesktop } = useMediaQueryCtx();
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
-  const currentScreen = useRef<'mobile' | 'desktop' | undefined>(undefined);
-  const status = useRef<'ready' | 'running' | 'complete' | 'not-ready'>('not-ready');
+  const screen = useRef<ScreenSize | undefined>(undefined);
   const { lastRun: titleLR, disconnect: titleOff } = useSplitType(
     `#home-how ${gFD('how-header-subtitle')}`,
     {
@@ -31,7 +34,7 @@ export default function useHomeHowEntry() {
     }
   );
 
-  function _preEntry() {
+  function preEntry() {
     const root = scope.current as HTMLElement;
     const desktopStep = root.querySelector(gFD('how-desktop-steps')) as HTMLElement;
     const mobileSteps = root.querySelectorAll(gFD('how-mobile-step'));
@@ -53,49 +56,39 @@ export default function useHomeHowEntry() {
       });
     }
 
-    animate(
-      Sequences({
-        part: 'ready',
-        screenMode: currentScreen.current,
-      })
-    ).then(() => {
+    animate(sequences({ status: 'ready', screen })).then(() => {
       status.current = 'ready';
     });
   }
 
   useIsomorphicLayoutEffect(() => {
     if (!isValidated) return;
-    if (!currentScreen.current) {
-      currentScreen.current = isScreenDesktop ? 'desktop' : 'mobile';
+    if (!screen.current) {
+      screen.current = isScreenDesktop ? 'xl' : 'lg';
     }
-
     if (isInView && !isLoader && status.current === 'ready') {
       status.current = 'running';
-      animate(Sequences({ part: 'go', screenMode: currentScreen.current })).then(() => {
+      animate(sequences({ status: 'running', screen })).then(() => {
         status.current = 'complete';
         titleOff();
         subtitleOff();
       });
     } else if (status.current === 'not-ready') {
-      _preEntry();
+      preEntry();
     }
   }, [isInView, isLoader, isValidated, isScreenDesktop]);
   useIsomorphicLayoutEffect(() => {
     if (!['running', 'complete'].includes(status.current)) {
-      _preEntry();
+      preEntry();
     }
   }, [titleLR, subtitleLR]);
 
-  return scope;
+  return { scope };
 }
 
-function Sequences({
-  part,
-  screenMode = 'desktop',
-}: {
-  part: 'ready' | 'go';
-  screenMode: 'mobile' | 'desktop' | undefined;
-}): AnimationSequence {
+function sequences(props: HowSequences): AnimationSequence {
+  const { status, screen } = props;
+  const currentScreen = screen.current || 'xl';
   const SHARED_SEQUENCE_READY: AnimationSequence = [
     [gFD('how-header-title', '.word'), { y: '200%' }, { duration: 0 }],
     [gFD('how-header-subtitle', '.word'), { y: '200%' }, { duration: 0 }],
@@ -113,9 +106,9 @@ function Sequences({
       { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: '-0.4' },
     ],
   ];
-  const SEQUENCE: Record<'mobile' | 'desktop', AnimationSequence[]> = {
-    mobile: [
-      [
+  const SEQUENCE: HowSequencesSequence = {
+    lg: {
+      ready: [
         ...SHARED_SEQUENCE_READY,
         [
           gFD('how-mobile-step', '> div h3'),
@@ -125,7 +118,7 @@ function Sequences({
         [gFD('how-mobile-step', '> div span'), { x: '-30%', opacity: 0 }, { duration: 0 }],
         [gFD('how-mobile-step', '> figure'), { opacity: 0 }, { duration: 0 }],
       ],
-      [
+      running: [
         ...SHARED_SEQUENCE_GO,
         [
           gFD('how-mobile-step', '> div h3'),
@@ -152,9 +145,9 @@ function Sequences({
           { ...FRAMER_DEFAULT_TIMING, duration: 0.5, delay: stagger(0.2), at: '-0.5' },
         ],
       ],
-    ],
-    desktop: [
-      [
+    },
+    xl: {
+      ready: [
         ...SHARED_SEQUENCE_READY,
         [gFD('coc-command-stroke'), { opacity: 0 }, { duration: 0 }],
         [gFD('coc-options-stroke'), { opacity: 0 }, { duration: 0 }],
@@ -168,7 +161,7 @@ function Sequences({
           { duration: 0 },
         ],
       ],
-      [
+      running: [
         ...SHARED_SEQUENCE_GO,
         [gFD('coc-command-stroke'), { opacity: 1 }, { ...FRAMER_DEFAULT_TIMING, duration: 0.5 }],
         [gFD('coc-command-path'), { opacity: 0.2 }, { ...FRAMER_DEFAULT_TIMING, duration: 0.5 }],
@@ -182,8 +175,8 @@ function Sequences({
           { ...FRAMER_DEFAULT_TIMING, duration: 1, delay: stagger(0.3), at: '-0.5' },
         ],
       ],
-    ],
+    },
   };
 
-  return SEQUENCE[screenMode][part === 'ready' ? 0 : 1];
+  return SEQUENCE[currentScreen]?.[status] || [];
 }

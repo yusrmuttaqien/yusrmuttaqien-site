@@ -9,7 +9,7 @@ export default function HomeHowMobile() {
     how: { hows },
   } = useContent();
   const howsArray = Object.entries(hows);
-  const scope = useHomeHowMobileInteractive();
+  const { scope } = useHomeHowMobileInteractive();
 
   return (
     <article ref={scope} className="space-y-[clamp(1.125rem,_0.0341rem_+_5.4545vw,_1.5rem)]">

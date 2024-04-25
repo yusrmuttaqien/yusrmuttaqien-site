@@ -4,7 +4,7 @@ import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import gFD from '@/utils/get-framer-data';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
-import type { HeroSequencesProps } from '@/types/home';
+import type { HeroSequences, HeroSequencesSequence } from '@/types/home';
 import type { EntryStatus } from '@/types/animation-sequence';
 
 export default function useHomeHeroEntry() {
@@ -22,11 +22,11 @@ export default function useHomeHeroEntry() {
 
       root.classList.add('overflow-hidden');
       root.classList.remove('opacity-0');
-      animate(Sequences({ part: 'go' })).then(() => {
+      animate(sequences({ status: 'running' })).then(() => {
         setStatus('complete');
       });
     } else if (status === 'not-ready') {
-      animate(Sequences({ part: 'ready' })).then(() => {
+      animate(sequences({ status: 'ready' })).then(() => {
         setStatus('ready');
       });
     }
@@ -35,17 +35,16 @@ export default function useHomeHeroEntry() {
   return { scope, status };
 }
 
-function Sequences(props: HeroSequencesProps): AnimationSequence {
-  const { part } = props;
-
-  const SEQUENCE: AnimationSequence[] = [
-    [
+function sequences(props: HeroSequences): AnimationSequence {
+  const { status } = props;
+  const SEQUENCE: HeroSequencesSequence = {
+    ready: [
       [gFD('blueprint-cross'), { opacity: 0, scale: 0.5 }, { duration: 0 }],
       [gFD('blueprint-centre-inner'), { opacity: 0, scale: 0 }, { duration: 0 }],
       [gFD('blueprint-centre-outer'), { opacity: 0, scale: 0 }, { duration: 0 }],
       [gFD('hero-header'), { y: '99%' }, { duration: 0 }],
     ],
-    [
+    running: [
       [
         gFD('blueprint-centre-outer'),
         { opacity: 1, scale: 1.1 },
@@ -73,7 +72,7 @@ function Sequences(props: HeroSequencesProps): AnimationSequence {
       ],
       [gFD('hero-header'), { y: '0%' }, { ...FRAMER_DEFAULT_TIMING, duration: 0.3, at: '-0.7' }],
     ],
-  ];
+  };
 
-  return SEQUENCE[part === 'ready' ? 0 : 1];
+  return SEQUENCE[status] || [];
 }

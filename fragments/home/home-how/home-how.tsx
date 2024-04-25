@@ -12,9 +12,9 @@ import type { HowProps } from '@/types/home';
 export default function HomeHow(props: HowProps) {
   const { className } = props;
   const { locale } = useRouter();
-  const { isScreenDesktop } = useMediaQueryCtx();
-  const entryScope = useHomeHowEntry();
   const rootScope = useRef<HTMLDivElement>(null);
+  const { isScreenDesktop } = useMediaQueryCtx();
+  const { scope: entryScope } = useHomeHowEntry();
 
   return (
     <section
