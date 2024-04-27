@@ -3,43 +3,43 @@ import { AnimatePresence, motion } from 'framer-motion';
 import useNavbarClock from '@/hooks/navbar/navbar-clock';
 import classMerge from '@/utils/class-merge';
 import { VARIANT_CLOCK_NUM } from '@/constants/navbar';
-import type { AnimatedDigitProps, NavbarProps } from '@/types/navbar';
+import type { ClockDigitProps, ClockProps } from '@/types/navbar';
 
-const MemoizedAnimateDigit = memo(AnimateDigit);
+const MemoizedDigit = memo(Digit);
 
-export default function NavbarClock(props: NavbarProps) {
+export default function NavbarClock(props: ClockProps) {
   const { className } = props;
   const time = useNavbarClock();
 
   return (
     <p className={className} data-framer="clock">
-      <MemoizedAnimateDigit
+      <MemoizedDigit
         digit={time.hour[0]}
         variant={VARIANT_CLOCK_NUM}
         sign={`hur-0-${time.hour[0]}`}
       />
-      <MemoizedAnimateDigit
+      <MemoizedDigit
         digit={time.hour[1]}
         variant={VARIANT_CLOCK_NUM}
         sign={`hur-1-${time.hour[1]}`}
       />
-      <MemoizedAnimateDigit className="mx-[.3ch] animate-navbar-clock-blink" digit=":" sign=":" />
-      <MemoizedAnimateDigit
+      <MemoizedDigit className="mx-[.3ch] animate-navbar-clock-blink" digit=":" sign=":" />
+      <MemoizedDigit
         digit={time.minute[0]}
         variant={VARIANT_CLOCK_NUM}
         sign={`min-0-${time.minute[0]}`}
       />
-      <MemoizedAnimateDigit
+      <MemoizedDigit
         digit={time.minute[1]}
         variant={VARIANT_CLOCK_NUM}
         sign={`min-1-${time.minute[1]}`}
       />
-      <MemoizedAnimateDigit className="ml-[1ch]" digit="WIB" sign="WIB" />
+      <MemoizedDigit className="ml-[1ch]" digit="WIB" sign="WIB" />
     </p>
   );
 }
 
-function AnimateDigit(props: AnimatedDigitProps) {
+function Digit(props: ClockDigitProps) {
   const { digit, variant = {}, sign, className } = props;
 
   return (

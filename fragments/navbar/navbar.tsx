@@ -8,14 +8,14 @@ import NavbarLang from '@/fragments/navbar/navbar-lang';
 import classMerge from '@/utils/class-merge';
 
 export default function Navbar() {
-  const navRef = useRef<HTMLDivElement>();
-  const scope = useNavbarEntry();
+  const measureScope = useRef<HTMLDivElement>();
+  const { scope: entryScope } = useNavbarEntry();
 
-  useNavbarMeasure(navRef);
+  useNavbarMeasure({ root: measureScope });
 
   return (
     <nav
-      ref={mergeRefs(navRef, scope)}
+      ref={mergeRefs(measureScope, entryScope)}
       className={classMerge(
         'fixed top-0 left-0 right-0 z-[100] container box-border',
         'mix-blend-difference text-beige invisible',

@@ -12,18 +12,18 @@ import { useMediaQueryCtx } from '@/providers/media-query';
 import useSplitType from '@/hooks/split-type';
 import gFD from '@/utils/get-framer-data';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
-import type { ProjectsSequencesProps } from '@/types/home';
+import type { ProjectsSequences, ProjectsSequencesSequence } from '@/types/home';
+import type { EntryStatus } from '@/types/animation-sequence';
 
 export default function useHomeProjectsEntry() {
   const {
     state: { isLoader },
   } = useAnimationSequenceCtx();
-  const isReady = useRef(false);
-  const isComplete = useRef(false);
   const [scope, animate] = useAnimate();
   const { isValidated } = useMediaQueryCtx();
+  const status = useRef<EntryStatus>('not-ready');
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
-  const goInstance = useRef<AnimationPlaybackControls | null>(null);
+  const activeAnimate = useRef<AnimationPlaybackControls | null>(null);
   const { lastRun: titleLR, disconnect: titleOff } = useSplitType(
     `#home-projects ${gFD('projects-header-title-0')}`,
     {
@@ -56,42 +56,43 @@ export default function useHomeProjectsEntry() {
 
     title2.classList.add('inline-block');
     subtitle.classList.add('overflow-hidden');
-    animate(Sequences({ part: 'ready', title2ML: parseFloat(marginLeft) })).then(() => {
-      isReady.current = true;
+    animate(sequences({ status: 'ready', title2ML: parseFloat(marginLeft) })).then(() => {
+      status.current = 'ready';
     });
   }
 
   useIsomorphicLayoutEffect(() => {
     if (!isValidated) return;
 
-    function forceComplete() {
-      if (isComplete.current) return;
+    function _complete() {
+      if (status.current === 'complete') return;
 
-      goInstance.current?.complete();
-      window.removeEventListener('resize', forceComplete);
+      activeAnimate.current?.complete();
+      window.removeEventListener('resize', _complete);
     }
 
-    if (isInView && !isLoader && !isComplete.current) {
+    if (isInView && !isLoader && status.current === 'ready') {
       const root = scope.current as HTMLElement;
 
       root.classList.remove('invisible');
-      goInstance.current = animate(Sequences({ part: 'go' }));
-      goInstance.current?.then(() => {
-        isComplete.current = true;
+      status.current = 'running';
+      activeAnimate.current = animate(sequences({ status: 'running' }));
+      activeAnimate.current?.then(() => {
+        status.current = 'complete';
         titleOff();
         title2Off();
         subtitleOff();
       });
-    } else if (!isReady.current) {
+    } else if (status.current === 'not-ready') {
       _preEntry();
     }
 
-    window.addEventListener('resize', forceComplete);
+    window.addEventListener('resize', _complete);
 
-    return forceComplete;
+    return _complete;
   }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {
-    if (!isComplete.current) {
+    if (!['running', 'complete'].includes(status.current)) {
       _preEntry();
     }
   }, [titleLR, subtitleLR, titleL2R]);
@@ -99,9 +100,10 @@ export default function useHomeProjectsEntry() {
   return scope;
 }
 
-function Sequences({ part, title2ML = 0 }: ProjectsSequencesProps): AnimationSequence {
-  const SEQUENCE: AnimationSequence[] = [
-    [
+function sequences(props: ProjectsSequences): AnimationSequence {
+  const { status, title2ML = 0 } = props;
+  const SEQUENCE: ProjectsSequencesSequence = {
+    ready: [
       [gFD('projects-header-title', '.char'), { y: '101%' }, { duration: 0 }],
       [gFD('projects-header-title-2'), { x: -title2ML }, { duration: 0 }],
       [gFD('projects-header-subtitle', '.word'), { y: '100%' }, { duration: 0 }],
@@ -109,7 +111,7 @@ function Sequences({ part, title2ML = 0 }: ProjectsSequencesProps): AnimationSeq
       [gFD('projects-projects'), { opacity: 0, y: 10 }, { duration: 0 }],
       [gFD('projects-more'), { opacity: 0, y: 10 }, { duration: 0 }],
     ],
-    [
+    running: [
       [
         gFD('projects-header-title', '.char'),
         { y: '0%' },
@@ -138,7 +140,7 @@ function Sequences({ part, title2ML = 0 }: ProjectsSequencesProps): AnimationSeq
         { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: '-0.3' },
       ],
     ],
-  ];
+  };
 
-  return SEQUENCE[part === 'ready' ? 0 : 1];
+  return SEQUENCE[status] || [];
 }

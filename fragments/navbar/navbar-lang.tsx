@@ -5,7 +5,7 @@ import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import { i18nOptions, i18nOptionsCursorEmoji } from '@/constants/i18n';
 import classMerge from '@/utils/class-merge';
-import type { SwitchProps, LangProps } from '@/types/navbar';
+import type { LangSwitchProps, LangProps } from '@/types/navbar';
 
 export default function NavbarLang(props: LangProps) {
   const { className } = props;
@@ -19,7 +19,7 @@ export default function NavbarLang(props: LangProps) {
   );
 }
 
-function Switch(props: SwitchProps) {
+function Switch(props: LangSwitchProps) {
   const { locale, className, idx } = props;
   const { asPath, locale: currentLocale } = useRouter();
   const { setState } = useAnimationSequenceCtx();

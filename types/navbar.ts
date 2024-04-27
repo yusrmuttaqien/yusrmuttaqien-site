@@ -1,6 +1,8 @@
-import type { MotionProps } from 'framer-motion';
+import type { EntryStatus } from '@/types/animation-sequence';
+import type { MotionProps, AnimationSequence } from 'framer-motion';
+import type { RefObject } from 'react';
 
-export type AnimatedDigitProps = {
+export type ClockDigitProps = {
   digit: string;
   variant?: MotionProps;
   sign: string;
@@ -9,11 +11,19 @@ export type AnimatedDigitProps = {
 export type LangProps = {
   className?: string;
 };
-export type SwitchProps = {
+export type LangSwitchProps = {
   locale: string;
   className?: string;
   idx: number;
 };
-export type NavbarProps = {
+export type ClockProps = {
   className?: string;
 };
+export type Sequences = {
+  status: EntryStatus;
+};
+export type SequencesSequence = Partial<Record<EntryStatus, AnimationSequence>>;
+export type MeasureProps = {
+  root: RefObject<HTMLDivElement | undefined>;
+};
+export type MeasureMeasure = ((isComplete: boolean) => void) | null;

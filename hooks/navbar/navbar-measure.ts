@@ -1,24 +1,24 @@
-import { useCallback, useRef, type RefObject } from 'react';
+import { useCallback, useRef } from 'react';
 import { useMeasurementCtx } from '@/providers/measurements';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import debounce from '@/utils/debounce';
 import { MEASURE_NAVBAR_TRIES } from '@/constants/navbar';
+import type { MeasureProps, MeasureMeasure } from '@/types/navbar';
 
-export default function useNavbarMeasure(el: RefObject<HTMLDivElement | undefined>) {
+export default function useNavbarMeasure(props: MeasureProps) {
+  const { root } = props;
   const retries = useRef(0);
   const { setState } = useMeasurementCtx();
 
-  const _measure = useCallback((cb?: ((isComplete: boolean) => void) | null) => {
+  const _measure = useCallback((cb?: MeasureMeasure) => {
     requestAnimationFrame(() => {
-      const navHeight = el.current?.offsetHeight;
-      const navYusrMuttaqienPlaceholder = el.current?.children.item(1)?.children.item(0)?.children;
-      const navYusrMuttaqienHeight = (
-        navYusrMuttaqienPlaceholder?.item(navYusrMuttaqienPlaceholder.length - 1) as HTMLDivElement
-      )?.offsetHeight;
+      const height = root.current?.offsetHeight;
+      const navYm = root.current?.children.item(1)?.children.item(0)?.children;
+      const ymHeight = (navYm?.item(navYm.length - 1) as HTMLDivElement)?.offsetHeight;
 
-      cb?.(!!navYusrMuttaqienHeight);
+      cb?.(!!ymHeight);
       setState((draft) => {
-        draft.navbarHeight = (navHeight || 0) + (navYusrMuttaqienHeight || 0);
+        draft.navbarHeight = (height || 0) + (ymHeight || 0);
       });
     });
   }, []);

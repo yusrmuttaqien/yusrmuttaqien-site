@@ -58,8 +58,9 @@ export type MasteriesMarqueeInteractive = {
 // #endregion Masteries
 
 // #region Projects
-export type ProjectsSequencesProps = {
-  part: 'ready' | 'go';
+export type ProjectsSequencesSequence = Partial<Record<EntryStatus, AnimationSequence>>;
+export type ProjectsSequences = {
+  status: EntryStatus;
   title2ML?: number;
 };
 export type ProjectsCardProps = {

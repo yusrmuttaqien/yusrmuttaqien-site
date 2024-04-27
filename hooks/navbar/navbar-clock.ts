@@ -5,30 +5,29 @@ export default function useNavbarClock() {
   const [time, setTime] = useState({ hour: ['0', '0'], minute: ['0', '0'] });
 
   useIsomorphicLayoutEffect(() => {
-    function update() {
-      setTime(GetDate());
-
-      requestAnimationFrame(update);
+    function _update() {
+      setTime(getDate());
+      requestAnimationFrame(_update);
     }
 
-    update();
+    _update();
   }, []);
 
   return time;
 }
 
-function GetDate() {
+function getDate() {
   const formatedDate = new Intl.DateTimeFormat('id-ID', {
     timeStyle: 'long',
   }).format(new Date());
   const splitedDate = formatedDate.split('.');
 
-  function splitDigit(digits: string) {
+  function _splitDigit(digits: string) {
     return digits.split('').map((digit) => digit);
   }
 
   return {
-    hour: splitDigit(splitedDate[0]),
-    minute: splitDigit(splitedDate[1]),
+    hour: _splitDigit(splitedDate[0]),
+    minute: _splitDigit(splitedDate[1]),
   };
 }
