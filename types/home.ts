@@ -97,6 +97,7 @@ export type HowDesktopCardDescProps = {
 };
 export type HowDesktopProps = {
   root: RefObject<HTMLDivElement>;
+  status: MutableRefObject<EntryStatus>;
 };
 export type HowMobileHowsProps = {
   image: string;
@@ -108,6 +109,7 @@ export type HowProps = {
 };
 export type HowDesktopInteractiveProps = {
   root: RefObject<HTMLDivElement>;
+  status: MutableRefObject<EntryStatus>;
 };
 export type HowSequences = {
   status: EntryStatus;

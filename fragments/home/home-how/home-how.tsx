@@ -14,7 +14,7 @@ export default function HomeHow(props: HowProps) {
   const { locale } = useRouter();
   const rootScope = useRef<HTMLDivElement>(null);
   const { isScreenDesktop } = useMediaQueryCtx();
-  const { scope: entryScope } = useHomeHowEntry();
+  const { scope: entryScope, status } = useHomeHowEntry();
 
   return (
     <section
@@ -28,7 +28,11 @@ export default function HomeHow(props: HowProps) {
       )}
     >
       <HomeHowHeader />
-      {isScreenDesktop ? <HomeHowDesktop root={rootScope} key={locale} /> : <HomeHowMobile />}
+      {isScreenDesktop ? (
+        <HomeHowDesktop root={rootScope} key={locale} status={status} />
+      ) : (
+        <HomeHowMobile />
+      )}
     </section>
   );
 }

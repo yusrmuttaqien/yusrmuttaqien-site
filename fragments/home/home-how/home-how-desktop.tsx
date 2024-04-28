@@ -12,8 +12,8 @@ const stepStyles = classMerge(
 );
 
 export default function HomeHowDesktop(props: HowDesktopProps) {
-  const { root } = props;
-  const { scope, active, control } = useHomeHowDesktopInteractive({ root });
+  const { root, status } = props;
+  const { scope, active, control } = useHomeHowDesktopInteractive({ root, status });
 
   return (
     <article

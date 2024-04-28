@@ -9,7 +9,7 @@ import type { HowDesktopInteractiveProps } from '@/types/home';
 import type { HowSteps } from '@/types/content';
 
 export default function useHomeHowDesktopInteractive(props: HowDesktopInteractiveProps) {
-  const { root: parent } = props;
+  const { root: parent, status } = props;
   const control = useAnimation();
   const [scope, animate] = useAnimate();
   const rootBounding = useRef({ top: 0, height: 0 });
@@ -78,6 +78,7 @@ export default function useHomeHowDesktopInteractive(props: HowDesktopInteractiv
       lastEl.current = current;
     }
     function _switch(e: MouseEvent) {
+      if (status.current !== 'complete') return;
       const current = e.target as HTMLButtonElement;
 
       _enter(e);

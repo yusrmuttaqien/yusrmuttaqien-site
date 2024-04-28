@@ -77,7 +77,7 @@ export default function useHomeHowEntry() {
     }
   }, [titleLR, subtitleLR]);
 
-  return { scope };
+  return { scope, status };
 }
 
 function sequences(props: HowSequences): AnimationSequence {
