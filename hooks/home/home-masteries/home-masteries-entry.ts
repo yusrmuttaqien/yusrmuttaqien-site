@@ -4,7 +4,6 @@ import {
   useAnimate,
   useInView,
   stagger,
-  inView,
   type AnimationSequence,
   type AnimationPlaybackControls,
 } from 'framer-motion';
@@ -34,28 +33,11 @@ export default function useHomeMasteriesEntry() {
 
   function _preEntry() {
     const root = scope.current as HTMLElement;
-    const masteriesLists = root.querySelector(gFD('masteries-lists')) as HTMLElement;
-    const extraSequence: AnimationSequence = [];
     const { height } = getComputedStyle(root);
 
-    for (let i = 0; i < masteriesLists.children.length; i++) {
-      extraSequence.push([
-        gFD(`masteries-list-title-${i}`),
-        { opacity: 0, y: 20 },
-        { duration: 0 },
-      ]);
-      extraSequence.push([
-        gFD(`masteries-list-contents-${i}`),
-        { opacity: 0, y: 20 },
-        { duration: 0 },
-      ]);
-    }
-
-    animate(sequences({ status: 'ready', extraSequence, marqueeX: parseFloat(height) })).then(
-      () => {
-        status.current = 'ready';
-      }
-    );
+    animate(sequences({ status: 'ready', marqueeX: parseFloat(height) })).then(() => {
+      status.current = 'ready';
+    });
   }
 
   useIsomorphicLayoutEffect(() => {
@@ -70,7 +52,6 @@ export default function useHomeMasteriesEntry() {
 
     if (isInView && !isLoader && status.current === 'ready') {
       const root = scope.current as HTMLElement;
-      const masteriesLists = root.querySelector(gFD('masteries-lists')) as HTMLElement;
 
       root.classList.remove('invisible');
       status.current = 'running';
@@ -78,31 +59,6 @@ export default function useHomeMasteriesEntry() {
       activeAnimate.current?.then(() => {
         status.current = 'complete';
         disconnect();
-        const stop = inView(`#home-masteries ${gFD('masteries-list-0')}`, _animateContent, {
-          margin: '0% 0% -20% 0%',
-        });
-
-        function _animateContent(e: IntersectionObserverEntry) {
-          if (!e.isIntersecting) return;
-          const sequence: AnimationSequence = [];
-
-          stop();
-
-          for (let i = 0; i < masteriesLists.children.length; i++) {
-            sequence.push([
-              gFD(`masteries-list-title-${i}`),
-              { opacity: 1, y: 0 },
-              { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: '-0.4' },
-            ]);
-            sequence.push([
-              gFD(`masteries-list-contents-${i}`),
-              { opacity: 1, y: 0 },
-              { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: '-0.4' },
-            ]);
-          }
-
-          animate(sequence);
-        }
       });
     } else if (status.current === 'not-ready') {
       _preEntry();
@@ -122,13 +78,15 @@ export default function useHomeMasteriesEntry() {
 }
 
 function sequences(props: MasteriesSequences): AnimationSequence {
-  const { status, extraSequence = [], marqueeX = 0 } = props;
+  const { status, marqueeX = 0 } = props;
   const SEQUENCE: MasteriesSequencesSequence = {
     ready: [
       [gFD('masteries-marquee-positive'), { opacity: 0, x: -marqueeX }, { duration: 0 }],
       [gFD('masteries-marquee-negative'), { opacity: 0, x: marqueeX }, { duration: 0 }],
       [gFD('section-header-subtitle'), { opacity: 0, y: 10 }, { duration: 0 }],
       [gFD('section-header-title', '.line'), { opacity: 0, y: 10 }, { duration: 0 }],
+      [gFD('masteries-list-title'), { opacity: 0, y: 10 }, { duration: 0 }],
+      [gFD('masteries-list-contents'), { opacity: 0, y: 10 }, { duration: 0 }],
     ],
     running: [
       [
@@ -151,8 +109,18 @@ function sequences(props: MasteriesSequences): AnimationSequence {
         { opacity: 1, y: 0 },
         { ...FRAMER_DEFAULT_TIMING, duration: 0.5, delay: stagger(0.2), at: '-0.3' },
       ],
+      [
+        gFD('masteries-list-title'),
+        { opacity: 1, y: 0 },
+        { ...FRAMER_DEFAULT_TIMING, duration: 0.5, delay: stagger(0.2), at: '-0.3' },
+      ],
+      [
+        gFD('masteries-list-contents'),
+        { opacity: 1, y: 0 },
+        { ...FRAMER_DEFAULT_TIMING, duration: 0.5, delay: stagger(0.2), at: '-0.6' },
+      ],
     ],
   };
 
-  return [...(SEQUENCE[status] || []), ...extraSequence];
+  return SEQUENCE[status] || [];
 }

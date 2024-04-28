@@ -35,7 +35,6 @@ export type HeroSequencesSequence = Partial<Record<EntryStatus, AnimationSequenc
 export type MasteriesSequencesSequence = Partial<Record<EntryStatus, AnimationSequence>>;
 export type MasteriesSequences = {
   status: EntryStatus;
-  extraSequence?: AnimationSequence;
   marqueeX?: number;
 };
 export type MasteriesListProps = {

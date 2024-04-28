@@ -42,10 +42,7 @@ export default function HomeMasteries(props: MasteriesProps) {
     >
       <div className={wrapper({ className: className?.wrapper })}>
         <MemoizedSectionHeader subtitle={subtitle} title={title} />
-        <div
-          data-framer="masteries-lists"
-          className="space-y-[clamp(1.5rem,_0.0455rem_+_7.2727vw,_2rem)]"
-        >
+        <div className="space-y-[clamp(1.5rem,_0.0455rem_+_7.2727vw,_2rem)]">
           {masteries.map((mastery, idx) => (
             <HomeMasteriesList {...mastery} key={mastery.title} idx={idx} />
           ))}
