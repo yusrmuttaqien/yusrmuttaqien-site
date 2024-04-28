@@ -1,16 +1,17 @@
 import { useImmer } from 'use-immer';
-import { createContext, useContext, type ReactNode } from 'react';
+import { createContext, useContext } from 'react';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import camelToKebabCase from '@/utils/camel-to-kebab';
 import { MEASUREMENT_INITIAL_STATE } from '@/constants/measurements';
-import type { MeasurementState } from '@/types/measurement';
+import type { MeasurementState, MeasurementProps } from '@/types/measurement';
 
 const MeasurementContext = createContext<MeasurementState>({
   state: MEASUREMENT_INITIAL_STATE,
   setState: () => {},
 });
 
-export default function MeasurementProvider({ children }: { children: ReactNode }) {
+export default function MeasurementProvider(props: MeasurementProps) {
+  const { children } = props;
   const [state, setState] = useImmer(MEASUREMENT_INITIAL_STATE);
   useIsomorphicLayoutEffect(() => {
     Object.entries(state).map(([key, value]) => {

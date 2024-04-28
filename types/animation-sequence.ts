@@ -1,9 +1,8 @@
-import { Updater } from 'use-immer';
-import { ANIMATION_SEQUENCE_INITIAL_STATE } from '@/constants/animation-sequence';
+import type { Updater } from 'use-immer';
+import type { ReactNode } from 'react';
 
-export type AnimationSequenceState = {
-  state: typeof ANIMATION_SEQUENCE_INITIAL_STATE;
-  setState: Updater<typeof ANIMATION_SEQUENCE_INITIAL_STATE>;
+export type AnimationSequenceProps = {
+  children: ReactNode;
 };
 export type AnimationSequenceInitialState = {
   isPageReady: boolean;
@@ -14,5 +13,9 @@ export type AnimationSequenceInitialState = {
     navbar: boolean;
   };
   announcer: { announcing: boolean | 'manually' };
+};
+export type AnimationSequenceState = {
+  state: AnimationSequenceInitialState;
+  setState: Updater<AnimationSequenceInitialState>;
 };
 export type EntryStatus = 'ready' | 'running' | 'complete' | 'not-ready';

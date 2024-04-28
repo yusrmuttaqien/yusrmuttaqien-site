@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { LenisOptions } from '@studio-freight/lenis';
 
-export type LenisProviderProps = {
+export type LenisProps = {
   children: ReactNode;
   options?: LenisOptions;
 };

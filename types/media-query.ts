@@ -1,6 +1,11 @@
+import type { ReactNode } from 'react';
+
 export type MediaQueryProps = {
   query: string;
   revalidate?: number;
+};
+export type MediaQueryProviderProps = {
+  children: ReactNode;
 };
 export type MediaQueryInitialState = {
   isScreenLargeDesktop: boolean | undefined;

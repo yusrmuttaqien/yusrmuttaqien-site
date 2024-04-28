@@ -10,7 +10,9 @@ import { helveticaNeue, robotoMono, nohemi } from '@/constants/app';
 import type { AppProps } from 'next/app';
 import '@/styles/globals.css';
 
-export default function App({ Component, pageProps, router }: AppProps) {
+export default function App(props: AppProps) {
+  const { Component, pageProps, router } = props;
+
   useIsomorphicLayoutEffect(() => {
     document.body.classList.add(helveticaNeue.variable, robotoMono.variable, nohemi.variable);
   }, []);

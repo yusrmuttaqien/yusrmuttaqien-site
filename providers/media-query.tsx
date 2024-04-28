@@ -6,11 +6,12 @@ import debounce from '@/utils/debounce';
 import deviceType from '@/utils/device-type';
 import { MEDIA_QUERY_INITIAL_STATE } from '@/constants/media-query';
 import { scrSize } from '@/constants/tailwind-config';
-import type { MediaQueryInitialState } from '@/types/media-query';
+import type { MediaQueryInitialState, MediaQueryProviderProps } from '@/types/media-query';
 
 const MediaQueryContext = createContext<MediaQueryInitialState>(MEDIA_QUERY_INITIAL_STATE);
 
-export default function MediaQueryProvider({ children }: { children: ReactNode }) {
+export default function MediaQueryProvider(props: MediaQueryProviderProps) {
+  const { children } = props;
   const [revalidate, setRevalidate] = useState(0);
   const { match: isScreenLargeDesktop } = useMediaQuery({
     query: `screen and (min-width: ${scrSize('2xl', true)})`,
@@ -41,17 +42,10 @@ export default function MediaQueryProvider({ children }: { children: ReactNode }
       draft.isScreenDesktop = isScreenDesktop;
     });
   }, [isScreenTablet, isHover, isScreenLargeDesktop, isScreenDesktop, isScreenFrom550]);
-  useEffect(() => {
-    if (!revalidate) return;
-
-    setState((draft) => {
-      draft.isValidated = true;
-    });
-  }, [revalidate]);
   useIsomorphicLayoutEffect(() => {
-    const debouncedCheck = debounce(check, 100);
+    const debouncedCheck = debounce(_check, 100);
 
-    function check() {
+    function _check() {
       const device = deviceType();
 
       setState((draft) => {
@@ -60,12 +54,19 @@ export default function MediaQueryProvider({ children }: { children: ReactNode }
     }
 
     window.addEventListener('resize', debouncedCheck);
-    check();
+    _check();
 
     return () => {
       window.removeEventListener('resize', debouncedCheck);
     };
   }, []);
+  useEffect(() => {
+    if (!revalidate) return;
+
+    setState((draft) => {
+      draft.isValidated = true;
+    });
+  }, [revalidate]);
 
   return <MediaQueryContext.Provider value={state}>{children}</MediaQueryContext.Provider>;
 }

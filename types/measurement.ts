@@ -1,10 +1,13 @@
-import { Updater } from 'use-immer';
-import { MEASUREMENT_INITIAL_STATE } from '@/constants/measurements';
+import type { ReactNode } from 'react';
+import type { Updater } from 'use-immer';
 
-export type MeasurementState = {
-  state: typeof MEASUREMENT_INITIAL_STATE;
-  setState: Updater<typeof MEASUREMENT_INITIAL_STATE>;
-};
 export type MeasurementInitialState = {
   navbarHeight: number | undefined;
+};
+export type MeasurementState = {
+  state: MeasurementInitialState;
+  setState: Updater<MeasurementInitialState>;
+};
+export type MeasurementProps = {
+  children: ReactNode;
 };

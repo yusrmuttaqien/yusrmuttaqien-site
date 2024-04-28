@@ -1,28 +1,29 @@
 import { useImmer } from 'use-immer';
 import { useRouter } from 'next/router';
-import { createContext, useContext, type ReactNode } from 'react';
+import { createContext, useContext } from 'react';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import { ANIMATION_SEQUENCE_INITIAL_STATE } from '@/constants/animation-sequence';
-import type { AnimationSequenceState } from '@/types/animation-sequence';
+import type { AnimationSequenceState, AnimationSequenceProps } from '@/types/animation-sequence';
 
 const AnimationSequenceContext = createContext<AnimationSequenceState>({
   state: ANIMATION_SEQUENCE_INITIAL_STATE,
   setState: () => {},
 });
 
-export default function AnimationSequenceProvider({ children }: { children: ReactNode }) {
+export default function AnimationSequenceProvider(props: AnimationSequenceProps) {
+  const { children } = props;
   const router = useRouter();
   const [state, setState] = useImmer(ANIMATION_SEQUENCE_INITIAL_STATE);
 
-  function _announcerToggle(e: boolean) {
-    setState((draft) => {
-      draft.announcer.announcing = e;
-    });
-  }
-
   useIsomorphicLayoutEffect(() => {
-    const bindedAnnouncerOn = _announcerToggle.bind(null, true);
-    const bindedAnnouncerOff = _announcerToggle.bind(null, false);
+    const bindedAnnouncerOn = _toggle.bind(null, true);
+    const bindedAnnouncerOff = _toggle.bind(null, false);
+
+    function _toggle(e: boolean) {
+      setState((draft) => {
+        draft.announcer.announcing = e;
+      });
+    }
 
     router.events.on('routeChangeStart', bindedAnnouncerOn);
     router.events.on('routeChangeError', bindedAnnouncerOff);
