@@ -1,3 +1,7 @@
+export type MediaQueryProps = {
+  query: string;
+  revalidate?: number;
+};
 export type MediaQueryInitialState = {
   isScreenLargeDesktop: boolean | undefined;
   isScreenDesktop: boolean | undefined;

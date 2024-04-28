@@ -19,20 +19,14 @@ export default function useHomeHowEntry() {
   const { isValidated, isScreenDesktop } = useMediaQueryCtx();
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
   const screen = useRef<ScreenSize | undefined>(undefined);
-  const { lastRun: titleLR, disconnect: titleOff } = useSplitType(
-    `#home-how ${gFD('how-header-subtitle')}`,
-    {
-      types: 'lines,words',
-      lineClass: 'line overflow-hidden',
-    }
-  );
-  const { lastRun: subtitleLR, disconnect: subtitleOff } = useSplitType(
-    `#home-how ${gFD('how-header-title')}`,
-    {
-      types: 'lines,words',
-      lineClass: 'line overflow-hidden',
-    }
-  );
+  const { lastRun: titleLR, disconnect: titleOff } = useSplitType({
+    selector: `#home-how ${gFD('how-header-subtitle')}`,
+    options: { types: 'lines,words', lineClass: 'line overflow-hidden' },
+  });
+  const { lastRun: subtitleLR, disconnect: subtitleOff } = useSplitType({
+    selector: `#home-how ${gFD('how-header-title')}`,
+    options: { types: 'lines,words', lineClass: 'line overflow-hidden' },
+  });
 
   function _preEntry() {
     const root = scope.current as HTMLElement;

@@ -21,5 +21,5 @@ export default function useAnnouncerInteractive() {
     }
   }, [announcing, control]);
 
-  return control;
+  return { control };
 }

@@ -15,7 +15,7 @@ export const styles = tv({
 export default function Image(props: ImageProps) {
   const { className, imageScale = 1.25, ...rest } = props;
   const { container, nextImage } = styles();
-  const { target, y, scale } = useImageInteractive(imageScale);
+  const { target, y, scale } = useImageInteractive({ scale: imageScale });
 
   return (
     <div className={container({ className: className?.container })}>

@@ -1,21 +1,25 @@
-import {
-  useScroll,
-  useMotionValue,
-  transform as transformer,
-  type MotionValue,
-} from 'framer-motion';
+import { useScroll, useMotionValue, useTransform, transform as transformer } from 'framer-motion';
 import { useRef } from 'react';
 import { useMediaQueryCtx } from '@/providers/media-query';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
+import debounce from '@/utils/debounce';
+import type { InteractiveProps } from '@/types/image';
 
-export default function useImageInteractive(originalScale: number) {
+export default function useImageInteractive(props: InteractiveProps) {
+  const { scale: originalScale } = props;
   const target = useRef<HTMLImageElement>(null);
-  const y = useMotionValue(0);
-  const scale = useMotionValue(originalScale);
   const { isHover } = useMediaQueryCtx();
   const { scrollYProgress } = useScroll({
     target: target,
     offset: ['start end', 'end start'],
+  });
+  const rootComputedValues = useMotionValue({ jsHeight: 0, cssHeight: 0, transform: 0 });
+  const scale = useTransform(scrollYProgress, [0, 1], [originalScale, originalScale]);
+  const y = useTransform(() => {
+    const { jsHeight, cssHeight } = rootComputedValues.get();
+    const offset = (jsHeight - cssHeight) / 2 / originalScale;
+
+    return transformer(scrollYProgress.get(), [0, 1], [offset, -offset]);
   });
 
   useIsomorphicLayoutEffect(() => {
@@ -25,52 +29,46 @@ export default function useImageInteractive(originalScale: number) {
 
       return;
     }
-    const image = target.current as HTMLElement;
-    const bindedMouseMove = MouseMove.bind(null, image, { y, scale });
-    const bindedTrackScroll = TrackScroll.bind(null, image, originalScale, { y, scale });
-    const clearYProgress = scrollYProgress.on('change', bindedTrackScroll);
+    const root = target.current as HTMLElement;
+    const debouncedMeasure = debounce(_measure, 100);
 
-    image.addEventListener('mousemove', bindedMouseMove);
-    bindedTrackScroll(0);
+    function _measure() {
+      requestAnimationFrame(() => {
+        const { height: cssHeight, transform } = getComputedStyle(root);
+        const { height: jsHeight } = root.getBoundingClientRect();
+
+        rootComputedValues.set({
+          jsHeight,
+          cssHeight: parseFloat(cssHeight),
+          transform: parseFloat(transform.split(',')[3]),
+        });
+      });
+    }
+    function _rootMouseMove() {
+      requestAnimationFrame(() => {
+        const html = document.documentElement as HTMLElement;
+
+        if (
+          html.classList.contains('lenis-scrolling') ||
+          rootComputedValues.get().transform === 1
+        ) {
+          return;
+        }
+
+        y.set(0);
+        scale.set(1);
+      });
+    }
+
+    root.addEventListener('mousemove', _rootMouseMove);
+    window.addEventListener('resize', debouncedMeasure);
+    _measure();
 
     return () => {
-      image.removeEventListener('mousemove', bindedMouseMove);
-      clearYProgress();
+      root.removeEventListener('mousemove', _rootMouseMove);
+      window.removeEventListener('resize', debouncedMeasure);
     };
-  }, [isHover]);
+  }, [isHover, originalScale]);
 
   return { target, y, scale };
-}
-
-function TrackScroll(
-  image: HTMLElement,
-  scaleFactor: number,
-  motionValue: { y: MotionValue<number>; scale: MotionValue<number> },
-  e: number
-) {
-  requestAnimationFrame(() => {
-    const { height: cssHeight } = getComputedStyle(image);
-    const { height: jsHeight } = image.getBoundingClientRect();
-    const offset = (jsHeight - parseFloat(cssHeight)) / 2 / scaleFactor;
-    const position = transformer(e, [0, 1], [offset, -offset]);
-
-    motionValue.y.set(position);
-    motionValue.scale.set(scaleFactor);
-  });
-}
-
-function MouseMove(
-  image: HTMLElement,
-  motionValue: { y: MotionValue<number>; scale: MotionValue<number> }
-) {
-  requestAnimationFrame(() => {
-    const html = document.documentElement as HTMLElement;
-    const { transform } = getComputedStyle(image);
-    const scaleFactor = parseFloat(transform.split(',')[3]);
-
-    if (html.classList.contains('lenis-scrolling') || scaleFactor === 1) return;
-
-    motionValue.y.set(0);
-    motionValue.scale.set(1);
-  });
 }

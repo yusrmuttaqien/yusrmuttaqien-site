@@ -24,29 +24,26 @@ export default function useHomeProjectsEntry() {
   const status = useRef<EntryStatus>('not-ready');
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
   const activeAnimate = useRef<AnimationPlaybackControls | null>(null);
-  const { lastRun: titleLR, disconnect: titleOff } = useSplitType(
-    `#home-projects ${gFD('projects-header-title-0')}`,
-    {
+  const { lastRun: titleLR, disconnect: titleOff } = useSplitType({
+    selector: `#home-projects ${gFD('projects-header-title-0')}`,
+    options: {
       types: 'words,chars',
       wordClass: 'word overflow-hidden project-title-trim',
       charClass: 'char project-title-trim',
-    }
-  );
-  const { lastRun: titleL2R, disconnect: title2Off } = useSplitType(
-    `#home-projects ${gFD('projects-header-title-2')}`,
-    {
+    },
+  });
+  const { lastRun: titleL2R, disconnect: title2Off } = useSplitType({
+    selector: `#home-projects ${gFD('projects-header-title-2')}`,
+    options: {
       types: 'words,chars',
       wordClass: 'word overflow-hidden project-title-trim',
       charClass: 'char project-title-trim',
-    }
-  );
-  const { lastRun: subtitleLR, disconnect: subtitleOff } = useSplitType(
-    `#home-projects ${gFD('projects-header-subtitle')}`,
-    {
-      types: 'lines,words',
-      lineClass: 'line whitespace-nowrap overflow-hidden',
-    }
-  );
+    },
+  });
+  const { lastRun: subtitleLR, disconnect: subtitleOff } = useSplitType({
+    selector: `#home-projects ${gFD('projects-header-subtitle')}`,
+    options: { types: 'lines,words', lineClass: 'line whitespace-nowrap overflow-hidden' },
+  });
 
   function _preEntry() {
     const root = scope.current as HTMLElement;

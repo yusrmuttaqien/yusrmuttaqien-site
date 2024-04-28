@@ -1,12 +1,16 @@
+import type { EntryStatus } from '@/types/animation-sequence';
+import type { AnimationSequence } from 'framer-motion';
+
 interface SequencesReady {
-  part: 'ready';
+  status: 'ready';
   scaleFrom?: never;
   scaleTo?: never;
 }
 interface SequencesGo {
-  part: 'go';
+  status: 'running';
   scaleFrom: number;
   scaleTo: number;
 }
 
-export type SequencesProps = SequencesGo | SequencesReady;
+export type Sequences = SequencesGo | SequencesReady;
+export type SequencesSequence = Partial<Record<EntryStatus, AnimationSequence>>;

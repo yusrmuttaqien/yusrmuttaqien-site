@@ -27,9 +27,9 @@ export default function useHomeMasteriesEntry() {
   const status = useRef<EntryStatus>('not-ready');
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
   const activeAnimate = useRef<AnimationPlaybackControls | null>(null);
-  const { lastRun, disconnect } = useSplitType(`#home-masteries ${gFD('section-header-title')}`, {
-    types: 'lines',
-    lineClass: 'line whitespace-nowrap',
+  const { lastRun, disconnect } = useSplitType({
+    selector: `#home-masteries ${gFD('section-header-title')}`,
+    options: { types: 'lines', lineClass: 'line whitespace-nowrap' },
   });
 
   function _preEntry() {

@@ -5,7 +5,7 @@ import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import gFD from '@/utils/get-framer-data';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
 import { EASE_IN_OUT_QUART_NUM } from '@/constants/tailwind-config';
-import type { SequencesProps } from '@/types/loader';
+import type { Sequences, SequencesSequence } from '@/types/loader';
 
 export default function useLoaderExit() {
   const [scope, animate] = useAnimate();
@@ -31,7 +31,7 @@ export default function useLoaderExit() {
       scaleTo = Math.ceil(scaleTo) / (Math.min(clientHeight, clientWidth) / 4);
 
       outer?.addEventListener('transitionend', _hide);
-      animate(Sequences({ part: 'go', scaleFrom, scaleTo })).then(() => {
+      animate(sequences({ status: 'running', scaleFrom, scaleTo })).then(() => {
         setState((draft) => {
           draft.isLoader = false;
         });
@@ -43,7 +43,7 @@ export default function useLoaderExit() {
       inner?.removeEventListener('animationiteration', _intercept);
       outer?.classList.remove('animate-loader-outer-bubble-out');
       inner?.classList.remove('animate-loader-inner-radiate-out');
-      animate(Sequences({ part: 'ready' })).then(_exit);
+      animate(sequences({ status: 'ready' })).then(_exit);
     }
 
     inner?.addEventListener('animationiteration', _intercept);
@@ -53,14 +53,14 @@ export default function useLoaderExit() {
     };
   }, [isValidated, isPageReady]);
 
-  return scope;
+  return { scope };
 }
 
-function Sequences(props: SequencesProps): AnimationSequence {
-  const { part, scaleFrom, scaleTo } = props;
+function sequences(props: Sequences): AnimationSequence {
+  const { status, scaleFrom, scaleTo } = props;
 
-  const SEQUENCE: AnimationSequence[] = [
-    [
+  const SEQUENCE: SequencesSequence = {
+    ready: [
       [gFD('loader-outer'), { scale: 0.5, x: '-50%', y: '-50%' }, { duration: 0 }],
       [gFD('loader-inner'), { scale: 0 }, { duration: 0 }],
       [
@@ -74,7 +74,7 @@ function Sequences(props: SequencesProps): AnimationSequence {
         { duration: 0.5, ease: cubicBezier(...EASE_IN_OUT_QUART_NUM), at: '<' },
       ],
     ],
-    [
+    running: [
       [
         gFD('loader-outer'),
         { opacity: 1, scale: scaleFrom, x: '-50%', y: '-50%' },
@@ -86,7 +86,7 @@ function Sequences(props: SequencesProps): AnimationSequence {
         { ...FRAMER_DEFAULT_TIMING },
       ],
     ],
-  ];
+  };
 
-  return SEQUENCE[part === 'ready' ? 0 : 1];
+  return SEQUENCE[status] || [];
 }

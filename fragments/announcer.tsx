@@ -3,7 +3,7 @@ import useAnnouncerInteractive from '@/hooks/announcer-interactive';
 import classMerge from '@/utils/class-merge';
 
 export default function Announcer() {
-  const control = useAnnouncerInteractive();
+  const { control } = useAnnouncerInteractive();
 
   return (
     <motion.div

@@ -12,23 +12,23 @@ const MediaQueryContext = createContext<MediaQueryInitialState>(MEDIA_QUERY_INIT
 
 export default function MediaQueryProvider({ children }: { children: ReactNode }) {
   const [revalidate, setRevalidate] = useState(0);
-  const isScreenLargeDesktop = useMediaQuery(
-    `screen and (min-width: ${scrSize('2xl', true)})`,
-    revalidate
-  );
-  const isScreenDesktop = useMediaQuery(
-    `screen and (min-width: ${scrSize('xl', true)})`,
-    revalidate
-  );
-  const isScreenTablet = useMediaQuery(
-    `screen and (min-width: ${scrSize('lg', true)})`,
-    revalidate
-  );
-  const isScreenFrom550 = useMediaQuery(
-    `screen and (min-width: ${scrSize('from-550', true)})`,
-    revalidate
-  );
-  const isHover = useMediaQuery(`screen and (hover: hover)`);
+  const { match: isScreenLargeDesktop } = useMediaQuery({
+    query: `screen and (min-width: ${scrSize('2xl', true)})`,
+    revalidate,
+  });
+  const { match: isScreenDesktop } = useMediaQuery({
+    query: `screen and (min-width: ${scrSize('xl', true)})`,
+    revalidate,
+  });
+  const { match: isScreenTablet } = useMediaQuery({
+    query: `screen and (min-width: ${scrSize('lg', true)})`,
+    revalidate,
+  });
+  const { match: isScreenFrom550 } = useMediaQuery({
+    query: `screen and (min-width: ${scrSize('from-550', true)})`,
+    revalidate,
+  });
+  const { match: isHover } = useMediaQuery({ query: `screen and (hover: hover)`, revalidate });
   const [state, setState] = useImmer(MEDIA_QUERY_INITIAL_STATE);
 
   useIsomorphicLayoutEffect(() => {

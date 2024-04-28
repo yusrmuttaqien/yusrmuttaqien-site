@@ -2,20 +2,22 @@
 
 import { useRouter } from 'next/router';
 import { useRef, useState, useCallback } from 'react';
-import SplitType, { type SplitTypeOptions } from 'split-type';
+import SplitType from 'split-type';
 import { useMediaQueryCtx } from '@/providers/media-query';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import debounce from '@/utils/debounce';
+import type { SplitTypeProps } from '@/types/split-type';
 
-export default function useSplitType(selector: string, options: Partial<SplitTypeOptions>) {
+export default function useSplitType(props: SplitTypeProps) {
+  const { selector, options } = props;
+  const { locale } = useRouter();
   const isDisengaged = useRef(false);
   const lastLocale = useRef<string>();
   const currentLocale = useRef<string>();
+  const { isValidated } = useMediaQueryCtx();
+  const [lastRun, setLastRun] = useState<number>(0);
   const splitInstance = useRef<SplitType | null>(null);
   const observerInstance = useRef<MutationObserver | null>(null);
-  const [lastRun, setLastRun] = useState<number>(0);
-  const { isValidated } = useMediaQueryCtx();
-  const { locale } = useRouter();
   const debouncedResplit = useCallback(debounce(_resplit, 100), []);
 
   function _resplit() {
