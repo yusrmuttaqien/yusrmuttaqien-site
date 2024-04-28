@@ -25,15 +25,7 @@ export default function useHomeProjectsEntry() {
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
   const activeAnimate = useRef<AnimationPlaybackControls | null>(null);
   const { lastRun: titleLR, disconnect: titleOff } = useSplitType({
-    selector: `#home-projects ${gFD('projects-header-title-0')}`,
-    options: {
-      types: 'words,chars',
-      wordClass: 'word overflow-hidden project-title-trim',
-      charClass: 'char project-title-trim',
-    },
-  });
-  const { lastRun: titleL2R, disconnect: title2Off } = useSplitType({
-    selector: `#home-projects ${gFD('projects-header-title-2')}`,
+    selector: `#home-projects ${gFD('projects-header-title')} > span`,
     options: {
       types: 'words,chars',
       wordClass: 'word overflow-hidden project-title-trim',
@@ -77,7 +69,6 @@ export default function useHomeProjectsEntry() {
       activeAnimate.current?.then(() => {
         status.current = 'complete';
         titleOff();
-        title2Off();
         subtitleOff();
       });
     } else if (status.current === 'not-ready') {
@@ -92,9 +83,9 @@ export default function useHomeProjectsEntry() {
     if (!['running', 'complete'].includes(status.current)) {
       _preEntry();
     }
-  }, [titleLR, subtitleLR, titleL2R]);
+  }, [titleLR, subtitleLR]);
 
-  return scope;
+  return { scope };
 }
 
 function sequences(props: ProjectsSequences): AnimationSequence {

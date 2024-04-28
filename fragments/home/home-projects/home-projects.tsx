@@ -15,7 +15,7 @@ export default function HomeProjects(props: ProjectsProps) {
   const {
     projects: { projects, allProjects },
   } = useContent();
-  const scope = useHomeProjectsEntry();
+  const { scope } = useHomeProjectsEntry();
   const isTwoMore = projects.length >= 2;
   const isMoreFour = projects.length > 4;
 
