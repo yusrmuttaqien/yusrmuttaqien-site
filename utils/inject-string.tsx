@@ -1,15 +1,11 @@
 import { Fragment } from 'react';
-import type { InjectStringProps } from '@/types/inject-string';
+import type { InjectStringProps } from '@/types/utils';
 
-export default function InjectString({
-  comps = {},
-  string,
-  name,
-  classNames = {},
-}: InjectStringProps) {
-  const { strings, injectables } = _parseString();
+export default function InjectString(props: InjectStringProps) {
+  const { comps = {}, string, name, classNames = {} } = props;
+  const { strings, injectables } = _parse();
 
-  function _parseString() {
+  function _parse() {
     const identifyIdx = string.split('<');
     let parsedStrings: string[] = [];
     let injectableIdx: number[] = [];

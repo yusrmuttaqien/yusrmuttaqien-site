@@ -1,6 +1,8 @@
-import type { MoveToProps } from '@/types/move-to';
+import type { MoveToProps } from '@/types/utils';
 
-export default function moveTo({ anchor, preoffset = 0, offset, boundary = 0 }: MoveToProps) {
+export default function moveTo(props: MoveToProps) {
+  const { anchor, preoffset = 0, offset, boundary = 0 } = props;
+
   if (boundary) {
     return Math.min(Math.max(anchor - (preoffset + offset / 2), -boundary), boundary);
   } else {

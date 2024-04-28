@@ -1,4 +1,7 @@
-export default function progressiveArray(steps: number, rangeEnd: number) {
+import type { ProgressiveArray } from '@/types/utils';
+
+export default function progressiveArray(props: ProgressiveArray) {
+  const { steps, rangeEnd } = props;
   const result: number[] = [0];
   const increment = rangeEnd / steps;
 

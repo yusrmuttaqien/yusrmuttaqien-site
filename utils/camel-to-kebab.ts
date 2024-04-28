@@ -1,4 +1,6 @@
-export default function camelToKebabCase(str: string) {
+import { CamelToKebabCase } from '@/types/utils';
+
+export default function camelToKebabCase(str: CamelToKebabCase) {
   return str
     .split('')
     .map((letter, idx) => {
