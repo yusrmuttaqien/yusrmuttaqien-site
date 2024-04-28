@@ -23,6 +23,30 @@ export default function App(props: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="author" content="Yusril Muttaqien" />
         <meta name="description" content="View all my works and projects" key="description" />
+        <link
+          href="/favicon-dark.ico"
+          rel="shortcut icon"
+          type="image/x-icon"
+          media="(prefers-color-scheme: light)"
+        />
+        <link
+          href="/favicon-light.ico"
+          rel="shortcut icon"
+          type="image/x-icon"
+          media="(prefers-color-scheme: dark)"
+        />
+        <link
+          href="/icon-dark.png"
+          rel="apple-touch-icon image_src"
+          type="image/png"
+          media="(prefers-color-scheme: light)"
+        />
+        <link
+          href="/icon-light.png"
+          rel="apple-touch-icon image_src"
+          type="image/png"
+          media="(prefers-color-scheme: dark)"
+        />
         <title key="title">Yusril Muttaqien</title>
       </Head>
       <Providers>
