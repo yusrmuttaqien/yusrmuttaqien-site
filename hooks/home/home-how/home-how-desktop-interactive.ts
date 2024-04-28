@@ -1,9 +1,10 @@
-import { useRef, useState, type RefObject } from 'react';
+import { useRef, useState } from 'react';
 import { useAnimate, useAnimation, animate as globalAnimate } from 'framer-motion';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import { useMediaQueryCtx } from '@/providers/media-query';
 import gFD from '@/utils/get-framer-data';
 import moveTo from '@/utils/move-to';
+import debounce from '@/utils/debounce';
 import type { HowDesktopInteractiveProps } from '@/types/home';
 import type { HowSteps } from '@/types/content';
 
@@ -11,6 +12,7 @@ export default function useHomeHowDesktopInteractive(props: HowDesktopInteractiv
   const { root: parent } = props;
   const control = useAnimation();
   const [scope, animate] = useAnimate();
+  const rootBounding = useRef({ top: 0, height: 0 });
   const { isHover, isScreenDesktop } = useMediaQueryCtx();
   const [active, setActive] = useState<keyof HowSteps | undefined>(undefined);
   const lastEl = useRef<HTMLButtonElement | undefined>(undefined);
@@ -20,11 +22,12 @@ export default function useHomeHowDesktopInteractive(props: HowDesktopInteractiv
     const parentRoot = parent.current as HTMLElement;
     const root = scope.current as HTMLElement;
     const cocSteps = root.querySelectorAll('button');
+    const debouncedMeasure = debounce(_measure, 100);
 
     function _moveCard(e: MouseEvent) {
       const current = e.target as HTMLButtonElement;
       const { scrollY } = window;
-      const { top: rootTop, height: rootHeight } = root.getBoundingClientRect();
+      const { top: rootTop, height: rootHeight } = rootBounding.current;
       const { top, height } = current.getBoundingClientRect();
       const yMoveCard = moveTo({
         anchor: scrollY + top + height / 2,
@@ -80,6 +83,16 @@ export default function useHomeHowDesktopInteractive(props: HowDesktopInteractiv
       _enter(e);
       lastEl.current?.innerText !== current.innerText && _leave(current);
     }
+    function _measure() {
+      requestAnimationFrame(() => {
+        const { top, height } = root.getBoundingClientRect();
+
+        rootBounding.current = { top, height };
+      });
+    }
+
+    window.addEventListener('resize', debouncedMeasure);
+    _measure();
 
     if (isHover) {
       cocSteps.forEach((button) => button.addEventListener('mouseenter', _switch));
@@ -106,6 +119,7 @@ export default function useHomeHowDesktopInteractive(props: HowDesktopInteractiv
     return () => {
       cocSteps.forEach((button) => button.removeEventListener('mouseenter', _switch));
       cocSteps.forEach((button) => button.removeEventListener('click', _switch));
+      window.removeEventListener('resize', debouncedMeasure);
     };
   }, [isHover, isScreenDesktop]);
 

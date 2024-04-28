@@ -25,7 +25,7 @@ export default function useHomeMasteriesInteractive(props: MasteriesMarqueeInter
     clamp: false,
   });
   const x = useTransform(baseX, (v) => {
-    const value = wrap(0, -childWidth.get(), v);
+    const value = wrap({ min: 0, max: -childWidth.get(), v });
 
     return `${value}px`;
   });
