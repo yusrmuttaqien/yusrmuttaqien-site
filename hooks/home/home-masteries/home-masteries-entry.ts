@@ -12,9 +12,11 @@ import { useMediaQueryCtx } from '@/providers/media-query';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import useSplitType from '@/hooks/split-type';
 import gFD from '@/utils/get-framer-data';
+import debounce from '@/utils/debounce';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
 import type { MasteriesSequences, MasteriesSequencesSequence } from '@/types/home';
 import type { EntryStatus } from '@/types/animation-sequence';
+import type { ResumableAnimate } from '@/types/animation-sequence';
 
 export default function useHomeMasteriesEntry() {
   const {
@@ -24,53 +26,77 @@ export default function useHomeMasteriesEntry() {
   const [scope, animate] = useAnimate();
   const { isValidated } = useMediaQueryCtx();
   const status = useRef<EntryStatus>('not-ready');
+  const rootComputedStyle = useRef({ height: 0 });
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
-  const activeAnimate = useRef<AnimationPlaybackControls | null>(null);
   const { lastRun, disconnect } = useSplitType({
     selector: `#home-masteries ${gFD('section-header-title')}`,
     options: { types: 'lines', lineClass: 'line whitespace-nowrap' },
   });
+  const activeAnimate = useRef<ResumableAnimate>({
+    instance: null,
+    time: 0,
+  });
 
   function _preEntry() {
-    const root = scope.current as HTMLElement;
-    const { height } = getComputedStyle(root);
+    const { height } = rootComputedStyle.current;
 
-    animate(sequences({ status: 'ready', marqueeX: parseFloat(height) })).then(() => {
+    animate(sequences({ status: 'ready', marqueeX: height })).then(() => {
       status.current = 'ready';
+    });
+  }
+  function _entry(time: number = 0) {
+    activeAnimate.current.instance?.stop();
+    _preEntry();
+    activeAnimate.current.instance = animate(sequences({ status: 'running' }));
+    activeAnimate.current.instance.pause();
+    activeAnimate.current.instance.time = time;
+    activeAnimate.current.instance.play();
+    activeAnimate.current.instance.then(() => {
+      status.current = 'complete';
+      activeAnimate.current.time = 0;
+      disconnect();
     });
   }
 
   useIsomorphicLayoutEffect(() => {
     if (!isValidated) return;
+    const debouncedMeasure = debounce(_measure, 100);
 
-    function _complete() {
-      if (status.current === 'complete') return;
+    function _measure() {
+      const root = scope.current as HTMLElement;
+      const { height } = getComputedStyle(root);
 
-      activeAnimate.current?.complete();
-      window.removeEventListener('resize', _complete);
+      rootComputedStyle.current.height = parseFloat(height);
     }
+
+    window.addEventListener('resize', debouncedMeasure);
+    _measure();
 
     if (isInView && !isLoader && status.current === 'ready') {
       const root = scope.current as HTMLElement;
 
       root.classList.remove('invisible');
       status.current = 'running';
-      activeAnimate.current = animate(sequences({ status: 'running' }));
-      activeAnimate.current?.then(() => {
-        status.current = 'complete';
-        disconnect();
-      });
+      _entry();
     } else if (status.current === 'not-ready') {
       _preEntry();
     }
 
-    window.addEventListener('resize', _complete);
-
-    return _complete;
+    return () => {
+      window.removeEventListener('resize', debouncedMeasure);
+    };
   }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {
     if (!['running', 'complete'].includes(status.current)) {
       _preEntry();
+    } else if (status.current === 'running') {
+      const instanceTime = activeAnimate.current.instance?.time || 0;
+
+      if (activeAnimate.current.time < instanceTime) {
+        activeAnimate.current.time = instanceTime;
+      }
+
+      _entry(activeAnimate.current.time);
     }
   }, [lastRun, locale]);
 

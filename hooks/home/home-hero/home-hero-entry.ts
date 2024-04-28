@@ -42,7 +42,7 @@ function sequences(props: HeroSequences): AnimationSequence {
       [gFD('blueprint-cross'), { opacity: 0, scale: 0.5 }, { duration: 0 }],
       [gFD('blueprint-centre-inner'), { opacity: 0, scale: 0 }, { duration: 0 }],
       [gFD('blueprint-centre-outer'), { opacity: 0, scale: 0 }, { duration: 0 }],
-      [gFD('hero-header'), { y: '99%' }, { duration: 0 }],
+      [gFD('hero-header'), { y: '100%' }, { duration: 0 }],
     ],
     running: [
       [
