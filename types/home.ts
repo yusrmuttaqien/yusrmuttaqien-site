@@ -26,7 +26,7 @@ export type HeroSequences = {
   status: EntryStatus;
 };
 export type HeroInteractiveProps = {
-  status: EntryStatus;
+  status: MutableRefObject<EntryStatus>;
 };
 export type HeroSequencesSequence = Partial<Record<EntryStatus, AnimationSequence>>;
 // #endregion Hero

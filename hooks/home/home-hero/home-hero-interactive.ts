@@ -28,31 +28,24 @@ export default function useHomeHeroInteractive(props: HeroInteractiveProps) {
     const header = root.querySelector(gFD('hero-header')) as HTMLElement;
     const blueprintCross = root.querySelector(gFD('blueprint-cross')) as HTMLElement;
     const blueprintCentre = root.querySelector(gFD('blueprint-centre')) as HTMLElement;
+    const classLists = ['origin-center', 'ease-out-expo'];
+    blueprintCentre.style.transformStyle = 'preserve-3d';
+    blueprintCentre.style.perspective = '5000px';
 
-    if (status !== 'complete') {
-      const classLists = ['origin-center', 'ease-out-expo'];
+    header.classList.add(
+      ...classLists,
+      'transition-[opacity,_transform]',
+      'duration-500',
+      'pointer-events-none'
+    );
+    blueprintCentre.classList.add(...classLists, 'transition-transform', 'duration-1000');
+    blueprintCross.classList.add(...classLists, 'transition-[transform,_filter]', 'duration-1000');
 
-      blueprintCentre.style.transformStyle = 'preserve-3d';
-      blueprintCentre.style.perspective = '5000px';
-
-      header.classList.add(
-        ...classLists,
-        'transition-[opacity,_transform]',
-        'duration-500',
-        'pointer-events-none'
-      );
-      blueprintCentre.classList.add(...classLists, 'transition-transform', 'duration-1000');
-      blueprintCross.classList.add(
-        ...classLists,
-        'transition-[transform,_filter]',
-        'duration-1000'
-      );
-
-      return;
-    }
     if (!isHover) return;
 
     function _rootMouseMove(e: MouseEvent) {
+      if (status.current !== 'complete') return;
+
       requestAnimationFrame(() => {
         const html = document.documentElement as HTMLElement;
 

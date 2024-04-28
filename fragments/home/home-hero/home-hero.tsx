@@ -31,7 +31,7 @@ export default function HomeHero(props: HeroProps) {
     >
       <motion.header
         data-framer="hero-header"
-        style={status === 'complete' ? headerUnits : {}}
+        style={headerUnits}
         className={classMerge(
           'z-10 w-full relative p-[clamp(1.125rem,_0.0341rem_+_5.4545vw,_1.5rem)]',
           'bg-beige-dynamic-[80] backdrop-blur-8'

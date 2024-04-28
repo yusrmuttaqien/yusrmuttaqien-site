@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import { useAnimate, useInView, type AnimationSequence } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
@@ -13,21 +13,21 @@ export default function useHomeHeroEntry() {
   } = useAnimationSequenceCtx();
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
-  const [status, setStatus] = useState<EntryStatus>('not-ready');
+  const status = useRef<EntryStatus>('not-ready');
 
   useIsomorphicLayoutEffect(() => {
-    if (isInView && !isLoader && status === 'ready') {
-      setStatus('running');
+    if (isInView && !isLoader && status.current === 'ready') {
+      status.current = 'running';
       const root = scope.current as HTMLElement;
 
       root.classList.add('overflow-hidden');
       root.classList.remove('opacity-0');
       animate(sequences({ status: 'running' })).then(() => {
-        setStatus('complete');
+        status.current = 'complete';
       });
-    } else if (status === 'not-ready') {
+    } else if (status.current === 'not-ready') {
       animate(sequences({ status: 'ready' })).then(() => {
-        setStatus('ready');
+        status.current = 'ready';
       });
     }
   }, [isInView, isLoader, status]);
