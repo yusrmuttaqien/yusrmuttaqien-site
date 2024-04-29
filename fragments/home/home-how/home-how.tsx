@@ -22,7 +22,7 @@ export default function HomeHow(props: HowProps) {
       ref={mergeRefs(entryScope, rootScope)}
       className={classMerge(
         'container xl:px-[clamp(1.125rem,_0.0341rem_+_5.4545vw,_1.5rem)]',
-        'space-y-[clamp(4.25rem,_1.25rem_+_15vw,_5.75rem)]',
+        'space-y-[clamp(4.25rem,_1.25rem_+_15vw,_5.75rem)] invisible',
         'xl:space-y-[calc(clamp(4.25rem,_1.25rem_+_15vw,_5.75rem)_*_2)]',
         className
       )}

@@ -1,12 +1,5 @@
 import { useRef } from 'react';
-import { useRouter } from 'next/router';
-import {
-  useAnimate,
-  useInView,
-  stagger,
-  type AnimationSequence,
-  type AnimationPlaybackControls,
-} from 'framer-motion';
+import { useAnimate, useInView, stagger, type AnimationSequence } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import { useMediaQueryCtx } from '@/providers/media-query';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
@@ -22,7 +15,6 @@ export default function useHomeMasteriesEntry() {
   const {
     state: { isLoader },
   } = useAnimationSequenceCtx();
-  const { locale } = useRouter();
   const [scope, animate] = useAnimate();
   const { isValidated } = useMediaQueryCtx();
   const status = useRef<EntryStatus>('not-ready');
@@ -37,19 +29,25 @@ export default function useHomeMasteriesEntry() {
     time: 0,
   });
 
-  function _preEntry() {
+  function _preEntry(overrideStatus?: EntryStatus, cb?: VoidFunction) {
     const { height } = rootComputedStyle.current;
 
     animate(sequences({ status: 'ready', marqueeX: height })).then(() => {
-      status.current = 'ready';
+      status.current = overrideStatus || 'ready';
+      cb?.();
     });
   }
-  function _entry(time: number = 0) {
+  function _entry() {
     activeAnimate.current.instance?.stop();
-    _preEntry();
+    _preEntry('running', _reAnimate);
+  }
+  function _reAnimate() {
+    const root = scope.current as HTMLElement;
+
+    root.classList.remove('invisible');
     activeAnimate.current.instance = animate(sequences({ status: 'running' }));
     activeAnimate.current.instance.pause();
-    activeAnimate.current.instance.time = time;
+    activeAnimate.current.instance.time = activeAnimate.current.time;
     activeAnimate.current.instance.play();
     activeAnimate.current.instance.then(() => {
       status.current = 'complete';
@@ -68,26 +66,32 @@ export default function useHomeMasteriesEntry() {
 
       rootComputedStyle.current.height = parseFloat(height);
     }
-
-    window.addEventListener('resize', debouncedMeasure);
-    _measure();
-
-    if (isInView && !isLoader && status.current === 'ready') {
+    function _cover() {
+      if (status.current !== 'running') return;
       const root = scope.current as HTMLElement;
 
-      root.classList.remove('invisible');
-      status.current = 'running';
+      !root.classList.contains('invisible') && root.classList.add('invisible');
+    }
+
+    window.addEventListener('resize', debouncedMeasure);
+    window.addEventListener('resize', _cover);
+
+    if (isInView && !isLoader && status.current === 'ready') {
       _entry();
+
+      status.current = 'running';
     } else if (status.current === 'not-ready') {
+      _measure();
       _preEntry();
     }
 
     return () => {
       window.removeEventListener('resize', debouncedMeasure);
+      window.removeEventListener('resize', _cover);
     };
   }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {
-    if (!['running', 'complete'].includes(status.current)) {
+    if (status.current === 'ready') {
       _preEntry();
     } else if (status.current === 'running') {
       const instanceTime = activeAnimate.current.instance?.time || 0;
@@ -96,9 +100,9 @@ export default function useHomeMasteriesEntry() {
         activeAnimate.current.time = instanceTime;
       }
 
-      _entry(activeAnimate.current.time);
+      _entry();
     }
-  }, [lastRun, locale]);
+  }, [lastRun]);
 
   return { scope };
 }

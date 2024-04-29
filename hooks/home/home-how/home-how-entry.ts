@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useAnimate, useInView, type AnimationSequence, stagger } from 'framer-motion';
+import { useAnimate, useInView, stagger, type AnimationSequence } from 'framer-motion';
 import { useMediaQueryCtx } from '@/providers/media-query';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
@@ -9,6 +9,7 @@ import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
 import type { EntryStatus } from '@/types/animation-sequence';
 import type { ScreenSize } from '@/types/tailwind-config';
 import type { HowSequences, HowSequencesSequence } from '@/types/home';
+import type { ResumableAnimate } from '@/types/animation-sequence';
 
 export default function useHomeHowEntry() {
   const {
@@ -16,9 +17,9 @@ export default function useHomeHowEntry() {
   } = useAnimationSequenceCtx();
   const [scope, animate] = useAnimate();
   const status = useRef<EntryStatus>('not-ready');
+  const screen = useRef<ScreenSize | undefined>(undefined);
   const { isValidated, isScreenDesktop } = useMediaQueryCtx();
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
-  const screen = useRef<ScreenSize | undefined>(undefined);
   const { lastRun: titleLR, disconnect: titleOff } = useSplitType({
     selector: `#home-how ${gFD('how-header-subtitle')}`,
     options: { types: 'lines,words', lineClass: 'line overflow-hidden' },
@@ -27,17 +28,19 @@ export default function useHomeHowEntry() {
     selector: `#home-how ${gFD('how-header-title')}`,
     options: { types: 'lines,words', lineClass: 'line overflow-hidden' },
   });
+  const activeAnimate = useRef<ResumableAnimate>({
+    instance: null,
+    time: 0,
+  });
 
-  function _preEntry() {
+  function _preEntry(overrideStatus?: EntryStatus, cb?: VoidFunction) {
     const root = scope.current as HTMLElement;
     const desktopStep = root.querySelector(gFD('how-desktop-steps')) as HTMLElement;
     const mobileSteps = root.querySelectorAll(gFD('how-mobile-step'));
 
     if (desktopStep) {
       desktopStep.style.perspective = '5000px';
-    }
-
-    if (mobileSteps.length > 0) {
+    } else if (mobileSteps.length > 0) {
       mobileSteps.forEach((step) => {
         const heading = step.children[0] as HTMLElement;
         const title = heading.children[0] as HTMLElement;
@@ -51,29 +54,68 @@ export default function useHomeHowEntry() {
     }
 
     animate(sequences({ status: 'ready', screen })).then(() => {
-      status.current = 'ready';
+      status.current = overrideStatus || 'ready';
+      cb?.();
+    });
+  }
+  function _entry() {
+    activeAnimate.current.instance?.stop();
+    _preEntry('running', _reAnimate);
+  }
+  function _reAnimate() {
+    const root = scope.current as HTMLElement;
+
+    root.classList.remove('invisible');
+    activeAnimate.current.instance = animate(sequences({ status: 'running', screen }));
+    activeAnimate.current.instance.pause();
+    activeAnimate.current.instance.time = activeAnimate.current.time;
+    activeAnimate.current.instance.play();
+    activeAnimate.current.instance.then(() => {
+      status.current = 'complete';
+      activeAnimate.current.time = 0;
+      titleOff();
+      subtitleOff();
     });
   }
 
   useIsomorphicLayoutEffect(() => {
     if (!isValidated) return;
-    if (!screen.current) {
-      screen.current = isScreenDesktop ? 'xl' : 'lg';
+
+    function _cover() {
+      if (status.current !== 'running') return;
+      const root = scope.current as HTMLElement;
+
+      !root.classList.contains('invisible') && root.classList.add('invisible');
     }
+
+    window.addEventListener('resize', _cover);
+
     if (isInView && !isLoader && status.current === 'ready') {
+      _entry();
+
       status.current = 'running';
-      animate(sequences({ status: 'running', screen })).then(() => {
-        status.current = 'complete';
-        titleOff();
-        subtitleOff();
-      });
     } else if (status.current === 'not-ready') {
       _preEntry();
     }
-  }, [isInView, isLoader, isValidated, isScreenDesktop]);
+
+    return () => {
+      window.removeEventListener('resize', _cover);
+    };
+  }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {
-    if (!['running', 'complete'].includes(status.current)) {
+    screen.current = isScreenDesktop ? 'xl' : 'lg';
+  }, [isScreenDesktop]);
+  useIsomorphicLayoutEffect(() => {
+    if (status.current === 'ready') {
       _preEntry();
+    } else if (status.current === 'running') {
+      const instanceTime = activeAnimate.current.instance?.time || 0;
+
+      if (activeAnimate.current.time < instanceTime) {
+        activeAnimate.current.time = instanceTime;
+      }
+
+      _entry();
     }
   }, [titleLR, subtitleLR]);
 

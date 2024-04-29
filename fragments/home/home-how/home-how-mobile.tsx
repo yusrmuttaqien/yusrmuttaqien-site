@@ -39,7 +39,7 @@ function Hows(props: HowMobileHowsProps) {
             'after:border-b after:border-r after:-rotate-45 after:absolute',
             'after:border-grey-dynamic-[] after:right-0',
             'after:inline-block after:p-[0.3125rem] after:top-1/2 after:-translate-y-1/2',
-            'lg:mx-8 after:invisible lg:after:visible'
+            'lg:mx-8 xl:after:invisible'
           )}
         />
       </div>

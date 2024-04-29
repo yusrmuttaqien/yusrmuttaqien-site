@@ -1,19 +1,15 @@
 import { useRef } from 'react';
-import {
-  useAnimate,
-  useInView,
-  stagger,
-  type AnimationSequence,
-  type AnimationPlaybackControls,
-} from 'framer-motion';
+import { useAnimate, useInView, stagger, type AnimationSequence } from 'framer-motion';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import { useMediaQueryCtx } from '@/providers/media-query';
 import useSplitType from '@/hooks/split-type';
 import gFD from '@/utils/get-framer-data';
+import debounce from '@/utils/debounce';
 import { FRAMER_DEFAULT_TIMING } from '@/constants/framer-motion';
 import type { ProjectsSequences, ProjectsSequencesSequence } from '@/types/home';
 import type { EntryStatus } from '@/types/animation-sequence';
+import type { ResumableAnimate } from '@/types/animation-sequence';
 
 export default function useHomeProjectsEntry() {
   const {
@@ -22,8 +18,8 @@ export default function useHomeProjectsEntry() {
   const [scope, animate] = useAnimate();
   const { isValidated } = useMediaQueryCtx();
   const status = useRef<EntryStatus>('not-ready');
+  const title2ComputedStyle = useRef({ marginLeft: 0 });
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
-  const activeAnimate = useRef<AnimationPlaybackControls | null>(null);
   const { lastRun: titleLR, disconnect: titleOff } = useSplitType({
     selector: `#home-projects ${gFD('projects-header-title')} > span`,
     options: {
@@ -36,52 +32,90 @@ export default function useHomeProjectsEntry() {
     selector: `#home-projects ${gFD('projects-header-subtitle')}`,
     options: { types: 'lines,words', lineClass: 'line whitespace-nowrap overflow-hidden' },
   });
+  const activeAnimate = useRef<ResumableAnimate>({
+    instance: null,
+    time: 0,
+  });
 
-  function _preEntry() {
+  function _preEntry(overrideStatus?: EntryStatus, cb?: VoidFunction) {
+    const { marginLeft } = title2ComputedStyle.current;
+
+    animate(sequences({ status: 'ready', title2ML: marginLeft })).then(() => {
+      status.current = overrideStatus || 'ready';
+      cb?.();
+    });
+  }
+  function _entry() {
+    activeAnimate.current.instance?.stop();
+    _preEntry('running', _reAnimate);
+  }
+  function _reAnimate() {
     const root = scope.current as HTMLElement;
-    const title2 = root.querySelector(gFD('projects-header-title-2')) as HTMLElement;
-    const subtitle = root.querySelector(gFD('projects-header-subtitle')) as HTMLElement;
-    const { marginLeft } = getComputedStyle(title2);
 
-    title2.classList.add('inline-block');
-    subtitle.classList.add('overflow-hidden');
-    animate(sequences({ status: 'ready', title2ML: parseFloat(marginLeft) })).then(() => {
-      status.current = 'ready';
+    root.classList.remove('invisible');
+    activeAnimate.current.instance = animate(sequences({ status: 'running' }));
+    activeAnimate.current.instance.pause();
+    activeAnimate.current.instance.time = activeAnimate.current.time;
+    activeAnimate.current.instance.play();
+    activeAnimate.current.instance.then(() => {
+      status.current = 'complete';
+      titleOff();
+      subtitleOff();
     });
   }
 
   useIsomorphicLayoutEffect(() => {
     if (!isValidated) return;
+    const debouncedMeasure = debounce(_measure, 100);
 
-    function _complete() {
-      if (status.current === 'complete') return;
+    function _measure() {
+      const root = scope.current as HTMLElement;
+      const title2 = root.querySelector(gFD('projects-header-title-2')) as HTMLElement;
+      const { marginLeft } = getComputedStyle(title2);
 
-      activeAnimate.current?.complete();
-      window.removeEventListener('resize', _complete);
+      title2ComputedStyle.current.marginLeft = parseFloat(marginLeft);
     }
-
-    if (isInView && !isLoader && status.current === 'ready') {
+    function _cover() {
+      if (status.current !== 'running') return;
       const root = scope.current as HTMLElement;
 
-      root.classList.remove('invisible');
+      !root.classList.contains('invisible') && root.classList.add('invisible');
+    }
+
+    window.addEventListener('resize', debouncedMeasure);
+    window.addEventListener('resize', _cover);
+
+    if (isInView && !isLoader && status.current === 'ready') {
+      _entry();
+
       status.current = 'running';
-      activeAnimate.current = animate(sequences({ status: 'running' }));
-      activeAnimate.current?.then(() => {
-        status.current = 'complete';
-        titleOff();
-        subtitleOff();
-      });
     } else if (status.current === 'not-ready') {
+      const root = scope.current as HTMLElement;
+      const title2 = root.querySelector(gFD('projects-header-title-2')) as HTMLElement;
+      const subtitle = root.querySelector(gFD('projects-header-subtitle')) as HTMLElement;
+
+      _measure();
+      title2.classList.add('inline-block');
+      subtitle.classList.add('overflow-hidden');
       _preEntry();
     }
 
-    window.addEventListener('resize', _complete);
-
-    return _complete;
+    return () => {
+      window.removeEventListener('resize', debouncedMeasure);
+      window.removeEventListener('resize', _cover);
+    };
   }, [isInView, isLoader, isValidated]);
   useIsomorphicLayoutEffect(() => {
-    if (!['running', 'complete'].includes(status.current)) {
+    if (status.current === 'ready') {
       _preEntry();
+    } else if (status.current === 'running') {
+      const instanceTime = activeAnimate.current.instance?.time || 0;
+
+      if (activeAnimate.current.time < instanceTime) {
+        activeAnimate.current.time = instanceTime;
+      }
+
+      _entry();
     }
   }, [titleLR, subtitleLR]);
 

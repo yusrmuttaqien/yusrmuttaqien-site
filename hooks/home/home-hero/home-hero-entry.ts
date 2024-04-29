@@ -17,7 +17,6 @@ export default function useHomeHeroEntry() {
 
   useIsomorphicLayoutEffect(() => {
     if (isInView && !isLoader && status.current === 'ready') {
-      status.current = 'running';
       const root = scope.current as HTMLElement;
 
       root.classList.add('overflow-hidden');
@@ -25,6 +24,8 @@ export default function useHomeHeroEntry() {
       animate(sequences({ status: 'running' })).then(() => {
         status.current = 'complete';
       });
+
+      status.current = 'running';
     } else if (status.current === 'not-ready') {
       animate(sequences({ status: 'ready' })).then(() => {
         status.current = 'ready';

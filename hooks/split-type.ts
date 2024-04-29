@@ -1,5 +1,3 @@
-// TODO: Update to able receive element as selector
-
 import { useRouter } from 'next/router';
 import { useRef, useState, useCallback } from 'react';
 import SplitType from 'split-type';
