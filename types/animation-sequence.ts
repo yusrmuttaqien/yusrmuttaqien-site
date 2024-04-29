@@ -8,6 +8,7 @@ export type AnimationSequenceProps = {
 export type AnimationSequenceInitialState = {
   isPageReady: boolean;
   isLoader: boolean;
+  visitedEndpoint: Set<string>;
   yusrMuttaqien: {
     hero: boolean;
     footer: boolean;

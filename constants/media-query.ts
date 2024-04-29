@@ -1,6 +1,6 @@
 import type { MediaQueryInitialState } from '@/types/media-query';
 
-export const MEDIA_QUERY_INITIAL_STATE = {
+export const MEDIA_QUERY_INITIAL_STATE: MediaQueryInitialState = {
   isScreenLargeDesktop: undefined,
   isScreenDesktop: undefined,
   isScreenTablet: undefined,
@@ -8,4 +8,4 @@ export const MEDIA_QUERY_INITIAL_STATE = {
   isDeviceMobile: undefined,
   isHover: undefined,
   isValidated: false,
-} as MediaQueryInitialState;
+};
