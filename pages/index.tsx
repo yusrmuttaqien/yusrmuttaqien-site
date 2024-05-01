@@ -1,6 +1,6 @@
+import { Fragment } from 'react';
 import { useAnimationSequenceCtx } from '@/providers/animation-sequence';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
-import TransitionSlideUp from '@/transitions/transition-slide-up';
 import HomeHero from '@/fragments/home/home-hero/home-hero';
 import HomeMasteries from '@/fragments/home/home-masteries/home-masteries';
 import HomeProjects from '@/fragments/home/home-projects/home-projects';
@@ -24,7 +24,7 @@ export default function Home() {
   }, []);
 
   return (
-    <TransitionSlideUp className="overflow-x-hidden">
+    <Fragment>
       <HomeHero />
       <HomeMasteries
         className={{
@@ -35,6 +35,6 @@ export default function Home() {
       />
       <HomeProjects className={spacingStyles} />
       <HomeHow className={spacingStyles} />
-    </TransitionSlideUp>
+    </Fragment>
   );
 }
