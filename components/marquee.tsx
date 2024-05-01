@@ -11,8 +11,8 @@ export const styles = tv({
 });
 
 export default function Marquee(props: MarqueeProps) {
-  const { children, baseVelocity, className, name } = props;
-  const { scope, x, reps } = useMarqueeInteractive({ baseVelocity });
+  const { children, baseVelocity, className, name, direction } = props;
+  const { scope, x, reps } = useMarqueeInteractive({ baseVelocity, forceDirection: direction });
   const { container, wrapper } = styles();
 
   return (

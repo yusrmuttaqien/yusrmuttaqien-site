@@ -6,7 +6,9 @@ export type MarqueeProps = {
   baseVelocity: number;
   className?: Partial<typeof styles.slots>;
   name?: string;
+  direction?: number | undefined;
 };
 export type MarqueeInteractiveParam = {
   baseVelocity: number;
+  forceDirection: number | undefined;
 };

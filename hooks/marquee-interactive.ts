@@ -12,9 +12,9 @@ import debounce from '@/utils/debounce';
 import type { MarqueeInteractiveParam } from '@/types/marquee';
 
 export default function useMarqueeIntractive(props: MarqueeInteractiveParam) {
-  const { baseVelocity = 0 } = props;
+  const { baseVelocity = 0, forceDirection } = props;
   const scope = useRef<HTMLDivElement>(null);
-  const direction = useRef(1);
+  const direction = useRef(forceDirection || 1);
   const rAF = useRef<number>(0);
   const { scrollY } = useScroll();
   const baseX = useMotionValue(0);
@@ -57,14 +57,18 @@ export default function useMarqueeIntractive(props: MarqueeInteractiveParam) {
   }, []);
   useAnimationFrame((_, delta) => {
     let moveBy = direction.current * baseVelocity * (delta / 1000);
+    let factor = 0;
 
-    if (scrollVelocity.get() > 0) {
-      direction.current = 1;
-    } else if (scrollVelocity.get() < 0) {
-      direction.current = -1;
+    if (!forceDirection) {
+      if (scrollVelocity.get() > 0) {
+        direction.current = 1;
+      } else if (scrollVelocity.get() < 0) {
+        direction.current = -1;
+      }
+      factor = velocityFactor.get();
     }
 
-    moveBy += direction.current * moveBy * velocityFactor.get();
+    moveBy += direction.current * moveBy * factor;
 
     baseX.set(baseX.get() + moveBy);
   });
