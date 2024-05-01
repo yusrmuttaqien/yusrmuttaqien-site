@@ -111,21 +111,17 @@ function sequences(props: MasteriesSequences): AnimationSequence {
   const { status, marqueeX = 0 } = props;
   const SEQUENCE: MasteriesSequencesSequence = {
     ready: [
-      [gFD('masteries-marquee-positive'), { opacity: 0, x: -marqueeX }, { duration: 0 }],
-      [gFD('masteries-marquee-negative'), { opacity: 0, x: marqueeX }, { duration: 0 }],
+      [gFD('marquee-positive'), { opacity: 0, x: -marqueeX }, { duration: 0 }],
+      [gFD('marquee-negative'), { opacity: 0, x: marqueeX }, { duration: 0 }],
       [gFD('masteries-header-subtitle'), { opacity: 0, y: 10 }, { duration: 0 }],
       [gFD('masteries-header-title', '.line'), { opacity: 0, y: 10 }, { duration: 0 }],
       [gFD('masteries-list-title'), { opacity: 0, y: 10 }, { duration: 0 }],
       [gFD('masteries-list-contents'), { opacity: 0, y: 10 }, { duration: 0 }],
     ],
     running: [
+      [gFD('marquee-positive'), { opacity: 1, x: 0 }, { ...FRAMER_DEFAULT_TIMING, duration: 0.8 }],
       [
-        gFD('masteries-marquee-positive'),
-        { opacity: 1, x: 0 },
-        { ...FRAMER_DEFAULT_TIMING, duration: 0.8 },
-      ],
-      [
-        gFD('masteries-marquee-negative'),
+        gFD('marquee-negative'),
         { opacity: 1, x: 0 },
         { ...FRAMER_DEFAULT_TIMING, duration: 0.8, at: '<' },
       ],

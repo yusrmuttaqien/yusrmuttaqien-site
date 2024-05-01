@@ -1,12 +1,12 @@
 import { memo } from 'react';
 import mergeRefs from 'merge-refs';
 import { tv } from 'tailwind-variants';
+import { useMediaQueryCtx } from '@/providers/media-query';
 import useHomeMasteriesEntry from '@/hooks/home/home-masteries/home-masteries-entry';
 import useHomeMasteriesCalculate from '@/hooks/home/home-masteries/home-masteries-calculate';
-import { useMediaQueryCtx } from '@/providers/media-query';
+import Marquee from '@/components/marquee';
 import HomeMasteriesHeader from '@/fragments/home/home-masteries/home-masteries-header';
 import HomeMasteriesList from '@/fragments/home/home-masteries/home-masteries-list';
-import HomeMasteriesMarquee from '@/fragments/home/home-masteries/home-masteries-marquee';
 import classMerge from '@/utils/class-merge';
 import useContent from '@/contents/home';
 import type { MasteriesProps } from '@/types/home';
@@ -62,20 +62,20 @@ export default function HomeMasteries(props: MasteriesProps) {
           )}
         >
           {/* NOTE: Using opacity instead text-color/opacity to fix Safari opaque emoticon */}
-          <HomeMasteriesMarquee
+          <Marquee
             className={{ container: marqueeStyles(), wrapper: 'opacity-5' }}
             baseVelocity={100}
             name="positive"
           >
             <p className="project-title">{marquee}</p>
-          </HomeMasteriesMarquee>
-          <HomeMasteriesMarquee
+          </Marquee>
+          <Marquee
             className={{ container: marqueeStyles(), wrapper: 'opacity-5' }}
             baseVelocity={-100}
             name="negative"
           >
             <p className="project-title">{marquee}</p>
-          </HomeMasteriesMarquee>
+          </Marquee>
         </div>
       )}
     </section>

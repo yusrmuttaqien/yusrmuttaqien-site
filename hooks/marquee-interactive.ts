@@ -9,9 +9,9 @@ import {
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import wrap from '@/utils/wrap';
 import debounce from '@/utils/debounce';
-import type { MasteriesMarqueeInteractive } from '@/types/home';
+import type { MarqueeInteractiveParam } from '@/types/marquee';
 
-export default function useHomeMasteriesInteractive(props: MasteriesMarqueeInteractive) {
+export default function useMarqueeIntractive(props: MarqueeInteractiveParam) {
   const { baseVelocity = 0 } = props;
   const scope = useRef<HTMLDivElement>(null);
   const direction = useRef(1);
