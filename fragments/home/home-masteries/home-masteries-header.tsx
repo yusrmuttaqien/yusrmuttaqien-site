@@ -1,6 +1,6 @@
 import { tv } from 'tailwind-variants';
 import classMerge from '@/utils/class-merge';
-import type { SectionHeaderProps } from '@/types/section-header';
+import type { MasteriesHeaderProps } from '@/types/home';
 
 export const styles = tv({
   slots: {
@@ -16,7 +16,7 @@ export const styles = tv({
   },
 });
 
-export default function SectionHeader(props: SectionHeaderProps) {
+export default function HomeMasteriesHeader(props: MasteriesHeaderProps) {
   const { subtitle, title, children, className } = props;
   const {
     header,
@@ -31,14 +31,14 @@ export default function SectionHeader(props: SectionHeaderProps) {
     <header className={header({ className: className?.header })}>
       <div className={subheadingGroup({ className: className?.subheadingGroup })}>
         <p
-          data-framer="section-header-subtitle"
+          data-framer="masteries-header-subtitle"
           className={subheading({ className: className?.subheading })}
         >
           {subtitle}
         </p>
         {children && (
           <div
-            data-framer="section-header-children"
+            data-framer="masteries-header-children"
             className={subheadingChildren({ className: className?.subheadingChildren })}
           >
             {children}
@@ -46,14 +46,14 @@ export default function SectionHeader(props: SectionHeaderProps) {
         )}
       </div>
       <h2
-        data-framer="section-header-title"
+        data-framer="masteries-header-title"
         className={titleClass({ className: className?.title })}
       >
         {title}
       </h2>
       {children && (
         <div
-          data-framer="section-header-children"
+          data-framer="masteries-header-children"
           className={headerChildren({ className: className?.headerChildren })}
         >
           {children}

@@ -1,6 +1,7 @@
 import useHomeHeroInteractive from '@/hooks/home/home-hero/home-hero-interactive';
-import { styles as MarquesStyles } from '@/fragments/home/home-masteries/home-masteries-marquee';
+import { styles as MasteriesMarquee } from '@/fragments/home/home-masteries/home-masteries-marquee';
 import { styles as MasteriesStyles } from '@/fragments/home/home-masteries/home-masteries';
+import { styles as MasteriesHeaderStyles } from '@/fragments/home/home-masteries/home-masteries-header';
 import type { AnimationSequence, AnimationControls } from 'framer-motion';
 import type { ReactNode, HTMLAttributes, RefObject, MutableRefObject } from 'react';
 import type { HowSteps } from '@/types/content';
@@ -45,7 +46,7 @@ export type MasteriesListProps = {
 export type MasteriesMarqueeProps = {
   children: ReactNode;
   baseVelocity: number;
-  className?: Partial<typeof MarquesStyles.slots>;
+  className?: Partial<typeof MasteriesMarquee.slots>;
   name?: string;
 };
 export type MasteriesProps = {
@@ -53,6 +54,12 @@ export type MasteriesProps = {
 };
 export type MasteriesMarqueeInteractive = {
   baseVelocity: number;
+};
+export type MasteriesHeaderProps = {
+  subtitle: string;
+  title: string;
+  children?: ReactNode;
+  className?: Partial<typeof MasteriesHeaderStyles.slots>;
 };
 // #endregion Masteries
 

@@ -17,7 +17,6 @@ export default function AnimationSequenceProvider(props: AnimationSequenceProps)
   const { children } = props;
   const router = useRouter();
   const [state, setState] = useImmer(ANIMATION_SEQUENCE_INITIAL_STATE);
-  console.log(state.visitedEndpoint.values());
 
   useIsomorphicLayoutEffect(() => {
     const bindedAnnouncerOn = _toggle.bind(null, true);

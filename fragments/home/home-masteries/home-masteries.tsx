@@ -4,14 +4,14 @@ import { tv } from 'tailwind-variants';
 import useHomeMasteriesEntry from '@/hooks/home/home-masteries/home-masteries-entry';
 import useHomeMasteriesCalculate from '@/hooks/home/home-masteries/home-masteries-calculate';
 import { useMediaQueryCtx } from '@/providers/media-query';
-import SectionHeader from '@/components/section-header';
+import HomeMasteriesHeader from '@/fragments/home/home-masteries/home-masteries-header';
 import HomeMasteriesList from '@/fragments/home/home-masteries/home-masteries-list';
 import HomeMasteriesMarquee from '@/fragments/home/home-masteries/home-masteries-marquee';
 import classMerge from '@/utils/class-merge';
 import useContent from '@/contents/home';
 import type { MasteriesProps } from '@/types/home';
 
-const MemoizedSectionHeader = memo(SectionHeader);
+const MemoizedMasteriesHeader = memo(HomeMasteriesHeader);
 export const styles = tv({
   slots: {
     container: 'relative invisible isolate',
@@ -41,7 +41,8 @@ export default function HomeMasteries(props: MasteriesProps) {
       className={container({ className: className?.container })}
     >
       <div className={wrapper({ className: className?.wrapper })}>
-        <MemoizedSectionHeader subtitle={subtitle} title={title} />
+        {/* NOTE: Memoized for useSplitType */}
+        <MemoizedMasteriesHeader subtitle={subtitle} title={title} />
         <div className="space-y-[clamp(1.5rem,_0.0455rem_+_7.2727vw,_2rem)]">
           {masteries.map((mastery, idx) => (
             <HomeMasteriesList {...mastery} key={mastery.title} idx={idx} />

@@ -21,7 +21,7 @@ export default function useHomeMasteriesEntry() {
   const rootComputedStyle = useRef({ height: 0 });
   const isInView = useInView(scope, { margin: '0% 0% -20% 0%' });
   const { lastRun, disconnect } = useSplitType({
-    selector: `#home-masteries ${gFD('section-header-title')}`,
+    selector: `#home-masteries ${gFD('masteries-header-title')}`,
     options: { types: 'lines', lineClass: 'line whitespace-nowrap' },
   });
   const activeAnimate = useRef<ResumableAnimate>({
@@ -113,8 +113,8 @@ function sequences(props: MasteriesSequences): AnimationSequence {
     ready: [
       [gFD('masteries-marquee-positive'), { opacity: 0, x: -marqueeX }, { duration: 0 }],
       [gFD('masteries-marquee-negative'), { opacity: 0, x: marqueeX }, { duration: 0 }],
-      [gFD('section-header-subtitle'), { opacity: 0, y: 10 }, { duration: 0 }],
-      [gFD('section-header-title', '.line'), { opacity: 0, y: 10 }, { duration: 0 }],
+      [gFD('masteries-header-subtitle'), { opacity: 0, y: 10 }, { duration: 0 }],
+      [gFD('masteries-header-title', '.line'), { opacity: 0, y: 10 }, { duration: 0 }],
       [gFD('masteries-list-title'), { opacity: 0, y: 10 }, { duration: 0 }],
       [gFD('masteries-list-contents'), { opacity: 0, y: 10 }, { duration: 0 }],
     ],
@@ -130,12 +130,12 @@ function sequences(props: MasteriesSequences): AnimationSequence {
         { ...FRAMER_DEFAULT_TIMING, duration: 0.8, at: '<' },
       ],
       [
-        gFD('section-header-subtitle'),
+        gFD('masteries-header-subtitle'),
         { opacity: 1, y: 0 },
         { ...FRAMER_DEFAULT_TIMING, duration: 0.5, at: '-0.7' },
       ],
       [
-        gFD('section-header-title', '.line'),
+        gFD('masteries-header-title', '.line'),
         { opacity: 1, y: 0 },
         { ...FRAMER_DEFAULT_TIMING, duration: 0.5, delay: stagger(0.2), at: '-0.3' },
       ],
