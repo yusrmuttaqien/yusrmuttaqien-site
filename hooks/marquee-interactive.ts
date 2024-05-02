@@ -12,7 +12,7 @@ import debounce from '@/utils/debounce';
 import type { MarqueeInteractiveParam } from '@/types/marquee';
 
 export default function useMarqueeIntractive(props: MarqueeInteractiveParam) {
-  const { baseVelocity = 0, forceDirection } = props;
+  const { baseVelocity = 0, forceDirection, children } = props;
   const scope = useRef<HTMLDivElement>(null);
   const direction = useRef(forceDirection || 1);
   const rAF = useRef<number>(0);
@@ -54,7 +54,7 @@ export default function useMarqueeIntractive(props: MarqueeInteractiveParam) {
     return () => {
       window.removeEventListener('resize', debouncedCalculate);
     };
-  }, []);
+  }, [children]);
   useAnimationFrame((_, delta) => {
     let moveBy = direction.current * baseVelocity * (delta / 1000);
     let factor = 0;

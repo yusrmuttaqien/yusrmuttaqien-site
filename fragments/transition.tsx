@@ -7,11 +7,7 @@ export default function Transition(props: TransitionProps) {
   const { children, className, ...rest } = props;
 
   return (
-    <motion.main
-      {...SLIDE_UP_VARIANT}
-      className={classMerge('relative flex flex-col', className)}
-      {...rest}
-    >
+    <motion.main {...SLIDE_UP_VARIANT} className={classMerge('relative', className)} {...rest}>
       {children}
     </motion.main>
   );

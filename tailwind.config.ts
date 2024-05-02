@@ -99,6 +99,7 @@ const config: Config = {
       'lg-only': { max: scrSize('xl', true, -1) },
       xl: scrSize('xl', true),
       '2xl': scrSize('2xl', true),
+      hover: { raw: '(hover: hover)' },
     },
   },
   plugins: [
@@ -207,6 +208,18 @@ const config: Config = {
             marginTop: '-0.2em',
           },
         },
+        '.helvetica-neue-trim': {
+          '&::before': {
+            content: '""',
+            display: 'table',
+            marginBottom: '-0.1em',
+          },
+          '&::after': {
+            content: '""',
+            display: 'table',
+            marginTop: '-0.3em',
+          },
+        },
         '.hover-underline': {
           '&::after': {
             position: 'absolute',
@@ -222,10 +235,12 @@ const config: Config = {
             transitionDuration: '.3s',
             transitionTimingFunction: theme('transitionTimingFunction.in-out-quint'),
           },
-          '&:hover': {
-            '&::after': {
-              transform: 'scaleX(1)',
-              transformOrigin: 'left',
+          '@screen hover': {
+            '&:hover': {
+              '&::after': {
+                transform: 'scaleX(1)',
+                transformOrigin: 'left',
+              },
             },
           },
         },

@@ -8,6 +8,7 @@ import type { YusrMuttaqienProps, YusrMuttaqienSVGSProps } from '@/types/yusr-mu
 
 export const styles = tv({
   slots: {
+    container: 'relative',
     wrapper: 'w-full',
     pathFill: 'fill-grey-dynamic-[]',
   },
@@ -18,10 +19,10 @@ const YusrMuttaqien = forwardRef<HTMLDivElement, YusrMuttaqienProps>(function Yu
   ref
 ) {
   const { className, withPlaceholder, isVisible, ...rest } = props;
-  const { wrapper } = styles();
+  const { container, wrapper } = styles();
 
   return (
-    <div className="relative" ref={ref}>
+    <div className={container({ className: className?.container })} ref={ref}>
       <AnimatePresence initial={false}>
         {isVisible && (
           <motion.div

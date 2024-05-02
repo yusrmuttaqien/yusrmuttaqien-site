@@ -6,7 +6,7 @@ import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import Loader from '@/fragments/loader';
 import Announcer from '@/fragments/announcer';
 import Navbar from '@/fragments/navbar/navbar';
-// import Footer from '@/fragments/footer/footer';
+import Footer from '@/fragments/footer/footer';
 import Transition from '@/fragments/transition';
 import { helveticaNeue, robotoMono, nohemi } from '@/constants/app';
 import type { AppProps } from 'next/app';
@@ -56,11 +56,12 @@ export default function App(props: AppProps) {
         <Loader />
         <Navbar />
         <AnimatePresence mode="wait" initial={false}>
-          <Transition key={router.route} className="z-10 bg-beige-dynamic-[]">
+          {/* NOTE: padding to accomodate children edge margin */}
+          <Transition key={router.route} className="z-10 bg-beige-dynamic-[] p-[0.0063rem]">
             <Component {...pageProps} />
           </Transition>
         </AnimatePresence>
-        {/* <Footer /> */}
+        <Footer />
       </Providers>
     </Fragment>
   );

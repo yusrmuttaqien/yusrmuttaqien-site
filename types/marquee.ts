@@ -9,6 +9,7 @@ export type MarqueeProps = {
   direction?: number | undefined;
 };
 export type MarqueeInteractiveParam = {
+  children: ReactNode;
   baseVelocity: number;
   forceDirection: number | undefined;
 };
