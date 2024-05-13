@@ -54,4 +54,5 @@ const how = {
   }),
 };
 
-export default { hero, masteries, projects, how };
+const homeEn = { hero, masteries, projects, how };
+export default homeEn;
