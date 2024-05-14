@@ -8,4 +8,5 @@ export const MEDIA_QUERY_INITIAL_STATE: MediaQueryInitialState = {
   isDeviceMobile: undefined,
   isHover: undefined,
   isValidated: false,
+  os: undefined,
 };

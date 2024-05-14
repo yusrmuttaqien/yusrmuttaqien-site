@@ -1,3 +1,4 @@
+import osType from '@/utils/os-type';
 import type { ReactNode } from 'react';
 
 export type MediaQueryProps = {
@@ -15,4 +16,5 @@ export type MediaQueryInitialState = {
   isDeviceMobile: boolean | undefined;
   isHover: boolean | undefined;
   isValidated: boolean;
+  os: ReturnType<typeof osType> | undefined;
 };

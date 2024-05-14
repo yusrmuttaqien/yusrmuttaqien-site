@@ -1,10 +1,13 @@
 import { masteries, projects, threeSteps } from '@/contents/shared/en';
 import { sites, internets } from '@/contents/footer/untranslated';
+import { email } from '@/contents/shared/untranslated';
 
 const contact = {
-  desktop: '<space> Klik sekali untuk kirim surel <space> Ctrl & klik untuk menyalin alamat surel',
+  desktop: '<space> Klik sekali untuk kirim surel <space> Klik & tahan untuk menyalin alamat surel',
   mobile:
     '<space> Tekan sekali untuk kirim surel <space> Tekan & tahan untuk menyalin alamat surel',
+  copied: 'Surel disalin! Ayo ngobrol!',
+  email,
 };
 const contents = {
   site: {

@@ -4,6 +4,7 @@ import useMediaQuery from '@/hooks/media-query';
 import useIsomorphicLayoutEffect from '@/hooks/isometric-effect';
 import debounce from '@/utils/debounce';
 import deviceType from '@/utils/device-type';
+import osType from '@/utils/os-type';
 import { MEDIA_QUERY_INITIAL_STATE } from '@/constants/media-query';
 import { scrSize } from '@/constants/tailwind-config';
 import type { MediaQueryInitialState, MediaQueryProviderProps } from '@/types/media-query';
@@ -50,6 +51,7 @@ export default function MediaQueryProvider(props: MediaQueryProviderProps) {
 
       setState((draft) => {
         draft.isDeviceMobile = device === 'mobile';
+        draft.os = osType();
       });
     }
 

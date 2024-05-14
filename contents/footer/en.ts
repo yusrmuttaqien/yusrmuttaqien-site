@@ -1,9 +1,12 @@
 import { masteries, projects, threeSteps } from '@/contents/shared/en';
 import { sites, internets } from '@/contents/footer/untranslated';
+import { email } from '@/contents/shared/untranslated';
 
 const contact = {
-  desktop: '<space> Click once to sent me an email <space> Ctrl & click to copy email address',
+  desktop: '<space> Click once to sent me an email <space> Click & hold to copy email address',
   mobile: '<space> Tap once to sent me an email <space> Tap & hold to copy email address',
+  copied: "Email copied! Let's chat!",
+  email,
 };
 const contents = {
   site: {

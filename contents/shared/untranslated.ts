@@ -27,3 +27,4 @@ export function projects(props: ProjectShape): ProjectsCardProps['content'][] {
     },
   ];
 }
+export const email = 'idyusril@gmail.com';
