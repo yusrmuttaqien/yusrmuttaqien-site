@@ -2,7 +2,7 @@ import Link from '@/components/link';
 import FooterYusrMuttaqien from '@/fragments/footer/footer-yusr-muttaqien';
 import classMerge from '@/utils/class-merge';
 import useContent from '@/contents/footer';
-import type { SectionProps } from '@/types/footer';
+import type { SectionProps, FooterProps } from '@/types/footer';
 
 const linksWrapperStyle = classMerge(
   'flex flex-wrap gap-[clamp(0.5rem,_0.1364rem_+_1.8182vw,_0.625rem)]',
@@ -13,21 +13,25 @@ const linkStyle = classMerge(
   'uppercase relative'
 );
 
-export default function FooterContent() {
+export default function FooterContent(props: FooterProps) {
+  const { scope, className, isInView } = props;
   const {
     contents: { about, internets, site, tagline },
   } = useContent();
 
   return (
     <footer
+      data-framer="footer-content"
+      ref={scope}
       className={classMerge(
         'sticky bottom-0 p-[clamp(1.125rem,_0.0341rem_+_5.4545vw,_1.5rem)]',
-        'pt-[clamp(2.8125rem,_0.0852rem_+_13.6364vw,_3.75rem)]',
-        'space-y-[clamp(1.125rem,_0.0341rem_+_5.4545vw,_1.5rem)]'
+        'pt-[clamp(2.8125rem,_0.0852rem_+_13.6364vw,_3.75rem)] invisible',
+        'space-y-[clamp(1.125rem,_0.0341rem_+_5.4545vw,_1.5rem)]',
+        className
       )}
     >
       <Section title={about.title}>
-        <p className="lg:w-[31.25rem] text-grey-dynamic-[80] text-right">{about.content}</p>
+        <p className="lg:w-[31.25rem] text-grey-dynamic-[80] lg:text-right">{about.content}</p>
       </Section>
       <Section title={site.title} className="lg:items-center">
         <div className={linksWrapperStyle}>
@@ -47,9 +51,12 @@ export default function FooterContent() {
           ))}
         </div>
       </Section>
-      <section className="!mt-[clamp(7.0625rem,_-0.0284rem_+_35.4545vw,_9.5rem)]">
+      <section
+        className="!mt-[clamp(7.0625rem,_-0.0284rem_+_35.4545vw,_9.5rem)]"
+        data-framer="footer-footer"
+      >
         <p className="body-subheading lg:-mb-[1.6vw]">{tagline}</p>
-        <FooterYusrMuttaqien />
+        <FooterYusrMuttaqien isInView={isInView} />
       </section>
     </footer>
   );
@@ -65,6 +72,7 @@ function Section(props: SectionProps) {
         'p-[clamp(0.5rem,_0.1364rem_+_1.8182vw,_0.625rem)] justify-between lg:flex-row',
         className
       )}
+      data-framer="footer-content-section"
     >
       <h2 className="body-subheading helvetica-neue-trim text-grey-dynamic-[60]">{title}</h2>
       {children}
