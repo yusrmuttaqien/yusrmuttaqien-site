@@ -26,7 +26,8 @@ export default function Menu(props: MenuProps) {
       id="menu"
       style={{ paddingTop: navbarHeight + navbarTop }}
       className={classMerge(
-        'fixed inset-0 bg-dynamic-beige-[80] flex pr-[var(--pad-scrollbar)] invisible',
+        'fixed inset-0 bg-dynamic-beige-[80] flex pr-[var(--pad-scrollbar)]',
+        'invisible backdrop-blur-lg',
         className
       )}
     >
