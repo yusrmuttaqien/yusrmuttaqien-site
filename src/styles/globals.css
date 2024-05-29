@@ -8,16 +8,14 @@
   }
 
   * {
-    scrollbar-width: thin; /* 11px */
+    scrollbar-width: thin;
     scrollbar-color: theme(colors.grey.DEFAULT / 10%) theme(colors.beige.DEFAULT);
     cursor: none !important;
   }
   *::-webkit-scrollbar-track {
-    /* background-color: theme(colors.beige.DEFAULT); */
     @apply bg-dynamic-beige;
   }
   *::-webkit-scrollbar-thumb {
-    /* background-color: theme(colors.grey.DEFAULT / 10%); */
     @apply bg-dynamic-[grey_10];
   }
   *::selection {
@@ -54,5 +52,18 @@
     * {
       scrollbar-color: theme(colors.beige.DEFAULT / 10%) theme(colors.grey.DEFAULT);
     }
+  }
+}
+
+@layer components {
+  .hero-roles {
+    counter-reset: roles;
+  }
+
+  .hero-roles p::before {
+    display: inline;
+    margin-right: 1ch;
+    counter-increment: roles;
+    content: '(' counter(roles) ')';
   }
 }

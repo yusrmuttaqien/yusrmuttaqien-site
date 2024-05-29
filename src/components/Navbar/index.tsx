@@ -37,6 +37,7 @@ export default function Navbar(props: NavbarProps) {
   return (
     <Fragment>
       <nav
+        id="navbar"
         ref={mergeRefs(measureScope, interactiveScope)}
         className={navbar({ className: className?.navbar })}
       >

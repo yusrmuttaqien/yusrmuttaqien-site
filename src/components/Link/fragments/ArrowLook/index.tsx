@@ -18,7 +18,7 @@ export default function ArrowLook(props: ArrowLookProps) {
       <div className={classMerge('overflow-hidden relative', isActive && 'text-dynamic-[grey_40]')}>
         <Arrow
           className={classMerge(
-            'h-[1em] aspect-square transition-none',
+            'h-[1em] aspect-square transition-none delay-150',
             !isDisabled && !isActive && 'group-hover:hoverable:translate-x-full',
             !isDisabled && !isActive && 'group-hover:hoverable:transition-transform',
             !isDisabled && !isActive && 'group-hover:hoverable:-translate-y-full'
@@ -27,7 +27,7 @@ export default function ArrowLook(props: ArrowLookProps) {
         <Arrow
           className={classMerge(
             'h-[1em] aspect-square -translate-x-full translate-y-full',
-            'delay-100 absolute inset-0 transition-none',
+            'delay-300 absolute inset-0 transition-none',
             !isDisabled && !isActive && 'group-hover:hoverable:translate-x-0',
             !isDisabled && !isActive && 'group-hover:hoverable:transition-transform',
             !isDisabled && !isActive && 'group-hover:hoverable:translate-y-0'

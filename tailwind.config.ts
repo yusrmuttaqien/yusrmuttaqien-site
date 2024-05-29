@@ -32,6 +32,9 @@ const config: Config = {
       md: scrSize({ screen: 'md', withUnit: true }),
       'md-only': { max: scrSize({ screen: 'lg', withUnit: true, modifier: -1 }) },
       lg: scrSize({ screen: 'lg', withUnit: true }),
+      'lg-540': '540px',
+      'lg-590': '590px',
+      'lg-850': '850px',
       'lg-only': { max: scrSize({ screen: 'xl', withUnit: true, modifier: -1 }) },
       xl: scrSize({ screen: 'xl', withUnit: true }),
       '2xl': scrSize({ screen: '2xl', withUnit: true }),
@@ -40,26 +43,29 @@ const config: Config = {
     },
   },
   plugins: [
+    require('@tailwindcss/container-queries'),
     plugin(({ addComponents, matchUtilities, theme }) => {
       // Type
       addComponents({
         '.body': {
           fontFamily: theme('fontFamily.helveticaNeue'),
-          fontSize: '0.75rem',
+          fontSize: clamp({ minValue: 12, maxValue: 14, minViewport: 320, maxViewport: 375 }),
         },
       });
       // Trim
       matchUtilities(
         {
           trim: (family) => {
-            const preset: Record<string, { before: string; after: string }> = {
+            let preset: Record<string, { before: string; after: string; lineHeight?: string }> = {
               nohemi: { before: '-0.04em', after: '-0.2em' },
               helveticaNeue: { before: '-0.1em', after: '-0.3em' },
             };
+            preset = { ...preset, nohemiHeight: { ...preset.nohemi, lineHeight: '0.9em' } };
             const selected = preset[family];
 
             return {
               textTransform: 'uppercase',
+              lineHeight: selected.lineHeight || 'unset',
               '&::before': {
                 content: '""',
                 display: 'table',
@@ -73,7 +79,13 @@ const config: Config = {
             };
           },
         },
-        { values: { 'helvetiva-neue': 'helveticaNeue', nohemi: 'nohemi' } }
+        {
+          values: {
+            'helvetiva-neue': 'helveticaNeue',
+            nohemi: 'nohemi',
+            'nohemi-height': 'nohemiHeight',
+          },
+        }
       );
       // Clamp
       matchUtilities(

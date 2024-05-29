@@ -16,7 +16,7 @@ export default function Menu(props: MenuProps) {
     navbarHeight: store.navbarHeight,
     navbarTop: store.navbarTop,
   }));
-  const { links } = useContent();
+  const { sitemaps } = useContent();
   const { scope } = useVisible();
 
   return (
@@ -24,10 +24,11 @@ export default function Menu(props: MenuProps) {
       {...rest}
       ref={scope}
       id="menu"
+      data-lenis-prevent
       style={{ paddingTop: navbarHeight + navbarTop }}
       className={classMerge(
-        'fixed inset-0 bg-dynamic-beige-[80] flex pr-[var(--pad-scrollbar)]',
-        'invisible backdrop-blur-lg',
+        'fixed inset-0 bg-dynamic-[beige_95] flex pr-[var(--pad-scrollbar)]',
+        'invisible backdrop-blur-lg overflow-auto',
         className
       )}
     >
@@ -36,7 +37,7 @@ export default function Menu(props: MenuProps) {
           className="flex flex-1 flex-col items-center justify-center gap-8"
           style={{ perspective: '5000px' }}
         >
-          {links.map(({ title, href, ...rest }) => (
+          {sitemaps.map(({ title, href, ...rest }) => (
             <Link id="link" key={title} isActive={href === asPath} href={href} {...rest}>
               {title}
             </Link>

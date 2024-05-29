@@ -23,11 +23,17 @@ export default function useMeasure() {
         try {
           const root = scope.current as HTMLElement;
           const height = root.offsetHeight;
+          const html = document.documentElement;
           const { top, marginTop, marginBottom } = getComputedStyle(root);
           numbers.height = height;
           numbers.top = parseInt(top);
           numbers.marginTop = parseInt(marginTop);
           numbers.marginBottom = parseInt(marginBottom);
+
+          html.style.setProperty(
+            '--navbar-total-height',
+            `${height + numbers.marginTop + numbers.marginBottom}px`
+          );
         } catch (e) {
           console.log(e);
         } finally {

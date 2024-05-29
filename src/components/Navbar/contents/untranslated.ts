@@ -1,5 +1,5 @@
 export default {
-  linkConfigs: {
+  sitemapsConfig: {
     home: { href: '/' },
     about: { href: '/about-me', isDisabled: true },
     projects: { href: '/projects', isDisabled: true },

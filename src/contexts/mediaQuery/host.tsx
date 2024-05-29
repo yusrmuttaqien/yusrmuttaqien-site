@@ -11,14 +11,18 @@ export default function MediaQueryStoreHost() {
     query: `screen and (min-width: ${scrSize({ screen: 'xl', withUnit: true })})`,
   });
   const { match: isHoverable } = useMediaQuery({ query: `screen and (hover: hover)`, revalidate });
+  const { match: isDarkMode } = useMediaQuery({
+    query: `screen and (prefers-color-scheme: dark)`,
+    revalidate,
+  });
 
   useIsomorphicLayoutEffect(() => {
     if (!revalidate) {
       setRevalidate(Date.now());
     } else {
-      bulkUpdate({ isXL, isHoverable, isValidated: true });
+      bulkUpdate({ isXL, isHoverable, isValidated: true, isDarkMode });
     }
-  }, [isXL, isHoverable]);
+  }, [isXL, isHoverable, isDarkMode]);
 
   return null;
 }

@@ -2,6 +2,7 @@ export type MediaQueryState = {
   isValidated: boolean | undefined;
   isXL: boolean | undefined;
   isHoverable: boolean | undefined;
+  isDarkMode: boolean | undefined;
 };
 export type MediaQueryActions = {
   update: (key: keyof MediaQueryState, value: boolean | undefined) => void;

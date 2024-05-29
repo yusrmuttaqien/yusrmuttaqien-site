@@ -1,7 +1,7 @@
 import untranslated from '@/components/Navbar/contents/untranslated';
 import type { Links } from '@/components/Navbar/type';
 
-const linkTitles = {
+const sitemapsTitle = {
   home: 'Home',
   about: 'About Me',
   projects: 'Projects',
@@ -12,9 +12,9 @@ export default {
   booking: 'Book a meet',
   menuOpen: 'Open',
   menuClose: 'Close',
-  links: Object.entries(linkTitles).map(([key, value]) => ({
+  sitemaps: Object.entries(sitemapsTitle).map(([key, value]) => ({
     title: value,
-    ...untranslated.linkConfigs[key as Links],
+    ...untranslated.sitemapsConfig[key as Links],
   })),
   available: 'Now Available',
 } as const;
