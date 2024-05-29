@@ -6,6 +6,7 @@ export const initialState: MediaQueryState = {
   isValidated: undefined,
   isXL: undefined,
   isHoverable: undefined,
+  isDarkMode: undefined,
 };
 export const createMediaQueryStore = (initState: MediaQueryState = initialState) => {
   return createStore<MediaQueryStore>()(
