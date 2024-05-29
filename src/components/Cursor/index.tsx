@@ -5,7 +5,7 @@ import type { CursorProps } from '@/components/Cursor/type';
 
 export default function Cursor(props: CursorProps) {
   const { className } = props;
-  const { x, y, opacity } = useInteractive();
+  const { x, y, opacity, isHoverable } = useInteractive();
 
   return (
     <motion.div
@@ -15,6 +15,7 @@ export default function Cursor(props: CursorProps) {
         'w-4 h-4 rounded-full fixed top-[calc(50%_-_0.5rem)] -translate-x-1/2 -translate-y-1/2',
         'border-4 border-beige pointer-events-none left-[calc(50%_-_0.30rem_-_var(--pad-scrollbar)_/_2)]',
         'mix-blend-difference origin-center transition-[transform_opacity] ease-linear duration-[50ms]',
+        !isHoverable && 'invisible',
         className
       )}
     />

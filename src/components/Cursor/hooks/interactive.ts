@@ -32,5 +32,5 @@ export default function useInteractive() {
     };
   }, [isHoverable]);
 
-  return { x, y, opacity };
+  return { x, y, opacity, isHoverable };
 }
