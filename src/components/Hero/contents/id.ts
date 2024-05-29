@@ -5,5 +5,5 @@ export default {
     'Desainer antarmuka [<UI/UX>] dan grafik',
   ],
   internetsTitle: 'Internet',
-  moreSoon: 'Konten lainnya segera hadir',
+  moreSoon: 'Konten lainnya akan segera hadir',
 } as const;

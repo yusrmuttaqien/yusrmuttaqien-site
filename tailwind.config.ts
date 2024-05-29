@@ -44,7 +44,7 @@ const config: Config = {
   },
   plugins: [
     require('@tailwindcss/container-queries'),
-    plugin(({ addComponents, matchUtilities, theme }) => {
+    plugin(({ addComponents, matchUtilities, addUtilities, theme }) => {
       // Type
       addComponents({
         '.body': {
@@ -133,6 +133,18 @@ const config: Config = {
           },
         },
         { values: { grey: 'grey 100', beige: 'beige 100', green: 'green 100' } }
+      );
+      // Perspective
+      addUtilities({
+        '.transform-preserve3d': { transformStyle: 'preserve-3d' },
+      });
+      matchUtilities(
+        {
+          perspective: (value) => {
+            return { perspective: value };
+          },
+        },
+        { values: { '5000': '5000px' } }
       );
     }),
   ],

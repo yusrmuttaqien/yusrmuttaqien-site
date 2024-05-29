@@ -18,7 +18,7 @@ import type { NavbarProps } from '@/components/Navbar/type';
 export const classes = tv({
   slots: {
     navbar: classMerge(
-      'sticky mix-blend-difference flex justify-between text-beige',
+      'sticky mix-blend-difference flex justify-between text-beige invisible',
       'hoverable:hover:mix-blend-normal after:absolute after:-inset-x-[1.125rem]',
       'after:-inset-y-[25%] after:bg-transparent after:pointer-events-none',
       'after:-z-[1] hoverable:hover:after:bg-dynamic-[beige_80]',
@@ -43,16 +43,26 @@ export default function Navbar(props: NavbarProps) {
         ref={mergeRefs(measureScope, interactiveScope, entryScope)}
         className={navbar({ className: className?.navbar })}
       >
-        <div className="flex flex-col gap-2 justify-between xl:flex-row xl:gap-[0] xl:items-center">
-          <p className="trim-helvetiva-neue">
-            <span>Malang, Indonesia</span>
-            <span className="mx-[1ch] hidden xl:inline">|</span>
+        <div
+          className={classMerge(
+            'flex flex-col gap-4 justify-between xl:flex-row xl:gap-[0]',
+            'xl:items-center'
+          )}
+        >
+          <p className="trim-helvetiva-neue" id="title">
+            <span className="inline-block">Malang, Indonesia</span>
+            <span className="mx-[1ch] hidden xl:inline-block">|</span>
           </p>
           <ClockStoreProvider>
             <Clock />
           </ClockStoreProvider>
         </div>
-        <div className="flex flex-col gap-2 justify-between items-end xl:flex-row xl:gap-8 xl:items-center">
+        <div
+          className={classMerge(
+            'flex flex-col gap-4 justify-between items-end xl:flex-row xl:gap-8',
+            'xl:items-center'
+          )}
+        >
           <Link id="booking" href="https://calendly.com/idyusril">
             {booking}
           </Link>

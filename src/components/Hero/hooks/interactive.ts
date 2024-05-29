@@ -22,7 +22,9 @@ export default function useInteractive() {
 
     function _moveHighlight(e: MouseEvent) {
       const { top, left, height, width } = scopeClientRect.current as DOMRect;
-      const { offsetHeight, offsetWidth } = root.querySelector('#highlight') as HTMLDivElement;
+      const { offsetHeight, offsetWidth, classList } = root.querySelector(
+        '#highlight'
+      ) as HTMLDivElement;
       const centerX = left + width / 2;
       const centerY = top + height / 2;
       const relativeX = e.pageX - centerX - offsetWidth / 2;
@@ -30,6 +32,7 @@ export default function useInteractive() {
 
       xHighlight.set(relativeX);
       yHighlight.set(relativeY);
+      classList.remove('opacity-0');
     }
     // TODO: Add interactive gradient for mesh
     // function _moveMesh(e: MouseEvent) {

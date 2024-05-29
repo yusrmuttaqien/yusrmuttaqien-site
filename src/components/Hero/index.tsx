@@ -48,7 +48,7 @@ export default function Hero() {
       <div
         className={classMerge(
           'flex flex-col justify-between gap-6 lg-850:flex-row',
-          'lg-850:items-end lg-850:gap-3'
+          'lg-850:items-end lg-850:gap-10'
         )}
       >
         <Links />
