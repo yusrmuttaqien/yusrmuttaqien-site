@@ -29,7 +29,7 @@ export default function Loader(props: LoaderProps) {
         className
       )}
     >
-      <p className="trim-helvetiva-neue select-none">A moment please</p>
+      <p className="trim-helvetiva-neue select-none mb-16">A moment please</p>
     </div>
   );
 }

@@ -18,7 +18,7 @@ import type { NavbarProps } from '@/components/Navbar/type';
 export const classes = tv({
   slots: {
     navbar: classMerge(
-      'sticky mix-blend-difference flex justify-between text-beige invisible',
+      'sticky mix-blend-difference flex justify-between text-beige',
       'hoverable:hover:mix-blend-normal after:absolute after:-inset-x-[1.125rem]',
       'after:-inset-y-[25%] after:bg-transparent after:pointer-events-none',
       'after:-z-[1] hoverable:hover:after:bg-dynamic-[beige_80]',
