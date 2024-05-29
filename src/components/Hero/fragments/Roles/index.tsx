@@ -3,8 +3,16 @@ import Trans from '@/components/Trans';
 import type { TransComp } from '@/components/Trans/type';
 
 const COMPS: TransComp = {
-  'UI/UX': (value) => <span className="text-dynamic-green">{value}</span>,
-  VA: (value) => <span className="text-dynamic-green">{value}</span>,
+  'UI/UX': (value, id) => (
+    <span key={id} className="text-dynamic-green">
+      {value}
+    </span>
+  ),
+  VA: (value, id) => (
+    <span key={id} className="text-dynamic-green">
+      {value}
+    </span>
+  ),
 };
 
 export default function Roles() {

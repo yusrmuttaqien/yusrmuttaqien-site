@@ -1,6 +1,6 @@
 import type { AnimatePresenceProps } from 'framer-motion';
 
-export type TransComp = Record<string, (v: string) => any>;
+export type TransComp = Record<string, (v: string, id: string) => any>;
 
 interface TransCommonProps {
   comps: TransComp;

@@ -45,7 +45,7 @@ export default function Trans<T>(props: T & TransProps<T>) {
         const id = `${name}-${idx}`;
 
         return isInjectable ? (
-          comps[str](str)
+          comps[str](str, id)
         ) : (
           <span key={id} id={id} className={classNames[id]}>
             {str}

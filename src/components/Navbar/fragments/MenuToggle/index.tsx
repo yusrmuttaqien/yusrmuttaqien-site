@@ -37,6 +37,7 @@ export default function MenuToggle(props: MenuToggleProps) {
 
   return (
     <button
+      id="menu-toggle"
       className={classMerge('trim-helvetiva-neue overflow-hidden space-x-[.5ch]', className)}
       onClick={_debouncedToggle}
     >

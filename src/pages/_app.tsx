@@ -58,8 +58,8 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <ReactLenis root>
         <Contexts>
           <MediaQueryStoreHost />
-          <Cursor className="z-30" />
-          {/* <Loader className="z-20" /> */}
+          <Cursor className="z-40" />
+          <Loader className="z-30" />
           <Navbar
             className={{
               navbar: 'mx-5 mt-5 z-20 mb-4 top-5 xl:top-8 xl:mx-8 xl:mt-[5.25rem] xl:mb-[3.25rem]',

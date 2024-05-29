@@ -6,7 +6,11 @@ import type { TransComp } from '@/components/Trans/type';
 import type { LinksProps } from '@/components/Hero/fragments/Links/type';
 
 const COMPS: TransComp = {
-  VA: (value) => <span className="text-dynamic-green">{value}</span>,
+  VA: (value, id) => (
+    <span key={id} className="text-dynamic-green">
+      {value}
+    </span>
+  ),
 };
 
 export default function Links(props: LinksProps) {
