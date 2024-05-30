@@ -1,24 +1,15 @@
-import classMerge from '@/utils/classMerge';
-import { useIsomorphicLayoutEffect } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
+import useContent from '@/components/Loader/hooks/content';
+import useInteractive from '@/components/Loader/hooks/interactive';
+import classMerge from '@/utils/classMerge';
 import type { LoaderProps } from '@/components/Loader/type';
 
 export default function Loader(props: LoaderProps) {
   const { className } = props;
-  const { isLoader, set } = useTogglesStore((store) => ({
-    isLoader: store.isLoader,
-    set: store.set,
-  }));
+  const { greeting } = useContent();
+  const isLoader = useTogglesStore((store) => store.isLoader);
 
-  useIsomorphicLayoutEffect(() => {
-    let timeout: NodeJS.Timeout;
-
-    timeout = setTimeout(() => {
-      set('isLoader', false);
-    }, 1000);
-
-    return () => clearTimeout(timeout);
-  }, []);
+  useInteractive();
 
   if (!isLoader) return null;
 
@@ -29,7 +20,7 @@ export default function Loader(props: LoaderProps) {
         className
       )}
     >
-      <p className="trim-helvetiva-neue select-none mb-16">A moment please</p>
+      <p className="trim-helvetiva-neue select-none mb-16">{greeting}</p>
     </div>
   );
 }

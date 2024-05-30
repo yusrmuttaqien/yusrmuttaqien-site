@@ -7,7 +7,7 @@ export default function Scroll(props: ScrollProps) {
   const { moreSoon } = useContent();
 
   return (
-    <div className={classMerge('text-dynamic-[grey_50]', className)}>
+    <div className={classMerge('text-dynamic-[grey_50]', className)} id="scroll">
       <p className="trim-helvetiva-neue">{moreSoon}</p>
     </div>
   );

@@ -21,7 +21,7 @@ export default function Roles() {
   return (
     <div className="space-y-1 hero-roles">
       {roles.map((role) => (
-        <p key={role} className="trim-helvetiva-neue">
+        <p key={role} className="trim-helvetiva-neue" id="role">
           <Trans string={role} name="hero-role" comps={COMPS} />
         </p>
       ))}

@@ -19,10 +19,12 @@ export default function Links(props: LinksProps) {
 
   return (
     <div className={classMerge('space-y-3', className)}>
-      <h3 className="trim-helvetiva-neue text-dynamic-[grey_60]">{internetsTitle}</h3>
+      <h3 id="linksTitle" className="trim-helvetiva-neue text-dynamic-[grey_60]">
+        {internetsTitle}
+      </h3>
       <div className="flex gap-3 flex-wrap lg-850:gap-6">
         {internets.map(({ title, ...rest }) => (
-          <Link className="trim-helvetiva-neue" key={title} {...rest}>
+          <Link className="trim-helvetiva-neue" key={title} id="link" {...rest}>
             <Trans string={title} name="hero-link" comps={COMPS} />
           </Link>
         ))}
