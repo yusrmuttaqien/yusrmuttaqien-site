@@ -1,26 +1,35 @@
 {
-  "name": "yusrmuttaqien-site",
+  "name": "yusrmuttaqien-simplified-site",
+  "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
-  },
-  "devDependencies": {
-    "@hypernym/nuxt-gsap": "^2.4.2",
-    "@nuxt/devtools": "latest",
-    "@nuxt/image": "^1.1.0",
-    "@nuxtjs/fontaine": "^0.4.1",
-    "@nuxtjs/google-fonts": "^3.1.3",
-    "nuxt": "^3.8.2",
-    "sass": "^1.69.5",
-    "vue": "^3.3.12",
-    "vue-router": "^4.2.5"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@studio-freight/lenis": "^1.0.33"
+    "@studio-freight/react-lenis": "^0.0.47",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "framer-motion": "^11.2.6",
+    "merge-refs": "^1.3.0",
+    "next": "14.2.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "split-type": "^0.3.4",
+    "tailwind-variants": "^0.2.1",
+    "use-immer": "^0.9.0",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }
