@@ -2,6 +2,8 @@
 
 # Yusril Muttaqien
 
+<img src="public/cover.png" alt="Logo" width="100%">
+
 ### Framework, library, language or API used in this site
 
 - [Next.js - Framework / Bootstrap](https://nextjs.org)
