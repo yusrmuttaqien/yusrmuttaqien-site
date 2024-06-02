@@ -2,7 +2,7 @@ import untranslated from '@/components/Navbar/contents/untranslated';
 import type { Links } from '@/components/Navbar/type';
 
 const sitemapsTitle = {
-  home: 'Utama',
+  home: 'Halaman utama',
   about: 'Tentang saya',
   projects: 'Projek',
   techStack: 'Teknologi',

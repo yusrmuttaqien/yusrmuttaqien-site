@@ -13,13 +13,13 @@ export default function Host(props: HostProps) {
   const { asPath } = useRouter();
   const resumables = useRef<AnimationResumables>({ instance: null, status: 'not-ready' });
   const { isNavYM, set } = useTogglesStore((store) => ({ isNavYM: store.isNavYM, set: store.set }));
-  const isXL1380 = useMediaQueryStore((store) => store.isXL1380);
+  const isXL1490 = useMediaQueryStore((store) => store.isXL1490);
 
   useIsomorphicLayoutEffect(() => {
     const root = scope.current as HTMLDivElement;
     const YMTitle = root.querySelector('#ym-title') as HTMLHeadingElement;
 
-    if (!isXL1380) {
+    if (!isXL1490) {
       YMTitle.classList.add('hidden');
     } else {
       YMTitle.classList.remove('hidden');
@@ -27,10 +27,10 @@ export default function Host(props: HostProps) {
 
     resumables.current.instance?.stop();
     resumables.current.instance =
-      isNavYM && isXL1380
+      isNavYM && isXL1490
         ? animate(TIMELINE_YM_TITLE(scope).visible)
         : animate(TIMELINE_YM_TITLE(scope).invisible);
-  }, [isNavYM, isXL1380]);
+  }, [isNavYM, isXL1490]);
   useIsomorphicLayoutEffect(() => {
     const HeroYMTitle = document.querySelector('#hero-ym-title') as HTMLHeadingElement;
     const YMInView = inView(HeroYMTitle, _setNavYM);

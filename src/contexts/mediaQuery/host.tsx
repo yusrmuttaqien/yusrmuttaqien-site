@@ -7,8 +7,8 @@ import { scrSize } from '@/constants/tailwind-config';
 export default function MediaQueryStoreHost() {
   const [revalidate, setRevalidate] = useState(0);
   const bulkUpdate = useMediaQueryStore((store) => store.bulkUpdate);
-  const { match: isXL1380 } = useMediaQuery({
-    query: `screen and (min-width: 1380px)`,
+  const { match: isXL1490 } = useMediaQuery({
+    query: `screen and (min-width: 1490px)`,
     revalidate,
   });
   const { match: isXL } = useMediaQuery({
@@ -25,9 +25,9 @@ export default function MediaQueryStoreHost() {
     if (!revalidate) {
       setRevalidate(Date.now());
     } else {
-      bulkUpdate({ isXL, isHoverable, isValidated: true, isDarkMode, isXL1380 });
+      bulkUpdate({ isXL, isHoverable, isValidated: true, isDarkMode, isXL1490 });
     }
-  }, [isXL, isHoverable, isDarkMode, isXL1380]);
+  }, [isXL, isHoverable, isDarkMode, isXL1490]);
 
   return null;
 }

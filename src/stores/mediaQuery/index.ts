@@ -7,7 +7,7 @@ export const initialState: MediaQueryState = {
   isXL: undefined,
   isHoverable: undefined,
   isDarkMode: undefined,
-  isXL1380: undefined,
+  isXL1490: undefined,
 };
 export const createMediaQueryStore = (initState: MediaQueryState = initialState) => {
   return createStore<MediaQueryStore>()(
