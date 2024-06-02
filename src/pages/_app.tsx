@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import { Fragment } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { AnimatePresence, useIsomorphicLayoutEffect } from 'framer-motion';
-import { ReactLenis } from '@studio-freight/react-lenis';
+
 import Contexts from '@/contexts';
 import MediaQueryStoreHost from '@/contexts/mediaQuery/host';
 import Transition from '@/components/Transition';
@@ -55,26 +56,26 @@ export default function App({ Component, pageProps, router }: AppProps) {
         />
         <title key="title">Yusril Muttaqien</title>
       </Head>
-      <ReactLenis root>
-        <Contexts>
-          <MediaQueryStoreHost />
-          <Cursor className="z-40" />
-          <Loader className="z-30" />
-          <Navbar
-            className={{
-              navbar: 'mx-5 mt-5 z-20 mb-4 top-5 xl:top-8 xl:mx-8 xl:mt-[5.25rem] xl:mb-[3.25rem]',
-              menu: 'z-[19] p-5',
-            }}
-          />
-          <div className="z-10" style={{ perspective: '5000px' }}>
-            <AnimatePresence mode="wait">
-              <Transition key={router.route} className="mx-5 origin-center xl:mx-8">
-                <Component {...pageProps} />
-              </Transition>
-            </AnimatePresence>
-          </div>
-        </Contexts>
-      </ReactLenis>
+
+      <Contexts>
+        <MediaQueryStoreHost />
+        <Cursor className="z-40" />
+        <Loader className="z-30" />
+        <Navbar
+          className={{
+            navbar: 'mx-5 mt-5 z-20 mb-4 top-5 xl:top-8 xl:mx-8 xl:mt-[5.25rem] xl:mb-[3.25rem]',
+            menu: 'z-[19] p-5',
+          }}
+        />
+        <div className="z-10" style={{ perspective: '5000px' }}>
+          <AnimatePresence mode="wait">
+            <Transition key={router.route} className="mx-5 origin-center xl:mx-8">
+              <Component {...pageProps} />
+            </Transition>
+          </AnimatePresence>
+        </div>
+      </Contexts>
+      <SpeedInsights />
     </Fragment>
   );
 }
