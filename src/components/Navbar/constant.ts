@@ -1,23 +1,38 @@
-import { stagger, type AnimationSequence } from 'framer-motion';
+import { stagger, cubicBezier, type AnimationSequence } from 'framer-motion';
+import type { HostProps } from '@/components/Navbar/type';
+
+const YM_TRANSITION = { ease: cubicBezier(0.25, 1, 0.5, 1), duration: 0.5 };
 
 export function TIMELINE_ENTRY(screenMode: 'mobile' | 'desktop'): {
   visible: AnimationSequence;
   invisible: AnimationSequence;
 } {
   const invisible: AnimationSequence = [
-    ['#title span', { opacity: 0, filter: 'blur(16px)', y: '-20px' }],
+    ['#location span', { opacity: 0, filter: 'blur(16px)', y: '-20px' }],
     ['#clock', { opacity: 0, filter: 'blur(16px)', y: '-20px' }],
+    ['#link', { opacity: 0, filter: 'blur(16px)', y: '-20px' }],
     ['#booking', { opacity: 0, filter: 'blur(16px)', y: '-20px' }],
     ['#availibility', { opacity: 0, filter: 'blur(16px)', y: '-20px' }],
     ['#language', { opacity: 0, filter: 'blur(16px)', y: '-20px' }],
     ['#menu-toggle', { opacity: 0, filter: 'blur(16px)', y: '-20px' }],
+    ['#ym-title', { filter: 'blur(16px)', y: '-150%' }],
   ];
 
   if (screenMode === 'desktop') {
     return {
       visible: [
-        ['#title span', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { delay: stagger(0.1) }],
+        ['#ym-title', { filter: 'blur(0px)', y: '-50%' }],
+        [
+          '#location span',
+          { opacity: 1, filter: 'blur(0px)', y: '0px' },
+          { delay: stagger(0.1), at: '-0.2' },
+        ],
         ['#clock', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { at: '-0.1' }],
+        [
+          '#link',
+          { opacity: 1, filter: 'blur(0px)', y: '0px' },
+          { delay: stagger(0.1), at: '-0.2' },
+        ],
         ['#booking', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { at: '-0.2' }],
         ['#availibility', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { at: '-0.1' }],
         ['#language', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { at: '-0.1' }],
@@ -28,14 +43,16 @@ export function TIMELINE_ENTRY(screenMode: 'mobile' | 'desktop'): {
   } else {
     return {
       visible: [
-        ['#title span:nth-child(1)', { opacity: 1, filter: 'blur(0px)', y: '0px' }],
+        ['#location span:nth-child(1)', { opacity: 1, filter: 'blur(0px)', y: '0px' }],
         ['#clock', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { at: '-0.1' }],
         ['#booking', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { at: '-0.2' }],
         ['#menu-toggle', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { at: '-0.1' }],
+        ['#link', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { duration: 0 }],
         ['#availibility', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { duration: 0 }],
         ['#language', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { duration: 0 }],
+        ['#ym-title', { filter: 'blur(0px)', y: '-50%' }, { duration: 0 }],
         [
-          '#title span:nth-child(2)',
+          '#location span:nth-child(2)',
           { opacity: 1, filter: 'blur(0px)', y: '0px' },
           { duration: 0 },
         ],
@@ -43,4 +60,28 @@ export function TIMELINE_ENTRY(screenMode: 'mobile' | 'desktop'): {
       invisible: invisible,
     };
   }
+}
+export function TIMELINE_YM_TITLE(scope: HostProps['scope']): {
+  visible: AnimationSequence;
+  invisible: AnimationSequence;
+} {
+  const root = scope.current as HTMLElement;
+  const YMTitle = root.querySelector('#ym-title') as HTMLElement;
+  const location = root.querySelector('#location') as HTMLElement;
+  const clock = root.querySelector('#clock') as HTMLElement;
+  const YMMarginRight = parseFloat(getComputedStyle(YMTitle).marginRight);
+  const YMWidth = YMTitle.offsetWidth + YMMarginRight;
+
+  return {
+    visible: [
+      [YMTitle, { x: `0%`, y: '-50%', opacity: 1, filter: 'blur(0px)' }, { ...YM_TRANSITION }],
+      [location, { x: `${YMWidth}px` }, { at: '<', ...YM_TRANSITION }],
+      [clock, { x: `${YMWidth}px` }, { at: '<', ...YM_TRANSITION }],
+    ],
+    invisible: [
+      [YMTitle, { x: `-100%`, y: '-50%', opacity: 0, filter: 'blur(16px)' }, { ...YM_TRANSITION }],
+      [location, { x: `0%` }, { at: '<', ...YM_TRANSITION }],
+      [clock, { x: `0%` }, { at: '<', ...YM_TRANSITION }],
+    ],
+  };
 }

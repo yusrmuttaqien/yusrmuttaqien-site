@@ -5,6 +5,7 @@ import type { TogglesStore, TogglesState } from '@/stores/toggles/type';
 export const initialState: TogglesState = {
   isLoader: true,
   isNavMenu: false,
+  isNavYM: false,
 };
 export const createTogglesStore = (initState: TogglesState = initialState) => {
   return createStore<TogglesStore>()(

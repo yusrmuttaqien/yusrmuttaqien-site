@@ -33,7 +33,7 @@ export default function Hero() {
               'absolute bottom-0 right-0 h-[120%] max-w-full object-contain object-bottom',
               'pointer-events-none'
             )}
-            id="yusr-muttaqien-image"
+            id="ym-image"
             src="/yusr.png"
             alt="Yusril Muttaqien"
             draggable="false"
@@ -42,7 +42,7 @@ export default function Hero() {
         </div>
         <div className="flex flex-col gap-6 xl:flex-row xl:items-center">
           <h1
-            id="yusr-muttaqien-title"
+            id="hero-ym-title"
             className={classMerge(
               'font-nohemi trim-nohemi-height font-extrabold text-clamp-[48_84_320_540]',
               'w-min xl:w-auto'

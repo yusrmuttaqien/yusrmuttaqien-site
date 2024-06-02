@@ -1,9 +1,12 @@
 import { createClockStore } from '@/components/Navbar/store';
 import { classes } from '@/components/Navbar';
-import type { ReactNode } from 'react';
+import type { ReactNode, RefObject } from 'react';
 
 export type NavbarProps = {
   className?: Partial<typeof classes.slots>;
+};
+export type HostProps = {
+  scope: RefObject<HTMLDivElement>;
 };
 export type ClockStoreApi = ReturnType<typeof createClockStore>;
 export type ClockStoreProviderProps = {

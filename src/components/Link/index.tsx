@@ -9,7 +9,16 @@ import type { LinkProps } from '@/components/Link/type';
 import type { MouseEvent } from 'react';
 
 export default function Link(props: LinkProps) {
-  const { onClick, href, look = 'arrow', children, isDisabled, isActive, ...rest } = props;
+  const {
+    onClick,
+    href,
+    look = 'arrow',
+    children,
+    isDisabled,
+    isActive,
+    className,
+    ...rest
+  } = props;
   const { navbarHeight, navbarTop } = useMeasuresStore((state) => ({
     navbarHeight: state.navbarHeight,
     navbarTop: state.navbarTop,
@@ -41,7 +50,7 @@ export default function Link(props: LinkProps) {
   return (
     <NextLink
       {...rest}
-      className={classMerge(isDisabled && 'cursor-default')}
+      className={classMerge(isDisabled && 'cursor-default', className)}
       onClick={_onClick}
       href={isDisabled ? '#' : href}
     >

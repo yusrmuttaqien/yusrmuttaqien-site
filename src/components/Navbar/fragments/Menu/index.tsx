@@ -44,7 +44,7 @@ export default function Menu(props: MenuProps) {
           ))}
           <Language />
         </div>
-        <Availibility className="w-full origin-center" />
+        <Availibility className={{ background: 'w-full origin-center' }} />
       </div>
     </motion.div>
   );
