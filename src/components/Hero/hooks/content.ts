@@ -7,8 +7,12 @@ import type { i18nLocales } from '@/types/i18n';
 
 export default function useContent() {
   const { locale } = useRouter();
-  const internets = Object.values(untranslated.internets);
-  const contents = { en: { ...en, internets }, id: { ...id, internets } };
+  const { internets } = untranslated;
+  const internetsMap = Object.entries(internets).map(([title, rest]) => ({ title, ...rest }));
+  const contents = {
+    en: { ...en, internets: internetsMap },
+    id: { ...id, internets: internetsMap },
+  };
 
   return contents[locale as i18nLocales] || defaulti18n;
 }

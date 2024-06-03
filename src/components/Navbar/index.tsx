@@ -103,7 +103,7 @@ function Links() {
     <Fragment>
       {sitemaps.map(({ title, href, ...rest }) => (
         <Link
-          className="hidden xl:block"
+          className={{ link: { a: 'hidden xl:block' } }}
           id="link"
           key={title}
           isActive={href === asPath}

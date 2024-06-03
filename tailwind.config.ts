@@ -26,6 +26,9 @@ const config: Config = {
         grey: COLOR_GREY,
         beige: COLOR_BEIGE,
       },
+      transitionTimingFunction: {
+        'out-quart': 'cubic-bezier(0.25, 1, 0.5, 1)',
+      },
     },
     screens: {
       sm: scrSize({ screen: 'sm', withUnit: true }),
@@ -60,7 +63,11 @@ const config: Config = {
               nohemi: { before: '-0.04em', after: '-0.2em' },
               helveticaNeue: { before: '-0.1em', after: '-0.3em' },
             };
-            preset = { ...preset, nohemiHeight: { ...preset.nohemi, lineHeight: '0.9em' } };
+            preset = {
+              ...preset,
+              nohemiHeight: { ...preset.nohemi, lineHeight: '0.9em' },
+              helveticaNeueHeight: { ...preset.helveticaNeue, lineHeight: '1.2em' },
+            };
             const selected = preset[family];
 
             return {
@@ -82,6 +89,7 @@ const config: Config = {
         {
           values: {
             'helvetiva-neue': 'helveticaNeue',
+            'helvetiva-neue-height': 'helveticaNeueHeight',
             nohemi: 'nohemi',
             'nohemi-height': 'nohemiHeight',
           },

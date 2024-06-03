@@ -11,7 +11,7 @@ export default function useInteractive() {
     navbarMBottom: state.navbarMBottom,
     navbarHeight: state.navbarHeight,
   }));
-  const threshold = navbarMBottom + navbarMTop - navbarHeight;
+  const threshold = Math.abs(navbarMBottom + navbarMTop - navbarHeight);
 
   useIsomorphicLayoutEffect(() => {
     const root = scope.current as HTMLElement;

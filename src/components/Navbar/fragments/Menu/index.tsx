@@ -33,10 +33,7 @@ export default function Menu(props: MenuProps) {
       )}
     >
       <div className="flex flex-col justify-between items-center w-full gap-8">
-        <div
-          className="flex flex-1 flex-col items-center justify-center gap-8"
-          style={{ perspective: '5000px' }}
-        >
+        <div className="flex flex-1 flex-col items-center justify-center gap-8 perspective-5000">
           {sitemaps.map(({ title, href, ...rest }) => (
             <Link id="link" key={title} isActive={href === asPath} href={href} {...rest}>
               {title}

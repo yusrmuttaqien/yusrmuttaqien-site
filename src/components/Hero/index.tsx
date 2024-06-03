@@ -14,7 +14,7 @@ export default function Hero() {
     <section
       ref={entryScope}
       className={classMerge(
-        'h-[calc(100dvh_-_var(--navbar-total-height))] flex flex-col gap-[3.375rem]',
+        'h-[calc(100svh_-_var(--navbar-docked-total-height))] flex flex-col gap-[3.375rem]',
         'pb-5 xl:pb-8 min-h-[34.375rem] xl:gap-[7.5rem]'
       )}
     >
@@ -55,11 +55,11 @@ export default function Hero() {
       </div>
       <div
         className={classMerge(
-          'flex flex-col justify-between gap-6 lg-850:flex-row',
+          'flex flex-col gap-6 items-center justify-between lg-850:flex-row ',
           'lg-850:items-end lg-850:gap-10'
         )}
       >
-        <Links />
+        <Links className="hidden lg-850:block" />
         <Scroll className="shrink-0" />
       </div>
     </section>

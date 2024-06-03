@@ -12,7 +12,7 @@ export default function Scroll(props: ScrollProps) {
   return (
     <div
       ref={scope}
-      className={classMerge('text-dynamic-grey flex flex-row gap-1', className)}
+      className={classMerge('text-dynamic-[grey_80] flex flex-row gap-1', className)}
       id="scroll"
     >
       <p className="trim-helvetiva-neue">{scroll}</p>

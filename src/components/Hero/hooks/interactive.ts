@@ -35,7 +35,9 @@ export default function useInteractive() {
       // TODO: Add interactive gradient for mesh
     }
     function _getClientRect() {
-      scopeClientRect.current = root.getBoundingClientRect();
+      requestAnimationFrame(() => {
+        scopeClientRect.current = root.getBoundingClientRect();
+      });
     }
 
     _getClientRect();

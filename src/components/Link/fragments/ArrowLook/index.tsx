@@ -1,18 +1,26 @@
+import { tv } from 'tailwind-variants';
 import Arrow from '@/svg/Arrow';
 import classMerge from '@/utils/classMerge';
 import type { ArrowLookProps } from '@/components/Link/fragments/ArrowLook/type';
 
+export const ARROW_LOOK_STYLES = tv({
+  slots: {
+    container: 'flex gap-1 items-center group/look',
+    text: 'inline-block body trim-helvetiva-neue',
+  },
+});
+
 export default function ArrowLook(props: ArrowLookProps) {
-  const { children, isActive, isDisabled } = props;
+  const { children, isActive, isDisabled, className } = props;
+  const { container, text } = ARROW_LOOK_STYLES();
 
   return (
     <div
-      className={classMerge(
-        'flex gap-1 items-center group/look',
-        isDisabled && 'text-dynamic-[grey_50]'
-      )}
+      className={container({
+        className: classMerge(isDisabled && 'text-dynamic-[grey_50]', className?.container),
+      })}
     >
-      <p className={classMerge('inline-block body trim-helvetiva-neue', isActive && 'font-bold')}>
+      <p className={text({ className: classMerge(isActive && 'font-bold', className?.text) })}>
         {children}
       </p>
       {/* TODO: Animate layout and exit */}

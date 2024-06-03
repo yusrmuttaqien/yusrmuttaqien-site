@@ -11,7 +11,7 @@ export const TIMELINE_ENTRY: { visible: AnimationSequence; invisible: AnimationS
     ],
     ['#pattern', { filter: 'blur(0px)' }, { at: '-0.5' }],
     ['#ym-image', { filter: 'blur(0px)' }, { at: '-0.2' }],
-    ['#role', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { delay: stagger(0.05), at: '-0.2' }],
+    ['#role', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { delay: stagger(0.05), at: '-0.4' }],
     // Bottom 01
     ['#linksTitle', { opacity: 1, filter: 'blur(0px)' }, { delay: 0.8, at: 'sync-bottom' }],
     ['#link', { opacity: 1, filter: 'blur(0px)', y: '0px' }, { delay: stagger(0.1), at: '-0.3' }],

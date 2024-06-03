@@ -1,6 +1,7 @@
+import type { ReactNode } from 'react';
 import type { AnimatePresenceProps } from 'framer-motion';
 
-export type TransComp = Record<string, (v: string, id: string) => any>;
+export type TransComp = Record<string, (v: string, id: string) => ReactNode>;
 
 interface TransCommonProps {
   comps: TransComp;

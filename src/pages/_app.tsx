@@ -56,7 +56,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
         />
         <title key="title">Yusril Muttaqien</title>
       </Head>
-
       <Contexts>
         <MediaQueryStoreHost />
         <Cursor className="z-40" />
@@ -67,7 +66,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
             menu: 'z-[19] p-5',
           }}
         />
-        <div className="z-10" style={{ perspective: '5000px' }}>
+        <div className="z-10 perspective-5000">
           <AnimatePresence mode="wait">
             <Transition key={router.route} className="mx-5 origin-center xl:mx-8">
               <Component {...pageProps} />
