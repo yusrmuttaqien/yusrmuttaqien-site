@@ -1,5 +1,5 @@
 export default {
-  booking: 'Atur pertemuan',
+  booking: 'Mari berbincang',
   menuOpen: 'Buka',
   menuClose: 'Tutup',
   sitemapsTitle: {
