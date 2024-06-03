@@ -16,4 +16,4 @@
 
 ## Credits
 
-### <a href="https://github.com/yusrmuttaqien">Yusril Muttaqien</a> - 2024 - Apache License
+### <a href="https://github.com/yusrmuttaqien">Yusril Muttaqien</a> - 2024
