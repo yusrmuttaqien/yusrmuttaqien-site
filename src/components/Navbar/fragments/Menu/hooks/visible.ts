@@ -3,12 +3,15 @@ import { useLenis } from '@studio-freight/react-lenis';
 import {
   useIsomorphicLayoutEffect,
   useAnimate,
+  cubicBezier,
   animate as gAnimate,
   type AnimationPlaybackControls,
 } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
 import { useMediaQueryStore } from '@/contexts/mediaQuery';
 import { TIMELINE_MAIN, TIMELINE_MENU } from '@/components/Navbar/fragments/Menu/constant';
+
+const MAIN_TRANSITION = { ease: cubicBezier(0.25, 1, 0.5, 1) };
 
 export default function useVisible() {
   const [scope, animate] = useAnimate();
@@ -72,14 +75,14 @@ export default function useVisible() {
 
       root.classList.remove('invisible');
       mainTimeline.current?.stop();
-      mainTimeline.current = gAnimate('main', TIMELINE_MAIN.visible);
+      mainTimeline.current = gAnimate('main', TIMELINE_MAIN.visible, MAIN_TRANSITION);
       animate(TIMELINE_MENU(scope, isDarkMode).visible);
     }
     function _closeSequence() {
       if (!mainTimeline.current) return;
 
       mainTimeline.current.stop();
-      mainTimeline.current = gAnimate('main', TIMELINE_MAIN.invisible);
+      mainTimeline.current = gAnimate('main', TIMELINE_MAIN.invisible, MAIN_TRANSITION);
       return animate(TIMELINE_MENU(scope, isDarkMode, 'animate').invisible).then(() => {
         root.classList.add('invisible');
 
