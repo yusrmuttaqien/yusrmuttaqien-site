@@ -2,7 +2,6 @@ import Head from 'next/head';
 import { Fragment } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { AnimatePresence, useIsomorphicLayoutEffect } from 'framer-motion';
-
 import Contexts from '@/contexts';
 import MediaQueryStoreHost from '@/contexts/mediaQuery/host';
 import Transition from '@/components/Transition';
@@ -66,9 +65,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
             menu: 'z-[19] p-5',
           }}
         />
-        <div className="z-10 perspective-5000">
+        <div id="root-main" className="z-10 perspective-5000 isolate">
           <AnimatePresence mode="wait">
-            <Transition key={router.route} className="mx-5 origin-center xl:mx-8">
+            <Transition key={router.route} className={{ main: 'mx-5 origin-center xl:mx-8' }}>
               <Component {...pageProps} />
             </Transition>
           </AnimatePresence>

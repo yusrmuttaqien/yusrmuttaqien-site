@@ -24,7 +24,7 @@ export default function Links(props: LinksProps) {
       </h3>
       <div className="flex gap-3 flex-wrap lg-850:gap-6">
         {internets.map(({ title, ...rest }) => (
-          <Link className={{ link: { a: 'trim-helvetiva-neue' } }} key={title} id="link" {...rest}>
+          <Link key={title} id="link" {...rest}>
             <Trans string={title} name="hero-link" comps={COMPS} />
           </Link>
         ))}

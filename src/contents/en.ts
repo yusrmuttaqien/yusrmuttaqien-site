@@ -6,4 +6,5 @@ export default {
     self: 'Self-project',
     work: 'Work-project [<COMPANY>]',
   },
+  internetsTitle: 'Internets',
 };

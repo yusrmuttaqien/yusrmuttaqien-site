@@ -95,6 +95,7 @@ export default function Navbar(props: NavbarProps) {
   );
 }
 
+// TODO: Move to fragments
 function Links() {
   const { asPath } = useRouter();
   const { sitemaps } = useContent();

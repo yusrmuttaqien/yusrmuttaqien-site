@@ -6,4 +6,5 @@ export default {
     self: 'Projek-pribadi',
     work: 'Projek-pekerjaan [<COMPANY>]',
   },
+  internetsTitle: 'Internet',
 };

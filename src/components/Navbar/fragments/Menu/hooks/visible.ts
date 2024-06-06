@@ -75,14 +75,14 @@ export default function useVisible() {
 
       root.classList.remove('invisible');
       mainTimeline.current?.stop();
-      mainTimeline.current = gAnimate('main', TIMELINE_MAIN.visible, MAIN_TRANSITION);
+      mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.visible, MAIN_TRANSITION);
       animate(TIMELINE_MENU(scope, isDarkMode).visible);
     }
     function _closeSequence() {
       if (!mainTimeline.current) return;
 
       mainTimeline.current.stop();
-      mainTimeline.current = gAnimate('main', TIMELINE_MAIN.invisible, MAIN_TRANSITION);
+      mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.invisible, MAIN_TRANSITION);
       return animate(TIMELINE_MENU(scope, isDarkMode, 'animate').invisible).then(() => {
         root.classList.add('invisible');
 

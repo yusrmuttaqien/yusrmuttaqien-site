@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import id from '@/components/Hero/contents/id';
-import en from '@/components/Hero/contents/en';
+import id from '@/components/Footer/content/id';
+import en from '@/components/Footer/content/en';
 import globalId from '@/contents/id';
 import globalEn from '@/contents/en';
 import untranslated from '@/contents/untranslated';
