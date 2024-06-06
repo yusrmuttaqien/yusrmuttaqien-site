@@ -1,4 +1,10 @@
-import type { Projects } from '@/types/contents';
+import type { Projects, ProjectHref } from '@/types/contents';
+
+const PROJECT_HREF_SHOWCASE_SOON: ProjectHref = [
+  { en: 'Access project story', id: 'Akses cerita projek' },
+  '#',
+];
+const PROJECT_HREF_LIVE_COPY = { en: 'Access live project', id: 'Akses halaman projek' };
 
 export default {
   internets: {
@@ -13,25 +19,29 @@ export default {
     'Telkom Agreeculture': {
       categories: ['web'],
       year: '2021 - 2024',
-      href: 'https://agreeculture.id/',
+      href: [PROJECT_HREF_SHOWCASE_SOON, [PROJECT_HREF_LIVE_COPY, 'https://agreeculture.id/']],
       collaborator: ['work', 'Telkom Indonesia'],
     },
     findMovie: {
       categories: ['web'],
       year: '2023',
-      href: 'https://findmovie-yusr.vercel.app/',
+      href: [
+        PROJECT_HREF_SHOWCASE_SOON,
+        [PROJECT_HREF_LIVE_COPY, 'https://findmovie-yusr.vercel.app/'],
+      ],
       collaborator: ['self'],
     },
     'dashboard [<TODO>]': {
       categories: ['web'],
       year: '2023 - 2024',
-      href: 'https://dashboard-site-showoff.vercel.app/login',
-      collaborator: ['self'],
-    },
-    'dashboard [<TODO>] landingpage': {
-      categories: ['web'],
-      year: '2024',
-      href: 'https://yusrmuttaqien.github.io/dashboardlanding-bootcamp-site/',
+      href: [
+        PROJECT_HREF_SHOWCASE_SOON,
+        [PROJECT_HREF_LIVE_COPY, 'https://dashboard-site-showoff.vercel.app/login'],
+        [
+          { en: 'Access live landing page', id: 'Akses halaman arahan' },
+          'https://yusrmuttaqien.github.io/dashboardlanding-bootcamp-site/',
+        ],
+      ],
       collaborator: ['self'],
     },
   } as Projects,

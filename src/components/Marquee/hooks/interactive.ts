@@ -8,6 +8,7 @@ import {
   useAnimationFrame,
   useIsomorphicLayoutEffect,
 } from 'framer-motion';
+import { useMediaQueryStore } from '@/contexts/mediaQuery';
 import wrap from '@/utils/wrap';
 import debounce from '@/utils/debounce';
 import type { InteractiveParams } from '@/components/Marquee/type';
@@ -21,6 +22,7 @@ export default function useInteractive(params: InteractiveParams) {
   const [repeat, setRepeat] = useState(0);
   const scope = useRef<HTMLDivElement>(null);
   const isInView = useInView(scope);
+  const isHoverable = useMediaQueryStore((state) => state.isHoverable);
   const currentDirection = useMotionValue(direction === 'left' ? -1 : 1);
   const velocityFactor = useTransform(baseVelocity, [0, 1000], [0, 5], { clamp: false });
 
@@ -28,7 +30,7 @@ export default function useInteractive(params: InteractiveParams) {
     let move = currentDirection.get() * velocity * (delta / 1000);
     let factor = 0;
 
-    if (!lockDirection) {
+    if (!lockDirection && isHoverable) {
       if (baseVelocity.get() > 0) {
         currentDirection.set(1);
       } else if (baseVelocity.get() < 0) {

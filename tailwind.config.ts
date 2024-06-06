@@ -111,6 +111,17 @@ const config: Config = {
         },
         { values: { none: '0 0 0 0' } }
       );
+      // Clip-path
+      matchUtilities(
+        {
+          'clip-path-inset': (size) => {
+            const [top, right, bottom, left] = size.split(' ');
+
+            return { clipPath: `inset(${top} ${right} ${bottom} ${left})` };
+          },
+        },
+        { values: { bottom: '100% 0% 0% 0%' } }
+      );
       // Color
       matchUtilities(
         {

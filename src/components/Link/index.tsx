@@ -39,7 +39,11 @@ export default function Link(props: LinkProps) {
     const isCurrent = href.toString() === asPath;
     const isID = href.toString().includes('#');
 
-    if (isExternal || !isCurrent || !isID) return;
+    if (isExternal) {
+      e.preventDefault();
+      return window.open(href.toString(), '_blank');
+    }
+    if (!isCurrent || !isID) return;
     const endpoints = href.toString().split('#');
 
     e.preventDefault();

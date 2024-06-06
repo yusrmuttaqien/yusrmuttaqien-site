@@ -5,7 +5,7 @@ export default function Yusr(props: YusrProps) {
 
   return (
     <svg className={className} viewBox="0 0 333 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g clip-path="url(#clip0_4382_112)">
+      <g clipPath="url(#clip0_4382_112)">
         <path
           d="M98.3551 2.08674L63.8195 66.7757V101.555H34.466V66.7757L0 2.08674H31.6141L49.3167 40.1002L67.367 2.08674H98.3551Z"
           fill="currentColor"

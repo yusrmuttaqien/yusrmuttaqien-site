@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Link from '@/components/Link';
 import Trans from '@/components/Trans';
-import useInteractive from '@/components/Projects/interactive';
+import useInteractive from '@/components/Projects/hooks/interactive';
 import useContent from '@/components/Projects/hooks/content';
 import Card from '@/components/Projects/fragments/Card';
 import classMerge from '@/utils/classMerge';
@@ -30,7 +30,7 @@ export default function Projects() {
         style={{ filter: filterBlur, opacity }}
         className={classMerge(
           'trim-nohemi-height text-center text-clamp-[48_84_320_540] font-nohemi',
-          'sticky top-0 pointer-events-none z-0 pt-[45svh]'
+          'sticky top-[45svh] pointer-events-none z-0'
         )}
       >
         <Trans name="project-title" string={projectTitle} comps={COMPS} />

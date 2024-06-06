@@ -29,7 +29,7 @@ export const FOOTER_STYLES = tv({
 });
 export default function Footer(props: FooterProps) {
   const { className } = props;
-  const { scope, brightness } = useInteractive();
+  const { scope, filterBrightness } = useInteractive();
   const { contact, footer } = FOOTER_STYLES();
   const handlers = useLongPress({ onFinish: _copyEmail });
   const {
@@ -68,7 +68,7 @@ export default function Footer(props: FooterProps) {
         <div className="h-[100svh] w-full block bg-dynamic-beige z-10 relative" />
         <motion.footer
           className="sticky bottom-0 z-0 overflow-hidden"
-          style={{ filter: brightness }}
+          style={{ filter: filterBrightness }}
         >
           <div className="mt-[3.25rem] mb-[6.5rem] px-5 space-y-[1.125rem]">
             <Section title={shortAboutTitle}>

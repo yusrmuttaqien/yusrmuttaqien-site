@@ -1,3 +1,4 @@
+import type { ProjectHref } from '@/types/contents';
 import type { ReactNode } from 'react';
 
 export type CardProps = {
@@ -8,4 +9,5 @@ export type CardProps = {
   category: string;
   collaborator: ReactNode;
   className?: string;
+  href: ProjectHref[];
 };

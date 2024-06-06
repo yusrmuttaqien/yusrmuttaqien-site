@@ -5,7 +5,11 @@ import debounce from '@/utils/debounce';
 export default function useInteractive() {
   const scope = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: scope, offset: ['start end', 'end'] });
-  const brightness = useTransform(scrollYProgress, [0.56, 1], ['brightness(0)', 'brightness(1)']);
+  const filterBrightness = useTransform(
+    scrollYProgress,
+    [0.56, 1],
+    ['brightness(0)', 'brightness(1)']
+  );
 
   useIsomorphicLayoutEffect(() => {
     const root = scope.current as HTMLDivElement;
@@ -33,5 +37,5 @@ export default function useInteractive() {
     };
   }, []);
 
-  return { scope, brightness };
+  return { scope, filterBrightness };
 }
