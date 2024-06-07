@@ -29,6 +29,7 @@ export default function Image(props: ImageProps) {
           fill
           sizes="100%"
           draggable={false}
+          placeholder="blur"
           className={image({ className: className?.image })}
         />
       </motion.div>
