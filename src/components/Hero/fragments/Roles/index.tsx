@@ -3,12 +3,7 @@ import Trans from '@/components/Trans';
 import type { TransComp } from '@/components/Trans/type';
 
 const COMPS: TransComp = {
-  'UI/UX': (value, id) => (
-    <span key={id} className="text-dynamic-green">
-      {value}
-    </span>
-  ),
-  VA: (value, id) => (
+  default: (value, id) => (
     <span key={id} className="text-dynamic-green">
       {value}
     </span>

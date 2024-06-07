@@ -6,7 +6,7 @@ import type { TransComp } from '@/components/Trans/type';
 import type { LinksProps } from '@/components/Hero/fragments/Links/type';
 
 const COMPS: TransComp = {
-  VA: (value, id) => (
+  default: (value, id) => (
     <span key={id} className="text-dynamic-green">
       {value}
     </span>
@@ -24,7 +24,7 @@ export default function Links(props: LinksProps) {
       </h3>
       <div className="flex gap-3 flex-wrap lg-850:gap-6">
         {internets.map(({ title, ...rest }) => (
-          <Link className="trim-helvetiva-neue" key={title} id="link" {...rest}>
+          <Link key={title} id="link" {...rest}>
             <Trans string={title} name="hero-link" comps={COMPS} />
           </Link>
         ))}

@@ -4,6 +4,5 @@ export default {
     'Virtual Assistant [<VA>]',
     'Graphics & Interface [<UI/UX>] designer',
   ],
-  internetsTitle: 'Internets',
-  moreSoon: 'More content soon',
+  scroll: 'Scroll',
 } as const;

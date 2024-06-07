@@ -4,6 +4,5 @@ export default {
     'Asisten Virtual [<VA>]',
     'Desainer antarmuka [<UI/UX>] dan grafik',
   ],
-  internetsTitle: 'Internet',
-  moreSoon: 'Konten lainnya akan segera hadir',
+  scroll: 'Gulir kebawah',
 } as const;

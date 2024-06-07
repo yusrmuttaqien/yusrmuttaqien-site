@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useAnimate, useIsomorphicLayoutEffect, useInView } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
 import { TIMELINE_ENTRY } from '@/components/Hero/constant';
+import isTopFold from '@/utils/isTopFold';
 import type { AnimationResumables } from '@/types/timeline';
 
 export default function useEntry() {
@@ -14,7 +15,7 @@ export default function useEntry() {
     const root = scope.current as HTMLElement;
     const status = resumables.current.status;
 
-    function _startSequence() {
+    function _startSequence(complete: boolean = false) {
       const prepare = animate(TIMELINE_ENTRY.invisible);
       resumables.current.status = 'preparing';
       prepare.then(() => {
@@ -24,12 +25,15 @@ export default function useEntry() {
           resumables.current.status = 'complete';
         });
         resumables.current.status = 'running';
+        complete && resumables.current.instance?.complete();
       });
       prepare.complete();
     }
 
     if ((!isLoader && inView && status === 'not-ready') || status === 'preparing') {
       _startSequence();
+    } else if (!isLoader && isTopFold(root)) {
+      _startSequence(true);
     }
   }, [isLoader, inView]);
 

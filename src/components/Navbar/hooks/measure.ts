@@ -31,7 +31,7 @@ export default function useMeasure() {
           numbers.marginBottom = parseInt(marginBottom);
 
           html.style.setProperty(
-            '--navbar-total-height',
+            '--navbar-docked-total-height',
             `${height + numbers.marginTop + numbers.marginBottom}px`
           );
         } catch (e) {

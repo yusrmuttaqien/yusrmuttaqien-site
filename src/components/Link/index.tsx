@@ -1,4 +1,5 @@
 import NextLink from 'next/link';
+import { tv } from 'tailwind-variants';
 import { useRouter } from 'next/router';
 import { useLenis } from '@studio-freight/react-lenis';
 import { useMeasuresStore } from '@/contexts/measures';
@@ -8,21 +9,41 @@ import classMerge from '@/utils/classMerge';
 import type { LinkProps } from '@/components/Link/type';
 import type { MouseEvent } from 'react';
 
+export const LINK_STYLES = tv({
+  slots: {
+    a: '',
+  },
+});
+
 export default function Link(props: LinkProps) {
-  const { onClick, href, look = 'arrow', children, isDisabled, isActive, ...rest } = props;
+  const {
+    onClick,
+    href,
+    look = 'arrow',
+    children,
+    isDisabled,
+    isActive,
+    className,
+    ...rest
+  } = props;
   const { navbarHeight, navbarTop } = useMeasuresStore((state) => ({
     navbarHeight: state.navbarHeight,
     navbarTop: state.navbarTop,
   }));
   const { asPath } = useRouter();
   const lenis = useLenis();
+  const { a } = LINK_STYLES();
 
   function _interceptLink(e: MouseEvent<HTMLAnchorElement>) {
     const isExternal = EXTERNAL_LINKS.some((link) => href.toString().includes(link));
     const isCurrent = href.toString() === asPath;
     const isID = href.toString().includes('#');
 
-    if (isExternal || !isCurrent || !isID) return;
+    if (isExternal) {
+      e.preventDefault();
+      return window.open(href.toString(), '_blank');
+    }
+    if (!isCurrent || !isID) return;
     const endpoints = href.toString().split('#');
 
     e.preventDefault();
@@ -41,12 +62,12 @@ export default function Link(props: LinkProps) {
   return (
     <NextLink
       {...rest}
-      className={classMerge(isDisabled && 'cursor-default')}
+      className={a({ className: classMerge(isDisabled && 'cursor-default', className?.link?.a) })}
       onClick={_onClick}
       href={isDisabled ? '#' : href}
     >
       {look === 'arrow' ? (
-        <ArrowLook isActive={isActive} isDisabled={isDisabled}>
+        <ArrowLook isActive={isActive} isDisabled={isDisabled} className={className?.arrowLook}>
           {children}
         </ArrowLook>
       ) : (

@@ -43,9 +43,11 @@ export default function Trans<T>(props: T & TransProps<T>) {
       {strings.map((str, idx) => {
         const isInjectable = injectables.includes(idx);
         const id = `${name}-${idx}`;
+        const [key, value] = str.includes('\\') ? str.split('\\') : [str, str];
+        const renderer = comps[key] || comps.default;
 
-        return isInjectable ? (
-          comps[str](str, id)
+        return isInjectable && renderer ? (
+          renderer(value, id)
         ) : (
           <span key={id} id={id} className={classNames[id]}>
             {str}

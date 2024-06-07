@@ -1,3 +1,5 @@
+import { AVAILIBILITY_STYLES } from '@/components/Navbar/fragments/Availibility';
+
 export type AvailibilityProps = {
-  className?: string;
+  className?: Partial<typeof AVAILIBILITY_STYLES.slots>;
 };
