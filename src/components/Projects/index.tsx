@@ -37,12 +37,7 @@ export default function Projects() {
       </motion.h2>
       <div className="space-y-96 pt-[50svh] pb-96 z-10 relative">
         {projects.map((project) => (
-          <Card
-            {...project}
-            key={project.alt}
-            src="https://source.unsplash.com/random"
-            className="w-full max-w-[50rem] mx-auto"
-          />
+          <Card {...project} key={project.alt} className="w-full max-w-[50rem] mx-auto" />
         ))}
         <Link
           className={{

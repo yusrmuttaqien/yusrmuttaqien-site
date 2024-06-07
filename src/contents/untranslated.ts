@@ -1,3 +1,6 @@
+import TelkomAgreecultureCover from '@/contents/projects/telkom-agreeculture/images/cover.png';
+import FindMovieCover from '@/contents/projects/find-movie/images/cover.png';
+import DashbardTodoCover from '@/contents/projects/dashboard-todo/images/cover.png';
 import type { Projects, ProjectHref } from '@/types/contents';
 
 const PROJECT_HREF_SHOWCASE_SOON: ProjectHref = [
@@ -21,6 +24,7 @@ export default {
       year: '2021 - 2024',
       href: [PROJECT_HREF_SHOWCASE_SOON, [PROJECT_HREF_LIVE_COPY, 'https://agreeculture.id/']],
       collaborator: ['work', 'Telkom Indonesia'],
+      src: TelkomAgreecultureCover,
     },
     findMovie: {
       categories: ['web'],
@@ -30,6 +34,7 @@ export default {
         [PROJECT_HREF_LIVE_COPY, 'https://findmovie-yusr.vercel.app/'],
       ],
       collaborator: ['self'],
+      src: FindMovieCover,
     },
     'dashboard [<TODO>]': {
       categories: ['web'],
@@ -43,6 +48,7 @@ export default {
         ],
       ],
       collaborator: ['self'],
+      src: DashbardTodoCover,
     },
   } as Projects,
 } as const;
