@@ -8,6 +8,7 @@ import Transition from '@/components/Transition';
 import Cursor from '@/components/Cursor';
 import Loader from '@/components/Loader';
 import Navbar from '@/components/Navbar';
+import ScrollUp from '@/components/ScrollUp';
 import { helveticaNeue, nohemi } from '@/constants/_app';
 import type { AppProps } from 'next/app';
 import '@/styles/globals.css';
@@ -65,6 +66,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
             menu: 'z-[19] p-5',
           }}
         />
+        <ScrollUp className="z-[18] right-5 bottom-5 xl:right-8 xl:bottom-8" />
         <div id="root-main" className="z-10 perspective-5000 isolate">
           <AnimatePresence mode="wait">
             <Transition key={router.route} className={{ main: 'mx-5 origin-center xl:mx-8' }}>
