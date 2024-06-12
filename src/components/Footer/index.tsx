@@ -53,6 +53,7 @@ export default function Footer(props: FooterProps) {
   return (
     <Fragment>
       <Link
+        id="footer-contact"
         href={`mailto:${EMAIL}`}
         look="custom"
         {...handlers}
