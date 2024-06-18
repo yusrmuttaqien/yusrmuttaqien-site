@@ -1,8 +1,8 @@
 import { tv } from 'tailwind-variants';
 import classMerge from '@/utils/classMerge';
-import type { SectionProps } from '@/components/Footer/fragments/Section/type';
+import type { SectionBoxProps } from '@/components/SectionBox/type';
 
-export const SECTION_STYLES = tv({
+export const SECTION_BOX_STYLES = tv({
   slots: {
     container: classMerge(
       'border border-dynamic-[grey_20] flex flex-col p-[0.625rem] gap-4',
@@ -12,9 +12,9 @@ export const SECTION_STYLES = tv({
   },
 });
 
-export default function Section(props: SectionProps) {
+export default function SectionBox(props: SectionBoxProps) {
   const { title, children, className } = props;
-  const { container, title: titleStyle } = SECTION_STYLES();
+  const { container, title: titleStyle } = SECTION_BOX_STYLES();
 
   return (
     <section className={container({ className: className?.container })}>

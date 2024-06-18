@@ -5,10 +5,12 @@ import {
   useAnimate,
   cubicBezier,
   animate as gAnimate,
+  useScroll,
   type AnimationPlaybackControls,
 } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
 import { useMediaQueryStore } from '@/contexts/mediaQuery';
+import debounce from '@/utils/debounce';
 import { TIMELINE_MAIN, TIMELINE_MENU } from '@/components/Navbar/fragments/Menu/constant';
 
 const MAIN_TRANSITION = { ease: cubicBezier(0.25, 1, 0.5, 1) };
@@ -16,12 +18,14 @@ const MAIN_TRANSITION = { ease: cubicBezier(0.25, 1, 0.5, 1) };
 export default function useVisible() {
   const [scope, animate] = useAnimate();
   const lenis = useLenis();
+  const { scrollYProgress } = useScroll();
   const isNavMenu = useTogglesStore((store) => store.isNavMenu);
   const isDarkMode = useMediaQueryStore((store) => store.isDarkMode);
   const mainTimeline = useRef<AnimationPlaybackControls>();
 
   useIsomorphicLayoutEffect(() => {
     const root = scope.current as HTMLDivElement;
+    const debouncedAnchorRootMain = debounce(_anchorRootMain, 50);
 
     function _cursorAnimate(enable: boolean) {
       const cursor = document.getElementById('cursor');
@@ -90,6 +94,14 @@ export default function useVisible() {
         cleanup.complete();
       });
     }
+    function _anchorRootMain(v: number) {
+      const rootMain = document.getElementById('root-main') as HTMLDivElement;
+
+      rootMain.style.perspectiveOrigin = `center ${v * 100}%`;
+    }
+
+    scrollYProgress.on('change', debouncedAnchorRootMain);
+    _anchorRootMain(scrollYProgress.get());
 
     if (isNavMenu) {
       _padScrollbar(true);
@@ -103,6 +115,10 @@ export default function useVisible() {
         _navbarInteractive(true);
       });
     }
+
+    return () => {
+      scrollYProgress.clearListeners();
+    };
   }, [isNavMenu, isDarkMode]);
 
   return { scope };

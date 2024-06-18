@@ -1,33 +1,36 @@
 import { useRef } from 'react';
-import { inView, useAnimate, useIsomorphicLayoutEffect } from 'framer-motion';
-import isTopFold from '@/utils/isTopFold';
-import { TIMELINE_SCROLLER } from '@/components/ScrollUp/constant';
+import { useAnimate, useIsomorphicLayoutEffect, useScroll } from 'framer-motion';
+import { TIMELINE_SCROLLER, SCROLL_DISTANCE } from '@/components/ScrollUp/constant';
 import type { AnimationResumables } from '@/types/timeline';
 
 export default function useInteractive() {
   const [scope, animate] = useAnimate();
+  const { scrollYProgress } = useScroll();
   const ref = useRef<AnimationResumables>({ instance: null, status: 'not-ready' });
 
   useIsomorphicLayoutEffect(() => {
-    const footerContact = document.getElementById('footer-contact') as HTMLAnchorElement;
-    const footerContactView = inView(footerContact, _toggleScrollUp);
     ref.current.instance = animate(TIMELINE_SCROLLER(scope).invisible);
     ref.current.instance.complete();
 
-    function _toggleScrollUp() {
-      ref.current.instance?.stop();
+    function _toggleScrollUp(v: number) {
+      if (v >= SCROLL_DISTANCE && ref.current.status === 'not-ready') {
+        ref.current.instance?.stop();
 
-      ref.current.instance = animate(TIMELINE_SCROLLER(scope).visible);
-
-      return () => {
-        if (isTopFold(footerContact)) return;
+        ref.current.instance = animate(TIMELINE_SCROLLER(scope).visible);
+        ref.current.status = 'complete';
+      } else if (v < SCROLL_DISTANCE && ref.current.status === 'complete') {
         ref.current.instance?.stop();
 
         ref.current.instance = animate(TIMELINE_SCROLLER(scope).invisible);
-      };
+        ref.current.status = 'not-ready';
+      }
     }
 
-    return footerContactView;
+    scrollYProgress.on('change', _toggleScrollUp);
+
+    return () => {
+      scrollYProgress.clearListeners();
+    };
   }, []);
 
   return { scope };

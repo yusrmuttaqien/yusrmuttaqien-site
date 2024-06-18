@@ -8,7 +8,7 @@ import Link from '@/components/Link';
 import Trans from '@/components/Trans';
 import Marquee from '@/components/Marquee';
 import Yusr from '@/components/Footer/fragments/Yusr';
-import Section from '@/components/Footer/fragments/Section';
+import SectionBox from '@/components/SectionBox';
 import { EMAIL } from '@/components/Footer/constant';
 import type { FooterProps } from '@/components/Footer/type';
 import type { TransComp } from '@/components/Trans/type';
@@ -35,10 +35,12 @@ export default function Footer(props: FooterProps) {
   const {
     internetsTitle,
     contact: tContact,
-    shortAbout,
     emailCopied,
     internets,
-    shortAboutTitle,
+    createdAt,
+    createdAtDesc,
+    createdWith,
+    createdWithDesc,
   } = useContent();
 
   function _copyEmail() {
@@ -72,10 +74,7 @@ export default function Footer(props: FooterProps) {
           style={{ filter: filterBrightness }}
         >
           <div className="mt-[3.25rem] mb-[6.5rem] px-5 space-y-[1.125rem]">
-            <Section title={shortAboutTitle}>
-              <p className="lg:text-right lg:max-w-[37.5rem]">{shortAbout}</p>
-            </Section>
-            <Section title={internetsTitle}>
+            <SectionBox title={internetsTitle}>
               <div className="flex gap-4 flex-wrap lg:justify-end">
                 {internets.map(({ title, ...rest }) => (
                   <Link key={title} id="link" {...rest}>
@@ -83,7 +82,13 @@ export default function Footer(props: FooterProps) {
                   </Link>
                 ))}
               </div>
-            </Section>
+            </SectionBox>
+            <SectionBox title={createdAt} className={{ container: 'lg:items-center' }}>
+              <p className="lg:text-right lg:max-w-[37.5rem]">{createdAtDesc}</p>
+            </SectionBox>
+            <SectionBox title={createdWith} className={{ container: 'lg:items-center' }}>
+              <p className="lg:text-right lg:max-w-[37.5rem]">{createdWithDesc}</p>
+            </SectionBox>
           </div>
           <Yusr className="w-[105%]" />
         </motion.footer>

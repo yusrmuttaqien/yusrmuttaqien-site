@@ -69,7 +69,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <ScrollUp className="z-[18] right-5 bottom-5 xl:right-8 xl:bottom-8" />
         <div id="root-main" className="z-10 perspective-5000 isolate">
           <AnimatePresence mode="wait">
-            <Transition key={router.route} className={{ main: 'mx-5 origin-center xl:mx-8' }}>
+            <Transition key={router.route} className={{ main: 'mx-5 xl:mx-8' }}>
               <Component {...pageProps} />
             </Transition>
           </AnimatePresence>
