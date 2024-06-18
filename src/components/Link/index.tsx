@@ -50,7 +50,7 @@ export default function Link(props: LinkProps) {
     lenis?.scrollTo(`#${endpoints[1]}`, { offset: -(navbarHeight + navbarTop * 2), duration: 1.8 });
   }
   function _onClick(e: MouseEvent<HTMLAnchorElement>) {
-    if (isDisabled) {
+    if (isDisabled || isActive) {
       e.preventDefault();
       return;
     }
@@ -63,11 +63,7 @@ export default function Link(props: LinkProps) {
     <NextLink
       {...rest}
       className={a({
-        className: classMerge(
-          isDisabled && 'cursor-default',
-          isActive && 'pointer-events-none',
-          className?.link?.a
-        ),
+        className: classMerge(isDisabled && 'cursor-default', className?.link?.a),
       })}
       onClick={_onClick}
       href={isDisabled ? '#' : href}
