@@ -15,6 +15,6 @@ export default {
       VA: 'Virtual Assistant [<VA>]',
     },
   },
-  playTitle: 'Daftar musik',
+  playTitle: 'Playlists',
   author: 'Author',
 };

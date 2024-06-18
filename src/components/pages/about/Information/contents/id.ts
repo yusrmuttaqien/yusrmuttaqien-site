@@ -15,6 +15,6 @@ export default {
       VA: 'Asisten Virtual [<VA>]',
     },
   },
-  playTitle: 'Playlists',
+  playTitle: 'Daftar musik',
   author: 'Pengarang',
 };
