@@ -1,11 +1,11 @@
 import mergeRefs from 'merge-refs';
 import { motion } from 'framer-motion';
-import useEntry from '@/components/Hero/hooks/entry';
-import useInteractive from '@/components/Hero/hooks/interactive';
-import Pattern from '@/components/Hero/fragments/Pattern';
-import Scroll from '@/components/Hero/fragments/Scroll';
-import Links from '@/components/Hero/fragments/Links';
-import Roles from '@/components/Hero/fragments/Roles';
+import useEntry from '@/components/pages/index/Hero/hooks/entry';
+import useInteractive from '@/components/pages/index/Hero/hooks/interactive';
+import Pattern from '@/components/pages/index/Hero/fragments/Pattern';
+import Scroll from '@/components/pages/index/Hero/fragments/Scroll';
+import Links from '@/components/pages/index/Hero/fragments/Links';
+import Roles from '@/components/pages/index/Hero/fragments/Roles';
 import classMerge from '@/utils/classMerge';
 
 export default function Hero() {
@@ -31,7 +31,7 @@ export default function Hero() {
       <motion.div
         style={{ z, filter: filterBlur, opacity, y }}
         className={classMerge(
-          'h-[calc(100svh_-_var(--navbar-docked-total-height))] flex flex-col gap-[3.375rem]',
+          'h-full-total-navbar flex flex-col gap-[3.375rem]',
           'pb-5 xl:pb-8 min-h-[34.375rem] xl:gap-[7.5rem] sticky bottom-0 w-full origin-center'
         )}
       >

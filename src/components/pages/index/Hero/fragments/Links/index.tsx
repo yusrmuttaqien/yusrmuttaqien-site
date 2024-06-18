@@ -1,9 +1,9 @@
-import useContent from '@/components/Hero/hooks/content';
+import useContent from '@/components/pages/index/Hero/hooks/content';
 import Link from '@/components/Link';
 import Trans from '@/components/Trans';
 import classMerge from '@/utils/classMerge';
 import type { TransComp } from '@/components/Trans/type';
-import type { LinksProps } from '@/components/Hero/fragments/Links/type';
+import type { LinksProps } from '@/components/pages/index/Hero/fragments/Links/type';
 
 const COMPS: TransComp = {
   default: (value, id) => (

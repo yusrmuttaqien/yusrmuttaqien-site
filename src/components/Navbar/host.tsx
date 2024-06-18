@@ -32,8 +32,22 @@ export default function Host(props: HostProps) {
         : animate(TIMELINE_YM_TITLE(scope).invisible);
   }, [isNavYM, isXL1490]);
   useIsomorphicLayoutEffect(() => {
-    const HeroYMTitle = document.querySelector('#hero-ym-title') as HTMLHeadingElement;
-    const YMInView = inView(HeroYMTitle, _setNavYM);
+    let HeroYMTitle = document.querySelector('#hero-ym-title') as HTMLHeadingElement;
+    let HeroYMInView: VoidFunction;
+    let timeout: NodeJS.Timeout;
+
+    function _getHeroYMTitle() {
+      HeroYMTitle = document.querySelector('#hero-ym-title') as HTMLHeadingElement;
+      HeroYMInView = inView(HeroYMTitle, _setNavYM);
+
+      if (!HeroYMTitle) {
+        timeout = setTimeout(() => {
+          _getHeroYMTitle();
+        }, 100);
+      } else {
+        _setNavYM(null, isTopFold(HeroYMTitle) || asPath !== '/');
+      }
+    }
 
     function _setNavYM(_: any, initial: boolean = false) {
       set('isNavYM', initial);
@@ -41,9 +55,12 @@ export default function Host(props: HostProps) {
       return () => set('isNavYM', true);
     }
 
-    _setNavYM(null, isTopFold(HeroYMTitle) || asPath !== '/');
+    _getHeroYMTitle();
 
-    return YMInView;
+    return () => {
+      HeroYMInView();
+      clearTimeout(timeout);
+    };
   }, [asPath]);
 
   return null;

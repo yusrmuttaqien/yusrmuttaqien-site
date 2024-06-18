@@ -1,4 +1,4 @@
-import useContent from '@/components/Hero/hooks/content';
+import useContent from '@/components/pages/index/Hero/hooks/content';
 import Trans from '@/components/Trans';
 import type { TransComp } from '@/components/Trans/type';
 

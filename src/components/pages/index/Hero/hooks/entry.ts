@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useAnimate, useIsomorphicLayoutEffect, useInView } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
-import { TIMELINE_ENTRY } from '@/components/Hero/constant';
+import { TIMELINE_ENTRY } from '@/components/pages/index/Hero/constant';
 import isTopFold from '@/utils/isTopFold';
 import type { AnimationResumables } from '@/types/timeline';
 

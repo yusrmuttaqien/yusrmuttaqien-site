@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Trans from '@/components/Trans';
-import id from '@/components/Projects/content/id';
-import en from '@/components/Projects/content/en';
+import id from '@/components/pages/index/Projects/content/id';
+import en from '@/components/pages/index/Projects/content/en';
 import globalId from '@/contents/id';
 import globalEn from '@/contents/en';
 import untranslated from '@/contents/untranslated';

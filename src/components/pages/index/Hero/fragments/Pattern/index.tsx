@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import classMerge from '@/utils/classMerge';
-import type { PatternProps } from '@/components/Hero/fragments/Pattern/type';
+import type { PatternProps } from '@/components/pages/index/Hero/fragments/Pattern/type';
 
 export default function Pattern(props: PatternProps) {
   const { className, highlight, style, ...rest } = props;

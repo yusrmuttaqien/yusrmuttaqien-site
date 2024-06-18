@@ -1,8 +1,8 @@
-import useContent from '@/components/Hero/hooks/content';
-import useInteractive from '@/components/Hero/fragments/Scroll/hooks/interactive';
+import useContent from '@/components/pages/index/Hero/hooks/content';
+import useInteractive from '@/components/pages/index/Hero/fragments/Scroll/hooks/interactive';
 import Arrow from '@/svg/Arrow';
 import classMerge from '@/utils/classMerge';
-import type { ScrollProps } from '@/components/Hero/fragments/Scroll/type';
+import type { ScrollProps } from '@/components/pages/index/Hero/fragments/Scroll/type';
 
 export default function Scroll(props: ScrollProps) {
   const { className } = props;

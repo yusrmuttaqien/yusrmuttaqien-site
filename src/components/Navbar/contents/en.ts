@@ -4,7 +4,7 @@ export default {
   menuClose: 'Close',
   sitemapsTitle: {
     home: 'Home',
-    about: 'About Me',
+    about: 'About',
     projects: 'Projects',
     techStack: 'Tech Stack',
   },

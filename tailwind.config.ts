@@ -29,6 +29,12 @@ const config: Config = {
       transitionTimingFunction: {
         'out-quart': 'cubic-bezier(0.25, 1, 0.5, 1)',
       },
+      height: {
+        'full-total-navbar': 'calc(100svh - var(--navbar-docked-total-height))',
+      },
+      minHeight: {
+        'full-total-navbar': 'calc(100svh - var(--navbar-docked-total-height))',
+      },
     },
     screens: {
       sm: scrSize({ screen: 'sm', withUnit: true }),

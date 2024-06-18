@@ -109,6 +109,7 @@ function Links() {
           key={title}
           isActive={href === asPath}
           href={href}
+          scroll
           {...rest}
         >
           {title}

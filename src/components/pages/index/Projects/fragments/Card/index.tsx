@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
 import { useRouter } from 'next/router';
-import { useInteractive } from '@/components/Projects/fragments/Card/hooks/interactive';
+import { useInteractive } from '@/components/pages/index/Projects/fragments/Card/hooks/interactive';
 import Link from '@/components/Link';
 import Image from '@/components/Image';
 import classMerge from '@/utils/classMerge';
 import { defaulti18n } from '@/constants/i18n';
-import type { CardProps } from '@/components/Projects/fragments/Card/type';
+import type { CardProps } from '@/components/pages/index/Projects/fragments/Card/type';
 import type { i18nLocales } from '@/types/i18n';
 
 const FIGCAPTION_STYLES = classMerge(

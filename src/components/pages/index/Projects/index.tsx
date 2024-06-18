@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import Link from '@/components/Link';
 import Trans from '@/components/Trans';
-import useInteractive from '@/components/Projects/hooks/interactive';
-import useContent from '@/components/Projects/hooks/content';
-import Card from '@/components/Projects/fragments/Card';
+import useInteractive from '@/components/pages/index/Projects/hooks/interactive';
+import useContent from '@/components/pages/index/Projects/hooks/content';
+import Card from '@/components/pages/index/Projects/fragments/Card';
 import classMerge from '@/utils/classMerge';
 import type { TransComp } from '@/components/Trans/type';
 

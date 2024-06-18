@@ -4,7 +4,7 @@ export default {
   menuClose: 'Tutup',
   sitemapsTitle: {
     home: 'Halaman utama',
-    about: 'Tentang saya',
+    about: 'Tentang',
     projects: 'Projek',
     techStack: 'Teknologi',
   },
