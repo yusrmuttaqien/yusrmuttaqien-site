@@ -22,14 +22,14 @@ export default {
     'Telkom Agreeculture': {
       categories: ['web'],
       year: '2021 - 2024',
-      href: [PROJECT_HREF_SHOWCASE_SOON, [PROJECT_HREF_LIVE_COPY, 'https://agreeculture.id/']],
+      hrefs: [PROJECT_HREF_SHOWCASE_SOON, [PROJECT_HREF_LIVE_COPY, 'https://agreeculture.id/']],
       collaborator: ['work', 'Telkom Indonesia'],
       src: TelkomAgreecultureCover,
     },
     findMovie: {
       categories: ['web'],
       year: '2023',
-      href: [
+      hrefs: [
         PROJECT_HREF_SHOWCASE_SOON,
         [PROJECT_HREF_LIVE_COPY, 'https://findmovie-yusr.vercel.app/'],
       ],
@@ -39,7 +39,7 @@ export default {
     'dashboard [<TODO>]': {
       categories: ['web'],
       year: '2023 - 2024',
-      href: [
+      hrefs: [
         PROJECT_HREF_SHOWCASE_SOON,
         [PROJECT_HREF_LIVE_COPY, 'https://dashboard-site-showoff.vercel.app/login'],
         [

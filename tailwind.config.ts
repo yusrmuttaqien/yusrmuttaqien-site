@@ -44,6 +44,7 @@ const config: Config = {
       'lg-540': '540px',
       'lg-590': '590px',
       'lg-850': '850px',
+      'lg-970': '970px',
       'lg-only': { max: scrSize({ screen: 'xl', withUnit: true, modifier: -1 }) },
       xl: scrSize({ screen: 'xl', withUnit: true }),
       '2xl': scrSize({ screen: '2xl', withUnit: true }),

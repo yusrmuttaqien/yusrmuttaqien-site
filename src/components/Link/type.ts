@@ -1,7 +1,7 @@
 import { LINK_STYLES } from '@/components/Link';
 import type { ArrowLookProps } from '@/components/Link/fragments/ArrowLook/type';
 import type { LinkProps as NextLinkProps } from 'next/link';
-import type { ReactNode, HTMLAttributes } from 'react';
+import type { ReactNode, AnchorHTMLAttributes } from 'react';
 
 type ClassName = {
   link: typeof LINK_STYLES.slots;
@@ -14,5 +14,5 @@ export type LinkProps = {
   look?: 'arrow' | 'custom';
   isActive?: boolean;
   className?: Partial<ClassName>;
-} & NextLinkProps &
-  Omit<HTMLAttributes<HTMLAnchorElement>, 'className'>;
+} & Omit<NextLinkProps, 'className'> &
+  Omit<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof NextLinkProps>, 'className'>;

@@ -7,4 +7,10 @@ export default {
     work: 'Work-project [<COMPANY>]',
   },
   internetsTitle: 'Internets',
+  sitemapsTitle: {
+    home: 'Home',
+    about: 'About',
+    projects: 'Projects',
+    techStack: 'Tech Stack',
+  },
 };

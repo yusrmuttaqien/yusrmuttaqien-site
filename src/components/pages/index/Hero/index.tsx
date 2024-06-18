@@ -25,7 +25,8 @@ export default function Hero() {
     <section
       ref={mergeRefs(entryScope, interactiveScope)}
       className={classMerge(
-        'h-[calc(200svh_-_var(--navbar-docked-total-height))] flex items-end perspective-5000'
+        'h-[calc(200svh_-_var(--navbar-docked-total-height))] flex items-end perspective-5000',
+        'invisible'
       )}
     >
       <motion.div

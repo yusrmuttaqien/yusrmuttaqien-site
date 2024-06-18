@@ -62,7 +62,13 @@ export default function Link(props: LinkProps) {
   return (
     <NextLink
       {...rest}
-      className={a({ className: classMerge(isDisabled && 'cursor-default', className?.link?.a) })}
+      className={a({
+        className: classMerge(
+          isDisabled && 'cursor-default',
+          isActive && 'pointer-events-none',
+          className?.link?.a
+        ),
+      })}
       onClick={_onClick}
       href={isDisabled ? '#' : href}
     >

@@ -3,7 +3,7 @@ import Link from '@/components/Link';
 import Trans from '@/components/Trans';
 import useInteractive from '@/components/pages/index/Projects/hooks/interactive';
 import useContent from '@/components/pages/index/Projects/hooks/content';
-import Card from '@/components/pages/index/Projects/fragments/Card';
+import DisplayCard from '@/components/DisplayCard';
 import classMerge from '@/utils/classMerge';
 import type { TransComp } from '@/components/Trans/type';
 
@@ -37,7 +37,12 @@ export default function Projects() {
       </motion.h2>
       <div className="space-y-96 pt-[50svh] pb-96 z-10 relative">
         {projects.map((project) => (
-          <Card {...project} key={project.alt} className="w-full max-w-[50rem] mx-auto" />
+          <DisplayCard
+            {...project}
+            key={project.alt}
+            className="w-full max-w-[50rem] mx-auto"
+            image={{ placeholder: 'blur' }}
+          />
         ))}
         <Link
           className={{

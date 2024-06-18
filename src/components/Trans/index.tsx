@@ -47,7 +47,7 @@ export default function Trans<T>(props: T & TransProps<T>) {
         const renderer = comps[key] || comps.default;
 
         return isInjectable && renderer ? (
-          renderer(value, id)
+          renderer(value, id, key)
         ) : (
           <span key={id} id={id} className={classNames[id]}>
             {str}

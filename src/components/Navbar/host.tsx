@@ -40,12 +40,12 @@ export default function Host(props: HostProps) {
       HeroYMTitle = document.querySelector('#hero-ym-title') as HTMLHeadingElement;
       HeroYMInView = inView(HeroYMTitle, _setNavYM);
 
-      if (!HeroYMTitle) {
+      if (asPath === '/' && !HeroYMTitle) {
         timeout = setTimeout(() => {
           _getHeroYMTitle();
         }, 100);
       } else {
-        _setNavYM(null, isTopFold(HeroYMTitle) || asPath !== '/');
+        _setNavYM(null, asPath !== '/' || isTopFold(HeroYMTitle));
       }
     }
 
