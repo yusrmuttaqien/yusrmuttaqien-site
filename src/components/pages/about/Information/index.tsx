@@ -4,6 +4,7 @@ import Link from '@/components/Link';
 import Trans from '@/components/Trans';
 import DisplayCard from '@/components/DisplayCard';
 import classMerge from '@/utils/classMerge';
+import Profile from '@/components/pages/about/Information/contents/images/profile.png';
 import type { TransComp } from '@/components/Trans/type';
 
 const SECTION_BOX_STYLES = { container: 'lg:flex-col lg:gap-4' };
@@ -78,8 +79,8 @@ export default function Information() {
         category={author}
         title="Yusril Muttaqien"
         year="2024"
-        src="https://source.unsplash.com/random"
-        image={{ scale: 1 }}
+        src={Profile}
+        image={{ scale: 1, placeholder: 'blur' }}
         className={classMerge(
           'shrink-0 sticky top-[var(--navbar-docked-total-height)] h-max',
           'md:mx-auto md:w-[80vw] lg-970:mx-0 lg-970:w-[21.375rem]'
