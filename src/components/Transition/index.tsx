@@ -28,7 +28,7 @@ export default function Transition(props: TransitionProps) {
 
     if (opacity === 0) {
       lock(TRANSITION_LOCK_ID, true);
-      !asPath.includes('#') && lenis?.scrollTo('top', { duration: 0.1 });
+      !asPath.includes('#') && lenis?.scrollTo('top', { duration: 0.05 });
     } else if (opacity === 1) {
       const isManual = MANUAL_ENABLE_SCROLL.some((id) => getPageID() === id);
 
