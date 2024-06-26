@@ -1,3 +1,4 @@
+// TODO: Add entry animation and skip when off the viewport
 import { motion } from 'framer-motion';
 import Link from '@/components/Link';
 import Trans from '@/components/Trans';

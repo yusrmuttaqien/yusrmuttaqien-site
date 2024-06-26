@@ -1,3 +1,4 @@
+// TODO: Add entry animation and skip when off the viewport
 import { Fragment } from 'react';
 import { tv } from 'tailwind-variants';
 import { motion } from 'framer-motion';
