@@ -1,3 +1,4 @@
+// TODO: Change scroll distance to be dynamic few pixels above the footer contact
 import { useRef } from 'react';
 import { useAnimate, useIsomorphicLayoutEffect, useScroll } from 'framer-motion';
 import { TIMELINE_SCROLLER, SCROLL_DISTANCE } from '@/components/ScrollUp/constant';

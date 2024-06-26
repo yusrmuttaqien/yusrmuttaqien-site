@@ -1,4 +1,5 @@
 import NextLink from 'next/link';
+import { motion } from 'framer-motion';
 import { tv } from 'tailwind-variants';
 import { useRouter } from 'next/router';
 import { useLenis } from '@studio-freight/react-lenis';
@@ -24,6 +25,8 @@ export default function Link(props: LinkProps) {
     isDisabled,
     isActive,
     className,
+    motionWrapper,
+    scroll = false,
     ...rest
   } = props;
   const { navbarHeight, navbarTop } = useMeasuresStore((state) => ({
@@ -60,21 +63,24 @@ export default function Link(props: LinkProps) {
   }
 
   return (
-    <NextLink
-      {...rest}
-      className={a({
-        className: classMerge(isDisabled && 'cursor-default', className?.link?.a),
-      })}
-      onClick={_onClick}
-      href={isDisabled ? '#' : href}
-    >
-      {look === 'arrow' ? (
-        <ArrowLook isActive={isActive} isDisabled={isDisabled} className={className?.arrowLook}>
-          {children}
-        </ArrowLook>
-      ) : (
-        children
-      )}
-    </NextLink>
+    <motion.div {...motionWrapper}>
+      <NextLink
+        {...rest}
+        className={a({
+          className: classMerge('block', isDisabled && 'cursor-default', className?.link?.a),
+        })}
+        onClick={_onClick}
+        href={isDisabled ? '#' : href}
+        scroll={scroll}
+      >
+        {look === 'arrow' ? (
+          <ArrowLook isActive={isActive} isDisabled={isDisabled} className={className?.arrowLook}>
+            {children}
+          </ArrowLook>
+        ) : (
+          children
+        )}
+      </NextLink>
+    </motion.div>
   );
 }

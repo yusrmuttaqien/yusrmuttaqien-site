@@ -33,7 +33,7 @@ export default function Menu(props: MenuProps) {
       data-lenis-prevent
       style={{ paddingTop: navbarHeight + navbarTop }}
       className={classMerge(
-        'fixed inset-0 bg-dynamic-[beige_95] flex pr-[var(--pad-scrollbar)]',
+        'fixed inset-0 bg-dynamic-[beige_95] flex',
         'invisible backdrop-blur-lg overflow-auto',
         className
       )}

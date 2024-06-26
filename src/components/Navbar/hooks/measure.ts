@@ -34,6 +34,10 @@ export default function useMeasure() {
             '--navbar-docked-total-height',
             `${height + numbers.marginTop + numbers.marginBottom}px`
           );
+          html.style.setProperty(
+            '--navbar-docked-minimal-height',
+            `${numbers.top + numbers.height}px`
+          );
         } catch (e) {
           console.log(e);
         } finally {

@@ -1,35 +1,27 @@
+// TODO: Add global or hook scrollbar component
 import Head from 'next/head';
 import { Fragment } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { AnimatePresence, useIsomorphicLayoutEffect } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import Contexts from '@/contexts';
 import MediaQueryStoreHost from '@/contexts/mediaQuery/host';
+import useApp from '@/hooks/app';
 import Transition from '@/components/Transition';
 import Cursor from '@/components/Cursor';
 import Loader from '@/components/Loader';
 import Navbar from '@/components/Navbar';
 import ScrollUp from '@/components/ScrollUp';
-import { helveticaNeue, nohemi } from '@/constants/_app';
 import type { AppProps } from 'next/app';
 import '@/styles/globals.css';
 
 export default function App({ Component, pageProps, router }: AppProps) {
-  useIsomorphicLayoutEffect(() => {
-    const body = document.body;
-
-    body.classList.add(helveticaNeue.variable, nohemi.variable);
-  }, []);
+  useApp();
 
   return (
     <Fragment>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="author" content="Yusril Muttaqien" />
-        <meta
-          name="description"
-          content="View my diverse portfolio of frontend development, UI/UX design, and creative projects."
-          key="description"
-        />
         <link
           href="/favicon-dark.ico"
           rel="shortcut icon"
@@ -54,7 +46,22 @@ export default function App({ Component, pageProps, router }: AppProps) {
           type="image/png"
           media="(prefers-color-scheme: dark)"
         />
+        {
+          // #region Changable head tags
+        }
+        {
+          // TODO: Translate description
+        }
+        <meta
+          key="description"
+          name="description"
+          content="View my diverse portfolio of frontend development, UI/UX design, and creative projects."
+        />
+        <meta key="identifier" name="identifier" content="index" />
         <title key="title">Yusril Muttaqien</title>
+        {
+          // #endregion Changable head tags
+        }
       </Head>
       <Contexts>
         <MediaQueryStoreHost />

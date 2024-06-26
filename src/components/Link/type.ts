@@ -1,4 +1,5 @@
 import { LINK_STYLES } from '@/components/Link';
+import type { HTMLMotionProps } from 'framer-motion';
 import type { ArrowLookProps } from '@/components/Link/fragments/ArrowLook/type';
 import type { LinkProps as NextLinkProps } from 'next/link';
 import type { ReactNode, AnchorHTMLAttributes } from 'react';
@@ -14,5 +15,6 @@ export type LinkProps = {
   look?: 'arrow' | 'custom';
   isActive?: boolean;
   className?: Partial<ClassName>;
-} & Omit<NextLinkProps, 'className'> &
-  Omit<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof NextLinkProps>, 'className'>;
+  motionWrapper?: HTMLMotionProps<'div'>;
+} & Omit<NextLinkProps, 'className' | 'style'> &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof NextLinkProps | 'className' | 'style'>;

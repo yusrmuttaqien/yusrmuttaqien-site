@@ -30,7 +30,7 @@ export default function Projects() {
         style={{ filter: filterBlur, opacity }}
         className={classMerge(
           'trim-nohemi-height text-center text-clamp-[48_84_320_540] font-nohemi',
-          'sticky top-[45svh] pointer-events-none z-0'
+          'sticky top-half-minimal-navbar pointer-events-none z-0'
         )}
       >
         <Trans name="project-title" string={projectTitle} comps={COMPS} />

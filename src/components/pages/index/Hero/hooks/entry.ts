@@ -1,11 +1,14 @@
 import { useRef } from 'react';
 import { useAnimate, useIsomorphicLayoutEffect, useInView } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
+import useScrollLock from '@/hooks/scrollLock';
 import { TIMELINE_ENTRY } from '@/components/pages/index/Hero/constant';
 import isTopFold from '@/utils/isTopFold';
+import { TRANSITION_LOCK_ID } from '@/components/Transition';
 import type { AnimationResumables } from '@/types/timeline';
 
 export default function useEntry() {
+  const { unlock } = useScrollLock();
   const [scope, animate] = useAnimate();
   const inView = useInView(scope, { once: true });
   const isLoader = useTogglesStore((state) => state.isLoader);
@@ -23,6 +26,7 @@ export default function useEntry() {
         resumables.current.instance = animate(TIMELINE_ENTRY.visible);
         resumables.current.instance.then(() => {
           resumables.current.status = 'complete';
+          unlock(TRANSITION_LOCK_ID, true);
         });
         resumables.current.status = 'running';
         complete && resumables.current.instance?.complete();

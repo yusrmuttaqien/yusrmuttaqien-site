@@ -104,12 +104,11 @@ function Links() {
     <Fragment>
       {sitemaps.map(({ title, href, ...rest }) => (
         <Link
-          className={{ link: { a: 'hidden xl:block' } }}
+          motionWrapper={{ className: 'hidden xl:block' }}
           id="link"
           key={title}
           isActive={href === asPath}
           href={href}
-          scroll
           {...rest}
         >
           {title}

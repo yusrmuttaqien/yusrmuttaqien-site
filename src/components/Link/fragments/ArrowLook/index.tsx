@@ -23,7 +23,6 @@ export default function ArrowLook(props: ArrowLookProps) {
       <p className={text({ className: classMerge(isActive && 'font-bold', className?.text) })}>
         {children}
       </p>
-      {/* TODO: Animate layout and exit */}
       {!isActive && !isDisabled && (
         <div className={classMerge('overflow-hidden relative')}>
           <Arrow

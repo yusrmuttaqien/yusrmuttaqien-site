@@ -14,6 +14,7 @@ const config: Config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/utils/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -28,6 +29,9 @@ const config: Config = {
       },
       transitionTimingFunction: {
         'out-quart': 'cubic-bezier(0.25, 1, 0.5, 1)',
+      },
+      spacing: {
+        'half-minimal-navbar': 'calc(100svh / 2 - var(--navbar-docked-minimal-height) / 2)',
       },
       height: {
         'full-total-navbar': 'calc(100svh - var(--navbar-docked-total-height))',
@@ -47,6 +51,7 @@ const config: Config = {
       'lg-970': '970px',
       'lg-only': { max: scrSize({ screen: 'xl', withUnit: true, modifier: -1 }) },
       xl: scrSize({ screen: 'xl', withUnit: true }),
+      'xl-only': { max: scrSize({ screen: 'xl', withUnit: true, modifier: -1 }) },
       '2xl': scrSize({ screen: '2xl', withUnit: true }),
       hoverable: { raw: '(hover: hover)' },
       unhoverable: { raw: '(hover: none)' },
@@ -171,6 +176,14 @@ const config: Config = {
           },
         },
         { values: { '5000': '5000px' } }
+      );
+      matchUtilities(
+        {
+          'perspective-origin': (value) => {
+            return { perspectiveOrigin: value };
+          },
+        },
+        { values: { left: 'left', right: 'right', center: 'center' } }
       );
     }),
   ],

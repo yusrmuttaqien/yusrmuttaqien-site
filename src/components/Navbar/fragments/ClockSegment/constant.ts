@@ -1,3 +1,4 @@
+// TODO: Change style to apple ticker style
 import type { MotionProps } from 'framer-motion';
 
 export const VARIANT: MotionProps = {

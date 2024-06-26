@@ -6,7 +6,7 @@ export default function Document(props: DocumentProps) {
   return (
     <Html lang={locale}>
       <Head />
-      <body>
+      <body data-lenis-prevent>
         <Main />
         <NextScript />
       </body>

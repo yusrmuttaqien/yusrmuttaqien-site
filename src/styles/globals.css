@@ -3,21 +3,22 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --pad-scrollbar: 0px;
-  }
-
   * {
-    scrollbar-width: thin;
-    scrollbar-color: theme(colors.grey.DEFAULT / 10%) theme(colors.beige.DEFAULT);
+    /* scrollbar-width: thin;
+    scrollbar-color: theme(colors.grey.DEFAULT / 10%) theme(colors.beige.DEFAULT); */
     cursor: none !important;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
   }
-  *::-webkit-scrollbar-track {
+  *::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+  /* *::-webkit-scrollbar-track {
     @apply bg-dynamic-beige;
   }
   *::-webkit-scrollbar-thumb {
     @apply bg-dynamic-[grey_10];
-  }
+  } */
   *::selection {
     @apply bg-dynamic-[grey_80] text-dynamic-beige;
   }

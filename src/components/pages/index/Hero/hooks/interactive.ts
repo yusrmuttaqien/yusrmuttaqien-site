@@ -5,24 +5,35 @@ import {
   useIsomorphicLayoutEffect,
   useScroll,
   transform,
+  type MotionStyle,
 } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
 import debounce from '@/utils/debounce';
 
 export default function useInteractive() {
+  const { scrollY } = useScroll();
   const scope = useRef<HTMLDivElement>(null);
   const patternScope = useRef<HTMLDivElement>(null);
   const scopeClientRect = useRef<DOMRect | null>(null);
-  const { scrollYProgress } = useScroll({ target: scope, offset: ['start', 'end start'] });
-  const z = useMotionValue('0px');
-  const y = useMotionValue('0px');
+  const isLoader = useTogglesStore((state) => state.isLoader);
+  // #region Heroes
+  const zPattern = useMotionValue('0px');
+  const zImg = useMotionValue('0px');
+  const zTitle = useMotionValue('0px');
+  const rolesMotionValue = useMotionValue(0);
+  const linksMotionValue = useMotionValue(0);
   const opacity = useMotionValue(1);
-  const filterBlur = useMotionValue('blur(0px)');
+  const opacityPattern = useMotionValue(1);
+  const opacityTitle = useMotionValue(1);
+  const blur = useMotionValue('blur(0px)');
+  const blurTitle = useMotionValue('blur(0px)');
+  // #endregion Heroes
+  // #region Highlight
   const xHighlight = useMotionValue(0);
   const yHighlight = useMotionValue(0);
   const xSpringHighlight = useSpring(xHighlight);
   const ySpringHighlight = useSpring(yHighlight);
-  const isLoader = useTogglesStore((state) => state.isLoader);
+  // #endregion Highlight
 
   useIsomorphicLayoutEffect(() => {
     const patternWrapper = patternScope.current as HTMLDivElement;
@@ -66,27 +77,50 @@ export default function useInteractive() {
     if (isLoader) return;
 
     function _fadeHero(v: number) {
-      z.set(transform(v, [0, 0.6], ['0px', '-4000px']));
-      filterBlur.set(transform(v, [0, 0.5], ['blur(0px)', 'blur(16px)']));
-      opacity.set(transform(v, [0, 0.4], [1, 0]));
-      y.set(transform(v, [0, 0.7], ['0px', '5px']));
+      const hFull = window.innerHeight;
+      const anchor = transform(v, [0, hFull], [0, 1]);
+
+      zPattern.set(transform(anchor, [0, 0.9], ['0px', '-4000px']));
+      zTitle.set(transform(anchor, [0, 0.8, 1], ['0px', '0px', '-500px']));
+      zImg.set(transform(anchor, [0, 0.9], ['0px', '-1500px']));
+      rolesMotionValue.set(transform(anchor, [0, 0.9], [0, 1]));
+      linksMotionValue.set(transform(anchor, [0, 0.9], [0, 1]));
+      opacity.set(transform(anchor, [0, 0.9], [1, 0]));
+      opacityPattern.set(transform(anchor, [0, 0.9], [1, 0]));
+      opacityTitle.set(transform(anchor, [0, 0.9, 1], [1, 1, 0]));
+      blur.set(transform(anchor, [0, 0.9], ['blur(0px)', 'blur(16px)']));
+      blurTitle.set(transform(anchor, [0, 0.9, 1], ['blur(0px)', 'blur(0px)', 'blur(16px)']));
     }
 
-    scrollYProgress.on('change', _fadeHero);
+    scrollY.on('change', _fadeHero);
 
     return () => {
-      scrollYProgress.clearListeners();
+      scrollY.clearListeners();
     };
   }, [isLoader]);
 
   return {
-    y,
-    z,
     scope,
-    opacity,
-    filterBlur,
     patternScope,
-    xHighlight: xSpringHighlight,
-    yHighlight: ySpringHighlight,
+    highlightStyles: {
+      x: xSpringHighlight,
+      y: ySpringHighlight,
+    } as MotionStyle,
+    patternStyles: {
+      z: zPattern,
+      opacity: opacityPattern,
+    } as MotionStyle,
+    imgStyles: {
+      z: zImg,
+      filter: blur,
+      opacity: opacity,
+    } as MotionStyle,
+    titleStyles: {
+      filter: blurTitle,
+      opacity: opacityTitle,
+      z: zTitle,
+    } as MotionStyle,
+    rolesValue: rolesMotionValue,
+    linksValue: linksMotionValue,
   };
 }

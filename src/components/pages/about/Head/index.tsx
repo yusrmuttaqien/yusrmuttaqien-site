@@ -7,6 +7,7 @@ export default function Head() {
   return (
     <NextHead>
       <title key="title">{title} | Yusril Muttaqien</title>
+      <meta key="identifier" name="identifier" content="about" />
     </NextHead>
   );
 }

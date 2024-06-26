@@ -27,30 +27,6 @@ export default function useVisible() {
     const root = scope.current as HTMLDivElement;
     const debouncedAnchorRootMain = debounce(_anchorRootMain, 50);
 
-    function _cursorAnimate(enable: boolean) {
-      const cursor = document.getElementById('cursor');
-
-      if (!cursor) return;
-      if (enable) {
-        cursor.classList.add('transition-[transform_opacity]', 'ease-linear', 'duration-[50ms]');
-      } else {
-        cursor.classList.remove('transition-[transform_opacity]', 'ease-linear', 'duration-[50ms]');
-      }
-    }
-    function _padScrollbar(apply: boolean) {
-      const html = document.documentElement;
-      const padding = `${window.innerWidth - html.clientWidth}px`;
-
-      _cursorAnimate(false);
-      if (apply) {
-        html.style.paddingRight = padding;
-        html.style.setProperty('--pad-scrollbar', padding);
-      } else {
-        html.style.paddingRight = '';
-        html.style.setProperty('--pad-scrollbar', '0px');
-      }
-      requestAnimationFrame(() => _cursorAnimate(true));
-    }
     function _navbarInteractive(enable: boolean) {
       const navbar = document.getElementById('navbar');
 
@@ -104,14 +80,12 @@ export default function useVisible() {
     _anchorRootMain(scrollYProgress.get());
 
     if (isNavMenu) {
-      _padScrollbar(true);
       _navbarInteractive(false);
       lenis?.stop();
       _openSequence();
     } else {
       _closeSequence()?.then(() => {
         lenis?.start();
-        _padScrollbar(false);
         _navbarInteractive(true);
       });
     }
