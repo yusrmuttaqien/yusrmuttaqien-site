@@ -16,5 +16,5 @@ export default {
     },
   },
   playTitle: 'Daftar musik',
-  author: 'Pengarang',
+  author: 'Pembuat',
 };
