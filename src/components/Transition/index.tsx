@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useLenis } from '@studio-freight/react-lenis';
 import { useRouter } from 'next/router';
 import useScrollLock from '@/hooks/scrollLock';
+import { useMediaQueryStore } from '@/contexts/mediaQuery';
 import Footer from '@/components/Footer';
 import getPageID from '@/utils/getPageID';
 import { VARIANT, MANUAL_ENABLE_SCROLL } from '@/components/Transition/constant';
@@ -18,6 +19,7 @@ export const TRANSITION_STYLES = tv({
 
 export default function Transition(props: TransitionProps) {
   const { children, className, ...rest } = props;
+  const isHoverable = useMediaQueryStore((state) => state.isHoverable);
   const { main, container } = TRANSITION_STYLES();
   const { lock, unlock } = useScrollLock();
   const { asPath } = useRouter();
@@ -28,7 +30,11 @@ export default function Transition(props: TransitionProps) {
 
     if (opacity === 0) {
       lock(TRANSITION_LOCK_ID, true);
-      !asPath.includes('#') && lenis?.scrollTo('top', { duration: 0.05 });
+      if (isHoverable) {
+        !asPath.includes('#') && lenis?.scrollTo('top', { duration: 0.05 });
+      } else {
+        window.scrollTo(0, 0);
+      }
     } else if (opacity === 1) {
       const isManual = MANUAL_ENABLE_SCROLL.some((id) => getPageID() === id);
 
