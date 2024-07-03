@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useIsomorphicLayoutEffect } from 'framer-motion';
+import { useState, type ChangeEvent } from 'react';
+import { useIsomorphicLayoutEffect, motion, AnimatePresence } from 'framer-motion';
 import useScrollLock from '@/hooks/scrollLock';
 import useContent from '@/components/pages/about/Information/hooks/content';
 import SectionBox from '@/components/SectionBox';
@@ -9,6 +9,7 @@ import DisplayCard from '@/components/DisplayCard';
 import classMerge from '@/utils/classMerge';
 import Profile from '@/components/pages/about/Information/contents/images/profile.png';
 import type { TransComp } from '@/components/Trans/type';
+import type { PlaylistHeaderProps } from '@/components/pages/about/Information/type';
 
 const SECTION_BOX_STYLES = { container: 'lg:flex-col lg:gap-4' };
 const INFO_SECTION_LOCK_ID = 'info-section';
@@ -26,7 +27,7 @@ const COMPS: TransComp = {
 };
 
 export default function Information() {
-  const { about, cv, play, author } = useContent();
+  const { about, cv, author } = useContent();
 
   return (
     <section
@@ -64,19 +65,7 @@ export default function Information() {
             ))}
           </div>
         </SectionBox>
-        <SectionBox title={<PlaylistHeader />} className={SECTION_BOX_STYLES} data-lenis-prevent>
-          <div className="space-y-[0.5lh] overflow-auto">
-            {play.links.map((link) => (
-              <iframe
-                key={link}
-                className="w-full aspect-square min-w-[33.75rem]"
-                src={link}
-                allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-              ></iframe>
-            ))}
-          </div>
-        </SectionBox>
+        <Playlist />
       </div>
       <DisplayCard
         alt="Yusril Muttaqien"
@@ -94,7 +83,8 @@ export default function Information() {
   );
 }
 
-function PlaylistHeader() {
+function PlaylistHeader(props: PlaylistHeaderProps) {
+  const { set } = props;
   const { play } = useContent();
   const { lock, unlock } = useScrollLock();
   const [isLocked, setIsLocked] = useState(false);
@@ -112,6 +102,11 @@ function PlaylistHeader() {
       }
     });
   }
+  function _loopPlaylists(e: ChangeEvent<HTMLInputElement>) {
+    const { value } = e.target;
+
+    set(parseInt(value) / 10 - 1);
+  }
 
   useIsomorphicLayoutEffect(() => {
     return () => {
@@ -120,11 +115,43 @@ function PlaylistHeader() {
   }, []);
 
   return (
-    <span className="flex justify-between items-center">
+    <span className="flex justify-between items-center gap-4">
       <span>{play.title}</span>
-      <span className="text-dynamic-green underline cursor-pointer" onClick={_toggleLock}>
+      <input
+        defaultValue={10}
+        className="min-w-0"
+        onChange={_loopPlaylists}
+        type="range"
+        min={10}
+        max={play.links.length * 10}
+        step={10}
+        disabled={play.links.length <= 1}
+      />
+      <span className="text-dynamic-green underline cursor-pointer shrink-0" onClick={_toggleLock}>
         {isLocked ? play.unlock : play.lock}
       </span>
     </span>
+  );
+}
+
+function Playlist() {
+  const { play } = useContent();
+  const [list, setList] = useState(0);
+  const activeList = play.links[list];
+
+  return (
+    <SectionBox title={<PlaylistHeader set={setList} />} className={SECTION_BOX_STYLES}>
+      <AnimatePresence>
+        <motion.div className="space-y-[0.5lh] overflow-auto" key={activeList}>
+          <iframe
+            key={activeList}
+            className="w-full aspect-square min-w-[33.75rem]"
+            src={activeList}
+            allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          />
+        </motion.div>
+      </AnimatePresence>
+    </SectionBox>
   );
 }

@@ -8,10 +8,10 @@
     scrollbar-color: theme(colors.grey.DEFAULT / 10%) theme(colors.beige.DEFAULT); */
     cursor: none !important;
     -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none !important; /* Firefox */
   }
   *::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
+    display: none !important; /* Safari and Chrome */
   }
   /* *::-webkit-scrollbar-track {
     @apply bg-dynamic-beige;
@@ -21,6 +21,29 @@
   } */
   *::selection {
     @apply bg-dynamic-[grey_80] text-dynamic-beige;
+  }
+  * input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+  }
+  * input[type='range']::-webkit-slider-runnable-track {
+    @apply bg-dynamic-[grey_60] h-1;
+  }
+  * input[type='range']::-moz-range-track {
+    @apply bg-dynamic-[grey_60] h-1;
+  }
+  * input[type='range']::-webkit-slider-thumb {
+    appearance: none;
+    margin-top: calc(-0.5rem + 0.125rem);
+    @apply bg-dynamic-grey h-4 w-4;
+  }
+  * input[type='range']::-moz-range-thumb {
+    appearance: none;
+    @apply bg-dynamic-grey h-4 w-4 rounded-none shadow-none;
+  }
+  * input[type='range']:disabled {
+    @apply opacity-[0.2];
   }
 
   html {
