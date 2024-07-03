@@ -84,7 +84,8 @@ export default function Information() {
 }
 
 function PlaylistHeader(props: PlaylistHeaderProps) {
-  const { set } = props;
+  const { state } = props;
+  const [list, setList] = state;
   const { play } = useContent();
   const { lock, unlock } = useScrollLock();
   const [isLocked, setIsLocked] = useState(false);
@@ -105,7 +106,7 @@ function PlaylistHeader(props: PlaylistHeaderProps) {
   function _loopPlaylists(e: ChangeEvent<HTMLInputElement>) {
     const { value } = e.target;
 
-    set(parseInt(value) / 10 - 1);
+    setList(parseInt(value) / 10 - 1);
   }
 
   useIsomorphicLayoutEffect(() => {
@@ -116,7 +117,9 @@ function PlaylistHeader(props: PlaylistHeaderProps) {
 
   return (
     <span className="flex justify-between items-center gap-4">
-      <span>{play.title}</span>
+      <span>
+        {play.title} ({list + 1}/{play.links.length})
+      </span>
       <input
         defaultValue={10}
         className="min-w-0"
@@ -140,7 +143,7 @@ function Playlist() {
   const activeList = play.links[list];
 
   return (
-    <SectionBox title={<PlaylistHeader set={setList} />} className={SECTION_BOX_STYLES}>
+    <SectionBox title={<PlaylistHeader state={[list, setList]} />} className={SECTION_BOX_STYLES}>
       <AnimatePresence>
         <motion.div className="space-y-[0.5lh] overflow-auto" key={activeList}>
           <iframe
