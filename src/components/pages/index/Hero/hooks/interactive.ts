@@ -5,6 +5,7 @@ import {
   useIsomorphicLayoutEffect,
   useScroll,
   transform,
+  motionValue,
   type MotionStyle,
 } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
@@ -15,7 +16,10 @@ export default function useInteractive() {
   const scope = useRef<HTMLDivElement>(null);
   const patternScope = useRef<HTMLDivElement>(null);
   const scopeClientRect = useRef<DOMRect | null>(null);
-  const isLoader = useTogglesStore((state) => state.isLoader);
+  const { isLoader, isIndexHeroEntry } = useTogglesStore((state) => ({
+    isLoader: state.isLoader,
+    isIndexHeroEntry: state.isIndexHeroEntry,
+  }));
   // #region Heroes
   const zPattern = useMotionValue('0px');
   const zImg = useMotionValue('0px');
@@ -83,7 +87,7 @@ export default function useInteractive() {
       zPattern.set(transform(anchor, [0, 0.9], ['0px', '-4000px']));
       zTitle.set(transform(anchor, [0, 0.8, 1], ['0px', '0px', '-500px']));
       zImg.set(transform(anchor, [0, 0.9], ['0px', '-1500px']));
-      rolesMotionValue.set(transform(anchor, [0, 0.9], [0, 1]));
+      rolesMotionValue.set(transform(anchor, [0, 0.9], [0, 1], { clamp: false }));
       linksMotionValue.set(transform(anchor, [0, 0.9], [0, 1]));
       opacity.set(transform(anchor, [0, 0.9], [1, 0]));
       opacityPattern.set(transform(anchor, [0, 0.9], [1, 0]));
@@ -120,7 +124,7 @@ export default function useInteractive() {
       opacity: opacityTitle,
       z: zTitle,
     } as MotionStyle,
-    rolesValue: rolesMotionValue,
-    linksValue: linksMotionValue,
+    rolesValue: isIndexHeroEntry ? motionValue(0) : rolesMotionValue,
+    linksValue: isIndexHeroEntry ? motionValue(0) : linksMotionValue,
   };
 }

@@ -15,6 +15,6 @@ export default {
       VA: 'Virtual Assistant [<VA>]',
     },
   },
-  playTitle: 'Playlists',
+  play: { title: 'Playlists', lock: 'Lock scroll', unlock: 'Unlock scroll' },
   author: 'Author',
 };

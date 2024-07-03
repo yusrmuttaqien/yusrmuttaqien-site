@@ -27,7 +27,7 @@ export default function ArrowLook(props: ArrowLookProps) {
         <div className={classMerge('overflow-hidden relative')}>
           <Arrow
             className={classMerge(
-              'h-[1em] aspect-square transition-none delay-150',
+              'h-[1em] aspect-square transition-none',
               'group-hover/look:hoverable:translate-x-full',
               'group-hover/look:hoverable:transition-transform',
               'group-hover/look:hoverable:-translate-y-full'
@@ -36,7 +36,7 @@ export default function ArrowLook(props: ArrowLookProps) {
           <Arrow
             className={classMerge(
               'h-[1em] aspect-square -translate-x-full translate-y-full',
-              'delay-300 absolute inset-0 transition-none',
+              'delay-150 absolute inset-0 transition-none',
               'group-hover/look:hoverable:translate-x-0',
               'group-hover/look:hoverable:transition-transform',
               'group-hover/look:hoverable:translate-y-0'

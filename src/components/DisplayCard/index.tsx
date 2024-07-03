@@ -24,13 +24,14 @@ export default function DisplayCard(props: DisplayCardProps) {
     className,
     hrefs = [],
     image = {},
+    id = '',
   } = props;
   const { locale } = useRouter();
   const { scope } = useInteractive();
   const href = hrefs.length;
 
   return (
-    <figure ref={scope} className={classMerge('space-y-2 isolate', className)}>
+    <figure ref={scope} className={classMerge('space-y-2 isolate', className)} id={id}>
       <figcaption id="infos-0" className={classMerge(FIGCAPTION_STYLES, 'items-end')}>
         <p className={FIGCAPTION_P_STYLES}>{collaborator}</p>
         <p className={classMerge(FIGCAPTION_P_STYLES, 'shrink-0')}>{year}</p>

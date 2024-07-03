@@ -7,15 +7,16 @@ export default function useScrollLock() {
 
   function _lock(id: string, isInitial?: boolean) {
     const body = document.body;
+    const locked = _setLocker(id);
 
-    if (isInitial) {
-      body.setAttribute('data-lenis-prevent', 'true');
-      body.classList.add('overflow-hidden');
-    } else {
-      lenis?.stop();
+    if (locked) {
+      if (isInitial) {
+        body.setAttribute('data-lenis-prevent', 'true');
+        body.classList.add('overflow-hidden');
+      } else {
+        lenis?.stop();
+      }
     }
-
-    _setLocker(id);
   }
   function _unlock(id: string, isInitial?: boolean) {
     const body = document.body;
@@ -50,6 +51,7 @@ export default function useScrollLock() {
 
     !lockers.some((locker) => locker === id) && lockers.push(id);
     html.setAttribute('locker', JSON.stringify(lockers));
+    return lockers.length <= 1;
   }
 
   return { lock: _lock, unlock: _unlock };

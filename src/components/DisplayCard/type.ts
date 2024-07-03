@@ -13,4 +13,5 @@ export type DisplayCardProps = {
   className?: string;
   hrefs?: ProjectHref[];
   image?: Partial<ImageProps>;
+  id?: string;
 };

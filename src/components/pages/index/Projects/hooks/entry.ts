@@ -1,20 +1,15 @@
 import { useRef } from 'react';
 import { useAnimate, useIsomorphicLayoutEffect, useInView } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
-import useScrollLock from '@/hooks/scrollLock';
-import { TIMELINE_ENTRY } from '@/components/pages/index/Hero/constant';
+import { TIMELINE_ENTRY } from '@/components/pages/index/Projects/constant';
 import isTopFold from '@/utils/isTopFold';
-import { TRANSITION_LOCK_ID } from '@/components/Transition';
+import isBottomFold from '@/utils/isBottomFold';
 import type { AnimationResumables } from '@/types/timeline';
 
 export default function useEntry() {
-  const { unlock } = useScrollLock();
   const [scope, animate] = useAnimate();
   const inView = useInView(scope, { once: true });
-  const { isLoader, set } = useTogglesStore((state) => ({
-    isLoader: state.isLoader,
-    set: state.set,
-  }));
+  const isLoader = useTogglesStore((state) => state.isLoader);
   const resumables = useRef<AnimationResumables>({ instance: null, status: 'not-ready' });
 
   useIsomorphicLayoutEffect(() => {
@@ -26,12 +21,9 @@ export default function useEntry() {
       resumables.current.status = 'preparing';
       prepare.then(() => {
         root.classList.remove('invisible');
-
         resumables.current.instance = animate(TIMELINE_ENTRY.visible);
         resumables.current.instance.then(() => {
           resumables.current.status = 'complete';
-          unlock(TRANSITION_LOCK_ID, true);
-          set('isIndexHeroEntry', false);
         });
         resumables.current.status = 'running';
         complete && resumables.current.instance?.complete();
@@ -41,7 +33,7 @@ export default function useEntry() {
 
     if ((!isLoader && inView && status === 'not-ready') || status === 'preparing') {
       _startSequence();
-    } else if (!isLoader && isTopFold(root)) {
+    } else if (!isLoader && (isTopFold(root) || isBottomFold(root))) {
       _startSequence(true);
     }
   }, [isLoader, inView]);

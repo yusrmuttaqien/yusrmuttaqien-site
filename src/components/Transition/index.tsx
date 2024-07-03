@@ -31,7 +31,7 @@ export default function Transition(props: TransitionProps) {
     if (opacity === 0) {
       lock(TRANSITION_LOCK_ID, true);
       if (isHoverable) {
-        !asPath.includes('#') && lenis?.scrollTo('top', { duration: 0.05 });
+        !asPath.includes('#') && lenis?.scrollTo('top', { duration: 0.2 });
       } else {
         window.scrollTo(0, 0);
       }

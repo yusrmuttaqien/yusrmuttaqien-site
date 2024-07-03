@@ -1,7 +1,6 @@
 import { initialState } from '@/stores/toggles';
 import type { Updater } from 'use-immer';
 
-// TODO: Change all storage to refers to the initialState
 export type TogglesState = typeof initialState;
 export type TogglesActions = {
   set: (key: keyof TogglesState, value: boolean) => void;

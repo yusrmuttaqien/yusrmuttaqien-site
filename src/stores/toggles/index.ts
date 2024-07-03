@@ -6,6 +6,7 @@ export const initialState = {
   isLoader: true,
   isNavMenu: false,
   isNavYM: false,
+  isIndexHeroEntry: true,
   loaderQueue: {
     all: {},
   },

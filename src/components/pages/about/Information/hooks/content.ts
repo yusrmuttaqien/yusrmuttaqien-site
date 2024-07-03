@@ -9,7 +9,7 @@ export default function useContent() {
   const { locale } = useRouter();
   const options = { id, en };
   const { cvLinks, playLinks } = untranslated;
-  const { cv, playTitle, ...rest } = options[(locale as i18nLocales) || defaulti18n];
+  const { cv, play, ...rest } = options[(locale as i18nLocales) || defaulti18n];
   const contents = {
     ...rest,
     cv: {
@@ -20,7 +20,7 @@ export default function useContent() {
       })),
     },
     play: {
-      title: playTitle,
+      ...play,
       links: playLinks,
     },
   };

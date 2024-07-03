@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useIsomorphicLayoutEffect } from 'framer-motion';
+import useScrollLock from '@/hooks/scrollLock';
 import useContent from '@/components/pages/about/Information/hooks/content';
 import SectionBox from '@/components/SectionBox';
 import Link from '@/components/Link';
@@ -8,6 +11,7 @@ import Profile from '@/components/pages/about/Information/contents/images/profil
 import type { TransComp } from '@/components/Trans/type';
 
 const SECTION_BOX_STYLES = { container: 'lg:flex-col lg:gap-4' };
+const INFO_SECTION_LOCK_ID = 'info-section';
 const COMPS: TransComp = {
   default: (value, id) => (
     <span key={id} className="text-dynamic-green">
@@ -60,12 +64,12 @@ export default function Information() {
             ))}
           </div>
         </SectionBox>
-        <SectionBox title={play.title} className={SECTION_BOX_STYLES}>
+        <SectionBox title={<PlaylistHeader />} className={SECTION_BOX_STYLES} data-lenis-prevent>
           <div className="space-y-[0.5lh] overflow-auto">
             {play.links.map((link) => (
               <iframe
                 key={link}
-                className="w-full aspect-square min-w-[26.875rem]"
+                className="w-full aspect-square min-w-[33.75rem]"
                 src={link}
                 allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
@@ -87,5 +91,40 @@ export default function Information() {
         )}
       />
     </section>
+  );
+}
+
+function PlaylistHeader() {
+  const { play } = useContent();
+  const { lock, unlock } = useScrollLock();
+  const [isLocked, setIsLocked] = useState(false);
+
+  function _toggleLock() {
+    setIsLocked((prev) => {
+      if (prev) {
+        unlock(INFO_SECTION_LOCK_ID);
+
+        return false;
+      } else {
+        lock(INFO_SECTION_LOCK_ID);
+
+        return true;
+      }
+    });
+  }
+
+  useIsomorphicLayoutEffect(() => {
+    return () => {
+      unlock(INFO_SECTION_LOCK_ID);
+    };
+  }, []);
+
+  return (
+    <span className="flex justify-between items-center">
+      <span>{play.title}</span>
+      <span className="text-dynamic-green underline cursor-pointer" onClick={_toggleLock}>
+        {isLocked ? play.unlock : play.lock}
+      </span>
+    </span>
   );
 }

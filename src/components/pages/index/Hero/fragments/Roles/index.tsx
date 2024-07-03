@@ -17,7 +17,7 @@ export default function Roles(props: RolesProps) {
   const { roles } = useContent();
 
   return (
-    <div className="space-y-1 hero-roles perspective-5000 xl-only:perspective-origin-left">
+    <div className="space-y-1 hero-roles perspective-5000 xl-only:perspective-origin-left md-only:overflow-hidden">
       {roles.map((role, idx) => (
         <Role {...p} key={role} idx={idx} rootMotionValue={rootMotionValue}>
           {role}
