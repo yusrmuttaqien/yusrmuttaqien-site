@@ -55,7 +55,7 @@ export default function Projects() {
         ))}
         <Link
           className={{
-            link: { a: 'mx-auto block w-max' },
+            a: 'mx-auto block w-max',
             arrowLook: { text: 'text-clamp-[16_32_320_540]' },
           }}
           href="#"

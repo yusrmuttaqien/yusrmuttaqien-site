@@ -1,8 +1,9 @@
-// TODO: Add entry animation and skip when off the viewport
+import mergeRefs from 'merge-refs';
 import { Fragment } from 'react';
 import { tv } from 'tailwind-variants';
 import { motion } from 'framer-motion';
 import { useLongPress } from '@/hooks/longPress';
+import useEntry from '@/components/Footer/hooks/entry';
 import useContent from '@/components/Footer/hooks/content';
 import useInteractive from '@/components/Footer/hooks/interactive';
 import Link from '@/components/Link';
@@ -24,15 +25,16 @@ const COMPS: TransComp = {
 
 export const FOOTER_STYLES = tv({
   slots: {
-    contact: 'relative bg-dynamic-grey block py-2',
-    footer: '-mt-[100svh] isolate',
+    contact: 'relative bg-dynamic-grey block py-2 invisible',
+    footer: '-mt-[100svh] isolate invisible',
   },
 });
 export default function Footer(props: FooterProps) {
   const { className } = props;
-  const { scope, filterBrightness } = useInteractive();
+  const { scope: interactiveScope, filterBrightness } = useInteractive();
   const { contact, footer } = FOOTER_STYLES();
   const handlers = useLongPress({ onFinish: _copyEmail });
+  const { scope: entryScope, contactWrapperScope } = useEntry();
   const {
     internetsTitle,
     contact: tContact,
@@ -59,8 +61,10 @@ export default function Footer(props: FooterProps) {
         id="footer-contact"
         href={`mailto:${EMAIL}`}
         look="custom"
+        motionRef={contactWrapperScope}
+        motionWrapper={{ className: 'overflow-hidden' }}
+        className={{ a: contact({ className: className?.contact }) }}
         {...handlers}
-        className={{ link: { a: contact({ className: className?.contact }) } }}
       >
         <Marquee name="contact" className={{ wrapper: 'flex gap-2' }}>
           <p className="trim-helvetiva-neue font-bold text-dynamic-beige text-clamp-[14_16_320_540]">
@@ -68,14 +72,17 @@ export default function Footer(props: FooterProps) {
           </p>
         </Marquee>
       </Link>
-      <div ref={scope} className={footer({ className: className?.footer })}>
+      <div
+        ref={mergeRefs(interactiveScope, entryScope)}
+        className={footer({ className: className?.footer })}
+      >
         <div className="h-[100svh] w-full block bg-dynamic-beige z-10 relative" />
         <motion.footer
           className="sticky bottom-0 z-0 overflow-hidden"
           style={{ filter: filterBrightness }}
         >
           <div className="mt-[3.25rem] mb-[6.5rem] px-5 space-y-[1.125rem]">
-            <SectionBox title={internetsTitle}>
+            <SectionBox id="section" title={internetsTitle}>
               <div className="flex gap-4 flex-wrap lg:justify-end">
                 {internets.map(({ title, ...rest }) => (
                   <Link key={title} id="link" {...rest}>
@@ -84,10 +91,14 @@ export default function Footer(props: FooterProps) {
                 ))}
               </div>
             </SectionBox>
-            <SectionBox title={createdAt} className={{ container: 'lg:items-center' }}>
+            <SectionBox id="section" title={createdAt} className={{ container: 'lg:items-center' }}>
               <p className="lg:text-right lg:max-w-[37.5rem]">{createdAtDesc}</p>
             </SectionBox>
-            <SectionBox title={createdWith} className={{ container: 'lg:items-center' }}>
+            <SectionBox
+              id="section"
+              title={createdWith}
+              className={{ container: 'lg:items-center' }}
+            >
               <p className="lg:text-right lg:max-w-[37.5rem]">{createdWithDesc}</p>
             </SectionBox>
           </div>

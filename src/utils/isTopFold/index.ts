@@ -1,8 +1,8 @@
 export default function isTopFold(el: HTMLElement) {
   if (!el) return false;
 
-  const { offsetTop, clientHeight } = el;
+  const { top, height } = el.getBoundingClientRect();
   const { scrollY } = window;
 
-  return scrollY > offsetTop + clientHeight;
+  return scrollY > top + height;
 }

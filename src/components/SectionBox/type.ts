@@ -5,4 +5,5 @@ export type SectionBoxProps = {
   title: ReactNode;
   children: ReactNode;
   className?: Partial<typeof SECTION_BOX_STYLES.slots>;
+  id?: string;
 };

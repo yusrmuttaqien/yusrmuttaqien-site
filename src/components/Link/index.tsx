@@ -27,6 +27,7 @@ export default function Link(props: LinkProps) {
     className,
     motionWrapper,
     scroll = false,
+    motionRef,
     ...rest
   } = props;
   const { navbarHeight, navbarTop } = useMeasuresStore((state) => ({
@@ -63,11 +64,11 @@ export default function Link(props: LinkProps) {
   }
 
   return (
-    <motion.div {...motionWrapper}>
+    <motion.div ref={motionRef} {...motionWrapper}>
       <NextLink
         {...rest}
         className={a({
-          className: classMerge('block', isDisabled && 'cursor-default', className?.link?.a),
+          className: classMerge('block', isDisabled && 'cursor-default', className?.a),
         })}
         onClick={_onClick}
         href={isDisabled ? '#' : href}

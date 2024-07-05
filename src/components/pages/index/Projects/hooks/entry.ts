@@ -31,7 +31,7 @@ export default function useEntry() {
       prepare.complete();
     }
 
-    if ((!isLoader && inView && status === 'not-ready') || status === 'preparing') {
+    if (!isLoader && inView && (status === 'not-ready' || status === 'preparing')) {
       _startSequence();
     } else if (!isLoader && (isTopFold(root) || isBottomFold(root))) {
       _startSequence(true);
