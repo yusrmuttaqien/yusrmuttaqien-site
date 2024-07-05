@@ -15,6 +15,11 @@ export default {
       VA: 'Asisten Virtual [<VA>]',
     },
   },
-  play: { title: 'Daftar musik', lock: 'Kunci gulir', unlock: 'Buka kunci gulir' },
+  play: {
+    title: 'Daftar musik',
+    lock: 'Kunci gulir',
+    unlock: 'Buka kunci gulir',
+    loading: 'Memuat konten',
+  },
   author: 'Pembuat',
 };

@@ -2,6 +2,7 @@ import { useState, type ChangeEvent } from 'react';
 import { useIsomorphicLayoutEffect, motion, AnimatePresence } from 'framer-motion';
 import useScrollLock from '@/hooks/scrollLock';
 import useContent from '@/components/pages/about/Information/hooks/content';
+import useEntry from '@/components/pages/about/Information/hooks/entry';
 import SectionBox from '@/components/SectionBox';
 import Link from '@/components/Link';
 import Trans from '@/components/Trans';
@@ -28,16 +29,19 @@ const COMPS: TransComp = {
 
 export default function Information() {
   const { about, cv, author } = useContent();
+  const { scope } = useEntry();
 
   return (
     <section
+      ref={scope}
       className={classMerge(
         'min-h-full-total-navbar pb-5 flex flex-col gap-6 relative justify-between mt-10',
-        'lg-970:gap-[10%] lg-970:flex-row xl:mt-0 xl:pb-8 xl:gap-[30%]'
+        'invisible lg-970:gap-[10%] lg-970:flex-row xl:mt-0 xl:pb-8 xl:gap-[30%]'
       )}
     >
       <div className="space-y-[1.125rem] w-full lg-970:max-w-[50rem]">
         <SectionBox
+          id="section"
           title={<Trans string={about.title} name={`about-title`} comps={COMPS} />}
           className={SECTION_BOX_STYLES}
         >
@@ -48,6 +52,7 @@ export default function Information() {
           </div>
         </SectionBox>
         <SectionBox
+          id="section"
           title={<Trans string={cv.title} name={`cv-title`} comps={COMPS} />}
           className={SECTION_BOX_STYLES}
         >
@@ -68,6 +73,7 @@ export default function Information() {
         <Playlist />
       </div>
       <DisplayCard
+        id="yusril-muttaqien"
         alt="Yusril Muttaqien"
         category={author}
         title="Yusril Muttaqien"
@@ -143,9 +149,23 @@ function Playlist() {
   const activeList = play.links[list];
 
   return (
-    <SectionBox title={<PlaylistHeader state={[list, setList]} />} className={SECTION_BOX_STYLES}>
+    <SectionBox
+      id="section"
+      title={<PlaylistHeader state={[list, setList]} />}
+      className={{
+        container: classMerge(SECTION_BOX_STYLES.container, 'relative isolate'),
+      }}
+    >
+      <p
+        className={classMerge(
+          'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
+          'trim-helvetiva-neue font-semibold text-dynamic-[grey_60] z-10'
+        )}
+      >
+        {play.loading}
+      </p>
       <AnimatePresence>
-        <motion.div className="space-y-[0.5lh] overflow-auto" key={activeList}>
+        <motion.div className="space-y-[0.5lh] overflow-auto z-20" key={activeList}>
           <iframe
             key={activeList}
             className="w-full aspect-square min-w-[33.75rem]"
