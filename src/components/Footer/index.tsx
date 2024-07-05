@@ -62,7 +62,7 @@ export default function Footer(props: FooterProps) {
         href={`mailto:${EMAIL}`}
         look="custom"
         motionRef={contactWrapperScope}
-        motionWrapper={{ className: 'overflow-hidden' }}
+        motionWrapper={{ className: 'overflow-hidden', id: 'footer-contact-wrapper' }}
         className={{ a: contact({ className: className?.contact }) }}
         {...handlers}
       >

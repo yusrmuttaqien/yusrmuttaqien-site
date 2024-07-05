@@ -1,7 +1,6 @@
 import { cubicBezier, type AnimationSequence } from 'framer-motion';
 import type { RefObject } from 'react';
 
-export const SCROLL_DISTANCE = 0.8;
 export function TIMELINE_SCROLLER(scope: RefObject<HTMLButtonElement>): {
   visible: AnimationSequence;
   invisible: AnimationSequence;

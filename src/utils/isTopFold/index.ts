@@ -4,5 +4,5 @@ export default function isTopFold(el: HTMLElement) {
   const { top, height } = el.getBoundingClientRect();
   const { scrollY } = window;
 
-  return scrollY > top + height;
+  return scrollY > scrollY + top + height;
 }

@@ -4,5 +4,5 @@ export default function isBottomFold(el: HTMLElement) {
   const { top, height } = el.getBoundingClientRect();
   const { scrollY, innerHeight } = window;
 
-  return scrollY + innerHeight < top + height;
+  return scrollY + innerHeight < scrollY + top + height;
 }
