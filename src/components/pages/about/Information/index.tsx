@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from 'react';
+import { useState, useRef, type ChangeEvent } from 'react';
 import { useIsomorphicLayoutEffect, motion, AnimatePresence } from 'framer-motion';
 import useScrollLock from '@/hooks/scrollLock';
 import useContent from '@/components/pages/about/Information/hooks/content';
@@ -90,11 +90,12 @@ export default function Information() {
 }
 
 function PlaylistHeader(props: PlaylistHeaderProps) {
-  const { state } = props;
+  const { state, scope } = props;
   const [list, setList] = state;
   const { play } = useContent();
   const { lock, unlock } = useScrollLock();
   const [isLocked, setIsLocked] = useState(false);
+  let timeout: NodeJS.Timeout;
 
   function _toggleLock() {
     setIsLocked((prev) => {
@@ -111,13 +112,25 @@ function PlaylistHeader(props: PlaylistHeaderProps) {
   }
   function _loopPlaylists(e: ChangeEvent<HTMLInputElement>) {
     const { value } = e.target;
+    const root = scope.current as HTMLElement;
+    const height = root.offsetHeight;
 
-    setList(parseInt(value) / 10 - 1);
+    requestAnimationFrame(() => {
+      root.style.setProperty('height', `${height}px`);
+    });
+    requestAnimationFrame(() => {
+      setList(parseInt(value) / 10 - 1);
+    });
+
+    timeout = setTimeout(() => {
+      root.style.removeProperty('height');
+    }, 100);
   }
 
   useIsomorphicLayoutEffect(() => {
     return () => {
       unlock(INFO_SECTION_LOCK_ID);
+      clearTimeout(timeout);
     };
   }, []);
 
@@ -145,13 +158,15 @@ function PlaylistHeader(props: PlaylistHeaderProps) {
 
 function Playlist() {
   const { play } = useContent();
+  const scope = useRef<HTMLElement>(null);
   const [list, setList] = useState(0);
   const activeList = play.links[list];
 
   return (
     <SectionBox
       id="section"
-      title={<PlaylistHeader state={[list, setList]} />}
+      sectionRef={scope}
+      title={<PlaylistHeader state={[list, setList]} scope={scope} />}
       className={{
         container: classMerge(SECTION_BOX_STYLES.container, 'relative isolate'),
       }}

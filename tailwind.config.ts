@@ -64,7 +64,7 @@ const config: Config = {
       addComponents({
         '.body': {
           fontFamily: theme('fontFamily.helveticaNeue'),
-          fontSize: clamp({ minValue: 12, maxValue: 14, minViewport: 320, maxViewport: 375 }),
+          fontSize: clamp({ minValue: 12, maxValue: 16, minViewport: 320, maxViewport: 375 }),
         },
       });
       // Trim
@@ -73,7 +73,7 @@ const config: Config = {
           trim: (family) => {
             let preset: Record<string, { before: string; after: string; lineHeight?: string }> = {
               nohemi: { before: '-0.04em', after: '-0.2em' },
-              helveticaNeue: { before: '-0.1em', after: '-0.3em' },
+              helveticaNeue: { before: '-0.1em', after: '-0.4em' },
             };
             preset = {
               ...preset,

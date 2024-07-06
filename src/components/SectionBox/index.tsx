@@ -13,11 +13,11 @@ export const SECTION_BOX_STYLES = tv({
 });
 
 export default function SectionBox(props: SectionBoxProps) {
-  const { title, children, className, id } = props;
+  const { title, children, className, id, sectionRef } = props;
   const { container, title: titleStyle } = SECTION_BOX_STYLES();
 
   return (
-    <section id={id} className={container({ className: className?.container })}>
+    <section ref={sectionRef} id={id} className={container({ className: className?.container })}>
       <h2 className={titleStyle({ className: className?.title })}>{title}</h2>
       {children}
     </section>
