@@ -2,6 +2,7 @@
 import Head from 'next/head';
 import { Fragment } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence } from 'framer-motion';
 import Contexts from '@/contexts';
 import MediaQueryStoreHost from '@/contexts/mediaQuery/host';
@@ -82,6 +83,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
           </AnimatePresence>
         </div>
       </Contexts>
+      <Analytics />
       <SpeedInsights />
     </Fragment>
   );
