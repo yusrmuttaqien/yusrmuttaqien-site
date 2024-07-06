@@ -39,10 +39,12 @@ export default function useEntry() {
       prepare.complete();
     }
 
-    if ((!isLoader && inView && status === 'not-ready') || status === 'preparing') {
+    if (!isLoader && inView && (status === 'not-ready' || status === 'preparing')) {
       _startSequence();
     } else if (!isLoader && isTopFold(root)) {
       _startSequence(true);
+    } else if (isLoader && inView && window.scrollY > 0) {
+      window.scrollTo(0, 0);
     }
   }, [isLoader, inView]);
 
