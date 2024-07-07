@@ -60,7 +60,6 @@ export default function useInteractive() {
     function _trackMouse(e: MouseEvent) {
       patternWrapper.offsetHeight !== scopeClientRect.current?.height && _getClientRect();
       _moveHighlight(e);
-      // TODO: Add interactive gradient for mesh
     }
     function _getClientRect() {
       requestAnimationFrame(() => {
