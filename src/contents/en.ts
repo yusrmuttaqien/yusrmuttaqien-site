@@ -13,4 +13,8 @@ export default {
     projects: 'Projects',
     techStack: 'Tech Stack',
   },
+  indexMetas: {
+    description:
+      'View my diverse portfolio of frontend development, UI/UX design, and creative projects.',
+  },
 };

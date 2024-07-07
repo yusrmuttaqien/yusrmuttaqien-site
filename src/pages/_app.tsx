@@ -7,6 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence } from 'framer-motion';
 import Contexts from '@/contexts';
 import MediaQueryStoreHost from '@/contexts/mediaQuery/host';
+import useContent from '@/hooks/content';
 import useApp from '@/hooks/app';
 import Transition from '@/components/Transition';
 import Cursor from '@/components/Cursor';
@@ -17,6 +18,8 @@ import type { AppProps } from 'next/app';
 import '@/styles/globals.css';
 
 export default function App({ Component, pageProps, router }: AppProps) {
+  const { indexMetas } = useContent();
+
   useApp();
 
   return (
@@ -51,14 +54,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         {
           // #region Changable head tags
         }
-        {
-          // TODO: Translate description
-        }
-        <meta
-          key="description"
-          name="description"
-          content="View my diverse portfolio of frontend development, UI/UX design, and creative projects."
-        />
+        <meta key="description" name="description" content={indexMetas.description} />
         <meta key="identifier" name="identifier" content="index" />
         <title key="title">Yusril Muttaqien</title>
         {

@@ -1,13 +1,13 @@
 import { Fragment, useRef } from 'react';
 import mergeRefs from 'merge-refs';
 import { tv } from 'tailwind-variants';
-import { useRouter } from 'next/router';
 import useEntry from '@/components/Navbar/hooks/entry';
 import useMeasure from '@/components/Navbar/hooks/measure';
 import useContent from '@/components/Navbar/hooks/content';
 import useInteractive from '@/components/Navbar/hooks/interactive';
 import ClockStoreProvider from '@/components/Navbar/context';
 import Host from '@/components/Navbar/host';
+import Links from '@/components/Navbar/fragments/Links';
 import Link from '@/components/Link';
 import MenuToggle from '@/components/Navbar/fragments/MenuToggle';
 import Menu from '@/components/Navbar/fragments/Menu';
@@ -91,29 +91,6 @@ export default function Navbar(props: NavbarProps) {
       </nav>
       <Menu className={menu({ className: className?.menu })} />
       <Host scope={scope} />
-    </Fragment>
-  );
-}
-
-// TODO: Move to fragments
-function Links() {
-  const { asPath } = useRouter();
-  const { sitemaps } = useContent();
-
-  return (
-    <Fragment>
-      {sitemaps.map(({ title, href, ...rest }) => (
-        <Link
-          motionWrapper={{ className: 'hidden xl:block' }}
-          id="link"
-          key={title}
-          isActive={href === asPath.split('#')[0]}
-          href={href}
-          {...rest}
-        >
-          {title}
-        </Link>
-      ))}
     </Fragment>
   );
 }

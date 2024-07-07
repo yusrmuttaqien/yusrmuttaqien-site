@@ -1,12 +1,16 @@
 import type { HTMLMotionProps, MotionValue } from 'framer-motion';
 
+type RootMotionValue = MotionValue<number>;
 export type RolesProps = {
   p?: HTMLMotionProps<'p'>;
-  rootMotionValue: MotionValue<number>;
+  rootMotionValue: RootMotionValue;
 };
-
 export type RoleProps = {
   idx: number;
   children: string;
-  rootMotionValue: MotionValue<number>;
+  rootMotionValue: RootMotionValue;
 } & Omit<HTMLMotionProps<'p'>, 'children'>;
+export type InteractiveParams = {
+  rootMotionValue: RootMotionValue;
+  idx: number;
+};

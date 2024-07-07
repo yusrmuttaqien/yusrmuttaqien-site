@@ -17,7 +17,6 @@ export default function Clock() {
   );
 }
 
-// TODO: Move to fragments
 function SegmentHour() {
   const hour = useClockStore((state) => state.hour);
 

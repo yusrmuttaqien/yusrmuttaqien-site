@@ -1,4 +1,5 @@
-import { motion, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
+import useInteractive from '@/components/pages/index/Hero/fragments/Roles/hooks/interactive';
 import useContent from '@/components/pages/index/Hero/hooks/content';
 import Trans from '@/components/Trans';
 import type { TransComp } from '@/components/Trans/type';
@@ -32,19 +33,12 @@ function Role(props: RoleProps) {
   delete style?.z;
   delete style?.opacity;
   delete style?.filter;
-  // TODO: Move to hooks
-  const z = useTransform(rootMotionValue, [0 + (idx * 2) / 10, 1], ['0px', '1000px']);
-  const opacity = useTransform(rootMotionValue, [0 + (idx * 2) / 10, 1], [1, 0]);
-  const filter = useTransform(
-    rootMotionValue,
-    [0 + (idx * 2) / 10, 1],
-    ['blur(0px)', 'blur(16px)']
-  );
+  const interactiveStyle = useInteractive({ rootMotionValue, idx });
 
   return (
     <motion.p
       {...restProps}
-      style={{ z, opacity, filter, ...style }}
+      style={{ ...interactiveStyle, ...style }}
       className="trim-helvetiva-neue w-max"
       id="role"
     >
