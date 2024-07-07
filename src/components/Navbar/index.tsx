@@ -107,7 +107,7 @@ function Links() {
           motionWrapper={{ className: 'hidden xl:block' }}
           id="link"
           key={title}
-          isActive={href === asPath}
+          isActive={href === asPath.split('#')[0]}
           href={href}
           {...rest}
         >

@@ -13,7 +13,7 @@ export default function Language(props: LanguangeProps) {
       {i18nOptions.map((lang) => (
         <Link
           key={lang}
-          href={asPath}
+          href={asPath.split('#')[0]}
           locale={lang}
           lang={lang}
           scroll={false}

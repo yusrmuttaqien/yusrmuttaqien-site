@@ -44,7 +44,7 @@ export default function Menu(props: MenuProps) {
             <Link
               id="link"
               key={title}
-              isActive={href === asPath}
+              isActive={href === asPath.split('#')[0]}
               href={href}
               onClick={_closeMenu}
               {...rest}

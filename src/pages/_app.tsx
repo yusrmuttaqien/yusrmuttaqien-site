@@ -1,5 +1,6 @@
 // TODO: Add global or hook scrollbar component
 import Head from 'next/head';
+import Script from 'next/script';
 import { Fragment } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
@@ -83,6 +84,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
           </AnimatePresence>
         </div>
       </Contexts>
+      <Script>{`window.history.scrollRestoration = "manual"`}</Script>
       <Analytics />
       <SpeedInsights />
     </Fragment>

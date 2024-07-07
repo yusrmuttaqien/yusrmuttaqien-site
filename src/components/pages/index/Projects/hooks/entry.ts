@@ -7,6 +7,7 @@ import isBottomFold from '@/utils/isBottomFold';
 import type { AnimationResumables } from '@/types/timeline';
 
 export default function useEntry() {
+  const watchView = useRef(true);
   const [scope, animate] = useAnimate();
   const inView = useInView(scope, { once: true });
   const isLoader = useTogglesStore((state) => state.isLoader);
@@ -33,8 +34,11 @@ export default function useEntry() {
 
     if (!isLoader && inView && (status === 'not-ready' || status === 'preparing')) {
       _startSequence();
-    } else if (!isLoader && (isTopFold(root) || isBottomFold(root))) {
-      _startSequence(true);
+    } else if (!isLoader && watchView.current && (isTopFold(root) || isBottomFold(root))) {
+      requestAnimationFrame(() => {
+        _startSequence(true);
+      });
+      watchView.current = false;
     }
   }, [isLoader, inView]);
 

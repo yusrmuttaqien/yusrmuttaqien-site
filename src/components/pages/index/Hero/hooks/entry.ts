@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useRouter } from 'next/router';
 import { useAnimate, useIsomorphicLayoutEffect, useInView } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
 import useScrollLock from '@/hooks/scrollLock';
@@ -8,6 +9,7 @@ import { TRANSITION_LOCK_ID } from '@/components/Transition';
 import type { AnimationResumables } from '@/types/timeline';
 
 export default function useEntry() {
+  const { asPath } = useRouter();
   const { unlock } = useScrollLock();
   const [scope, animate] = useAnimate();
   const inView = useInView(scope, { once: true });
@@ -44,9 +46,11 @@ export default function useEntry() {
     } else if (!isLoader && isTopFold(root)) {
       _startSequence(true);
     } else if (isLoader && inView && window.scrollY > 0) {
-      window.scrollTo(0, 0);
+      const isAnchor = asPath.includes('#');
+
+      !isAnchor && window.scrollTo(0, 0);
     }
-  }, [isLoader, inView]);
+  }, [isLoader, inView, asPath]);
 
   return { scope };
 }

@@ -44,9 +44,10 @@ const config: Config = {
       sm: scrSize({ screen: 'sm', withUnit: true }),
       md: scrSize({ screen: 'md', withUnit: true }),
       'md-only': { max: scrSize({ screen: 'md', withUnit: true, modifier: -1 }) },
-      lg: scrSize({ screen: 'lg', withUnit: true }),
+      'lg-540-only': { max: '539px' },
       'lg-540': '540px',
       'lg-590': '590px',
+      lg: scrSize({ screen: 'lg', withUnit: true }),
       'lg-850': '850px',
       'lg-970': '970px',
       'lg-only': { max: scrSize({ screen: 'lg', withUnit: true, modifier: -1 }) },
@@ -64,7 +65,7 @@ const config: Config = {
       addComponents({
         '.body': {
           fontFamily: theme('fontFamily.helveticaNeue'),
-          fontSize: clamp({ minValue: 12, maxValue: 16, minViewport: 320, maxViewport: 375 }),
+          fontSize: clamp({ minValue: 14, maxValue: 16, minViewport: 320, maxViewport: 375 }),
         },
       });
       // Trim
