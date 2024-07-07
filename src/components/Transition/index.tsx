@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useLenis } from '@studio-freight/react-lenis';
 import useScrollLock from '@/hooks/scrollLock';
 import { useMeasuresStore } from '@/contexts/measures';
-import { useMediaQueryStore } from '@/contexts/mediaQuery';
+import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import { useStatics } from '@/contexts/statics';
 import Footer from '@/components/Footer';
 import getPageID from '@/utils/getPageID';

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useIsomorphicLayoutEffect } from 'framer-motion';
-import { useMediaQueryStore } from '@/contexts/mediaQuery';
+import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import useMediaQuery from '@/hooks/mediaQuery';
 import { scrSize } from '@/constants/tailwind-config';
 

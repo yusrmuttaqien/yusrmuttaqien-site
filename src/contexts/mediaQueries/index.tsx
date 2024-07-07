@@ -1,9 +1,11 @@
-// TODO: Rename mediaQuery to mediaQueries
 import { useStore } from 'zustand';
 import { createContext, useRef, useContext } from 'react';
 import { createMediaQueryStore } from '@/stores/mediaQuery';
 import type { MediaQueryStore } from '@/stores/mediaQuery/type';
-import type { MediaQueryStoreApi, MediaQueryStoreProviderProps } from '@/contexts/mediaQuery/type';
+import type {
+  MediaQueryStoreApi,
+  MediaQueryStoreProviderProps,
+} from '@/contexts/mediaQueries/type';
 
 const MediaQueryStoreContext = createContext<MediaQueryStoreApi | undefined>(undefined);
 

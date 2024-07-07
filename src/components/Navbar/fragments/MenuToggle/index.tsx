@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { AnimatePresence, motion, useIsomorphicLayoutEffect } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
-import { useMediaQueryStore } from '@/contexts/mediaQuery';
+import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import useContent from '@/components/Navbar/hooks/content';
 import classMerge from '@/utils/classMerge';
 import { VARIANT } from '@/components/Navbar/fragments/MenuToggle/constant';

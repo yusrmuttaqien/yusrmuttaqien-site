@@ -1,6 +1,6 @@
 import { useMotionValue } from 'framer-motion';
 import { useIsomorphicLayoutEffect } from 'framer-motion';
-import { useMediaQueryStore } from '@/contexts/mediaQuery';
+import { useMediaQueryStore } from '@/contexts/mediaQueries';
 
 export default function useInteractive() {
   const x = useMotionValue(0);

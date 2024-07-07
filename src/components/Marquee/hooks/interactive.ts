@@ -8,7 +8,7 @@ import {
   useAnimationFrame,
   useIsomorphicLayoutEffect,
 } from 'framer-motion';
-import { useMediaQueryStore } from '@/contexts/mediaQuery';
+import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import wrap from '@/utils/wrap';
 import debounce from '@/utils/debounce';
 import type { InteractiveParams } from '@/components/Marquee/type';

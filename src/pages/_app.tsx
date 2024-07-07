@@ -6,7 +6,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence } from 'framer-motion';
 import Contexts from '@/contexts';
-import MediaQueryStoreHost from '@/contexts/mediaQuery/host';
+import MediaQueryStoreHost from '@/contexts/mediaQueries/host';
 import useContent from '@/hooks/content';
 import useApp from '@/hooks/app';
 import Transition from '@/components/Transition';

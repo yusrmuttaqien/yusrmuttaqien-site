@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useRouter } from 'next/router';
 import { useIsomorphicLayoutEffect, animate, inView } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
-import { useMediaQueryStore } from '@/contexts/mediaQuery';
+import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import { TIMELINE_YM_TITLE } from '@/components/Navbar/constant';
 import isTopFold from '@/utils/isTopFold';
 import type { HostProps } from '@/components/Navbar/type';

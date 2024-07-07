@@ -9,7 +9,7 @@ import {
   type AnimationPlaybackControls,
 } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
-import { useMediaQueryStore } from '@/contexts/mediaQuery';
+import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import debounce from '@/utils/debounce';
 import { TIMELINE_MAIN, TIMELINE_MENU } from '@/components/Navbar/fragments/Menu/constant';
 

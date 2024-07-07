@@ -1,7 +1,7 @@
 import { ReactLenis } from '@studio-freight/react-lenis';
 import TogglesStoreProvider from '@/contexts/toggles';
 import MeasuresStoreProvider from '@/contexts/measures';
-import MediaQueryStoreProvider from '@/contexts/mediaQuery';
+import MediaQueryStoreProvider from '@/contexts/mediaQueries';
 import StaticsProvider from '@/contexts/statics';
 
 export default function Contexts({ children }: { children: React.ReactNode }) {

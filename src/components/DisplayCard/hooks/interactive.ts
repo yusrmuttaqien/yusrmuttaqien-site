@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useAnimate, useIsomorphicLayoutEffect, useScroll } from 'framer-motion';
-import { useMediaQueryStore } from '@/contexts/mediaQuery';
+import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import debounce from '@/utils/debounce';
 import { TIMELINE_ACTION } from '@/components/DisplayCard/constant';
 import type { AnimationResumables } from '@/types/timeline';

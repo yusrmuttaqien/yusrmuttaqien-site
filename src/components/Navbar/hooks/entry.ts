@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useAnimate, useInView, useIsomorphicLayoutEffect } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
-import { useMediaQueryStore } from '@/contexts/mediaQuery';
+import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import { TIMELINE_ENTRY } from '@/components/Navbar/constant';
 import type { AnimationResumables } from '@/types/timeline';
 
