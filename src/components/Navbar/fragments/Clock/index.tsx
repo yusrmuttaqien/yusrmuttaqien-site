@@ -6,7 +6,7 @@ export default function Clock() {
   useDate();
 
   return (
-    <p className="trim-helvetiva-neue perspective-5000" id="clock">
+    <p className="trim-helvetiva-neue perspective-5000 w-max" id="clock">
       <SegmentHour />
       <span className="mx-[.2ch]">:</span>
       <SegmentMinute />

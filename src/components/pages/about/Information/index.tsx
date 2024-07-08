@@ -89,6 +89,7 @@ export default function Information() {
   );
 }
 
+// TODO: Move playlist related components to fragment
 function PlaylistHeader(props: PlaylistHeaderProps) {
   const { state, scope } = props;
   const [list, setList] = state;
@@ -180,7 +181,7 @@ function Playlist() {
         {play.loading}
       </p>
       <AnimatePresence>
-        <motion.div className="space-y-[0.5lh] overflow-auto z-20" key={activeList}>
+        <motion.div className="space-y-[0.5lh] overflow-auto z-20 rounded-xl" key={activeList}>
           <iframe
             key={activeList}
             className="w-full aspect-square min-w-[33.75rem]"
