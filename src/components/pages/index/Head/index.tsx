@@ -43,7 +43,11 @@ export default function Head() {
       <meta key="identifier" name="identifier" content="index" />
       <meta key="og:title" property="og:title" content="Yusril Muttaqien" />
       <meta key="og:description" property="og:description" content={description} />
-      <meta key="og:image" property="og:image" content={Preview.src} />
+      <meta
+        key="og:image"
+        property="og:image"
+        content={process.env.NEXT_PUBLIC_BASE_URL + Preview.src}
+      />
       <meta key="og:site_name" property="og:site_name" content="Yusril Muttaqien" />
       <meta
         key="og:url"
@@ -52,7 +56,11 @@ export default function Head() {
       />
       <meta key="twitter:description" property="twitter:description" content={description} />
       <meta key="twitter:title" property="twitter:title" content="Yusril Muttaqien" />
-      <meta key="twitter:image" property="twitter:image" content={Preview.src} />
+      <meta
+        key="twitter:image"
+        property="twitter:image"
+        content={process.env.NEXT_PUBLIC_BASE_URL + Preview.src}
+      />
       <meta key="twitter:card" property="twitter:card" content="summary_large_image" />
       {
         // #endregion Changable head tags
