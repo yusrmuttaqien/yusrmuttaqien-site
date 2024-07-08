@@ -31,7 +31,7 @@ export default function Menu(props: MenuProps) {
       ref={scope}
       id="menu"
       data-lenis-prevent
-      style={{ paddingTop: navbarHeight + navbarTop }}
+      style={{ paddingTop: navbarHeight + navbarTop * 2 }}
       className={classMerge(
         'fixed inset-0 bg-dynamic-[beige_95] flex',
         'invisible backdrop-blur-lg overflow-auto',

@@ -13,8 +13,4 @@ export default {
     projects: 'Projek',
     techStack: 'Teknologi',
   },
-  indexMetas: {
-    description:
-      'Lihat beragam portofolio pengembangan frontend, desain UI/UX, dan proyek kreatif.',
-  },
 };

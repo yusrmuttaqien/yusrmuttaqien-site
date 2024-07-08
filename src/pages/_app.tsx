@@ -1,5 +1,5 @@
 // TODO: Add global or hook scrollbar component
-import Head from 'next/head';
+
 import Script from 'next/script';
 import { Fragment } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -7,60 +7,22 @@ import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence } from 'framer-motion';
 import Contexts from '@/contexts';
 import MediaQueryStoreHost from '@/contexts/mediaQueries/host';
-import useContent from '@/hooks/content';
 import useApp from '@/hooks/app';
 import Transition from '@/components/Transition';
 import Cursor from '@/components/Cursor';
 import Loader from '@/components/Loader';
 import Navbar from '@/components/Navbar';
 import ScrollUp from '@/components/ScrollUp';
+import Head from '@/components/pages/index/Head';
 import type { AppProps } from 'next/app';
 import '@/styles/globals.css';
 
 export default function App({ Component, pageProps, router }: AppProps) {
-  const { indexMetas } = useContent();
-
   useApp();
 
   return (
     <Fragment>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="author" content="Yusril Muttaqien" />
-        <link
-          href="/favicon-dark.ico"
-          rel="shortcut icon"
-          type="image/x-icon"
-          media="(prefers-color-scheme: light)"
-        />
-        <link
-          href="/favicon-light.ico"
-          rel="shortcut icon"
-          type="image/x-icon"
-          media="(prefers-color-scheme: dark)"
-        />
-        <link
-          href="/icon-dark.png"
-          rel="apple-touch-icon image_src"
-          type="image/png"
-          media="(prefers-color-scheme: light)"
-        />
-        <link
-          href="/icon-light.png"
-          rel="apple-touch-icon image_src"
-          type="image/png"
-          media="(prefers-color-scheme: dark)"
-        />
-        {
-          // #region Changable head tags
-        }
-        <meta key="description" name="description" content={indexMetas.description} />
-        <meta key="identifier" name="identifier" content="index" />
-        <title key="title">Yusril Muttaqien</title>
-        {
-          // #endregion Changable head tags
-        }
-      </Head>
+      <Head />
       <Contexts>
         <MediaQueryStoreHost />
         <Cursor className="z-40" />

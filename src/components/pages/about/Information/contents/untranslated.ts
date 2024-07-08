@@ -1,7 +1,7 @@
 export default {
   cvLinks: {
-    FE: '/cv/CV_FE_YM.pdf',
-    VA: '/cv/Dig_Mark_YM.pdf',
+    FE: 'https://yuzksi7fbls0mqtp.public.blob.vercel-storage.com/CV_FE_YM-30wHqAFMtDDWXjhAA6H0R4SaEulQfT.pdf',
+    VA: 'https://yuzksi7fbls0mqtp.public.blob.vercel-storage.com/Dig_Mark_YM-iCJFBAYUZTAVCRJFKGUg53kb4VCY0i.pdf',
   },
   playLinks: [
     'https://open.spotify.com/embed/playlist/4cWpabreKqpS4MSuYngaOb?utm_source=generator&theme=0',

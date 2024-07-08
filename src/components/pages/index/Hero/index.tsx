@@ -7,6 +7,7 @@ import Scroll from '@/components/pages/index/Hero/fragments/Scroll';
 import Links from '@/components/pages/index/Hero/fragments/Links';
 import Roles from '@/components/pages/index/Hero/fragments/Roles';
 import classMerge from '@/utils/classMerge';
+import Yusr from '@/components/pages/index/Hero/contents/images/yusr.png';
 
 export default function Hero() {
   const {
@@ -55,7 +56,7 @@ export default function Hero() {
               )}
               style={imgStyles}
               id="ym-image"
-              src="/yusr.png"
+              src={Yusr.src}
               alt="Yusril Muttaqien"
               draggable="false"
               loading="eager"

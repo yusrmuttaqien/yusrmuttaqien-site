@@ -36,7 +36,7 @@ export default function useMeasure() {
           );
           html.style.setProperty(
             '--navbar-docked-minimal-height',
-            `${numbers.top + numbers.height}px`
+            `${numbers.top * 2 + numbers.height}px`
           );
         } catch (e) {
           console.log(e);
