@@ -38,21 +38,26 @@ const config: Config = {
       },
       minHeight: {
         'full-total-navbar': 'calc(100svh - var(--navbar-docked-total-height))',
+        'full-minimal-navbar': 'calc(100svh - var(--navbar-docked-minimal-height))',
+      },
+      gridColumn: {
+        full: '1 / -1',
       },
     },
     screens: {
       sm: scrSize({ screen: 'sm', withUnit: true }),
-      md: scrSize({ screen: 'md', withUnit: true }),
       'md-only': { max: scrSize({ screen: 'md', withUnit: true, modifier: -1 }) },
+      md: scrSize({ screen: 'md', withUnit: true }),
       'lg-540-only': { max: '539px' },
       'lg-540': '540px',
       'lg-590': '590px',
+      'lg-only': { max: scrSize({ screen: 'lg', withUnit: true, modifier: -1 }) },
       lg: scrSize({ screen: 'lg', withUnit: true }),
       'lg-850': '850px',
+      'lg-970-only': { max: '970px' },
       'lg-970': '970px',
-      'lg-only': { max: scrSize({ screen: 'lg', withUnit: true, modifier: -1 }) },
-      xl: scrSize({ screen: 'xl', withUnit: true }),
       'xl-only': { max: scrSize({ screen: 'xl', withUnit: true, modifier: -1 }) },
+      xl: scrSize({ screen: 'xl', withUnit: true }),
       '2xl': scrSize({ screen: '2xl', withUnit: true }),
       hoverable: { raw: '(hover: hover)' },
       unhoverable: { raw: '(hover: none)' },
@@ -185,6 +190,31 @@ const config: Config = {
           },
         },
         { values: { left: 'left', right: 'right', center: 'center' } }
+      );
+      // Counter
+      matchUtilities(
+        {
+          counter: (value) => {
+            return { counterIncrement: value };
+          },
+        },
+        { values: { default: 'count' } }
+      );
+      matchUtilities(
+        {
+          'counter-reset': (value) => {
+            return { counterReset: value };
+          },
+        },
+        { values: { default: 'count' } }
+      );
+      matchUtilities(
+        {
+          'contents-counter': (value) => {
+            return { content: `counter(${value})` };
+          },
+        },
+        { values: { default: 'count' } }
       );
     }),
   ],

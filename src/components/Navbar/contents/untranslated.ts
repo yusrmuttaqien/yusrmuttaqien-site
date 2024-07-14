@@ -2,7 +2,7 @@ export default {
   sitemapsConfig: {
     home: { href: '/' },
     about: { href: '/about' },
-    projects: { href: '/projects', isDisabled: true },
+    projects: { href: '/projects' },
     techStack: { href: '/tech-stack', isDisabled: true },
   },
 } as const;

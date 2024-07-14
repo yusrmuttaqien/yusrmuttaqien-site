@@ -8,6 +8,7 @@ export const initialState = {
   isHoverable: false,
   isDarkMode: false,
   isXL1490: false,
+  isLG970: false,
 };
 export const createMediaQueryStore = (initState: MediaQueryState = initialState) => {
   return createStore<MediaQueryStore>()(

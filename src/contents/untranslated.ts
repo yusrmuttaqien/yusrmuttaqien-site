@@ -9,6 +9,7 @@ const PROJECT_HREF_SHOWCASE_SOON: ProjectHref = [
 ];
 const PROJECT_HREF_LIVE_COPY = { en: 'Access live project', id: 'Akses halaman projek' };
 
+// TODO: Turnaround type to refer to the content of the project
 export default {
   internets: {
     linkedin: { href: 'https://www.linkedin.com/in/yusrmuttaqien/' },

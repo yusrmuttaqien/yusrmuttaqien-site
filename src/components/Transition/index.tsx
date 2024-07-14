@@ -14,7 +14,7 @@ import type { TransitionProps, TransitionAnimatable } from '@/components/Transit
 export const TRANSITION_LOCK_ID = 'transition';
 export const TRANSITION_STYLES = tv({
   slots: {
-    main: 'relative z-20',
+    main: 'min-h-full-total-navbar relative z-20',
     container: 'isolate',
   },
 });
