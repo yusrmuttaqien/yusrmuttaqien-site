@@ -17,6 +17,7 @@ export default function Image(props: ImageProps) {
     scale: scaleFactor = 1.5,
     className,
     src = 'https://source.unsplash.com/random',
+    alt = 'unsplash',
     ...rest
   } = props;
   const { container, image, wrapper } = IMAGE_STYLES();
@@ -32,6 +33,7 @@ export default function Image(props: ImageProps) {
         <NextImage
           {...rest}
           fill
+          alt={alt}
           src={src}
           sizes="100%"
           draggable={false}

@@ -15,8 +15,8 @@ export default function DisplayCard(props: DisplayCardProps) {
 
   const { scope } = useInteractive();
   const { src, alt, bottomLeft, topRight, bottomRight, topLeft, hrefs } = {
-    src: project?.src || content?.src || 'https://source.unsplash.com/random',
-    alt: project?.alt || content?.alt || 'unsplash',
+    src: project?.src || content?.src,
+    alt: project?.alt || content?.alt,
     bottomRight: project?.category?.[0] || content?.bottomRight?.[0] || 'bottomLeft',
     topRight: project?.year || content?.topRight || 'topRight',
     bottomLeft: project?.title || content?.bottomLeft || 'bottomRight',
@@ -37,7 +37,7 @@ export default function DisplayCard(props: DisplayCardProps) {
             src={src}
             alt={alt}
             className={{ container: 'aspect-[171/230] w-full' }}
-            placeholder={!src.toString().includes('https') && placeholder ? placeholder : 'empty'}
+            placeholder={!src?.toString().includes('https') && placeholder ? placeholder : 'empty'}
           />
           <Hrefs hrefs={hrefs} />
         </div>
