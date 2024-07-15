@@ -1,16 +1,15 @@
 export default {
-  projectTypes: {
+  projectCategories: {
     web: 'Pengembangan web',
   },
-  projectCollabTypes: {
-    self: 'Projek-pribadi',
-    work: 'Projek-pekerjaan [<COMPANY>]',
+  projectCopy: {
+    live: 'Akses halaman projek',
+    story: 'Akses cerita projek',
   },
   internetsTitle: 'Internet',
   sitemapsTitle: {
     home: 'Halaman utama',
     about: 'Tentang',
     projects: 'Projek',
-    techStack: 'Teknologi',
   },
 };

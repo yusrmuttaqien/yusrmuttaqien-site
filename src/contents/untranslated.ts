@@ -1,15 +1,30 @@
 import TelkomAgreecultureCover from '@/contents/projects/telkom-agreeculture/images/cover.png';
 import FindMovieCover from '@/contents/projects/find-movie/images/cover.png';
 import DashbardTodoCover from '@/contents/projects/dashboard-todo/images/cover.png';
-import type { Projects, ProjectHref } from '@/types/contents';
+import en from '@/contents/en';
+import id from '@/contents/id';
+import type { ImageHrefs } from '@/components/Image/type';
 
-const PROJECT_HREF_SHOWCASE_SOON: ProjectHref = [
-  { en: 'Access project story', id: 'Akses cerita projek' },
-  '#',
-];
-const PROJECT_HREF_LIVE_COPY = { en: 'Access live project', id: 'Akses halaman projek' };
+const { projectCategories: enProjCat, projectCopy: enProjCopy } = en;
+const { projectCategories: idProjCat, projectCopy: idProjCopy } = id;
 
-// TODO: Turnaround type to refer to the content of the project
+type catTypes = keyof typeof idProjCat;
+type copyTypes = keyof typeof idProjCopy;
+
+const PROJECT_COLLABORATOR_PERSONAL = 'Personal';
+const PROJECT_CATEGORIES = Object.keys(idProjCat).reduce((prev, curr) => {
+  const currTyped = curr as catTypes;
+  prev[currTyped] = { en: enProjCat[currTyped], id: idProjCat[currTyped] };
+
+  return prev;
+}, {} as { [key in catTypes]: { en: string; id: string } });
+const PROJECT_COPIES = Object.keys(idProjCopy).reduce((prev, curr) => {
+  const currTyped = curr as copyTypes;
+  prev[currTyped] = { en: enProjCopy[currTyped], id: idProjCopy[currTyped] };
+
+  return prev;
+}, {} as { [key in copyTypes]: { en: string; id: string } });
+
 export default {
   internets: {
     linkedin: { href: 'https://www.linkedin.com/in/yusrmuttaqien/' },
@@ -21,35 +36,41 @@ export default {
   },
   projects: {
     'Telkom Agreeculture': {
-      categories: ['web'],
+      alt: 'Telkom Agreeculture',
+      categories: [PROJECT_CATEGORIES.web],
       year: '2021 - 2024',
-      hrefs: [PROJECT_HREF_SHOWCASE_SOON, [PROJECT_HREF_LIVE_COPY, 'https://agreeculture.id/']],
-      collaborator: ['work', 'Telkom Indonesia'],
+      hrefs: [
+        [PROJECT_COPIES.story, '#'],
+        [PROJECT_COPIES.live, 'https://agreeculture.id/'],
+      ] as ImageHrefs,
+      collaborator: ['Telkom Indonesia'],
       src: TelkomAgreecultureCover,
     },
     findMovie: {
-      categories: ['web'],
+      alt: 'findMovie',
+      categories: [PROJECT_CATEGORIES.web],
       year: '2023',
       hrefs: [
-        PROJECT_HREF_SHOWCASE_SOON,
-        [PROJECT_HREF_LIVE_COPY, 'https://findmovie-yusr.vercel.app/'],
-      ],
-      collaborator: ['self'],
+        [PROJECT_COPIES.story, '#'],
+        [PROJECT_COPIES.live, 'https://findmovie-yusr.vercel.app/'],
+      ] as ImageHrefs,
+      collaborator: [PROJECT_COLLABORATOR_PERSONAL],
       src: FindMovieCover,
     },
     'dashboard [<TODO>]': {
-      categories: ['web'],
+      alt: 'dashboard [<TODO>]',
+      categories: [PROJECT_CATEGORIES.web],
       year: '2023 - 2024',
       hrefs: [
-        PROJECT_HREF_SHOWCASE_SOON,
-        [PROJECT_HREF_LIVE_COPY, 'https://dashboard-site-showoff.vercel.app/login'],
+        [PROJECT_COPIES.story, '#'],
+        [PROJECT_COPIES.live, 'https://dashboard-site-showoff.vercel.app/login'],
         [
           { en: 'Access live landing page', id: 'Akses halaman arahan' },
           'https://yusrmuttaqien.github.io/dashboardlanding-bootcamp-site/',
         ],
-      ],
-      collaborator: ['self'],
+      ] as ImageHrefs,
+      collaborator: [PROJECT_COLLABORATOR_PERSONAL],
       src: DashbardTodoCover,
     },
-  } as Projects,
-} as const;
+  },
+};

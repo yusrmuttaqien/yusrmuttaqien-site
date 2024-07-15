@@ -46,7 +46,7 @@ export default function Projects() {
       <div className="space-y-96 pt-[50svh] pb-96 z-10 relative">
         {projects.map((project) => (
           <DisplayCard
-            {...project}
+            project={project}
             id="project-card"
             key={project.alt}
             className="w-full max-w-[50rem] mx-auto"

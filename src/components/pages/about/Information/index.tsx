@@ -73,12 +73,15 @@ export default function Information() {
         <Playlist />
       </div>
       <DisplayCard
+        content={{
+          src: Profile,
+          alt: 'Yusril Muttaqien',
+          bottomRight: [author],
+          topRight: '2024',
+          topLeft: ['Hi there!'],
+          bottomLeft: 'Yusril Muttaqien',
+        }}
         id="yusril-muttaqien"
-        alt="Yusril Muttaqien"
-        category={author}
-        title="Yusril Muttaqien"
-        year="2024"
-        src={Profile}
         image={{ scale: 1, placeholder: 'blur' }}
         className={classMerge(
           'shrink-0 sticky top-[var(--navbar-docked-total-height)] h-max',

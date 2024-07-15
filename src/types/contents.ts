@@ -1,13 +1,7 @@
-import type { StaticImageData } from 'next/image';
+import GLOBAL_UNTRANSLATED from '@/contents/untranslated';
+import type { ReactNode } from 'react';
 
-export type ProjectHref = [Record<'en' | 'id', string>, string] | [];
-export type Projects = Record<
-  string,
-  {
-    categories: string[];
-    year: string;
-    hrefs: ProjectHref[];
-    collaborator: string[];
-    src: string | StaticImageData;
-  }
+export type Project = { title: ReactNode; category: string[] } & Omit<
+  typeof GLOBAL_UNTRANSLATED.projects.findMovie,
+  'categories'
 >;
