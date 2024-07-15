@@ -15,6 +15,7 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/utils/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/hooks/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -39,9 +40,6 @@ const config: Config = {
       minHeight: {
         'full-total-navbar': 'calc(100svh - var(--navbar-docked-total-height))',
         'full-minimal-navbar': 'calc(100svh - var(--navbar-docked-minimal-height))',
-      },
-      gridColumn: {
-        full: '1 / -1',
       },
     },
     screens: {

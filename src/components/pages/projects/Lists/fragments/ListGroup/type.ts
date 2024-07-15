@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type { MotionValue } from 'framer-motion';
+import { Project } from '@/types/contents';
 
 export type ListGroupProps = {
   count: number;
@@ -9,5 +10,10 @@ export type ListGroupProps = {
 };
 export type ContentProps = {
   className?: string;
+  activeContent: MotionValue<string>;
+  project: Project;
+};
+export type InteractiveParams = {
+  title: string;
   activeContent: MotionValue<string>;
 };

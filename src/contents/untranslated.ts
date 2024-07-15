@@ -3,6 +3,7 @@ import FindMovieCover from '@/contents/projects/find-movie/images/cover.png';
 import DashbardTodoCover from '@/contents/projects/dashboard-todo/images/cover.png';
 import en from '@/contents/en';
 import id from '@/contents/id';
+import { ProjectFlag } from '@/types/contents';
 import type { ImageHrefs } from '@/components/Image/type';
 
 const { projectCategories: enProjCat, projectCopy: enProjCopy } = en;
@@ -36,7 +37,6 @@ export default {
   },
   projects: {
     'Telkom Agreeculture': {
-      alt: 'Telkom Agreeculture',
       categories: [PROJECT_CATEGORIES.web],
       year: '2021 - 2024',
       hrefs: [
@@ -45,9 +45,9 @@ export default {
       ] as ImageHrefs,
       collaborator: ['Telkom Indonesia'],
       src: TelkomAgreecultureCover,
+      flag: [ProjectFlag.ACCESSIBLE],
     },
     findMovie: {
-      alt: 'findMovie',
       categories: [PROJECT_CATEGORIES.web],
       year: '2023',
       hrefs: [
@@ -56,9 +56,9 @@ export default {
       ] as ImageHrefs,
       collaborator: [PROJECT_COLLABORATOR_PERSONAL],
       src: FindMovieCover,
+      flag: [ProjectFlag.ACCESSIBLE],
     },
     'dashboard [<TODO>]': {
-      alt: 'dashboard [<TODO>]',
       categories: [PROJECT_CATEGORIES.web],
       year: '2023 - 2024',
       hrefs: [
@@ -71,6 +71,7 @@ export default {
       ] as ImageHrefs,
       collaborator: [PROJECT_COLLABORATOR_PERSONAL],
       src: DashbardTodoCover,
+      flag: [ProjectFlag.ACCESSIBLE],
     },
   },
 };
