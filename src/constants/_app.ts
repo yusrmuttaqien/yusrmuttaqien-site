@@ -25,6 +25,21 @@ export const nohemi = localFont({
   src: [
     {
       style: 'normal',
+      path: '../fonts/Nohemi-Thin.woff',
+      weight: '100',
+    },
+    {
+      style: 'normal',
+      path: '../fonts/Nohemi-ExtraLight.woff',
+      weight: '200',
+    },
+    {
+      style: 'normal',
+      path: '../fonts/Nohemi-Light.woff',
+      weight: '300',
+    },
+    {
+      style: 'normal',
       path: '../fonts/Nohemi-Regular.woff',
       weight: '400',
     },

@@ -36,6 +36,32 @@ export default {
     x: { href: 'https://x.com/drdhemm' },
   },
   projects: {
+    'Yusril Muttaqien [<Site>]': {
+      categories: [PROJECT_CATEGORIES.web],
+      year: '2024',
+      hrefs: [
+        [PROJECT_COPIES.story, '#'],
+        [PROJECT_COPIES.live, 'https://yusrmuttaqien.vercel.app'],
+      ] as ImageHrefs,
+      collaborator: [PROJECT_COLLABORATOR_PERSONAL],
+      src: undefined,
+      flag: [ProjectFlag.ACCESSIBLE, ProjectFlag.ONGOING],
+    },
+    'dashboard [<TODO>]': {
+      categories: [PROJECT_CATEGORIES.web],
+      year: '2023 - 2024',
+      hrefs: [
+        [PROJECT_COPIES.story, '#'],
+        [PROJECT_COPIES.live, 'https://dashboard-site-showoff.vercel.app/login'],
+        [
+          { en: 'Access live landing page', id: 'Akses halaman arahan' },
+          'https://yusrmuttaqien.github.io/dashboardlanding-bootcamp-site/',
+        ],
+      ] as ImageHrefs,
+      collaborator: [PROJECT_COLLABORATOR_PERSONAL],
+      src: DashbardTodoCover,
+      flag: [ProjectFlag.ACCESSIBLE],
+    },
     'Telkom Agreeculture': {
       categories: [PROJECT_CATEGORIES.web],
       year: '2021 - 2024',
@@ -56,21 +82,6 @@ export default {
       ] as ImageHrefs,
       collaborator: [PROJECT_COLLABORATOR_PERSONAL],
       src: FindMovieCover,
-      flag: [ProjectFlag.ACCESSIBLE],
-    },
-    'dashboard [<TODO>]': {
-      categories: [PROJECT_CATEGORIES.web],
-      year: '2023 - 2024',
-      hrefs: [
-        [PROJECT_COPIES.story, '#'],
-        [PROJECT_COPIES.live, 'https://dashboard-site-showoff.vercel.app/login'],
-        [
-          { en: 'Access live landing page', id: 'Akses halaman arahan' },
-          'https://yusrmuttaqien.github.io/dashboardlanding-bootcamp-site/',
-        ],
-      ] as ImageHrefs,
-      collaborator: [PROJECT_COLLABORATOR_PERSONAL],
-      src: DashbardTodoCover,
       flag: [ProjectFlag.ACCESSIBLE],
     },
   },

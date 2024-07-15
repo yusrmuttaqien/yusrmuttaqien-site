@@ -58,8 +58,7 @@ export default function Projects() {
             a: 'mx-auto block w-max',
             arrowLook: { text: 'text-clamp-[16_32_320_540]' },
           }}
-          href="#"
-          isDisabled
+          href="/projects"
           id="project-more"
         >
           <Trans name="project-more" string={more} comps={COMPS} />

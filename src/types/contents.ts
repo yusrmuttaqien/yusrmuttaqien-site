@@ -1,4 +1,5 @@
 import GLOBAL_UNTRANSLATED from '@/contents/untranslated';
+import type { StaticImageData } from 'next/image';
 import type { ReactNode } from 'react';
 
 export enum ProjectFlag {
@@ -11,4 +12,5 @@ export type Project = {
   category: string[];
   titleString: string;
   alt: string;
-} & Omit<typeof GLOBAL_UNTRANSLATED.projects.findMovie, 'categories'>;
+  src?: string | StaticImageData;
+} & Omit<typeof GLOBAL_UNTRANSLATED.projects.findMovie, 'categories' | 'src'>;

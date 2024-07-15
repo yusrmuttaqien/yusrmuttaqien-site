@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMotionValue, useIsomorphicLayoutEffect, type MotionStyle } from 'framer-motion';
-import type { InteractiveParams } from '@/components/pages/projects/Lists/fragments/ListGroup/type';
+import type { InteractiveParams } from '@/components/pages/projects/Lists/fragments/ListContent/type';
 
 export default function useInteractive(props: InteractiveParams) {
   const { activeContent, title } = props;

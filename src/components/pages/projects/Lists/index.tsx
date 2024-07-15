@@ -1,6 +1,7 @@
 import { useMotionValue } from 'framer-motion';
 import useProjects from '@/hooks/projects';
-import { ListGroup, Title, Content } from '@/components/pages/projects/Lists/fragments/ListGroup';
+import { ListGroup, Title } from '@/components/pages/projects/Lists/fragments/ListGroup';
+import ListContent from '@/components/pages/projects/Lists/fragments/ListContent';
 import classMerge from '@/utils/classMerge';
 
 export default function Lists() {
@@ -14,8 +15,9 @@ export default function Lists() {
         <ListGroup count={count.accessible} title="Accessible">
           <Title />
           {projects.accessible.map((project, idx) => (
-            <Content
+            <ListContent
               key={idx}
+              id="accessible"
               project={project}
               activeContent={activeContent}
               className={classMerge(idx === 0 && 'mt-2')}
@@ -25,8 +27,9 @@ export default function Lists() {
         <ListGroup count={count.ongoing} title="Ongoing">
           <Title />
           {projects.ongoing.map((project, idx) => (
-            <Content
+            <ListContent
               key={idx}
+              id="ongoing"
               project={project}
               activeContent={activeContent}
               className={classMerge(idx === 0 && 'mt-2')}
@@ -36,8 +39,9 @@ export default function Lists() {
         <ListGroup count={count.upcoming} title="Upcoming">
           <Title />
           {projects.upcoming.map((project, idx) => (
-            <Content
+            <ListContent
               key={idx}
+              id="upcoming"
               project={project}
               activeContent={activeContent}
               className={classMerge(idx === 0 && 'mt-2')}

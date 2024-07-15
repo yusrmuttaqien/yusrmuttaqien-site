@@ -13,7 +13,12 @@ export const IMAGE_STYLES = tv({
 });
 
 export default function Image(props: ImageProps) {
-  const { scale: scaleFactor = 1.5, className, ...rest } = props;
+  const {
+    scale: scaleFactor = 1.5,
+    className,
+    src = 'https://source.unsplash.com/random',
+    ...rest
+  } = props;
   const { container, image, wrapper } = IMAGE_STYLES();
   const { scope, y, scale } = useInteractive({ scale: scaleFactor });
 
@@ -27,6 +32,7 @@ export default function Image(props: ImageProps) {
         <NextImage
           {...rest}
           fill
+          src={src}
           sizes="100%"
           draggable={false}
           className={image({ className: className?.image })}
