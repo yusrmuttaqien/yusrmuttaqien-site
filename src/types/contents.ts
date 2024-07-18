@@ -13,4 +13,5 @@ export type Project = {
   titleString: string;
   alt: string;
   src?: string | StaticImageData;
-} & Omit<typeof GLOBAL_UNTRANSLATED.projects.findMovie, 'categories' | 'src'>;
+  hrefs: string[][];
+} & Omit<typeof GLOBAL_UNTRANSLATED.projects.findMovie, 'categories' | 'src' | 'hrefs'>;

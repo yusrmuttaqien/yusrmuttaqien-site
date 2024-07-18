@@ -1,5 +1,5 @@
-import type { ImageHrefs } from '@/components/Image/type';
+import type { Project } from '@/types/contents';
 
 export type HrefsProps = {
-  hrefs: ImageHrefs;
+  hrefs: Project['hrefs'];
 };

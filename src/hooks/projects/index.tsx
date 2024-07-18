@@ -33,7 +33,7 @@ export default function useProjects(params?: ProjectsParams) {
   };
 
   Object.entries(projects).forEach(([title, values]) => {
-    const { categories, flag, ...rest } = values;
+    const { categories, flag, hrefs, ...rest } = values;
     const current = {
       ...rest,
       flag,
@@ -41,6 +41,7 @@ export default function useProjects(params?: ProjectsParams) {
       title: <Trans string={title} name={`project-${title}-title`} comps={COMP} />,
       titleString: title,
       alt: title,
+      hrefs: hrefs.map((href) => [href[0][currentI18n()], href[1]]),
     };
 
     contents.allProjects.push(current);

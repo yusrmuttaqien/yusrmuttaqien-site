@@ -1,4 +1,4 @@
-import type { ImageProps, ImageHrefs } from '@/components/Image/type';
+import type { ImageProps } from '@/components/Image/type';
 import type { Project } from '@/types/contents';
 import type { StaticImageData } from 'next/image';
 import type { ReactNode } from 'react';
@@ -15,6 +15,6 @@ export type DisplayCardProps = {
     topRight: string;
     bottomRight: string[];
     topLeft?: ReactNode[];
-    hrefs?: ImageHrefs;
+    hrefs?: string[][];
   };
 };

@@ -1,7 +1,6 @@
 import { IMAGE_STYLES } from '@/components/Image';
 import type { StaticImageData, ImageProps as NextImageProps } from 'next/image';
 
-export type ImageHrefs = [Record<'en' | 'id', string>, string][] | [];
 export type ImageProps = {
   className?: Partial<typeof IMAGE_STYLES.slots>;
   scale?: number;

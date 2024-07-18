@@ -1,10 +1,12 @@
 import { Fragment } from 'react';
-import { motion, useIsomorphicLayoutEffect, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useIsomorphicLayoutEffect } from 'framer-motion';
 import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import useInteractive from '@/components/pages/projects/Lists/fragments/ListContent/hooks/interactive';
 import Image from '@/components/Image';
+import Link from '@/components/Link';
 import Arrow from '@/svg/Arrow';
 import Cross from '@/svg/Cross';
+import Pill from '@/components/pages/projects/Lists/fragments/Pill';
 import classMerge from '@/utils/classMerge';
 import { VARIANTS } from '@/components/pages/projects/Lists/fragments/ListContent/constant';
 import type {
@@ -12,13 +14,13 @@ import type {
   ExtensionProps,
 } from '@/components/pages/projects/Lists/fragments/ListContent/type';
 
-const TITLE_STYLES = 'trim-helvetiva-neue transition-[transform,_opacity] inline-block';
+const TITLE_STYLES = 'trim-helvetiva-neue transition-[transform,_opacity] inline-block z-10';
 
 export default function ListContent(props: ListContentProps) {
   const { className, activeContent, project, id } = props;
   const { titleString, title, collaborator, category, year } = project;
-  const isLG970 = useMediaQueryStore((state) => state.isLG970);
   const identifier = `${id}-${titleString}`;
+  const isLG970 = useMediaQueryStore((state) => state.isLG970);
   const { titleStyles, isExtended, btnCrossStyles } = useInteractive({
     activeContent,
     title: identifier,
@@ -36,12 +38,13 @@ export default function ListContent(props: ListContentProps) {
     <Fragment>
       <div
         className={classMerge(
-          'grid grid-cols-subgrid col-span-full py-2 px-1 counter-default',
-          'overflow-hidden items-center user-select-none gap-3',
+          'grid grid-cols-subgrid col-span-full py-2 px-1 counter-default isolate',
+          'overflow-hidden items-center user-select-none gap-3 relative transition-colors',
+          'lg-970:hoverable:hover:text-dynamic-beige group/highlight',
           className
         )}
       >
-        <p className="trim-helvetiva-neue xl-only:hidden">
+        <p className="trim-helvetiva-neue z-10 xl-only:hidden">
           <span className="before:contents-counter-default" />
         </p>
         <motion.p
@@ -64,7 +67,7 @@ export default function ListContent(props: ListContentProps) {
           {year}
         </motion.p>
         <div
-          className="lg-970:hidden col-[end_/_-1] relative w-[.8lh] h-[.8lh]"
+          className="col-[end_/_-1] relative w-[.8lh] h-[.8lh] z-10 lg-970:hidden"
           onClick={_toggleExtended}
         >
           <motion.div
@@ -83,6 +86,12 @@ export default function ListContent(props: ListContentProps) {
             <Cross />
           </motion.div>
         </div>
+        <span
+          className={classMerge(
+            'absolute inset-0 bg-dynamic-grey z-0 opacity-0 transition-opacity',
+            'lg-970:group-hover/highlight:hoverable:opacity-100'
+          )}
+        />
       </div>
       <AnimatePresence initial={false}>
         {isExtended && <Extension key="extension" project={project} {...VARIANTS} />}
@@ -93,7 +102,7 @@ export default function ListContent(props: ListContentProps) {
 
 function Extension(props: ExtensionProps) {
   const { project, ...rest } = props;
-  const { title, collaborator, category, year, src, alt } = project;
+  const { title, collaborator, category, year, src, alt, hrefs } = project;
 
   return (
     <motion.section className={classMerge('col-span-full overflow-hidden')} {...rest}>
@@ -114,6 +123,23 @@ function Extension(props: ExtensionProps) {
         </div>
         <p className={classMerge('trim-helvetiva-neue')}>{year}</p>
         <Image src={src} alt={alt} className={{ container: 'w-full aspect-square' }} />
+        <div className="flex flex-wrap gap-1">
+          {category.map((cat) => (
+            <Pill key={cat}>{cat}</Pill>
+          ))}
+        </div>
+        <div className="flex flex-col gap-2 !mt-6 items-end">
+          {hrefs.map((href) => (
+            <Link
+              className={{ a: 'w-max' }}
+              key={href[1]}
+              href={href[1]}
+              isDisabled={href[1] === '#'}
+            >
+              {href[0]}
+            </Link>
+          ))}
+        </div>
       </div>
     </motion.section>
   );

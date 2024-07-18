@@ -4,27 +4,27 @@ import DashbardTodoCover from '@/contents/projects/dashboard-todo/images/cover.p
 import en from '@/contents/en';
 import id from '@/contents/id';
 import { ProjectFlag } from '@/types/contents';
-import type { ImageHrefs } from '@/components/Image/type';
 
 const { projectCategories: enProjCat, projectCopy: enProjCopy } = en;
 const { projectCategories: idProjCat, projectCopy: idProjCopy } = id;
 
-type catTypes = keyof typeof idProjCat;
-type copyTypes = keyof typeof idProjCopy;
+type CatTypes = keyof typeof idProjCat;
+type CopyTypes = keyof typeof idProjCopy;
+type HrefsTypes = [{ en: string; id: string }, string][];
 
 const PROJECT_COLLABORATOR_PERSONAL = 'Personal';
 const PROJECT_CATEGORIES = Object.keys(idProjCat).reduce((prev, curr) => {
-  const currTyped = curr as catTypes;
+  const currTyped = curr as CatTypes;
   prev[currTyped] = { en: enProjCat[currTyped], id: idProjCat[currTyped] };
 
   return prev;
-}, {} as { [key in catTypes]: { en: string; id: string } });
+}, {} as { [key in CatTypes]: { en: string; id: string } });
 const PROJECT_COPIES = Object.keys(idProjCopy).reduce((prev, curr) => {
-  const currTyped = curr as copyTypes;
+  const currTyped = curr as CopyTypes;
   prev[currTyped] = { en: enProjCopy[currTyped], id: idProjCopy[currTyped] };
 
   return prev;
-}, {} as { [key in copyTypes]: { en: string; id: string } });
+}, {} as { [key in CopyTypes]: { en: string; id: string } });
 
 export default {
   internets: {
@@ -42,7 +42,7 @@ export default {
       hrefs: [
         [PROJECT_COPIES.story, '#'],
         [PROJECT_COPIES.live, 'https://yusrmuttaqien.vercel.app'],
-      ] as ImageHrefs,
+      ] as HrefsTypes,
       collaborator: [PROJECT_COLLABORATOR_PERSONAL],
       src: undefined,
       flag: [ProjectFlag.ACCESSIBLE, ProjectFlag.ONGOING],
@@ -57,7 +57,7 @@ export default {
           { en: 'Access live landing page', id: 'Akses halaman arahan' },
           'https://yusrmuttaqien.github.io/dashboardlanding-bootcamp-site/',
         ],
-      ] as ImageHrefs,
+      ] as HrefsTypes,
       collaborator: [PROJECT_COLLABORATOR_PERSONAL],
       src: DashbardTodoCover,
       flag: [ProjectFlag.ACCESSIBLE],
@@ -68,7 +68,7 @@ export default {
       hrefs: [
         [PROJECT_COPIES.story, '#'],
         [PROJECT_COPIES.live, 'https://agreeculture.id/'],
-      ] as ImageHrefs,
+      ] as HrefsTypes,
       collaborator: ['Telkom Indonesia'],
       src: TelkomAgreecultureCover,
       flag: [ProjectFlag.ACCESSIBLE],
@@ -79,7 +79,7 @@ export default {
       hrefs: [
         [PROJECT_COPIES.story, '#'],
         [PROJECT_COPIES.live, 'https://findmovie-yusr.vercel.app/'],
-      ] as ImageHrefs,
+      ] as HrefsTypes,
       collaborator: [PROJECT_COLLABORATOR_PERSONAL],
       src: FindMovieCover,
       flag: [ProjectFlag.ACCESSIBLE],

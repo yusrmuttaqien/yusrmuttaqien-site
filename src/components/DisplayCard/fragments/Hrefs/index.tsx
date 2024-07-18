@@ -1,14 +1,10 @@
 import { Fragment } from 'react';
-import { useRouter } from 'next/router';
 import Link from '@/components/Link';
 import classMerge from '@/utils/classMerge';
-import { defaulti18n } from '@/constants/i18n';
-import type { i18nLocales } from '@/types/i18n';
 import type { HrefsProps } from '@/components/DisplayCard/fragments/Hrefs/type';
 
 export default function Hrefs(props: HrefsProps) {
   const { hrefs } = props;
-  const { locale } = useRouter();
 
   if (!hrefs.length) return null;
 
@@ -31,7 +27,7 @@ export default function Hrefs(props: HrefsProps) {
           if (!link[0] || !link[1]) return null;
 
           const isLast = index === array.length - 1;
-          const title = link[0][(locale as i18nLocales) || defaulti18n];
+          const title = link[0];
 
           return (
             <Fragment key={title}>
