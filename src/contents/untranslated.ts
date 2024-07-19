@@ -1,6 +1,7 @@
 import TelkomAgreecultureCover from '@/contents/projects/telkom-agreeculture/images/cover.png';
 import FindMovieCover from '@/contents/projects/find-movie/images/cover.png';
 import DashbardTodoCover from '@/contents/projects/dashboard-todo/images/cover.png';
+import YusrMuttaqienCover from '@/contents/projects/yusrmuttaqien-site/images/cover.png';
 import en from '@/contents/en';
 import id from '@/contents/id';
 import { ProjectFlag } from '@/types/contents';
@@ -44,7 +45,7 @@ export default {
         [PROJECT_COPIES.live, 'https://yusrmuttaqien.vercel.app'],
       ] as HrefsTypes,
       collaborator: [PROJECT_COLLABORATOR_PERSONAL],
-      src: undefined,
+      src: YusrMuttaqienCover,
       flag: [ProjectFlag.ACCESSIBLE, ProjectFlag.ONGOING],
     },
     'dashboard [<TODO>]': {
