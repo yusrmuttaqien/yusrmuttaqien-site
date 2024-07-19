@@ -8,7 +8,7 @@ import type { Project } from '@/types/contents';
 
 const COMP: TransComp = {
   default: (value, id) => (
-    <span key={id} className="text-dynamic-green">
+    <span key={id} className="text-dynamic-green group-hover/highlight:text-dynamic-beige">
       {value}
     </span>
   ),

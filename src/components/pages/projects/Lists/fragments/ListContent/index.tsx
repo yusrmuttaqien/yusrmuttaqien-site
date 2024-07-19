@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { motion, AnimatePresence, useIsomorphicLayoutEffect } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import useInteractive from '@/components/pages/projects/Lists/fragments/ListContent/hooks/interactive';
 import Image from '@/components/Image';
@@ -20,7 +20,10 @@ export default function ListContent(props: ListContentProps) {
   const { className, activeContent, project, id } = props;
   const { titleString, title, collaborator, category, year } = project;
   const identifier = `${id}-${titleString}`;
-  const isLG970 = useMediaQueryStore((state) => state.isLG970);
+  const { isLG970, isHoverable } = useMediaQueryStore((state) => ({
+    isLG970: state.isLG970,
+    isHoverable: state.isHoverable,
+  }));
   const { titleStyles, isExtended, btnCrossStyles } = useInteractive({
     activeContent,
     title: identifier,
@@ -29,10 +32,9 @@ export default function ListContent(props: ListContentProps) {
   function _toggleExtended() {
     activeContent.set(activeContent.get() === identifier ? '' : identifier);
   }
-
-  useIsomorphicLayoutEffect(() => {
-    isLG970 && activeContent.set('');
-  }, [isLG970]);
+  function _toggleDesktopExtended() {
+    isLG970 && isHoverable && _toggleExtended();
+  }
 
   return (
     <Fragment>
@@ -40,9 +42,11 @@ export default function ListContent(props: ListContentProps) {
         className={classMerge(
           'grid grid-cols-subgrid col-span-full py-2 px-1 counter-default isolate',
           'overflow-hidden items-center user-select-none gap-3 relative transition-colors',
-          'lg-970:hoverable:hover:text-dynamic-beige group/highlight',
+          'lg-970:hoverable:hover:text-dynamic-beige',
+          isLG970 && 'group/highlight',
           className
         )}
+        onClick={_toggleDesktopExtended}
       >
         <p className="trim-helvetiva-neue z-10 xl-only:hidden">
           <span className="before:contents-counter-default" />
@@ -66,7 +70,7 @@ export default function ListContent(props: ListContentProps) {
         <motion.p style={titleStyles} className={classMerge('text-right', TITLE_STYLES)}>
           {year}
         </motion.p>
-        <div
+        <button
           className="col-[end_/_-1] relative w-[.8lh] h-[.8lh] z-10 lg-970:hidden"
           onClick={_toggleExtended}
         >
@@ -85,7 +89,7 @@ export default function ListContent(props: ListContentProps) {
           >
             <Cross />
           </motion.div>
-        </div>
+        </button>
         <span
           className={classMerge(
             'absolute inset-0 bg-dynamic-grey z-0 opacity-0 transition-opacity',
@@ -94,13 +98,18 @@ export default function ListContent(props: ListContentProps) {
         />
       </div>
       <AnimatePresence initial={false}>
-        {isExtended && <Extension key="extension" project={project} {...VARIANTS} />}
+        {isExtended && !isLG970 && (
+          <MobileExtension key="extension-mobile" project={project} {...VARIANTS} />
+        )}
+        {isExtended && isLG970 && (
+          <DesktopExtension key="extension-dekstop" project={project} {...VARIANTS} />
+        )}
       </AnimatePresence>
     </Fragment>
   );
 }
 
-function Extension(props: ExtensionProps) {
+function MobileExtension(props: ExtensionProps) {
   const { project, ...rest } = props;
   const { title, collaborator, category, year, src, alt, hrefs } = project;
 
@@ -126,6 +135,53 @@ function Extension(props: ExtensionProps) {
         <div className="flex flex-wrap gap-1">
           {category.map((cat) => (
             <Pill key={cat}>{cat}</Pill>
+          ))}
+        </div>
+        <div className="flex flex-col gap-2 !mt-6 items-end">
+          {hrefs.map((href) => (
+            <Link
+              className={{ a: 'w-max' }}
+              key={href[1]}
+              href={href[1]}
+              isDisabled={href[1] === '#'}
+            >
+              {href[0]}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+function DesktopExtension(props: ExtensionProps) {
+  const { project, ...rest } = props;
+  const { collaborator, category, hrefs } = project;
+
+  return (
+    <motion.section
+      className={classMerge('col-span-full overflow-hidden xl:col-[start_/_-1]')}
+      {...rest}
+    >
+      <div className="pb-6 pt-3 px-1 space-y-2">
+        {collaborator.length > 1 && (
+          <p className={classMerge('trim-helvetiva-neue space-x-1 text-[.8em]')}>
+            {collaborator.map((cat, idx, arr) => {
+              const isLast = idx === arr.length - 1;
+              return (
+                <Fragment>
+                  <span>{cat}</span>
+                  {!isLast && <span className="text-[.8em]">x</span>}
+                </Fragment>
+              );
+            })}
+          </p>
+        )}
+        <div className="flex flex-wrap gap-1">
+          {category.map((cat) => (
+            <Pill key={cat} className="backdrop-blur-md">
+              {cat}
+            </Pill>
           ))}
         </div>
         <div className="flex flex-col gap-2 !mt-6 items-end">
