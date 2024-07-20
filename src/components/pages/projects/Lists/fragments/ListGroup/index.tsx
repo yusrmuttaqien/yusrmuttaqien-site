@@ -1,10 +1,12 @@
 import { Fragment } from 'react';
+import useContent from '@/components/pages/projects/Lists/hooks/content';
 import Arrow from '@/svg/Arrow';
 import classMerge from '@/utils/classMerge';
 import type { ListGroupProps } from '@/components/pages/projects/Lists/fragments/ListGroup/type';
 
 export function ListGroup(props: ListGroupProps) {
   const { count, title, children, className } = props;
+  const { empty } = useContent();
 
   return (
     <div>
@@ -19,7 +21,7 @@ export function ListGroup(props: ListGroupProps) {
       </div>
       <div
         className={classMerge(
-          'grid text-lg grid-cols-[[start]_1.5fr_1.2fr_[end]_fit-content(100%)]',
+          'grid text-lg grid-cols-[[start]_1.5fr_max-content_[end]_fit-content(100%)]',
           'lg:grid-cols-[[start]_1.5fr_1.2fr_1fr_[end]_fit-content(100%)]',
           'lg-970:grid-cols-[[start]_1.5fr_1.2fr_1fr_1fr_[end]_fit-content(100%)]',
           'xl:grid-cols-[fit-content(100%)_[start]_1.5fr_1.2fr_1fr_1fr_[end]_fit-content(100%)]',
@@ -34,7 +36,7 @@ export function ListGroup(props: ListGroupProps) {
               'text-dynamic-[grey_60] font-bold trim-helvetiva-neue mx-auto my-6 col-span-full'
             )}
           >
-            No projects
+            {empty}
           </p>
         )}
       </div>
@@ -42,6 +44,8 @@ export function ListGroup(props: ListGroupProps) {
   );
 }
 export function Title() {
+  const { titles } = useContent();
+
   return (
     <Fragment>
       <div
@@ -51,10 +55,10 @@ export function Title() {
         )}
       >
         <p className="trim-helvetiva-neue invisible xl-only:hidden">00</p>
-        <p className="trim-helvetiva-neue">Project</p>
-        <p className="trim-helvetiva-neue lg-only:hidden">Industry</p>
-        <p className="trim-helvetiva-neue lg-970-only:hidden">Client</p>
-        <p className="trim-helvetiva-neue text-right">Year</p>
+        <p className="trim-helvetiva-neue">{titles.project}</p>
+        <p className="trim-helvetiva-neue lg-only:hidden">{titles.industry}</p>
+        <p className="trim-helvetiva-neue lg-970-only:hidden">{titles.client}</p>
+        <p className="trim-helvetiva-neue text-right">{titles.year}</p>
         <Arrow className="invisible w-[.8lh] h-[.8lh] rotate-[135deg] lg-970:hidden" />
       </div>
     </Fragment>

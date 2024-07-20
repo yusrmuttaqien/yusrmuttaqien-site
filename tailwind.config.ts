@@ -68,7 +68,10 @@ const config: Config = {
       addComponents({
         '.body': {
           fontFamily: theme('fontFamily.helveticaNeue'),
-          fontSize: clamp({ minValue: 14, maxValue: 16, minViewport: 320, maxViewport: 375 }),
+          fontSize: clamp({ minValue: 12, maxValue: 14, minViewport: 320, maxViewport: 375 }),
+          '@media (min-width:430px)': {
+            fontSize: clamp({ minValue: 14, maxValue: 16, minViewport: 430, maxViewport: 540 }),
+          },
         },
       });
       // Trim

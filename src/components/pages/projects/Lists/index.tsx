@@ -1,5 +1,6 @@
 import { useMotionValue, useIsomorphicLayoutEffect } from 'framer-motion';
 import useProjects from '@/hooks/projects';
+import useContent from '@/components/pages/projects/Lists/hooks/content';
 import { ListGroup, Title } from '@/components/pages/projects/Lists/fragments/ListGroup';
 import ListContent from '@/components/pages/projects/Lists/fragments/ListContent';
 import Preview from '@/components/pages/projects/Lists/fragments/Preview';
@@ -8,6 +9,7 @@ import classMerge from '@/utils/classMerge';
 export default function Lists() {
   const { projects, count } = useProjects();
   const activeContent = useMotionValue('');
+  const { title, categories } = useContent();
 
   useIsomorphicLayoutEffect(() => {
     return () => {
@@ -17,9 +19,9 @@ export default function Lists() {
 
   return (
     <section className="pb-5 xl:pb-8 relative isolate min-h-full-total-navbar flex flex-col justify-between">
-      <h1 className="hidden">Projects lists</h1>
+      <h1 className="hidden">{title}</h1>
       <div className={classMerge('flex flex-col gap-[2.625rem] xl:gap-clamp-[54_84_1280_1512]')}>
-        <ListGroup count={count.accessible} title="Accessible">
+        <ListGroup count={count.accessible} title={categories.accessible}>
           <Title />
           {projects.accessible.map((project, idx) => (
             <ListContent
@@ -31,7 +33,7 @@ export default function Lists() {
             />
           ))}
         </ListGroup>
-        <ListGroup count={count.ongoing} title="Ongoing">
+        <ListGroup count={count.ongoing} title={categories.ongoing}>
           <Title />
           {projects.ongoing.map((project, idx) => (
             <ListContent
@@ -43,7 +45,7 @@ export default function Lists() {
             />
           ))}
         </ListGroup>
-        <ListGroup count={count.upcoming} title="Upcoming">
+        <ListGroup count={count.upcoming} title={categories.upcoming}>
           <Title />
           {projects.upcoming.map((project, idx) => (
             <ListContent

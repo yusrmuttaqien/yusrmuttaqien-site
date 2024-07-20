@@ -28,7 +28,7 @@ const COMPS: TransComp = {
 };
 
 export default function Information() {
-  const { about, cv, author } = useContent();
+  const { about, cv, author, greeting } = useContent();
   const { scope } = useEntry();
 
   return (
@@ -78,7 +78,7 @@ export default function Information() {
           alt: 'Yusril Muttaqien',
           bottomRight: [author],
           topRight: '2024',
-          topLeft: ['Hi there!'],
+          topLeft: [greeting],
           bottomLeft: 'Yusril Muttaqien',
         }}
         id="yusril-muttaqien"

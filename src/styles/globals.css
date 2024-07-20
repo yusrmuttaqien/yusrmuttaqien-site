@@ -56,8 +56,8 @@
   }
 
   body {
-    @apply unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased;
-    @apply min-w-full text-dynamic-grey font-helveticaNeue body;
+    @apply min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased;
+    @apply text-dynamic-grey font-helveticaNeue body;
   }
 
   .lenis.lenis-smooth {

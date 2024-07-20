@@ -22,4 +22,5 @@ export default {
     loading: 'Memuat konten',
   },
   author: 'Pembuat',
+  greeting: 'Halo!',
 };

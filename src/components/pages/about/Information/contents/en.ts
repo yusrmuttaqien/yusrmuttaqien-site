@@ -22,4 +22,5 @@ export default {
     loading: 'Loading content',
   },
   author: 'Author',
+  greeting: 'Hi there!',
 };

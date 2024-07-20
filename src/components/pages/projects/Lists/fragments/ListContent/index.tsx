@@ -71,7 +71,7 @@ export default function ListContent(props: ListContentProps) {
           {year}
         </motion.p>
         <button
-          className="col-[end_/_-1] relative w-[.8lh] h-[.8lh] z-10 lg-970:hidden"
+          className="col-[end_/_-1] relative w-[.9rem] h-[.9rem] z-10 lg-970:hidden"
           onClick={_toggleExtended}
         >
           <motion.div
@@ -119,11 +119,12 @@ function MobileExtension(props: ExtensionProps) {
         <div>
           <p className={classMerge('font-bold trim-helvetiva-neue')}>{title}</p>
           <p className={classMerge('trim-helvetiva-neue space-x-1 text-[.8em]')}>
-            {collaborator.map((cat, idx, arr) => {
+            {collaborator.map((col, idx, arr) => {
               const isLast = idx === arr.length - 1;
+
               return (
-                <Fragment>
-                  <span>{cat}</span>
+                <Fragment key={col}>
+                  <span>{col}</span>
                   {!isLast && <span className="text-[.8em]">x</span>}
                 </Fragment>
               );
