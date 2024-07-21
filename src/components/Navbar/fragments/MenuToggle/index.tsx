@@ -8,11 +8,9 @@ import { VARIANT } from '@/components/Navbar/fragments/MenuToggle/constant';
 import type { MenuToggleProps } from '@/components/Navbar/fragments/MenuToggle/type';
 
 const TOGGLE_STYLES = 'inline-block absolute top-0 right-0 whitespace-nowrap';
-const TOGGLE_INTERVAL = 300;
 
 export default function MenuToggle(props: MenuToggleProps) {
   const { className } = props;
-  const lastClick = useRef(0);
   const { menuOpen, menuClose } = useContent();
   const isXL = useMediaQueryStore((store) => store.isXL);
   const { toggle, isNavMenu, set } = useTogglesStore((store) => ({
@@ -21,13 +19,7 @@ export default function MenuToggle(props: MenuToggleProps) {
     set: store.set,
   }));
 
-  function _debouncedToggle() {
-    const last = lastClick.current;
-    const now = Date.now();
-
-    if (now - last < TOGGLE_INTERVAL) return;
-
-    lastClick.current = now;
+  function _toggleMenu() {
     toggle('isNavMenu');
   }
 
@@ -39,7 +31,7 @@ export default function MenuToggle(props: MenuToggleProps) {
     <button
       id="menu-toggle"
       className={classMerge('trim-helvetiva-neue overflow-hidden space-x-[.5ch]', className)}
-      onClick={_debouncedToggle}
+      onClick={_toggleMenu}
     >
       <span className="relative inline-block">
         <AnimatePresence initial={false}>
