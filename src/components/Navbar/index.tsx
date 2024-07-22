@@ -29,7 +29,6 @@ export const classes = tv({
     menu: '',
   },
 });
-
 export default function Navbar(props: NavbarProps) {
   const { className } = props;
   const scope = useRef<HTMLDivElement>(null);

@@ -1,6 +1,5 @@
 import { useLenis } from '@studio-freight/react-lenis';
-
-const LOCK_ATTR = 'data-lockers';
+import { LOCK_ATTR } from '@/hooks/scrollLock/constant';
 
 export default function useScrollLock() {
   const lenis = useLenis();

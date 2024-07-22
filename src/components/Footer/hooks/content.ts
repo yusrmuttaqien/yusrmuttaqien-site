@@ -1,15 +1,12 @@
-import { useRouter } from 'next/router';
 import id from '@/components/Footer/content/id';
 import en from '@/components/Footer/content/en';
 import untranslated from '@/components/Footer/content/untranslated';
 import globalId from '@/contents/id';
 import globalEn from '@/contents/en';
 import globalUntranslated from '@/contents/untranslated';
-import { defaulti18n } from '@/constants/i18n';
-import type { i18nLocales } from '@/types/i18n';
+import currentI18n from '@/utils/currentI18n';
 
 export default function useContent() {
-  const { locale } = useRouter();
   const { createdWithDesc } = untranslated;
   const { internets } = globalUntranslated;
   const internetsMap = Object.entries(internets).map(([title, rest]) => ({ title, ...rest }));
@@ -28,5 +25,5 @@ export default function useContent() {
     },
   };
 
-  return contents[locale as i18nLocales] || defaulti18n;
+  return contents[currentI18n()];
 }

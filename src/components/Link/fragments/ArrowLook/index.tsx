@@ -9,7 +9,6 @@ export const ARROW_LOOK_STYLES = tv({
     text: 'inline-block body trim-helvetiva-neue',
   },
 });
-
 export default function ArrowLook(props: ArrowLookProps) {
   const { children, isActive, isDisabled, className } = props;
   const { container, text } = ARROW_LOOK_STYLES();

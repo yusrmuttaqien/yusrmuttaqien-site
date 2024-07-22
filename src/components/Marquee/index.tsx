@@ -10,7 +10,6 @@ export const MARQUEE_STYLES = tv({
     child: 'inline-block',
   },
 });
-
 export default function Marquee(props: MarqueeProps) {
   const { children, name, className, ...rest } = props;
   const { scope, repeat, x } = useInteractive({ children, ...rest });

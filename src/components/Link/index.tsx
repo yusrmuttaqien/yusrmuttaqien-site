@@ -15,7 +15,6 @@ export const LINK_STYLES = tv({
     a: '',
   },
 });
-
 export default function Link(props: LinkProps) {
   const {
     onClick,

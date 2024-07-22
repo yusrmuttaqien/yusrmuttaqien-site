@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import {
-  cubicBezier,
   useAnimate,
   useIsomorphicLayoutEffect,
   useInView,
@@ -9,6 +8,7 @@ import {
 import { useTogglesStore } from '@/contexts/toggles';
 import { TIMELINE_ENTRY_CONTACT, TIMELINE_ENTRY_FOOTER } from '@/components/Footer/constant';
 import isBottomFold from '@/utils/isBottomFold';
+import { EASE_OUT_QUART } from '@/constants/motion';
 import type { AnimationResumables } from '@/types/timeline';
 
 export default function useEntry() {
@@ -45,7 +45,7 @@ export default function useEntry() {
           resumables.current.instance = await gAnimate(
             '#footer-contact',
             TIMELINE_ENTRY_CONTACT.visible,
-            { ease: cubicBezier(0.25, 1, 0.5, 1), delay: 0.1 }
+            { ease: EASE_OUT_QUART, delay: 0.1 }
           );
           resumables.current.instance = await animate(TIMELINE_ENTRY_FOOTER.visible);
           resumables.current.status = 'complete';

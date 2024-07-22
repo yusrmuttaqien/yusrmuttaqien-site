@@ -11,6 +11,7 @@ import type { AnimationResumables } from '@/types/timeline';
 export default function Host(props: HostProps) {
   const { scope } = props;
   const { asPath } = useRouter();
+  const routeCache = useRef('/');
   const resumables = useRef<AnimationResumables>({ instance: null, status: 'not-ready' });
   const { isNavYM, set } = useTogglesStore((store) => ({ isNavYM: store.isNavYM, set: store.set }));
   const isXL1490 = useMediaQueryStore((store) => store.isXL1490);
@@ -37,6 +38,7 @@ export default function Host(props: HostProps) {
     let timeout: NodeJS.Timeout;
 
     function _getHeroYMTitle() {
+      const isChangeRoute = routeCache.current !== asPath;
       HeroYMTitle = document.querySelector('#hero-ym-title') as HTMLHeadingElement;
       HeroYMInView = inView(HeroYMTitle, _setNavYM);
 
@@ -44,11 +46,12 @@ export default function Host(props: HostProps) {
         timeout = setTimeout(() => {
           _getHeroYMTitle();
         }, 100);
-      } else {
+      } else if (!isChangeRoute) {
         _setNavYM(null, asPath !== '/' || isTopFold(HeroYMTitle));
       }
-    }
 
+      routeCache.current = asPath;
+    }
     function _setNavYM(_: any, initial: boolean = false) {
       set('isNavYM', initial);
 

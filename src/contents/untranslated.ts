@@ -62,6 +62,7 @@ export default {
     'Yusril Muttaqien [<Site>]': {
       categories: [
         PROJECT_CATEGORIES.web,
+        PROJECT_CATEGORIES.closedSource,
         PROJECT_MORE_CATEGORIES.nextjs,
         PROJECT_MORE_CATEGORIES['framer-motion'],
         PROJECT_MORE_CATEGORIES.lenis,
@@ -98,6 +99,10 @@ export default {
           { en: 'Access live landing page', id: 'Akses halaman arahan' },
           'https://yusrmuttaqien.github.io/dashboardlanding-bootcamp-site/',
         ],
+        [
+          PROJECT_HREF_COPIES.github,
+          'https://github.com/yusrmuttaqien?tab=repositories&q=dashboard-site&type=&language=&sort=',
+        ],
       ] as HrefsTypes,
       collaborator: [PROJECT_COLLABORATOR_PERSONAL],
       src: DashbardTodoCover,
@@ -106,6 +111,7 @@ export default {
     'Telkom Agreeculture': {
       categories: [
         PROJECT_CATEGORIES.web,
+        PROJECT_CATEGORIES.closedSource,
         PROJECT_MORE_CATEGORIES.react,
         PROJECT_MORE_CATEGORIES.nextjs,
         PROJECT_MORE_CATEGORIES['redux-toolkit'],
@@ -142,6 +148,7 @@ export default {
       hrefs: [
         [PROJECT_HREF_COPIES.story, '#'],
         [PROJECT_HREF_COPIES.live, 'https://findmovie-yusr.vercel.app/'],
+        [PROJECT_HREF_COPIES.github, 'https://github.com/yusrmuttaqien/findmovie-site'],
       ] as HrefsTypes,
       collaborator: [PROJECT_COLLABORATOR_PERSONAL],
       src: FindMovieCover,

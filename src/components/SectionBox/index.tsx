@@ -11,7 +11,6 @@ export const SECTION_BOX_STYLES = tv({
     title: 'trim-helvetiva-neue font-semibold text-dynamic-[grey_60]',
   },
 });
-
 export default function SectionBox(props: SectionBoxProps) {
   const { title, children, className, id, sectionRef } = props;
   const { container, title: titleStyle } = SECTION_BOX_STYLES();

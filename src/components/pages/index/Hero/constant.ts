@@ -1,4 +1,5 @@
-import { stagger, cubicBezier, type AnimationSequence } from 'framer-motion';
+import { stagger, type AnimationSequence } from 'framer-motion';
+import { EASE_OUT_QUART } from '@/constants/motion';
 
 export const TIMELINE_ENTRY: { visible: AnimationSequence; invisible: AnimationSequence } = {
   visible: [
@@ -7,7 +8,7 @@ export const TIMELINE_ENTRY: { visible: AnimationSequence; invisible: AnimationS
     [
       '#window',
       { opacity: 1, filter: 'blur(0px)', z: '0px', rotateX: '0deg' },
-      { ease: cubicBezier(0.25, 1, 0.5, 1), duration: 0.8, delay: 0.4 },
+      { ease: EASE_OUT_QUART, duration: 0.8, delay: 0.4 },
     ],
     ['#pattern', { filter: 'blur(0px)' }, { at: '-0.5' }],
     ['#ym-image', { filter: 'blur(0px)' }, { at: '-0.2' }],

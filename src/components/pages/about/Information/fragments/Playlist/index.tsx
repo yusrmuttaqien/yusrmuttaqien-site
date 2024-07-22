@@ -5,9 +5,8 @@ import useContent from '@/components/pages/about/Information/hooks/content';
 import SectionBox from '@/components/SectionBox';
 import classMerge from '@/utils/classMerge';
 import { SECTION_BOX_STYLES } from '@/components/pages/about/Information/constant';
+import { INFO_SECTION_LOCK_ID } from '@/components/pages/about/Information/fragments/Playlist/constant';
 import type { PlaylistHeaderProps } from '@/components/pages/about/Information/fragments/Playlist/type';
-
-const INFO_SECTION_LOCK_ID = 'info-section';
 
 export default function Playlist() {
   const { play } = useContent();

@@ -1,7 +1,6 @@
-import { stagger, cubicBezier, type AnimationSequence } from 'framer-motion';
+import { stagger, type AnimationSequence } from 'framer-motion';
 import type { HostProps } from '@/components/Navbar/type';
-
-const YM_TRANSITION = { ease: cubicBezier(0.25, 1, 0.5, 1), duration: 0.5 };
+import { EASE_OUT_QUART } from '@/constants/motion';
 
 export function TIMELINE_ENTRY(screenMode: 'mobile' | 'desktop'): {
   visible: AnimationSequence;
@@ -74,14 +73,22 @@ export function TIMELINE_YM_TITLE(scope: HostProps['scope']): {
 
   return {
     visible: [
-      [YMTitle, { x: `0%`, y: '-50%', opacity: 1, filter: 'blur(0px)' }, { ...YM_TRANSITION }],
-      [location, { x: `${YMWidth}px` }, { at: '<', ...YM_TRANSITION }],
-      [clock, { x: `${YMWidth}px` }, { at: '<', ...YM_TRANSITION }],
+      [
+        YMTitle,
+        { x: `0%`, y: '-50%', opacity: 1, filter: 'blur(0px)' },
+        { ease: EASE_OUT_QUART, duration: 0.5 },
+      ],
+      [location, { x: `${YMWidth}px` }, { at: '<', ease: EASE_OUT_QUART, duration: 0.5 }],
+      [clock, { x: `${YMWidth}px` }, { at: '<', ease: EASE_OUT_QUART, duration: 0.5 }],
     ],
     invisible: [
-      [YMTitle, { x: `-100%`, y: '-50%', opacity: 0, filter: 'blur(16px)' }, { ...YM_TRANSITION }],
-      [location, { x: `0%` }, { at: '<', ...YM_TRANSITION }],
-      [clock, { x: `0%` }, { at: '<', ...YM_TRANSITION }],
+      [
+        YMTitle,
+        { x: `-100%`, y: '-50%', opacity: 0, filter: 'blur(16px)' },
+        { ease: EASE_OUT_QUART, duration: 0.5 },
+      ],
+      [location, { x: `0%` }, { at: '<', ease: EASE_OUT_QUART, duration: 0.5 }],
+      [clock, { x: `0%` }, { at: '<', ease: EASE_OUT_QUART, duration: 0.5 }],
     ],
   };
 }

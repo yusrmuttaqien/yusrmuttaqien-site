@@ -9,7 +9,6 @@ export const AVAILIBILITY_STYLES = tv({
     text: 'text-beige trim-helvetiva-neue text-center',
   },
 });
-
 export default function Availibility(props: AvailibilityProps) {
   const { className } = props;
   const { available } = useContent();

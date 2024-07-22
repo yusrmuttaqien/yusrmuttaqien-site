@@ -3,7 +3,6 @@ import { useLenis } from '@studio-freight/react-lenis';
 import {
   useIsomorphicLayoutEffect,
   useAnimate,
-  cubicBezier,
   animate as gAnimate,
   useScroll,
   type AnimationPlaybackControls,
@@ -12,8 +11,7 @@ import { useTogglesStore } from '@/contexts/toggles';
 import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import debounce from '@/utils/debounce';
 import { TIMELINE_MAIN, TIMELINE_MENU } from '@/components/Navbar/fragments/Menu/constant';
-
-const MAIN_TRANSITION = { ease: cubicBezier(0.25, 1, 0.5, 1) };
+import { EASE_OUT_QUART } from '@/constants/motion';
 
 export default function useVisible() {
   const [scope, animate] = useAnimate();
@@ -55,14 +53,18 @@ export default function useVisible() {
 
       root.classList.remove('invisible');
       mainTimeline.current?.stop();
-      mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.visible, MAIN_TRANSITION);
+      mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.visible, {
+        ease: EASE_OUT_QUART,
+      });
       animate(TIMELINE_MENU(scope, isDarkMode).visible);
     }
     function _closeSequence() {
       if (!mainTimeline.current) return;
 
       mainTimeline.current.stop();
-      mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.invisible, MAIN_TRANSITION);
+      mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.invisible, {
+        ease: EASE_OUT_QUART,
+      });
       return animate(TIMELINE_MENU(scope, isDarkMode, 'animate').invisible).then(() => {
         root.classList.add('invisible');
 

@@ -13,7 +13,6 @@ export default function ClockSegment(props: ClockSegmentProps) {
           <motion.span
             className={classMerge('inline-block absolute', index === 1 && 'right-0')}
             {...VARIANT}
-            transition={{ duration: 0.3 }}
             key={`${name}-${index}-${value}`}
           >
             {value}

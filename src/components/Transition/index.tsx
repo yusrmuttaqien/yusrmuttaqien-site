@@ -8,17 +8,19 @@ import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import { useStatics } from '@/contexts/statics';
 import Footer from '@/components/Footer';
 import getPageID from '@/utils/getPageID';
-import { VARIANT, MANUAL_ENABLE_SCROLL } from '@/components/Transition/constant';
+import {
+  VARIANT,
+  MANUAL_ENABLE_SCROLL,
+  TRANSITION_LOCK_ID,
+} from '@/components/Transition/constant';
 import type { TransitionProps, TransitionAnimatable } from '@/components/Transition/type';
 
-export const TRANSITION_LOCK_ID = 'transition';
 export const TRANSITION_STYLES = tv({
   slots: {
     main: 'min-h-full-total-navbar relative z-20',
     container: 'isolate',
   },
 });
-
 export default function Transition(props: TransitionProps) {
   const { children, className, ...rest } = props;
   const statics = useStatics();

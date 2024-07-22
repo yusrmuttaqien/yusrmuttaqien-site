@@ -11,7 +11,6 @@ export const IMAGE_STYLES = tv({
     image: 'object-cover',
   },
 });
-
 export default function Image(props: ImageProps) {
   const {
     scale: scaleFactor = 1.5,

@@ -16,6 +16,7 @@ export const createMediaQueryStore = (initState: MediaQueryState = initialState)
       ...initState,
       validate: () => set((draft) => void (draft.isValidated = true)),
       update: (key, value) => set((draft) => void (draft[key] = value)),
+      // TODO: Verify & add batch/bulk update method to every stores
       bulkUpdate: (values) =>
         set((draft) => {
           for (const key in values) {
