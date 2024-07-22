@@ -5,7 +5,7 @@ import { useTogglesStore } from '@/contexts/toggles';
 import useScrollLock from '@/hooks/scrollLock';
 import { TIMELINE_ENTRY } from '@/components/pages/index/Hero/constant';
 import isTopFold from '@/utils/isTopFold';
-import { TRANSITION_LOCK_ID } from '@/components/Transition';
+import { TRANSITION_LOCK_ID } from '@/components/Transition/constant';
 import type { AnimationResumables } from '@/types/timeline';
 
 export default function useEntry() {
