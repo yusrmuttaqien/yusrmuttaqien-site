@@ -14,6 +14,8 @@ const config: Config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/utils/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/hooks/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -29,16 +31,30 @@ const config: Config = {
       transitionTimingFunction: {
         'out-quart': 'cubic-bezier(0.25, 1, 0.5, 1)',
       },
+      spacing: {
+        'half-minimal-navbar': 'calc(100svh / 2 - var(--navbar-docked-minimal-height) / 2)',
+      },
+      height: {
+        'full-total-navbar': 'calc(100svh - var(--navbar-docked-total-height))',
+      },
+      minHeight: {
+        'full-total-navbar': 'calc(100svh - var(--navbar-docked-total-height))',
+        'full-minimal-navbar': 'calc(100svh - var(--navbar-docked-minimal-height))',
+      },
     },
     screens: {
       sm: scrSize({ screen: 'sm', withUnit: true }),
+      'md-only': { max: scrSize({ screen: 'md', withUnit: true, modifier: -1 }) },
       md: scrSize({ screen: 'md', withUnit: true }),
-      'md-only': { max: scrSize({ screen: 'lg', withUnit: true, modifier: -1 }) },
-      lg: scrSize({ screen: 'lg', withUnit: true }),
+      'lg-540-only': { max: '539px' },
       'lg-540': '540px',
       'lg-590': '590px',
+      'lg-only': { max: scrSize({ screen: 'lg', withUnit: true, modifier: -1 }) },
+      lg: scrSize({ screen: 'lg', withUnit: true }),
       'lg-850': '850px',
-      'lg-only': { max: scrSize({ screen: 'xl', withUnit: true, modifier: -1 }) },
+      'lg-970-only': { max: '969px' },
+      'lg-970': '970px',
+      'xl-only': { max: scrSize({ screen: 'xl', withUnit: true, modifier: -1 }) },
       xl: scrSize({ screen: 'xl', withUnit: true }),
       '2xl': scrSize({ screen: '2xl', withUnit: true }),
       hoverable: { raw: '(hover: hover)' },
@@ -53,6 +69,9 @@ const config: Config = {
         '.body': {
           fontFamily: theme('fontFamily.helveticaNeue'),
           fontSize: clamp({ minValue: 12, maxValue: 14, minViewport: 320, maxViewport: 375 }),
+          '@media (min-width:430px)': {
+            fontSize: clamp({ minValue: 14, maxValue: 16, minViewport: 430, maxViewport: 540 }),
+          },
         },
       });
       // Trim
@@ -61,7 +80,7 @@ const config: Config = {
           trim: (family) => {
             let preset: Record<string, { before: string; after: string; lineHeight?: string }> = {
               nohemi: { before: '-0.04em', after: '-0.2em' },
-              helveticaNeue: { before: '-0.1em', after: '-0.3em' },
+              helveticaNeue: { before: '-0.1em', after: '-0.4em' },
             };
             preset = {
               ...preset,
@@ -164,6 +183,39 @@ const config: Config = {
           },
         },
         { values: { '5000': '5000px' } }
+      );
+      matchUtilities(
+        {
+          'perspective-origin': (value) => {
+            return { perspectiveOrigin: value };
+          },
+        },
+        { values: { left: 'left', right: 'right', center: 'center' } }
+      );
+      // Counter
+      matchUtilities(
+        {
+          counter: (value) => {
+            return { counterIncrement: value };
+          },
+        },
+        { values: { default: 'count' } }
+      );
+      matchUtilities(
+        {
+          'counter-reset': (value) => {
+            return { counterReset: value };
+          },
+        },
+        { values: { default: 'count' } }
+      );
+      matchUtilities(
+        {
+          'contents-counter': (value) => {
+            return { content: `counter(${value})` };
+          },
+        },
+        { values: { default: 'count' } }
       );
     }),
   ],

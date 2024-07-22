@@ -3,23 +3,48 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --pad-scrollbar: 0px;
-  }
-
   * {
-    scrollbar-width: thin;
-    scrollbar-color: theme(colors.grey.DEFAULT / 10%) theme(colors.beige.DEFAULT);
+    /* scrollbar-width: thin;
+    scrollbar-color: theme(colors.grey.DEFAULT / 10%) theme(colors.beige.DEFAULT); */
     cursor: none !important;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none !important; /* Firefox */
+    scroll-margin-top: var(--navbar-docked-minimal-height);
   }
-  *::-webkit-scrollbar-track {
+  *::-webkit-scrollbar {
+    display: none !important; /* Safari and Chrome */
+  }
+  /* *::-webkit-scrollbar-track {
     @apply bg-dynamic-beige;
   }
   *::-webkit-scrollbar-thumb {
     @apply bg-dynamic-[grey_10];
-  }
+  } */
   *::selection {
     @apply bg-dynamic-[grey_80] text-dynamic-beige;
+  }
+  * input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+  }
+  * input[type='range']::-webkit-slider-runnable-track {
+    @apply bg-dynamic-[grey_60] h-1;
+  }
+  * input[type='range']::-moz-range-track {
+    @apply bg-dynamic-[grey_60] h-1;
+  }
+  * input[type='range']::-webkit-slider-thumb {
+    appearance: none;
+    margin-top: calc(-0.5rem + 0.125rem);
+    @apply bg-dynamic-grey h-4 w-4;
+  }
+  * input[type='range']::-moz-range-thumb {
+    appearance: none;
+    @apply bg-dynamic-grey h-4 w-4 rounded-none shadow-none;
+  }
+  * input[type='range']:disabled {
+    @apply opacity-[0.2];
   }
 
   html {
@@ -31,8 +56,8 @@
   }
 
   body {
-    @apply unhoverable:min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased;
-    @apply min-w-full text-dynamic-grey font-helveticaNeue body;
+    @apply min-w-80 hoverable:min-w-[calc(20rem-0.6875rem)] antialiased;
+    @apply text-dynamic-grey font-helveticaNeue body;
   }
 
   .lenis.lenis-smooth {

@@ -6,7 +6,7 @@ export default function Clock() {
   useDate();
 
   return (
-    <p className="trim-helvetiva-neue" id="clock">
+    <p className="trim-helvetiva-neue perspective-5000 w-max" id="clock">
       <SegmentHour />
       <span className="mx-[.2ch]">:</span>
       <SegmentMinute />
@@ -17,7 +17,6 @@ export default function Clock() {
   );
 }
 
-// TODO: Move to fragments
 function SegmentHour() {
   const hour = useClockStore((state) => state.hour);
 

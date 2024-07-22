@@ -20,13 +20,13 @@ export default function useInteractive() {
       const availibility = root.querySelector('#availibility') as HTMLElement;
       const availibilityP = root.querySelector('#availibility p') as HTMLElement;
 
-      if (overContent && !root.classList.contains('mix-blend-difference')) {
+      if (overContent) {
         root.classList.add('mix-blend-difference');
         root.classList.remove('text-dynamic-grey');
         availibility.classList.remove('bg-dynamic-green');
         availibility.classList.add('bg-beige');
         availibilityP.classList.add('text-grey');
-      } else if (!overContent && root.classList.contains('mix-blend-difference')) {
+      } else if (!overContent) {
         root.classList.remove('mix-blend-difference');
         root.classList.add('text-dynamic-grey');
         availibility.classList.add('bg-dynamic-green');

@@ -1,10 +1,17 @@
 export default {
-  projectTypes: {
+  projectCategories: {
     web: 'Pengembangan web',
+    closedSource: 'Sumber tertutup',
   },
-  projectCollabTypes: {
-    self: 'Projek-pribadi',
-    work: 'Projek-pekerjaan [<COMPANY>]',
+  projectHrefCopy: {
+    live: 'Akses halaman projek',
+    story: 'Akses cerita projek',
+    github: 'Akses repositori',
   },
   internetsTitle: 'Internet',
+  sitemapsTitle: {
+    home: 'Halaman utama',
+    about: 'Tentang',
+    projects: 'Projek',
+  },
 };

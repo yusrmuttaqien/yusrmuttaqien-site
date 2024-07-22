@@ -2,7 +2,7 @@ import { createStore } from 'zustand/vanilla';
 import { immer } from 'zustand/middleware/immer';
 import type { MeasuresStore, MeasuresState } from '@/stores/measures/type';
 
-export const initialState: MeasuresState = {
+export const initialState = {
   navbarHeight: 0,
   navbarTop: 0,
   navbarMTop: 0,

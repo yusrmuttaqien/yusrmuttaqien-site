@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useRouter } from 'next/router';
 import { useIsomorphicLayoutEffect, animate, inView } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
-import { useMediaQueryStore } from '@/contexts/mediaQuery';
+import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import { TIMELINE_YM_TITLE } from '@/components/Navbar/constant';
 import isTopFold from '@/utils/isTopFold';
 import type { HostProps } from '@/components/Navbar/type';
@@ -11,6 +11,7 @@ import type { AnimationResumables } from '@/types/timeline';
 export default function Host(props: HostProps) {
   const { scope } = props;
   const { asPath } = useRouter();
+  const routeCache = useRef('/');
   const resumables = useRef<AnimationResumables>({ instance: null, status: 'not-ready' });
   const { isNavYM, set } = useTogglesStore((store) => ({ isNavYM: store.isNavYM, set: store.set }));
   const isXL1490 = useMediaQueryStore((store) => store.isXL1490);
@@ -32,18 +33,37 @@ export default function Host(props: HostProps) {
         : animate(TIMELINE_YM_TITLE(scope).invisible);
   }, [isNavYM, isXL1490]);
   useIsomorphicLayoutEffect(() => {
-    const HeroYMTitle = document.querySelector('#hero-ym-title') as HTMLHeadingElement;
-    const YMInView = inView(HeroYMTitle, _setNavYM);
+    let HeroYMTitle = document.querySelector('#hero-ym-title') as HTMLHeadingElement;
+    let HeroYMInView: VoidFunction;
+    let timeout: NodeJS.Timeout;
 
+    function _getHeroYMTitle() {
+      const isChangeRoute = routeCache.current !== asPath;
+      HeroYMTitle = document.querySelector('#hero-ym-title') as HTMLHeadingElement;
+      HeroYMInView = inView(HeroYMTitle, _setNavYM);
+
+      if (asPath === '/' && !HeroYMTitle) {
+        timeout = setTimeout(() => {
+          _getHeroYMTitle();
+        }, 100);
+      } else if (!isChangeRoute) {
+        _setNavYM(null, asPath !== '/' || isTopFold(HeroYMTitle));
+      }
+
+      routeCache.current = asPath;
+    }
     function _setNavYM(_: any, initial: boolean = false) {
       set('isNavYM', initial);
 
       return () => set('isNavYM', true);
     }
 
-    _setNavYM(null, isTopFold(HeroYMTitle) || asPath !== '/');
+    _getHeroYMTitle();
 
-    return YMInView;
+    return () => {
+      HeroYMInView();
+      clearTimeout(timeout);
+    };
   }, [asPath]);
 
   return null;

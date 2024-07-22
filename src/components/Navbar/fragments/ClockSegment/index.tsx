@@ -7,7 +7,7 @@ export default function ClockSegment(props: ClockSegmentProps) {
   const { segment, name } = props;
 
   return (
-    <span className="relative">
+    <span className="relative transform-preserve3d">
       <AnimatePresence>
         {segment.map((value, index) => (
           <motion.span

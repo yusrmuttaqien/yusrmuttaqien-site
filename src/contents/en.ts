@@ -1,10 +1,17 @@
 export default {
-  projectTypes: {
+  projectCategories: {
     web: 'Web development',
+    closedSource: 'Closed source',
   },
-  projectCollabTypes: {
-    self: 'Self-project',
-    work: 'Work-project [<COMPANY>]',
+  projectHrefCopy: {
+    live: 'Access live project',
+    story: 'Access project story',
+    github: 'Access project repository',
   },
   internetsTitle: 'Internets',
+  sitemapsTitle: {
+    home: 'Home',
+    about: 'About',
+    projects: 'Projects',
+  },
 };

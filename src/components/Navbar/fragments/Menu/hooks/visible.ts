@@ -3,50 +3,28 @@ import { useLenis } from '@studio-freight/react-lenis';
 import {
   useIsomorphicLayoutEffect,
   useAnimate,
-  cubicBezier,
   animate as gAnimate,
+  useScroll,
   type AnimationPlaybackControls,
 } from 'framer-motion';
 import { useTogglesStore } from '@/contexts/toggles';
-import { useMediaQueryStore } from '@/contexts/mediaQuery';
+import { useMediaQueryStore } from '@/contexts/mediaQueries';
+import debounce from '@/utils/debounce';
 import { TIMELINE_MAIN, TIMELINE_MENU } from '@/components/Navbar/fragments/Menu/constant';
-
-const MAIN_TRANSITION = { ease: cubicBezier(0.25, 1, 0.5, 1) };
+import { EASE_OUT_QUART } from '@/constants/motion';
 
 export default function useVisible() {
   const [scope, animate] = useAnimate();
   const lenis = useLenis();
+  const { scrollYProgress } = useScroll();
   const isNavMenu = useTogglesStore((store) => store.isNavMenu);
   const isDarkMode = useMediaQueryStore((store) => store.isDarkMode);
   const mainTimeline = useRef<AnimationPlaybackControls>();
 
   useIsomorphicLayoutEffect(() => {
     const root = scope.current as HTMLDivElement;
+    const debouncedAnchorRootMain = debounce(_anchorRootMain, 50);
 
-    function _cursorAnimate(enable: boolean) {
-      const cursor = document.getElementById('cursor');
-
-      if (!cursor) return;
-      if (enable) {
-        cursor.classList.add('transition-[transform_opacity]', 'ease-linear', 'duration-[50ms]');
-      } else {
-        cursor.classList.remove('transition-[transform_opacity]', 'ease-linear', 'duration-[50ms]');
-      }
-    }
-    function _padScrollbar(apply: boolean) {
-      const html = document.documentElement;
-      const padding = `${window.innerWidth - html.clientWidth}px`;
-
-      _cursorAnimate(false);
-      if (apply) {
-        html.style.paddingRight = padding;
-        html.style.setProperty('--pad-scrollbar', padding);
-      } else {
-        html.style.paddingRight = '';
-        html.style.setProperty('--pad-scrollbar', '0px');
-      }
-      requestAnimationFrame(() => _cursorAnimate(true));
-    }
     function _navbarInteractive(enable: boolean) {
       const navbar = document.getElementById('navbar');
 
@@ -75,14 +53,18 @@ export default function useVisible() {
 
       root.classList.remove('invisible');
       mainTimeline.current?.stop();
-      mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.visible, MAIN_TRANSITION);
+      mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.visible, {
+        ease: EASE_OUT_QUART,
+      });
       animate(TIMELINE_MENU(scope, isDarkMode).visible);
     }
     function _closeSequence() {
       if (!mainTimeline.current) return;
 
       mainTimeline.current.stop();
-      mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.invisible, MAIN_TRANSITION);
+      mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.invisible, {
+        ease: EASE_OUT_QUART,
+      });
       return animate(TIMELINE_MENU(scope, isDarkMode, 'animate').invisible).then(() => {
         root.classList.add('invisible');
 
@@ -90,19 +72,29 @@ export default function useVisible() {
         cleanup.complete();
       });
     }
+    function _anchorRootMain(v: number) {
+      const rootMain = document.getElementById('root-main') as HTMLDivElement;
+
+      rootMain.style.perspectiveOrigin = `center ${v * 100}%`;
+    }
+
+    scrollYProgress.on('change', debouncedAnchorRootMain);
+    _anchorRootMain(scrollYProgress.get());
 
     if (isNavMenu) {
-      _padScrollbar(true);
       _navbarInteractive(false);
       lenis?.stop();
       _openSequence();
     } else {
       _closeSequence()?.then(() => {
         lenis?.start();
-        _padScrollbar(false);
         _navbarInteractive(true);
       });
     }
+
+    return () => {
+      scrollYProgress.clearListeners();
+    };
   }, [isNavMenu, isDarkMode]);
 
   return { scope };

@@ -1,12 +1,8 @@
-export type MediaQueryState = {
-  isValidated: boolean | undefined;
-  isXL: boolean | undefined;
-  isHoverable: boolean | undefined;
-  isDarkMode: boolean | undefined;
-  isXL1490: boolean | undefined;
-};
+import { initialState } from '@/stores/mediaQuery';
+
+export type MediaQueryState = typeof initialState;
 export type MediaQueryActions = {
-  update: (key: keyof MediaQueryState, value: boolean | undefined) => void;
+  update: (key: keyof MediaQueryState, value: boolean) => void;
   bulkUpdate: (values: Partial<Record<keyof MediaQueryState, any>>) => void;
   validate: () => void;
 };

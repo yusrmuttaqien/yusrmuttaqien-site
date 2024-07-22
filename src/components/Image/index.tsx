@@ -11,9 +11,14 @@ export const IMAGE_STYLES = tv({
     image: 'object-cover',
   },
 });
-
 export default function Image(props: ImageProps) {
-  const { scale: scaleFactor = 1.5, className, ...rest } = props;
+  const {
+    scale: scaleFactor = 1.5,
+    className,
+    src = 'https://source.unsplash.com/random',
+    alt = 'unsplash',
+    ...rest
+  } = props;
   const { container, image, wrapper } = IMAGE_STYLES();
   const { scope, y, scale } = useInteractive({ scale: scaleFactor });
 
@@ -27,9 +32,10 @@ export default function Image(props: ImageProps) {
         <NextImage
           {...rest}
           fill
+          alt={alt}
+          src={src}
           sizes="100%"
           draggable={false}
-          placeholder="blur"
           className={image({ className: className?.image })}
         />
       </motion.div>
