@@ -17,7 +17,7 @@ export default function DisplayCard(props: DisplayCardProps) {
   const { src, alt, bottomLeft, topRight, bottomRight, topLeft, hrefs } = {
     src: project?.src || content?.src,
     alt: project?.alt || content?.alt,
-    bottomRight: project?.category?.[0] || content?.bottomRight?.[0] || 'bottomLeft',
+    bottomRight: project?.category?.[0][0] || content?.bottomRight?.[0] || 'bottomLeft',
     topRight: project?.year || content?.topRight || 'topRight',
     bottomLeft: project?.title || content?.bottomLeft || 'bottomRight',
     topLeft: project?.collaborator?.[0] || content?.topLeft?.[0] || 'topLeft',

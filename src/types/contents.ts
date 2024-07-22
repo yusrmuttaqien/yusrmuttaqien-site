@@ -9,7 +9,7 @@ export enum ProjectFlag {
 }
 export type Project = {
   title: ReactNode;
-  category: string[];
+  category: string[][];
   titleString: string;
   alt: string;
   src?: string | StaticImageData;

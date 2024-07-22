@@ -59,7 +59,7 @@ export default function ListContent(props: ListContentProps) {
           {title}
         </motion.p>
         <motion.p style={titleStyles} className={classMerge('lg-only:hidden', TITLE_STYLES)}>
-          {category[0]}
+          {category[0][0]}
         </motion.p>
         <motion.p
           style={titleStyles}
@@ -134,9 +134,17 @@ function MobileExtension(props: ExtensionProps) {
         <p className={classMerge('trim-helvetiva-neue')}>{year}</p>
         <Image src={src} alt={alt} className={{ container: 'w-full aspect-square' }} />
         <div className="flex flex-wrap gap-1">
-          {category.map((cat) => (
-            <Pill key={cat}>{cat}</Pill>
-          ))}
+          {category.map((cat) => {
+            const Wrapper = cat[1] !== '#' ? Link : Fragment;
+
+            return (
+              <Wrapper key={cat[0]} href={cat[1]} look="custom">
+                <Pill key={cat[0]} className={classMerge(cat[1] !== '#' && 'underline')}>
+                  {cat[0]}
+                </Pill>
+              </Wrapper>
+            );
+          })}
         </div>
         <div className="flex flex-col gap-2 !mt-6 items-end">
           {hrefs.map((href) => (
@@ -179,11 +187,17 @@ function DesktopExtension(props: ExtensionProps) {
           </p>
         )}
         <div className="flex flex-wrap gap-1">
-          {category.map((cat) => (
-            <Pill key={cat} className="backdrop-blur-md">
-              {cat}
-            </Pill>
-          ))}
+          {category.map((cat) => {
+            const Wrapper = cat[1] !== '#' ? Link : Fragment;
+
+            return (
+              <Wrapper key={cat[0]} href={cat[1]} look="custom">
+                <Pill key={cat[0]} className={classMerge(cat[1] !== '#' && 'underline')}>
+                  {cat[0]}
+                </Pill>
+              </Wrapper>
+            );
+          })}
         </div>
         <div className="flex flex-col gap-2 !mt-6 items-end">
           {hrefs.map((href) => (

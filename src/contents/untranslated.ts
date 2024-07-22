@@ -6,26 +6,48 @@ import en from '@/contents/en';
 import id from '@/contents/id';
 import { ProjectFlag } from '@/types/contents';
 
-const { projectCategories: enProjCat, projectCopy: enProjCopy } = en;
-const { projectCategories: idProjCat, projectCopy: idProjCopy } = id;
+const { projectCategories: enProjCat, projectHrefCopy: enProjHrefCopy } = en;
+const { projectCategories: idProjCat, projectHrefCopy: idProjHrefCopy } = id;
 
 type CatTypes = keyof typeof idProjCat;
-type CopyTypes = keyof typeof idProjCopy;
+type CopyHrefTypes = keyof typeof idProjHrefCopy;
 type HrefsTypes = [{ en: string; id: string }, string][];
 
 const PROJECT_COLLABORATOR_PERSONAL = 'Personal';
 const PROJECT_CATEGORIES = Object.keys(idProjCat).reduce((prev, curr) => {
   const currTyped = curr as CatTypes;
-  prev[currTyped] = { en: enProjCat[currTyped], id: idProjCat[currTyped] };
+  prev[currTyped] = [{ en: enProjCat[currTyped], id: idProjCat[currTyped] }];
 
   return prev;
-}, {} as { [key in CatTypes]: { en: string; id: string } });
-const PROJECT_COPIES = Object.keys(idProjCopy).reduce((prev, curr) => {
-  const currTyped = curr as CopyTypes;
-  prev[currTyped] = { en: enProjCopy[currTyped], id: idProjCopy[currTyped] };
+}, {} as { [key in CatTypes]: [{ en: string; id: string }] });
+const PROJECT_HREF_COPIES = Object.keys(idProjHrefCopy).reduce((prev, curr) => {
+  const currTyped = curr as CopyHrefTypes;
+  prev[currTyped] = { en: enProjHrefCopy[currTyped], id: idProjHrefCopy[currTyped] };
 
   return prev;
-}, {} as { [key in CopyTypes]: { en: string; id: string } });
+}, {} as { [key in CopyHrefTypes]: { en: string; id: string } });
+const PROJECT_MORE_CATEGORIES = {
+  nextjs: ['Next.js', 'https://nextjs.org/'],
+  'framer-motion': ['Framer motion', 'https://www.framer.com/motion/'],
+  react: ['React', 'https://reactjs.org/'],
+  lenis: ['Lenis', 'https://lenis.darkroom.engineering/'],
+  typescript: ['TypeScript', 'https://www.typescriptlang.org/'],
+  vercel: ['Vercel', 'https://vercel.com/'],
+  zustand: ['Zustand', 'https://zustand.surge.sh/'],
+  hookstate: ['Hookstate', 'https://hookstate.js.org/'],
+  'react-router-dom': ['React router', 'https://reactrouter.com/'],
+  'styled-components': ['Styled components', 'https://styled-components.com/'],
+  vite: ['Vite', 'https://vitejs.dev/'],
+  'github-pages': ['Github pages', 'https://pages.github.com/'],
+  jest: ['Jest', 'https://jestjs.io/'],
+  'redux-toolkit': ['Redux toolkit', 'https://redux-toolkit.js.org/'],
+  axios: ['Axios', 'https://axios-http.com/'],
+  'final-form': ['Final form', 'https://final-form.org/'],
+  'tailwind-css': ['Tailwind css', 'https://tailwindcss.com/'],
+  'ck-editor': ['Ck editor', 'https://ckeditor.com/'],
+  'react-query': ['React query', 'https://react-query.tanstack.com/'],
+  vitest: ['Vitest', 'https://vitest.dev/'],
+};
 
 export default {
   internets: {
@@ -38,22 +60,40 @@ export default {
   },
   projects: {
     'Yusril Muttaqien [<Site>]': {
-      categories: [PROJECT_CATEGORIES.web],
+      categories: [
+        PROJECT_CATEGORIES.web,
+        PROJECT_MORE_CATEGORIES.nextjs,
+        PROJECT_MORE_CATEGORIES['framer-motion'],
+        PROJECT_MORE_CATEGORIES.lenis,
+        PROJECT_MORE_CATEGORIES.typescript,
+        PROJECT_MORE_CATEGORIES.vercel,
+        PROJECT_MORE_CATEGORIES.zustand,
+        PROJECT_MORE_CATEGORIES['tailwind-css'],
+      ],
       year: '2024',
       hrefs: [
-        [PROJECT_COPIES.story, '#'],
-        [PROJECT_COPIES.live, 'https://yusrmuttaqien.vercel.app'],
+        [PROJECT_HREF_COPIES.story, '#'],
+        [PROJECT_HREF_COPIES.live, 'https://yusrmuttaqien.vercel.app'],
       ] as HrefsTypes,
       collaborator: [PROJECT_COLLABORATOR_PERSONAL],
       src: YusrMuttaqienCover,
       flag: [ProjectFlag.ACCESSIBLE, ProjectFlag.ONGOING],
     },
     'dashboard [<TODO>]': {
-      categories: [PROJECT_CATEGORIES.web],
+      categories: [
+        PROJECT_CATEGORIES.web,
+        PROJECT_MORE_CATEGORIES.react,
+        PROJECT_MORE_CATEGORIES.hookstate,
+        PROJECT_MORE_CATEGORIES['react-router-dom'],
+        PROJECT_MORE_CATEGORIES['styled-components'],
+        PROJECT_MORE_CATEGORIES.vite,
+        PROJECT_MORE_CATEGORIES.vercel,
+        PROJECT_MORE_CATEGORIES['github-pages'],
+      ],
       year: '2023 - 2024',
       hrefs: [
-        [PROJECT_COPIES.story, '#'],
-        [PROJECT_COPIES.live, 'https://dashboard-site-showoff.vercel.app/login'],
+        [PROJECT_HREF_COPIES.story, '#'],
+        [PROJECT_HREF_COPIES.live, 'https://dashboard-site-showoff.vercel.app/login'],
         [
           { en: 'Access live landing page', id: 'Akses halaman arahan' },
           'https://yusrmuttaqien.github.io/dashboardlanding-bootcamp-site/',
@@ -64,22 +104,44 @@ export default {
       flag: [ProjectFlag.ACCESSIBLE],
     },
     'Telkom Agreeculture': {
-      categories: [PROJECT_CATEGORIES.web],
+      categories: [
+        PROJECT_CATEGORIES.web,
+        PROJECT_MORE_CATEGORIES.react,
+        PROJECT_MORE_CATEGORIES.nextjs,
+        PROJECT_MORE_CATEGORIES['redux-toolkit'],
+        PROJECT_MORE_CATEGORIES.jest,
+        PROJECT_MORE_CATEGORIES['react-router-dom'],
+        PROJECT_MORE_CATEGORIES['styled-components'],
+        PROJECT_MORE_CATEGORIES.axios,
+        PROJECT_MORE_CATEGORIES['final-form'],
+        PROJECT_MORE_CATEGORIES['tailwind-css'],
+        PROJECT_MORE_CATEGORIES['ck-editor'],
+      ],
       year: '2021 - 2024',
       hrefs: [
-        [PROJECT_COPIES.story, '#'],
-        [PROJECT_COPIES.live, 'https://agreeculture.id/'],
+        [PROJECT_HREF_COPIES.story, '#'],
+        [PROJECT_HREF_COPIES.live, 'https://agreeculture.id/'],
       ] as HrefsTypes,
       collaborator: ['Telkom Indonesia'],
       src: TelkomAgreecultureCover,
       flag: [ProjectFlag.ACCESSIBLE],
     },
     findMovie: {
-      categories: [PROJECT_CATEGORIES.web],
+      categories: [
+        PROJECT_CATEGORIES.web,
+        PROJECT_MORE_CATEGORIES.react,
+        PROJECT_MORE_CATEGORIES['react-query'],
+        PROJECT_MORE_CATEGORIES.axios,
+        PROJECT_MORE_CATEGORIES['react-router-dom'],
+        PROJECT_MORE_CATEGORIES['styled-components'],
+        PROJECT_MORE_CATEGORIES.typescript,
+        PROJECT_MORE_CATEGORIES.vitest,
+        PROJECT_MORE_CATEGORIES.vite,
+      ],
       year: '2023',
       hrefs: [
-        [PROJECT_COPIES.story, '#'],
-        [PROJECT_COPIES.live, 'https://findmovie-yusr.vercel.app/'],
+        [PROJECT_HREF_COPIES.story, '#'],
+        [PROJECT_HREF_COPIES.live, 'https://findmovie-yusr.vercel.app/'],
       ] as HrefsTypes,
       collaborator: [PROJECT_COLLABORATOR_PERSONAL],
       src: FindMovieCover,

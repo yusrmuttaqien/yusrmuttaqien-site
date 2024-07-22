@@ -37,7 +37,15 @@ export default function useProjects(params?: ProjectsParams) {
     const current = {
       ...rest,
       flag,
-      category: categories.map((category) => category[currentI18n()]),
+      category: categories.map((category) => {
+        type Translated = { en: string; id: string };
+
+        const isString = typeof category[0] === 'string';
+        const translated = category[0] as Translated;
+        const plain = category[0] as string;
+
+        return [isString ? plain : translated[currentI18n()], category[1] || '#'];
+      }) as string[][],
       title: <Trans string={title} name={`project-${title}-title`} comps={COMP} />,
       titleString: title,
       alt: title,

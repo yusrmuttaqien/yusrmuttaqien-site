@@ -2,7 +2,7 @@ export default {
   projectCategories: {
     web: 'Pengembangan web',
   },
-  projectCopy: {
+  projectHrefCopy: {
     live: 'Akses halaman projek',
     story: 'Akses cerita projek',
   },

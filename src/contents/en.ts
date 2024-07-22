@@ -2,7 +2,7 @@ export default {
   projectCategories: {
     web: 'Web development',
   },
-  projectCopy: {
+  projectHrefCopy: {
     live: 'Access live project',
     story: 'Access project story',
   },
