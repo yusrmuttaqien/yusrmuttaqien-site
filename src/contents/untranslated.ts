@@ -52,9 +52,10 @@ const PROJECT_MORE_CATEGORIES = {
 export default {
   internets: {
     linkedin: { href: 'https://www.linkedin.com/in/yusrmuttaqien/' },
-    upwork: { href: 'https://www.upwork.com/freelancers/~0151ab1ef4a4dd4049' },
     github: { href: 'https://github.com/yusrmuttaqien' },
+    medium: { href: 'https://medium.com/@yusrmuttaqien' },
     instagram: { href: 'https://www.instagram.com/yusrmuttaqien/' },
+    upwork: { href: 'https://www.upwork.com/freelancers/~0151ab1ef4a4dd4049' },
     'Instagram [<VA>]': { href: 'https://www.instagram.com/yusr.va.flow/' },
     x: { href: 'https://x.com/drdhemm' },
   },

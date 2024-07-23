@@ -137,7 +137,7 @@ function MobileExtension(props: ExtensionProps) {
           </p>
         </div>
         <p className={classMerge('trim-helvetiva-neue')}>{year}</p>
-        <Image src={src} alt={alt} className={{ container: 'w-full aspect-square' }} />
+        <Image src={src} alt={alt} className={{ container: 'w-full aspect-square' }} scale={1} />
         <div className="flex flex-wrap gap-1">
           {category.map((cat) => {
             const Wrapper = cat[1] !== '#' ? Link : Fragment;

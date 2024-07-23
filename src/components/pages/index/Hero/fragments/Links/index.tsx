@@ -14,6 +14,7 @@ export default function Links(props: LinksProps) {
     <div
       className={classMerge(
         'space-y-3 perspective-5000 xl-only:perspective-origin-left',
+        'lg-990-only:overflow-hidden',
         className
       )}
     >
@@ -24,7 +25,7 @@ export default function Links(props: LinksProps) {
       >
         {internetsTitle}
       </motion.h3>
-      <div className="flex gap-3 flex-wrap transform-preserve3d lg-850:gap-6">
+      <div className={classMerge('flex gap-3 flex-wrap transform-preserve3d lg-850:gap-6')}>
         {internets.map(({ title, ...rest }, idx) => (
           <LinksItem key={title} rootMotionValue={rootMotionValue} idx={idx} {...rest}>
             {title}
