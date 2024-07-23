@@ -6,7 +6,7 @@
   * {
     /* scrollbar-width: thin;
     scrollbar-color: theme(colors.grey.DEFAULT / 10%) theme(colors.beige.DEFAULT); */
-    cursor: none !important;
+    /* cursor: none !important; */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
     scrollbar-width: none !important; /* Firefox */
     scroll-margin-top: var(--navbar-docked-minimal-height);

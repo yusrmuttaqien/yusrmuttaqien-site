@@ -9,7 +9,7 @@ import Contexts from '@/contexts';
 import MediaQueryStoreHost from '@/contexts/mediaQueries/host';
 import useApp from '@/hooks/app';
 import Transition from '@/components/Transition';
-import Cursor from '@/components/Cursor';
+// import Cursor from '@/components/Cursor';
 import Loader from '@/components/Loader';
 import Navbar from '@/components/Navbar';
 import ScrollUp from '@/components/ScrollUp';
@@ -25,7 +25,8 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <Head />
       <Contexts>
         <MediaQueryStoreHost />
-        <Cursor className="z-40" />
+        {/* TODO: Enable cursor through context */}
+        {/* <Cursor className="z-40" /> */}
         <Loader className="z-30" />
         <Navbar
           className={{

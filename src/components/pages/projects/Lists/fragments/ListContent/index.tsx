@@ -14,7 +14,10 @@ import type {
   ExtensionProps,
 } from '@/components/pages/projects/Lists/fragments/ListContent/type';
 
-const TITLE_STYLES = 'trim-helvetiva-neue transition-[transform,_opacity] inline-block z-10';
+const TITLE_STYLES = classMerge(
+  'trim-helvetiva-neue transition-[transform,_opacity] inline-block z-10 select-none',
+  'duration-300'
+);
 
 export default function ListContent(props: ListContentProps) {
   const { className, activeContent, project, id } = props;
@@ -41,9 +44,11 @@ export default function ListContent(props: ListContentProps) {
       <div
         className={classMerge(
           'grid grid-cols-subgrid col-span-full py-2 px-1 counter-default isolate',
-          'overflow-hidden items-center user-select-none gap-3 relative transition-colors',
+          'overflow-hidden items-center gap-3 relative transition-colors',
           'lg-970:hoverable:hover:text-dynamic-beige',
-          isLG970 && 'group/highlight',
+          'lg-970:hoverable:hover:selection:text-dynamic-grey',
+          'lg-970:hoverable:hover:selection:bg-dynamic-[beige_80]',
+          isLG970 && 'group/highlight cursor-pointer',
           className
         )}
         onClick={_toggleDesktopExtended}
@@ -53,7 +58,7 @@ export default function ListContent(props: ListContentProps) {
         </p>
         <motion.p
           style={titleStyles}
-          className={classMerge('font-bold truncate', TITLE_STYLES)}
+          className={classMerge('font-bold truncate', TITLE_STYLES, 'select-text')}
           title="Project long title it doesn't fit"
         >
           {title}
@@ -63,7 +68,7 @@ export default function ListContent(props: ListContentProps) {
         </motion.p>
         <motion.p
           style={titleStyles}
-          className={classMerge('lg-970-only:hidden truncate', TITLE_STYLES)}
+          className={classMerge('lg-970-only:hidden truncate', TITLE_STYLES, 'select-text')}
         >
           {collaborator[0]}
         </motion.p>
@@ -84,7 +89,7 @@ export default function ListContent(props: ListContentProps) {
             style={btnCrossStyles}
             className={classMerge(
               'h-full transition-transform absolute inset-0 -left-1',
-              '-translate-y-[200%]'
+              '-translate-y-[200%] duration-300'
             )}
           >
             <Cross />

@@ -20,7 +20,9 @@ export default function Lists() {
   return (
     <section className="pb-5 xl:pb-8 relative isolate min-h-full-total-navbar flex flex-col justify-between">
       <h1 className="hidden">{title}</h1>
-      <div className={classMerge('flex flex-col gap-[2.625rem] xl:gap-clamp-[54_84_1280_1512]')}>
+      <div
+        className={classMerge('flex flex-col gap-[2.625rem] xl:gap-clamp-[54_84_1280_1512] z-10')}
+      >
         <ListGroup count={count.accessible} title={categories.accessible}>
           <Title />
           {projects.accessible.map((project, idx) => (
