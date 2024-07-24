@@ -14,18 +14,17 @@ export default function Links(props: LinksProps) {
     <div
       className={classMerge(
         'space-y-3 perspective-5000 xl-only:perspective-origin-left',
-        'lg-990-only:overflow-hidden',
         className
       )}
     >
       <motion.h3
         style={style}
         id="linksTitle"
-        className="trim-helvetiva-neue text-dynamic-[grey_60]"
+        className="trim-helvetiva-neue text-dynamic-[grey_60] w-max"
       >
         {internetsTitle}
       </motion.h3>
-      <div className={classMerge('flex gap-3 flex-wrap transform-preserve3d lg-850:gap-6')}>
+      <div className={classMerge('flex gap-3 flex-wrap lg-850:gap-6')}>
         {internets.map(({ title, ...rest }, idx) => (
           <LinksItem key={title} rootMotionValue={rootMotionValue} idx={idx} {...rest}>
             {title}

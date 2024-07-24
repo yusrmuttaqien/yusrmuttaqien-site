@@ -54,6 +54,7 @@ export default {
     linkedin: { href: 'https://www.linkedin.com/in/yusrmuttaqien/' },
     github: { href: 'https://github.com/yusrmuttaqien' },
     medium: { href: 'https://medium.com/@yusrmuttaqien' },
+    codesandbox: { href: 'https://codesandbox.io/u/yusrmuttaqien' },
     instagram: { href: 'https://www.instagram.com/yusrmuttaqien/' },
     upwork: { href: 'https://www.upwork.com/freelancers/~0151ab1ef4a4dd4049' },
     'Instagram [<VA>]': { href: 'https://www.instagram.com/yusr.va.flow/' },

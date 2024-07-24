@@ -5,7 +5,7 @@ import useEntry from '@/components/Navbar/hooks/entry';
 import useMeasure from '@/components/Navbar/hooks/measure';
 import useContent from '@/components/Navbar/hooks/content';
 import useInteractive from '@/components/Navbar/hooks/interactive';
-import ClockStoreProvider from '@/components/Navbar/context';
+import NavbarContexts from '@/components/Navbar/contexts';
 import Host from '@/components/Navbar/host';
 import Links from '@/components/Navbar/fragments/Links';
 import Link from '@/components/Link';
@@ -64,9 +64,9 @@ export default function Navbar(props: NavbarProps) {
             <span className="inline-block">Malang, Indonesia</span>
             <span className="mx-[1ch] hidden xl:inline-block">|</span>
           </p>
-          <ClockStoreProvider>
+          <NavbarContexts>
             <Clock />
-          </ClockStoreProvider>
+          </NavbarContexts>
         </div>
         <div
           className={classMerge(

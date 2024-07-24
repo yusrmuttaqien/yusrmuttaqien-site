@@ -4,6 +4,7 @@ import useContent from '@/components/pages/index/Hero/hooks/content';
 import Trans from '@/components/Trans';
 import type { TransComp } from '@/components/Trans/type';
 import type { RolesProps, RoleProps } from '@/components/pages/index/Hero/fragments/Roles/type';
+import classMerge from '@/utils/classMerge';
 
 const COMPS: TransComp = {
   default: (value, id) => (
@@ -18,7 +19,11 @@ export default function Roles(props: RolesProps) {
   const { roles } = useContent();
 
   return (
-    <div className="space-y-1 hero-roles perspective-5000 xl-only:perspective-origin-left lg-540-only:overflow-hidden">
+    <div
+      className={classMerge(
+        'space-y-1 perspective-5000 xl-only:perspective-origin-left lg-540-only:overflow-hidden'
+      )}
+    >
       {roles.map((role, idx) => (
         <Role {...p} key={role} idx={idx} rootMotionValue={rootMotionValue}>
           {role}
@@ -39,9 +44,10 @@ function Role(props: RoleProps) {
     <motion.p
       {...restProps}
       style={{ ...interactiveStyle, ...style }}
-      className="trim-helvetiva-neue w-max"
+      className={classMerge('trim-helvetiva-neue w-max')}
       id="role"
     >
+      <span className="w-[2ch] inline-block">{idx + 1}.</span>
       <Trans string={children} name="hero-role" comps={COMPS} />
     </motion.p>
   );

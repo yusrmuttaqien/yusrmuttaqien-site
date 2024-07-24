@@ -8,4 +8,7 @@ export default {
     'https://open.spotify.com/embed/playlist/23oLVuNlYHCEL09Zxm10ol?utm_source=generator',
     'https://open.spotify.com/embed/playlist/4cWpabreKqpS4MSuYngaOb?utm_source=generator&theme=0',
   ],
+  affiliateLinks: {
+    raycast: { href: 'https://raycast.com/?via=yusril' },
+  },
 };

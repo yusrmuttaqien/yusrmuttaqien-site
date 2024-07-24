@@ -1,8 +1,8 @@
 import { useStore } from 'zustand';
 import { createContext, useRef, useContext } from 'react';
-import { createClockStore } from '@/components/Navbar/store';
-import type { ClockStore } from '@/components/Navbar/type';
-import type { ClockStoreApi, ClockStoreProviderProps } from '@/components/Navbar/type';
+import { createClockStore } from '@/components/Navbar/stores/clock';
+import type { ClockStoreProviderProps } from '@/components/Navbar/contexts/clock/type';
+import type { ClockStoreApi, ClockStore } from '@/components/Navbar/stores/clock/type';
 
 const ClockStoreContext = createContext<ClockStoreApi | undefined>(undefined);
 

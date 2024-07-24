@@ -79,16 +79,3 @@
     }
   }
 }
-
-@layer components {
-  .hero-roles {
-    counter-reset: roles;
-  }
-
-  .hero-roles p::before {
-    display: inline;
-    margin-right: 1ch;
-    counter-increment: roles;
-    content: '(' counter(roles) ')';
-  }
-}

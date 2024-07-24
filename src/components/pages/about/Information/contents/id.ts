@@ -21,6 +21,9 @@ export default {
     unlock: 'Buka kunci gulir',
     loading: 'Memuat konten',
   },
+  affiliate: {
+    title: 'Tautan afiliasi',
+  },
   author: 'Pembuat',
   greeting: 'Halo!',
 };

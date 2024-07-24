@@ -1,8 +1,8 @@
 import { createStore } from 'zustand/vanilla';
 import { immer } from 'zustand/middleware/immer';
-import type { ClockState, ClockStore } from '@/components/Navbar/type';
+import type { ClockStore, ClockState } from '@/components/Navbar/stores/clock/type';
 
-export const initialState: ClockState = {
+export const initialState = {
   hour: ['0', '0'],
   minute: ['0', '0'],
   second: ['0', '0'],

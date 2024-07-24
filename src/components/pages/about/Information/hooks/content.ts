@@ -5,8 +5,8 @@ import untranslated from '@/components/pages/about/Information/contents/untransl
 
 export default function useContent() {
   const options = { id, en };
-  const { cvLinks, playLinks } = untranslated;
-  const { cv, play, ...rest } = options[currentI18n()];
+  const { cvLinks, playLinks, affiliateLinks } = untranslated;
+  const { cv, play, affiliate, ...rest } = options[currentI18n()];
   const contents = {
     ...rest,
     cv: {
@@ -19,6 +19,10 @@ export default function useContent() {
     play: {
       ...play,
       links: playLinks,
+    },
+    affiliate: {
+      ...affiliate,
+      lists: Object.entries(affiliateLinks).map(([title, rest]) => ({ title, ...rest })),
     },
   };
 

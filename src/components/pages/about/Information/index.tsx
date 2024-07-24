@@ -24,7 +24,7 @@ const COMPS: TransComp = {
 };
 
 export default function Information() {
-  const { about, cv, author, greeting } = useContent();
+  const { about, cv, author, greeting, affiliate } = useContent();
   const { scope } = useEntry();
 
   return (
@@ -56,7 +56,6 @@ export default function Information() {
             {cv.lists.map(({ title, ...rest }) => (
               <Link
                 key={title}
-                id="link"
                 download={`${title}-Yusril_Muttaqien.pdf`}
                 target="_blank"
                 {...rest}
@@ -67,6 +66,15 @@ export default function Information() {
           </div>
         </SectionBox>
         <Playlist />
+        <SectionBox id="section" title={affiliate.title} className={SECTION_BOX_STYLES}>
+          <div className="flex gap-4 flex-wrap">
+            {affiliate.lists.map(({ title, ...rest }) => (
+              <Link key={title} target="_blank" {...rest}>
+                {title}
+              </Link>
+            ))}
+          </div>
+        </SectionBox>
       </div>
       <DisplayCard
         content={{

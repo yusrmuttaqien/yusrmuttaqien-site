@@ -3,7 +3,6 @@ import type { InteractiveParams } from '@/components/pages/index/Hero/fragments/
 
 export default function useInteractive(props: InteractiveParams) {
   const { rootMotionValue, idx } = props;
-  const z = useTransform(rootMotionValue, [0 + (idx + 1 * 2) / 10, 1], ['0px', '1000px']);
   const opacity = useTransform(rootMotionValue, [0 + (idx + 1 * 2) / 10, 1], [1, 0]);
   const filter = useTransform(
     rootMotionValue,
@@ -11,5 +10,5 @@ export default function useInteractive(props: InteractiveParams) {
     ['blur(0px)', 'blur(16px)']
   );
 
-  return { z, opacity, filter } as MotionStyle;
+  return { opacity, filter } as MotionStyle;
 }

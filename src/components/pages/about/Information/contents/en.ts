@@ -21,6 +21,9 @@ export default {
     unlock: 'Unlock scroll',
     loading: 'Loading content',
   },
+  affiliate: {
+    title: 'Affiliate links',
+  },
   author: 'Author',
   greeting: 'Hi there!',
 };

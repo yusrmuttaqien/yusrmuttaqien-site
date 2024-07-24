@@ -1,9 +1,9 @@
-import { useClockStore } from '@/components/Navbar/context';
-import useDate from '@/components/Navbar/fragments/Clock/hooks/date';
+import { useClockStore } from '@/components/Navbar/contexts/clock';
+import useTime from '@/components/Navbar/hooks/time';
 import ClockSegment from '@/components/Navbar/fragments/ClockSegment';
 
 export default function Clock() {
-  useDate();
+  useTime();
 
   return (
     <p className="trim-helvetiva-neue perspective-5000 w-max" id="clock">

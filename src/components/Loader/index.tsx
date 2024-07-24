@@ -17,7 +17,7 @@ export default function Loader(props: LoaderProps) {
     <div
       className={classMerge('grid place-items-center fixed inset-0 bg-dynamic-beige', className)}
     >
-      <p className="trim-helvetiva-neue select-none mb-16">{greeting}</p>
+      <p className="trim-helvetiva-neue select-none">{greeting}</p>
     </div>
   );
 }
