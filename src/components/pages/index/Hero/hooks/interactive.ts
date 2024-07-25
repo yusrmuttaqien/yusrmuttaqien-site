@@ -35,8 +35,8 @@ export default function useInteractive() {
   // #region Highlight
   const xHighlight = useMotionValue(0);
   const yHighlight = useMotionValue(0);
-  const xSpringHighlight = useSpring(xHighlight);
-  const ySpringHighlight = useSpring(yHighlight);
+  const xSpringHighlight = useSpring(xHighlight, { duration: 0.5 });
+  const ySpringHighlight = useSpring(yHighlight, { duration: 0.5 });
   // #endregion Highlight
 
   useIsomorphicLayoutEffect(() => {

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useLenis } from '@studio-freight/react-lenis';
+import { useRouter } from 'next/router';
 import {
   useIsomorphicLayoutEffect,
   useAnimate,
@@ -7,16 +7,24 @@ import {
   useScroll,
   type AnimationPlaybackControls,
 } from 'framer-motion';
+import useScrollLock from '@/hooks/scrollLock';
 import { useTogglesStore } from '@/contexts/toggles';
 import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import debounce from '@/utils/debounce';
-import { TIMELINE_MAIN, TIMELINE_MENU } from '@/components/Navbar/fragments/Menu/constant';
-import { EASE_OUT_QUART } from '@/constants/motion';
+import {
+  TIMELINE_MAIN,
+  TIMELINE_MENU,
+  MENU_LOCK_ID,
+} from '@/components/Navbar/fragments/Menu/constant';
+import { EASE_IN_QUART, EASE_OUT_QUART } from '@/constants/motion';
 
 export default function useVisible() {
+  const { asPath } = useRouter();
+  const routeCache = useRef('/');
+  const blendCache = useRef(false);
   const [scope, animate] = useAnimate();
-  const lenis = useLenis();
   const { scrollYProgress } = useScroll();
+  const { lock, unlock } = useScrollLock();
   const isNavMenu = useTogglesStore((store) => store.isNavMenu);
   const isDarkMode = useMediaQueryStore((store) => store.isDarkMode);
   const mainTimeline = useRef<AnimationPlaybackControls>();
@@ -27,6 +35,8 @@ export default function useVisible() {
 
     function _navbarInteractive(enable: boolean) {
       const navbar = document.getElementById('navbar');
+      const isRouteChange = routeCache.current !== asPath;
+      const isBlend = blendCache.current;
 
       if (!navbar) return;
       if (enable) {
@@ -34,10 +44,13 @@ export default function useVisible() {
           'hoverable:hover:mix-blend-normal',
           'hoverable:hover:after:bg-dynamic-[beige_95]',
           'hoverable:hover:text-dynamic-grey',
-          'hoverable:hover:after:backdrop-blur-md',
-          'mix-blend-difference'
+          'hoverable:hover:after:backdrop-blur-md'
         );
+        !isRouteChange && isBlend && navbar.classList.add('mix-blend-difference');
       } else {
+        const isBlend = navbar.classList.contains('mix-blend-difference');
+        blendCache.current = isBlend;
+
         navbar.classList.remove(
           'hoverable:hover:mix-blend-normal',
           'hoverable:hover:after:bg-dynamic-[beige_95]',
@@ -54,19 +67,28 @@ export default function useVisible() {
       }
 
       root.classList.remove('invisible');
-      mainTimeline.current?.stop();
+      mainTimeline.current?.stop?.();
       mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.visible, {
         ease: EASE_OUT_QUART,
       });
       animate(TIMELINE_MENU(scope, isDarkMode).visible);
     }
-    function _closeSequence() {
+    async function _closeSequence() {
       if (!mainTimeline.current) return;
+      const isRouteChange = routeCache.current !== asPath;
 
-      mainTimeline.current.stop();
-      mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.invisible, {
-        ease: EASE_OUT_QUART,
-      });
+      mainTimeline.current.stop?.();
+
+      if (isRouteChange) {
+        mainTimeline.current = await gAnimate('#below-fold-main', TIMELINE_MAIN.invisible, {
+          ease: EASE_IN_QUART,
+        });
+      } else {
+        mainTimeline.current = gAnimate('#below-fold-main', TIMELINE_MAIN.invisible, {
+          ease: EASE_IN_QUART,
+        });
+      }
+
       return animate(TIMELINE_MENU(scope, isDarkMode, 'animate').invisible).then(() => {
         root.classList.add('invisible');
 
@@ -84,12 +106,13 @@ export default function useVisible() {
     _anchorRootMain(scrollYProgress.get());
 
     if (isNavMenu) {
+      routeCache.current = asPath;
       _navbarInteractive(false);
-      lenis?.stop();
+      lock(MENU_LOCK_ID);
       _openSequence();
     } else {
-      _closeSequence()?.then(() => {
-        lenis?.start();
+      _closeSequence().then(() => {
+        unlock(MENU_LOCK_ID);
         _navbarInteractive(true);
       });
     }
@@ -97,7 +120,7 @@ export default function useVisible() {
     return () => {
       scrollYProgress.clearListeners();
     };
-  }, [isNavMenu, isDarkMode]);
+  }, [isNavMenu, isDarkMode, asPath]);
 
   return { scope };
 }

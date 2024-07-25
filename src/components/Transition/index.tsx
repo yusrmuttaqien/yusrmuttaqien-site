@@ -24,7 +24,10 @@ export const TRANSITION_STYLES = tv({
 export default function Transition(props: TransitionProps) {
   const { children, className, ...rest } = props;
   const statics = useStatics();
-  const isHoverable = useMediaQueryStore((state) => state.isHoverable);
+  const { isHoverable, isXL } = useMediaQueryStore((state) => ({
+    isHoverable: state.isHoverable,
+    isXL: state.isXL,
+  }));
   const { main, container } = TRANSITION_STYLES();
   const { navbarHeight, navbarTop } = useMeasuresStore((state) => ({
     navbarHeight: state.navbarHeight,
@@ -38,7 +41,7 @@ export default function Transition(props: TransitionProps) {
     const { opacity } = props;
     const target = asPath.includes('#') ? `#${asPath.split('#')[1]}` : 'top';
     const config = {
-      duration: 0.2,
+      duration: 0.4,
       offset: target === 'top' ? 0 : -(navbarHeight + navbarTop * 2),
     };
 
@@ -46,7 +49,7 @@ export default function Transition(props: TransitionProps) {
       lock(TRANSITION_LOCK_ID, true);
 
       if (target === 'top') {
-        if (isHoverable) {
+        if (isHoverable && isXL) {
           requestAnimationFrame(() => {
             lenis?.scrollTo(target, config);
           });

@@ -1,5 +1,6 @@
 import { useMotionValue, useIsomorphicLayoutEffect } from 'framer-motion';
 import useProjects from '@/hooks/projects';
+import useEntry from '@/components/pages/projects/Lists/hooks/entry';
 import useContent from '@/components/pages/projects/Lists/hooks/content';
 import { ListGroup, Title } from '@/components/pages/projects/Lists/fragments/ListGroup';
 import ListContent from '@/components/pages/projects/Lists/fragments/ListContent';
@@ -7,6 +8,7 @@ import Preview from '@/components/pages/projects/Lists/fragments/Preview';
 import classMerge from '@/utils/classMerge';
 
 export default function Lists() {
+  const { scope } = useEntry();
   const { projects, count } = useProjects();
   const activeContent = useMotionValue('');
   const { title, categories } = useContent();
@@ -18,7 +20,10 @@ export default function Lists() {
   }, []);
 
   return (
-    <section className="pb-5 xl:pb-8 relative isolate min-h-full-total-navbar flex flex-col justify-between">
+    <section
+      ref={scope}
+      className="pb-5 xl:pb-8 relative isolate min-h-full-total-navbar flex flex-col justify-between"
+    >
       <h1 className="hidden">{title}</h1>
       <div
         className={classMerge('flex flex-col gap-[2.625rem] xl:gap-clamp-[54_84_1280_1512] z-10')}

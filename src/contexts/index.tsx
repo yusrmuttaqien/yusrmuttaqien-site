@@ -6,7 +6,7 @@ import StaticsProvider from '@/contexts/statics';
 
 export default function Contexts({ children }: { children: React.ReactNode }) {
   return (
-    <ReactLenis root options={{ duration: 0.5 }}>
+    <ReactLenis root options={{ duration: 0.4 }}>
       <StaticsProvider>
         <MediaQueryStoreProvider>
           <TogglesStoreProvider>

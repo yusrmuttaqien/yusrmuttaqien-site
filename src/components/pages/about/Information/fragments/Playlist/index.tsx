@@ -35,7 +35,7 @@ export default function Playlist() {
         <motion.div className="space-y-[0.5lh] overflow-auto z-20 rounded-xl" key={activeList}>
           <iframe
             key={activeList}
-            className="w-full aspect-square min-w-[33.75rem]"
+            className="w-full aspect-square lg-970-only:min-w-[33.75rem]"
             src={activeList}
             allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"

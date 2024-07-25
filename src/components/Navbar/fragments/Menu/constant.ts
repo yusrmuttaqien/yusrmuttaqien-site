@@ -6,6 +6,7 @@ import {
 } from 'framer-motion';
 import { COLOR_BEIGE, COLOR_GREY } from '@/constants/tailwind-config';
 
+export const MENU_LOCK_ID = 'menu';
 export const TIMELINE_MAIN: Record<'visible' | 'invisible', DOMKeyframesDefinition> = {
   visible: { z: '-150px', opacity: 1 },
   invisible: { z: '0px', opacity: 1 },
