@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useLenis } from '@studio-freight/react-lenis';
 import useScrollLock from '@/hooks/scrollLock';
+import { useTogglesStore } from '@/contexts/toggles';
 import { useMeasuresStore } from '@/contexts/measures';
 import { useMediaQueryStore } from '@/contexts/mediaQueries';
 import { useStatics } from '@/contexts/statics';
@@ -24,15 +25,16 @@ export const TRANSITION_STYLES = tv({
 export default function Transition(props: TransitionProps) {
   const { children, className, ...rest } = props;
   const statics = useStatics();
+  const { main, container } = TRANSITION_STYLES();
   const { isHoverable, isXL } = useMediaQueryStore((state) => ({
     isHoverable: state.isHoverable,
     isXL: state.isXL,
   }));
-  const { main, container } = TRANSITION_STYLES();
   const { navbarHeight, navbarTop } = useMeasuresStore((state) => ({
     navbarHeight: state.navbarHeight,
     navbarTop: state.navbarTop,
   }));
+  const set = useTogglesStore((state) => state.set);
   const { lock, unlock } = useScrollLock();
   const { asPath } = useRouter();
   const lenis = useLenis();
@@ -47,6 +49,7 @@ export default function Transition(props: TransitionProps) {
 
     if (opacity === 0) {
       lock(TRANSITION_LOCK_ID, true);
+      set('isTransition', true);
 
       if (target === 'top') {
         if (isHoverable && isXL) {
@@ -60,6 +63,8 @@ export default function Transition(props: TransitionProps) {
     } else if (opacity === 1) {
       const isManual = MANUAL_ENABLE_SCROLL.some((id) => getPageID() === id);
       const isFirstLoad = statics.current.isFirstLoad;
+
+      set('isTransition', false);
 
       if (target !== 'top') {
         unlock(TRANSITION_LOCK_ID, true);

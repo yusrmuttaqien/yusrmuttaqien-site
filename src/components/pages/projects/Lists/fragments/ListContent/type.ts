@@ -14,3 +14,12 @@ export type InteractiveParams = {
   title: string;
   activeContent: MotionValue<string>;
 };
+export type CollaboratorProps = {
+  collaborator: Project['collaborator'];
+};
+export type CategoriesProps = {
+  category: Project['category'];
+};
+export type HrefsProps = {
+  hrefs: Project['hrefs'];
+};

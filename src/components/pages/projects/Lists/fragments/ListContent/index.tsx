@@ -12,6 +12,9 @@ import { VARIANTS } from '@/components/pages/projects/Lists/fragments/ListConten
 import type {
   ListContentProps,
   ExtensionProps,
+  CollaboratorProps,
+  CategoriesProps,
+  HrefsProps,
 } from '@/components/pages/projects/Lists/fragments/ListContent/type';
 
 const TITLE_STYLES = classMerge(
@@ -123,51 +126,16 @@ function MobileExtension(props: ExtensionProps) {
       <div className="pb-6 px-1 space-y-2">
         <div>
           <p className={classMerge('font-bold trim-helvetiva-neue')}>{title}</p>
-          <p className={classMerge('trim-helvetiva-neue space-x-1 text-[.8em]')}>
-            {collaborator.map((col, idx, arr) => {
-              const isLast = idx === arr.length - 1;
-
-              return (
-                <Fragment key={col}>
-                  <span>{col}</span>
-                  {!isLast && <span className="text-[.8em]">x</span>}
-                </Fragment>
-              );
-            })}
-          </p>
+          <Collaborator collaborator={collaborator} />
         </div>
         <p className={classMerge('trim-helvetiva-neue')}>{year}</p>
         <Image src={src} alt={alt} className={{ container: 'w-full aspect-square' }} scale={1} />
-        <div className="flex flex-wrap gap-1">
-          {category.map((cat) => {
-            const Wrapper = cat[1] !== '#' ? Link : Fragment;
-
-            return (
-              <Wrapper key={cat[0]} href={cat[1]} look="custom">
-                <Pill key={cat[0]} className={classMerge(cat[1] !== '#' && 'underline')}>
-                  {cat[0]}
-                </Pill>
-              </Wrapper>
-            );
-          })}
-        </div>
-        <div className="flex flex-col gap-2 !mt-6 items-end">
-          {hrefs.map((href) => (
-            <Link
-              className={{ a: 'w-max' }}
-              key={href[1]}
-              href={href[1]}
-              isDisabled={href[1] === '#'}
-            >
-              {href[0]}
-            </Link>
-          ))}
-        </div>
+        <Categories category={category} />
+        <Hrefs hrefs={hrefs} />
       </div>
     </motion.section>
   );
 }
-
 function DesktopExtension(props: ExtensionProps) {
   const { project, ...rest } = props;
   const { collaborator, category, hrefs } = project;
@@ -178,45 +146,65 @@ function DesktopExtension(props: ExtensionProps) {
       {...rest}
     >
       <div className="pb-6 pt-3 px-1 space-y-2">
-        {collaborator.length > 1 && (
-          <p className={classMerge('trim-helvetiva-neue space-x-1 text-[.8em]')}>
-            {collaborator.map((cat, idx, arr) => {
-              const isLast = idx === arr.length - 1;
-              return (
-                <Fragment>
-                  <span>{cat}</span>
-                  {!isLast && <span className="text-[.8em]">x</span>}
-                </Fragment>
-              );
-            })}
-          </p>
-        )}
-        <div className="flex flex-wrap gap-1">
-          {category.map((cat) => {
-            const Wrapper = cat[1] !== '#' ? Link : Fragment;
-
-            return (
-              <Wrapper key={cat[0]} href={cat[1]} look="custom">
-                <Pill key={cat[0]} className={classMerge(cat[1] !== '#' && 'underline')}>
-                  {cat[0]}
-                </Pill>
-              </Wrapper>
-            );
-          })}
-        </div>
-        <div className="flex flex-col gap-2 !mt-6 items-end">
-          {hrefs.map((href) => (
-            <Link
-              className={{ a: 'w-max' }}
-              key={href[1]}
-              href={href[1]}
-              isDisabled={href[1] === '#'}
-            >
-              {href[0]}
-            </Link>
-          ))}
-        </div>
+        {collaborator.length > 1 && <Collaborator collaborator={collaborator} />}
+        <Categories category={category} />
+        <Hrefs hrefs={hrefs} />
       </div>
     </motion.section>
+  );
+}
+function Collaborator(props: CollaboratorProps) {
+  const { collaborator } = props;
+
+  return (
+    <p className={classMerge('trim-helvetiva-neue space-x-1 text-[.8em]')}>
+      {collaborator.map((col, idx, arr) => {
+        const isLast = idx === arr.length - 1;
+
+        return (
+          <Fragment key={col}>
+            <span>{col}</span>
+            {!isLast && <span className="text-[.8em]">x</span>}
+          </Fragment>
+        );
+      })}
+    </p>
+  );
+}
+function Categories(props: CategoriesProps) {
+  const { category } = props;
+
+  return (
+    <div className="flex flex-wrap gap-1">
+      {category.map((cat) => {
+        const isLink = cat[1] !== '#';
+        const RenderedPill = (
+          <Pill key={cat[0]} className={classMerge(cat[1] !== '#' && 'underline')}>
+            {cat[0]}
+          </Pill>
+        );
+
+        return isLink ? (
+          <Link key={cat[0]} href={cat[1]} look="custom">
+            {RenderedPill}
+          </Link>
+        ) : (
+          RenderedPill
+        );
+      })}
+    </div>
+  );
+}
+function Hrefs(props: HrefsProps) {
+  const { hrefs } = props;
+
+  return (
+    <div className="flex flex-col gap-2 !mt-6 items-end">
+      {hrefs.map((href) => (
+        <Link className={{ a: 'w-max' }} key={href[1]} href={href[1]} isDisabled={href[1] === '#'}>
+          {href[0]}
+        </Link>
+      ))}
+    </div>
   );
 }

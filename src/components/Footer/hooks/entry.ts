@@ -15,7 +15,10 @@ export default function useEntry() {
   const [scope, animate] = useAnimate();
   const contactWrapperScope = useRef<HTMLDivElement>(null);
   const inView = useInView(contactWrapperScope, { once: true });
-  const isLoader = useTogglesStore((state) => state.isLoader);
+  const { isLoader, isTransition } = useTogglesStore((state) => ({
+    isLoader: state.isLoader,
+    isTransition: state.isTransition,
+  }));
   const resumables = useRef<AnimationResumables>({ instance: null, status: 'not-ready' });
 
   useIsomorphicLayoutEffect(() => {
@@ -45,7 +48,7 @@ export default function useEntry() {
           resumables.current.instance = await gAnimate(
             '#footer-contact',
             TIMELINE_ENTRY_CONTACT.visible,
-            { ease: EASE_OUT_QUART, delay: 0.1 }
+            { ease: EASE_OUT_QUART }
           );
           resumables.current.instance = await animate(TIMELINE_ENTRY_FOOTER.visible);
           resumables.current.status = 'complete';
@@ -53,12 +56,17 @@ export default function useEntry() {
       });
     }
 
-    if (!isLoader && inView && (status === 'not-ready' || status === 'preparing')) {
+    if (
+      !isLoader &&
+      inView &&
+      !isTransition &&
+      (status === 'not-ready' || status === 'preparing')
+    ) {
       _startSequence();
-    } else if (!isLoader && isBottomFold(contactWrapper)) {
+    } else if (!isLoader && !isTransition && isBottomFold(contactWrapper)) {
       _startSequence(true);
     }
-  }, [isLoader, inView]);
+  }, [isLoader, inView, isTransition]);
 
   return { scope, contactWrapperScope };
 }
