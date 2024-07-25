@@ -26,6 +26,7 @@ export default function useEntry() {
     const contact = document.getElementById('footer-contact') as HTMLElement;
     const contactWrapper = contactWrapperScope.current as HTMLElement;
     const status = resumables.current.status;
+    let timeout: NodeJS.Timeout;
 
     async function _startSequence(complete: boolean = false) {
       resumables.current.status = 'preparing';
@@ -48,7 +49,7 @@ export default function useEntry() {
           resumables.current.instance = await gAnimate(
             '#footer-contact',
             TIMELINE_ENTRY_CONTACT.visible,
-            { ease: EASE_OUT_QUART }
+            { ease: EASE_OUT_QUART, delay: 0.5 }
           );
           resumables.current.instance = await animate(TIMELINE_ENTRY_FOOTER.visible);
           resumables.current.status = 'complete';
@@ -62,10 +63,16 @@ export default function useEntry() {
       !isTransition &&
       (status === 'not-ready' || status === 'preparing')
     ) {
-      _startSequence();
+      timeout = setTimeout(() => {
+        _startSequence();
+      }, 1000);
     } else if (!isLoader && !isTransition && isBottomFold(contactWrapper)) {
       _startSequence(true);
     }
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [isLoader, inView, isTransition]);
 
   return { scope, contactWrapperScope };
