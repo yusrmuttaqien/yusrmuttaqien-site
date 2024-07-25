@@ -35,6 +35,7 @@ export default function Preview(props: PreviewProps) {
               scale={1}
               src={activeProject.src}
               alt={activeProject.alt}
+              placeholder="blur"
               className={{
                 container: classMerge('h-[80svh] max-w-full aspect-square absolute bottom-0'),
               }}
