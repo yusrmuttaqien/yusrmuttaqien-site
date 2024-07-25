@@ -87,8 +87,8 @@ export function TIMELINE_YM_TITLE(scope: HostProps['scope']): {
         { x: `-100%`, y: '-50%', opacity: 0, filter: 'blur(16px)' },
         { ease: EASE_OUT_QUART, duration: 0.5 },
       ],
-      [location, { x: `0%` }, { at: '<', ease: EASE_OUT_QUART, duration: 0.5 }],
-      [clock, { x: `0%` }, { at: '<', ease: EASE_OUT_QUART, duration: 0.5 }],
+      [location, { x: `0px` }, { at: '<', ease: EASE_OUT_QUART, duration: 0.5 }],
+      [clock, { x: `0px` }, { at: '<', ease: EASE_OUT_QUART, duration: 0.5 }],
     ],
   };
 }

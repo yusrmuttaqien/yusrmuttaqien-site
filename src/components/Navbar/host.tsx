@@ -20,12 +20,6 @@ export default function Host(props: HostProps) {
     const root = scope.current as HTMLDivElement;
     const YMTitle = root.querySelector('#ym-title') as HTMLHeadingElement;
 
-    if (!isXL1490) {
-      YMTitle.classList.add('hidden');
-    } else {
-      YMTitle.classList.remove('hidden');
-    }
-
     resumables.current.instance?.stop();
     resumables.current.instance =
       isNavYM && isXL1490
