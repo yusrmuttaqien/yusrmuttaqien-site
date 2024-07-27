@@ -55,8 +55,8 @@ export default function useVisible() {
           'hoverable:hover:mix-blend-normal',
           'hoverable:hover:after:bg-dynamic-[beige_95]',
           'hoverable:hover:text-dynamic-grey',
-          'hoverable:hover:after:backdrop-blur-md',
-          'mix-blend-difference'
+          'hoverable:hover:after:backdrop-blur-md'
+          // 'mix-blend-difference'
         );
       }
     }

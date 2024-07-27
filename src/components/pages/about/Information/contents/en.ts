@@ -16,7 +16,7 @@ export default {
     },
   },
   play: {
-    title: 'Playlists',
+    title: 'Playlists [<E>]',
     lock: 'Lock scroll',
     unlock: 'Unlock scroll',
     loading: 'Loading content',

@@ -3,10 +3,20 @@ import { motion, AnimatePresence, useIsomorphicLayoutEffect } from 'framer-motio
 import useScrollLock from '@/hooks/scrollLock';
 import useContent from '@/components/pages/about/Information/hooks/content';
 import SectionBox from '@/components/SectionBox';
+import Trans from '@/components/Trans';
 import classMerge from '@/utils/classMerge';
 import { SECTION_BOX_STYLES } from '@/components/pages/about/Information/constant';
 import { INFO_SECTION_LOCK_ID } from '@/components/pages/about/Information/fragments/Playlist/constant';
 import type { PlaylistHeaderProps } from '@/components/pages/about/Information/fragments/Playlist/type';
+import type { TransComp } from '@/components/Trans/type';
+
+const COMPS: TransComp = {
+  default: (value, id) => (
+    <span key={id} className="text-dynamic-[green_90]">
+      {value}
+    </span>
+  ),
+};
 
 export default function Playlist() {
   const { play } = useContent();
@@ -94,7 +104,8 @@ function PlaylistHeader(props: PlaylistHeaderProps) {
   return (
     <span className="flex justify-between items-center gap-4">
       <span>
-        {play.title} ({list + 1}/{play.links.length})
+        <Trans string={play.title} name={`play-title`} comps={COMPS} />
+        {` (${list + 1}/${play.links.length})`}
       </span>
       <input
         defaultValue={10}

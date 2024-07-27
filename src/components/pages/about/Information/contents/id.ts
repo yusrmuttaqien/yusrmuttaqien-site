@@ -16,7 +16,7 @@ export default {
     },
   },
   play: {
-    title: 'Daftar musik',
+    title: 'Daftar musik [<E>]',
     lock: 'Kunci gulir',
     unlock: 'Buka kunci gulir',
     loading: 'Memuat konten',

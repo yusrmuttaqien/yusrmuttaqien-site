@@ -5,7 +5,7 @@ export default {
     ongoing: 'Aktif',
     upcoming: 'Akan datang',
   },
-  empty: 'Tidak ada proyek',
+  empty: 'Belum ada proyek',
   titles: {
     project: 'Proyek',
     industry: 'Industri',

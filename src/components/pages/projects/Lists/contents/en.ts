@@ -5,7 +5,7 @@ export default {
     ongoing: 'Ongoing',
     upcoming: 'Upcoming',
   },
-  empty: 'No projects',
+  empty: 'No projects yet',
   titles: {
     project: 'Project',
     industry: 'Industry',
