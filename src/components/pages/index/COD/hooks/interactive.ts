@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { animate, useIsomorphicLayoutEffect } from 'framer-motion';
 import { Application } from '@splinetool/runtime';
 import { useMediaQueryStore } from '@/contexts/mediaQueries';
@@ -8,10 +8,11 @@ import type { InteractiveParams } from '@/components/pages/index/COD/type';
 
 export default function useInteractive(params: InteractiveParams) {
   const { COORDS } = params;
+  const currentStep = useRef(0);
+  const [sync, setSync] = useState(Date.now());
   const isDarkMode = useMediaQueryStore((state) => state.isDarkMode);
   const wrapper = useRef<HTMLDivElement>(null);
   const spline = useRef<Application>();
-  const currentStep = useRef(0);
 
   function _cycle() {
     const runtime = spline.current;
@@ -41,15 +42,15 @@ export default function useInteractive(params: InteractiveParams) {
 
     currentStep.current = step;
   }
-  function _syncBGColor() {
-    const runtime = spline.current;
-
-    runtime?.setBackgroundColor(isDarkMode ? COLOR_GREY.DEFAULT : COLOR_BEIGE.DEFAULT);
+  function _sync(runtime?: Application) {
+    setSync(Date.now());
   }
 
   useIsomorphicLayoutEffect(() => {
-    _syncBGColor();
-  }, [isDarkMode]);
+    const runtime = spline.current;
 
-  return { wrapper, spline, cycle: _cycle, syncBGColor: _syncBGColor };
+    runtime?.setBackgroundColor(isDarkMode ? COLOR_GREY.DEFAULT : COLOR_BEIGE.DEFAULT);
+  }, [isDarkMode, sync]);
+
+  return { wrapper, spline, cycle: _cycle, sync: _sync };
 }

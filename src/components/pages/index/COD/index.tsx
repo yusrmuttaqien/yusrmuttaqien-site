@@ -7,11 +7,11 @@ import type { CODProps } from '@/components/pages/index/COD/type';
 
 export default function COD(props: CODProps) {
   const { className } = props;
-  const { wrapper, spline, cycle, syncBGColor } = useInteractive({ COORDS });
+  const { wrapper, spline, cycle, sync } = useInteractive({ COORDS });
 
   function _load(e: Application) {
     spline.current = e;
-    syncBGColor();
+    sync();
 
     COORDS.reset.forEach(([key], idx) => {
       COORDS.reset[idx] = [key, e.getVariable(key as string) as number];
