@@ -1,3 +1,4 @@
+import { tv } from 'tailwind-variants';
 import mergeRefs from 'merge-refs';
 import { motion } from 'framer-motion';
 import Link from '@/components/Link';
@@ -7,6 +8,7 @@ import useInteractive from '@/components/pages/index/Projects/hooks/interactive'
 import useContent from '@/components/pages/index/Projects/hooks/content';
 import DisplayCard from '@/components/DisplayCard';
 import classMerge from '@/utils/classMerge';
+import type { ProjectsProps } from '@/components/pages/index/Projects/type';
 import type { TransComp } from '@/components/Trans/type';
 
 const COMPS: TransComp = {
@@ -22,10 +24,17 @@ const COMPS: TransComp = {
   ),
 };
 
-export default function Projects() {
+export const PROJECTS_STYLES = tv({
+  slots: {
+    lists: 'space-y-96 pt-[50svh] z-10 relative',
+  },
+});
+export default function Projects(props: ProjectsProps) {
+  const { className } = props;
   const { projects, more, projectTitle } = useContent();
   const { scope: interactiveScope, filterBlur, opacity } = useInteractive();
   const { scope: entryScope } = useEntry();
+  const { lists } = PROJECTS_STYLES();
 
   return (
     <section ref={mergeRefs(interactiveScope, entryScope)} className="relative isolate invisible">
@@ -43,7 +52,7 @@ export default function Projects() {
           classNames={{ 'project-title-0': 'block' }}
         />
       </motion.h2>
-      <div className="space-y-96 pt-[50svh] pb-96 z-10 relative">
+      <div className={lists({ className: className?.lists })}>
         {projects.map((project) => (
           <DisplayCard
             project={project}
